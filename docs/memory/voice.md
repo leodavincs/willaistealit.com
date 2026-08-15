@@ -69,7 +69,7 @@ geçiyor — dışarıdan gelen PR'ın en sık kayacağı yer burası.
 
 Sayfanın kancası. Okuyucunun kalıp kalmayacağı burada belli oluyor.
 
-**15/15'i iki cümlelik karşıtlık.** Birinci cümle kaybedileni ilan eder, ikinci cümle
+**14/15'i iki cümlelik karşıtlık.** Birinci cümle kaybedileni ilan eder, ikinci cümle
 kalanı olumsuzlama veya karşıtlıkla kurar — açılan boşluk okuyucuyu içeri çeker:
 
 > "The data entry is already gone. The signature and the trust are not." — accountant
@@ -87,6 +87,11 @@ Birinci cümlenin zamanı bitmişlik taşır: `is already gone`, `is free now`, 
 
 Kurallar: asla soru cümlesi (15/15 beyan), asla ünlem, meslek adı geçmez (sayfa zaten o
 meslekte), tam iki cümle.
+
+**Tek istisna ve düzeltilecek:** `nurse`. "Every part of this job that a machine could take
+was paperwork, and there is a lot of it." Tek cümle, karşıtlık yok, kanca yok — sitedeki en
+düz `oneLiner` ve kalıbın neden işe yaradığının kanıtı. Sıradaki revizyonda iki cümleye
+çevrilecek.
 
 ## `summary`
 

@@ -101,6 +101,16 @@ değil — yeni entry'de tercih edilmez, mevcut kullanım korunur.
 `/methodology`'nin sözü: kaynağı olmayan entry sayfada **community draft** olarak
 etiketlenir. Kaynak eklemek, yapılabilecek en faydalı katkı olarak ilan edilmiş durumda.
 
+## Tag seçimi
+
+Geçerli `resistanceTags` listesi `inc/config.php` içindeki `RESISTANCE_TAGS` sabitinde;
+`/methodology` sayfası aynı listeyi duvar açıklamalarıyla yayınlıyor. Tag uydurulmaz,
+listeden seçilir.
+
+Bu satır bir doğrulama testinden çıktı: yalnızca hafıza dosyalarını okuyan bir yazar
+`nurse` için `emotional-labor` ve `regulated` yerine `accountability` ve `human-judgment`
+seçti — çünkü listenin nerede olduğu hiçbir yerde yazmıyordu.
+
 ## Tartışmalı çağrılar
 
 Sınır vakalarda verilmiş somut kararlar. Yeni bir tartışma çıktığında slug'ıyla buraya eklenir.

@@ -41,6 +41,17 @@ Vault = repo kökü. Ayrı klasör, kopya veya senkron yok. Obsidian'da
 `Open folder as vault` ile repo kökünü aç. `.obsidian/` git tarafından
 yok sayılır. `decisions/` notları birbirine `[[wikilink]]` ile bağlanır.
 
+## Doğrulama
+
+Hafızanın işe yarayıp yaramadığı şöyle ölçülür: temiz contextli bir yazar **yalnızca**
+`CLAUDE.md` + `voice.md` + `verdict-rubric.md` + `CONTRIBUTING.md` okuyarak mevcut bir
+entry'yi sıfırdan yazar, sonuç orijinalle karşılaştırılır. Sapan her boyut, hafızada
+eksik veya belirsiz olan bir kuralı işaret eder.
+
+**Test entry'sini seçerken:** hafıza dosyalarında alıntılanmayan bir entry seç. İlk
+çalıştırmada `nurse` kullanıldı ve her iki kural dosyası da `nurse`'ü doğrudan alıntıladığı
+için sonuç kısmen kirlendi.
+
 ## Nasıl güncellenir
 
 Bir entry tamamlandığında veya bir karar alındığında agent ilgili dosyaya
