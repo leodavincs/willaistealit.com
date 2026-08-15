@@ -211,7 +211,7 @@ byte referansına girer. O an gelene kadar referans, 3F öncesi çıktıyı tutu
 ### Sıradaki sıra
 
 1. ~~Faz 3 kapanış notu~~ — bu bölüm.
-2. **Faz 4 planı.**
+2. ~~Faz 4 planı~~ — `docs/architecture/2026-08-15-cok-dilli-faz-4-plan.md`.
 3. TR için 69 editoryal anahtarın gerçek çevirisi ve incelemesi.
 4. TR aktivasyonu, ardından SEO / arama / OG / sitemap kontrolleri.
 5. ES için aynı süreç.
