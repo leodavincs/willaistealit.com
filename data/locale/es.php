@@ -84,4 +84,21 @@ return [
     'faq.howUse.a'     => 'Úsala en las tareas ya marcadas como desaparecidas o en retirada, y quédate con el juicio. Hay un prompt listo para copiar escrito para este trabajo concreto en %s.',
 
     'share.safeUntil' => ' — a salvo hasta ~%s',
+    // --- navigasyon ve footer (Faz 3F) ---
+    'nav.skip'               => 'Ir al contenido',
+    'nav.timeline'           => 'Cronología',
+    'nav.methodology'        => 'Metodología',
+    'nav.changelog'          => 'Cambios',
+    'nav.sponsor'            => 'Patrocinio',
+    'nav.github'             => 'GitHub',
+    'nav.theme.aria'         => 'Cambiar entre tema claro y oscuro',
+    'nav.theme.title'        => 'Claro / oscuro',
+    'foot.lead'              => 'Cada veredicto aquí es un argumento, no una profecía.',
+    'foot.disagree'          => '¿No estás de acuerdo?',
+    'foot.openPr'            => 'Abre un PR',
+    'foot.allJobs'           => 'Todos los trabajos',
+    'foot.howWeDecide'       => 'Cómo decidimos',
+    'foot.contribute'        => 'Contribuir',
+    'foot.fine'              => 'El patrocinio nunca toca un veredicto.',
+    'foot.readRule'          => 'Lee la regla',
 ];

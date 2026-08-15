@@ -83,4 +83,21 @@ return [
     'faq.howUse.a'     => 'Zaten gitti ya da gidiyor olarak işaretlenmiş görevlerde kullanın, yargıyı elinizde tutun. Bu mesleğe özel, kopyalayıp kullanabileceğiniz bir prompt burada: %s.',
 
     'share.safeUntil' => ' — ~%s yılına kadar güvende',
+    // --- navigasyon ve footer (Faz 3F) ---
+    'nav.skip'               => 'İçeriğe geç',
+    'nav.timeline'           => 'Zaman Çizelgesi',
+    'nav.methodology'        => 'Metodoloji',
+    'nav.changelog'          => 'Değişiklikler',
+    'nav.sponsor'            => 'Sponsorluk',
+    'nav.github'             => 'GitHub',
+    'nav.theme.aria'         => 'Açık ve koyu tema arasında geçiş yap',
+    'nav.theme.title'        => 'Açık / koyu',
+    'foot.lead'              => 'Buradaki her yargı bir argümandır, kehanet değil.',
+    'foot.disagree'          => 'Katılmıyor musunuz?',
+    'foot.openPr'            => 'PR açın',
+    'foot.allJobs'           => 'Tüm meslekler',
+    'foot.howWeDecide'       => 'Nasıl karar veriyoruz',
+    'foot.contribute'        => 'Katkıda bulunun',
+    'foot.fine'              => 'Sponsorluk hiçbir yargıya dokunmaz.',
+    'foot.readRule'          => 'Kuralı okuyun',
 ];

@@ -88,4 +88,21 @@ return [
 
     // --- paylasim metni (share_text) ---
     'share.safeUntil' => ' — safe until ~%s',
+    // --- navigasyon ve footer (Faz 3F) ---
+    'nav.skip'               => 'Skip to content',
+    'nav.timeline'           => 'Timeline',
+    'nav.methodology'        => 'Methodology',
+    'nav.changelog'          => 'Changelog',
+    'nav.sponsor'            => 'Sponsor',
+    'nav.github'             => 'GitHub',
+    'nav.theme.aria'         => 'Switch between light and dark',
+    'nav.theme.title'        => 'Light / dark',
+    'foot.lead'              => 'Every verdict here is an argument, not a prophecy.',
+    'foot.disagree'          => 'Disagree?',
+    'foot.openPr'            => 'Open a PR',
+    'foot.allJobs'           => 'All jobs',
+    'foot.howWeDecide'       => 'How we decide',
+    'foot.contribute'        => 'Contribute',
+    'foot.fine'              => 'Sponsorship never touches a verdict.',
+    'foot.readRule'          => 'Read the rule',
 ];

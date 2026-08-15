@@ -6,8 +6,11 @@ require_once __DIR__ . '/functions.php';
 /** @var string $pageDesc */
 /** @var string|null $pageOg */
 /** @var string|null $pageCanonical */
+$lang          = $lang          ?? DEFAULT_LANG;
+$L             = lang_for($lang);
+$routes        = load_routes();
 $pageTitle     = $pageTitle     ?? SITE_NAME;
-$pageDesc      = $pageDesc      ?? SITE_TAG;
+$pageDesc      = $pageDesc      ?? $L->t('site.tagline');
 $pageOg        = $pageOg        ?? SITE_URL . '/og/home.png';
 $pageCanonical = $pageCanonical ?? SITE_URL . '/';
 ?>
@@ -80,20 +83,20 @@ if (!empty($pageJsonLd)) {
 <?php } ?>
 </head>
 <body>
-<a class="skip" href="#main">Skip to content</a>
+<a class="skip" href="#main"><?= h($L->t('nav.skip')) ?></a>
 <header class="site-head">
   <div class="wrap head-inner">
-    <a class="brand" href="/">
+    <a class="brand" href="<?= h(path_for($lang, 'home', '', $routes)) ?>">
       <span class="brand-mark">will<span class="brand-ai">Ai</span>stealit</span>
       <span class="brand-q">?</span>
     </a>
     <nav class="nav">
-      <a href="/landscape">Timeline</a>
-      <a href="/methodology">Methodology</a>
-      <a href="/changelog">Changelog</a>
-      <a href="/sponsor">Sponsor</a>
-      <?php if (has_github()): ?><a href="<?= h(github_url()) ?>" rel="noopener" target="_blank">GitHub</a><?php endif; ?>
-      <button class="theme-btn" type="button" id="theme-toggle" aria-label="Switch between light and dark" title="Light / dark">
+      <a href="<?= h(path_for($lang, 'page', 'landscape', $routes)) ?>"><?= h($L->t('nav.timeline')) ?></a>
+      <a href="<?= h(path_for($lang, 'page', 'methodology', $routes)) ?>"><?= h($L->t('nav.methodology')) ?></a>
+      <a href="<?= h(path_for($lang, 'page', 'changelog', $routes)) ?>"><?= h($L->t('nav.changelog')) ?></a>
+      <a href="<?= h(path_for($lang, 'page', 'sponsor', $routes)) ?>"><?= h($L->t('nav.sponsor')) ?></a>
+      <?php if (has_github()): ?><a href="<?= h(github_url()) ?>" rel="noopener" target="_blank"><?= h($L->t('nav.github')) ?></a><?php endif; ?>
+      <button class="theme-btn" type="button" id="theme-toggle" aria-label="<?= h($L->t('nav.theme.aria')) ?>" title="<?= h($L->t('nav.theme.title')) ?>">
         <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true">
           <circle cx="12" cy="12" r="4"/>
           <path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>

@@ -284,3 +284,14 @@ t_eq($L->withArticle('accountant'), with_article('accountant'), 'with_article ka
 t_eq($L->lowerFirst('Data entry'),  lower_first('Data entry'),  'lower_first kabugu');
 t_eq($L->faqPairs($job, job_url('accountant')), faq_pairs($job), 'faq_pairs kabugu');
 t_eq($L->shareText($job, job_url('accountant')), share_text($job), 'share_text kabugu');
+
+// ═══════════ path_for: site ici baglantilar GORELI kalir (Faz 3F) ═══════════
+t_eq('/',                  path_for('en', 'home', '', $routes),           'EN ana sayfa yolu');
+t_eq('/tr/',               path_for('tr', 'home', '', $routes),           'TR ana sayfa yolu');
+t_eq('/methodology',       path_for('en', 'page', 'methodology', $routes), 'EN sabit sayfa yolu');
+t_eq('/cashier',           path_for('en', 'job', 'cashier', $routes),     'EN entry yolu');
+t_eq('/tr/kasiyer',        path_for('tr', 'job', 'cashier', $routes),     'TR entry yolu');
+t_eq('/og/cashier.png',    path_for('en', 'og', 'cashier', $routes),      'EN OG yolu');
+// url_for MUTLAK kalir — canonical, OG ve JSON-LD onu kullanir
+t_eq('https://willaistealit.com' . path_for('en', 'job', 'cashier', $routes),
+     url_for('en', 'job', 'cashier', $routes), 'url_for = SITE_URL + path_for');

@@ -9,25 +9,32 @@ require_once __DIR__ . '/config.php';
 require_once __DIR__ . '/routing.php';
 
 /**
+/**
+ * Site ici baglantilar icin GORELI yol. Sablonlar bunu kullanir; mutlak URL'e
+ * cevirmek ic linkleri gereksizce uzatir ve mevcut ciktiyi degistirirdi.
  * @param string $type 'home' | 'job' | 'page' | 'og'
  * @param string $key  job/og icin meslek ID'si, page icin sayfa anahtari
  */
-function url_for(string $lang, string $type, string $key, array $routes): string
+function path_for(string $lang, string $type, string $key, array $routes): string
 {
-    $base = rtrim(SITE_URL, '/');
-
     if ($type === 'home') {
-        return $base . lang_prefix($lang);
+        return lang_prefix($lang);
     }
     if ($type === 'og') {
-        return $base . og_path($lang, (string)($routes['ids'][$key][$lang] ?? $key));
+        return og_path($lang, (string)($routes['ids'][$key][$lang] ?? $key));
     }
 
     $slug = $type === 'page'
         ? (string)($routes['pageSlugs'][$lang][$key] ?? $key)
         : (string)($routes['ids'][$key][$lang] ?? $key);
 
-    return $base . lang_prefix($lang) . $slug;
+    return lang_prefix($lang) . $slug;
+}
+
+/** Mutlak URL — canonical, OG, JSON-LD ve paylasim icin. */
+function url_for(string $lang, string $type, string $key, array $routes): string
+{
+    return rtrim(SITE_URL, '/') . path_for($lang, $type, $key, $routes);
 }
 
 /**
