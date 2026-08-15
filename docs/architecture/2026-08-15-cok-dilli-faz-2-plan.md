@@ -58,20 +58,15 @@ dosya yolunu elle kuran yerler güncellenir. Locale sistemi ve TR/ES yayını Fa
 
 ## Şema kararları (uygulamadan önce netleşmesi gerekenler)
 
-### K1 — "Kaynak dosya" kuralı (spec §3.1'in netleştirilmesi)
+### K1 — Sahiplik kuralı (ana spec §3.1'e işlendi)
 
-Spec §3.1 "global scope'ta yargı alanları yazılmaz" diyor. Ama İngilizce dosya
-yargının **kaynağıdır** ve onları yazmak zorundadır. Kural şöyle genelleşir:
+> Bir dil dosyası yargının **sahibidir** ancak ve ancak `assessmentSourceLocale` kendi
+> diline eşitse. Kaynak dosyalar yargı alanlarını **taşımak zorundadır**; kaynak
+> olmayanlar **taşıyamaz**, devralır. `assessmentScope` ayrı bir eksendir ve yargının
+> *kapsamını* söyler: `global` (pazara özgü değil) veya `local` (§7.1'e tabi).
 
-> Bir dil dosyası **kaynaktır** ancak ve ancak `assessmentSourceLocale` kendi diline
-> eşitse. Kaynak dosyalar yargı alanlarını **taşımak zorundadır**; kaynak olmayanlar
-> **taşıyamaz**.
->
-> `assessmentScope` ayrı bir eksendir ve yargının *kapsamını* söyler: `global`
-> (pazara özgü değil) veya `local` (pazara özgü, §7.1 yerel kaynak standardına tabi).
-
-Bu, spec §3.3'teki yerel örnekle birebir tutarlıdır (orada `assessmentSourceLocale: "tr"`
-ve `verdict` birlikte yazılmış). Faz 2 sonrası durum:
+Bu kural artık yalnızca bu planda değil, **ana spec §3.1 ve §3.4'te** yazılı
+(`docs: clarify assessment source ownership`). Faz 2 sonrası durum:
 
 | Dosya | scope | sourceLocale | Kaynak mı | Yargı alanları |
 |---|---|---|---|---|
@@ -145,7 +140,7 @@ değişmez — çünkü TR/ES dosyaları o ID'ye bağlıdır. `migrate-jobs.php`
 Bu alanın kaldırılması bir gerileme değil, projenin **açık hedefi**: İngilizce sayfada
 Türkçe başlık dil karmaşası yaratıyor. Faz 2'de kaldırılır ve:
 
-- 17 Türkçe başlığın hepsi **`data/pending-tr-titles.json`** dosyasına yazılır —
+- 17 Türkçe başlığın hepsi **`data/pending-tr-titles.json`** dosyasına taşınır (2D) —
   hiçbiri kaybolmaz, TR entry'leri yazılırken tohum olur.
 - Entry sayfasındaki satır Türkçe adı kaybeder, `Last reviewed: …` kısmı kalır.
 - Arama `data-search`'ten Türkçe adı kaybeder. **Faz 4'te** `aka` ile ve dile özgü
@@ -268,6 +263,10 @@ function entry_dependency_files(string $id, string $lang, ?string $root = null):
     $doc   = entry_read($dir . '/' . $lang . '.json');
     $src   = (string)($doc['assessmentSourceLocale'] ?? DEFAULT_LANG);
     $files[] = $dir . '/' . $src . '.json';   // TR sayfasi en.json'a BAGLI
+    // inheritedSources ise global kaynak dosyasi da bagimliliktir.
+    if (!empty($doc['inheritedSources'])) {
+        $files[] = $dir . '/' . DEFAULT_LANG . '.json';
+    }
     return array_values(array_unique(array_filter($files, 'is_file')));
 }
 
@@ -318,6 +317,16 @@ function load_entry(string $id, string $lang = DEFAULT_LANG, ?string $root = nul
             $out[$f] = $src[$f];
         }
     }
+
+    // inheritedSources: yerel kaynaklar global kaynaklarin YERINE degil USTUNE gelir
+    // (spec 3.3). Yalnizca kaynak dosyanin kendisi bunu talep edebilir.
+    if ($srcLang === $lang && !empty($doc['inheritedSources'])) {
+        $global = entry_read($dir . '/' . DEFAULT_LANG . '.json');
+        $out['sources'] = array_values(array_unique(array_merge(
+            (array)($global['sources'] ?? []),
+            (array)($doc['sources'] ?? [])
+        )));
+    }
     // Uyumluluk takma adi: 14 cagri yeri Faz 2'de dokunulmadan kalsin (K3).
     $out['lastReviewed'] = (string)($out['assessmentReviewed'] ?? '');
     if (isset($doc['geoAnswer'])) {
@@ -328,11 +337,14 @@ function load_entry(string $id, string $lang = DEFAULT_LANG, ?string $root = nul
     }
 
     // Gorevler: taskOrder sirasinda LISTEYE duzlestirilir (K3).
+    // Sira dil dosyasinda ezilebilir; localTasks yalnizca o dilde bulunur (spec 2.3).
     $out['tasks'] = [];
-    $srcTasks = (array)($src['tasks'] ?? []);
-    foreach ((array)($common['taskOrder'] ?? []) as $tid) {
+    $srcTasks   = (array)($src['tasks'] ?? []);
+    $localTasks = (array)($doc['localTasks'] ?? []);
+    $order      = (array)($doc['taskOrder'] ?? $common['taskOrder'] ?? []);
+    foreach ($order as $tid) {
         $tid  = (string)$tid;
-        $mine = (array)($doc['tasks'][$tid] ?? []);
+        $mine = (array)($doc['tasks'][$tid] ?? $localTasks[$tid] ?? []);
         $from = (array)($srcTasks[$tid] ?? []);
         if ($mine === [] && $from === []) {
             continue;
@@ -455,6 +467,50 @@ file_put_contents($root . '/' . $id . '/es.json', (string)json_encode($half));
 t_eq(null,          load_entry($id, 'es', $root), 'eksik duzyazi -> yayinlanmamis');
 t_eq(['en', 'tr'],  entry_langs($id, $root),      'eksik dil listeden duser');
 
+// --- Yerel kapsam: sahiplik, inheritedSources, taskOrder ezme, localTasks ---
+$local = json_decode((string)file_get_contents($root . '/' . $id . '/tr.json'), true);
+$local['assessmentScope']        = 'local';
+$local['assessmentSourceLocale'] = 'tr';
+$local['assessmentReviewed']     = '2026-10-03';
+$local['verdict']                = 'shrinking';
+$local['safeUntil']              = '2033';
+$local['resistanceTags']         = ['regulated'];
+$local['evidenceStrength']       = 'strong';
+$local['inheritedSources']       = true;
+$local['sources']                = ['https://www.turmob.org.tr/ornek'];
+$local['taskOrder']              = ['scan-payment', 'local-kdv-uyum', 'floor-service'];
+$local['localTasks']             = ['local-kdv-uyum' => [
+    'name' => 'KDV ve fis mevzuati uyumu', 'note' => 'Yerel gorev.',
+    'verdict' => 'safe', 'tags' => ['regulated'],
+]];
+$local['tasks']['scan-payment']['verdict'] = 'gone';
+file_put_contents($root . '/' . $id . '/tr.json', (string)json_encode($local));
+
+$lt = load_entry($id, 'tr', $root);
+t_eq('shrinking', $lt['verdict'],   'yerel kapsam kendi verdict ini tasir');
+t_eq('2033',      $lt['safeUntil'], 'yerel safeUntil');
+t_eq(array_values(array_unique(array_merge($flat['sources'], ['https://www.turmob.org.tr/ornek']))),
+     $lt['sources'], 'inheritedSources: global + yerel birlesir, tekrarsiz');
+t_eq(3, count($lt['tasks']), 'taskOrder dil dosyasinda ezilebilir');
+t_eq('KDV ve fis mevzuati uyumu', $lt['tasks'][1]['name'], 'localTasks yukleniyor');
+t_eq(['regulated'], $lt['tasks'][1]['tags'], 'localTasks tag leri');
+t_eq('gone', $lt['tasks'][0]['verdict'], 'yerel gorev yargisi ezilebilir');
+
+// inheritedSources kapaliyken YALNIZCA yerel kaynaklar
+$local['inheritedSources'] = false;
+file_put_contents($root . '/' . $id . '/tr.json', (string)json_encode($local));
+t_eq(['https://www.turmob.org.tr/ornek'], load_entry($id, 'tr', $root)['sources'],
+     'inheritedSources kapali: yalnizca yerel kaynaklar');
+
+// Bagimlilik listesi inheritedSources acikken en.json'i icermeli
+$local['inheritedSources'] = true;
+file_put_contents($root . '/' . $id . '/tr.json', (string)json_encode($local));
+t_eq(true, in_array($root . '/' . $id . '/en.json',
+     entry_dependency_files($id, 'tr', $root), true), 'inheritedSources bagimliligi');
+
+/* tr.json'i orijinal haline dondur — sonraki testler global kapsam bekliyor */
+copy(ROOT . '/data/i18n/cashier/tr.json', $root . '/' . $id . '/tr.json');
+
 // --- Cache bagimliliklari: TR, en.json'a BAGLI (spec 8.1) ---
 $deps = entry_dependency_files($id, 'tr', $root);
 t_eq(true, in_array($root . '/' . $id . '/en.json', $deps, true), 'TR bagimliligi en.json icerir');
@@ -478,7 +534,7 @@ Beklenen: `Failed to open stream: .../inc/entry.php`
 - [ ] **Adım 4: Testlerin geçtiğini doğrula**
 
 Run: `php tests/run.php`
-Beklenen: bu görevin eklediği **30 assert** geçer, toplamda **`0 kaldi`**.
+Beklenen: bu görevin eklediği **41 assert** geçer, toplamda **`0 kaldi`**.
 
 - [ ] **Adım 5: Sitenin dokunulmadığını doğrula**
 
@@ -530,10 +586,58 @@ Düz dosyaları yeni yapıya çeviren aracı yazmak. Araç **hiçbir şeyi silme
 - Üretir: CLI aracı. Üç mod:
 
 ```bash
-php tools/migrate-jobs.php                     # dry-run raporu, HICBIR SEY yazmaz
-php tools/migrate-jobs.php --out=data/jobs2    # ayri hedefe yazar
-php tools/migrate-jobs.php --verify --out=data/jobs2   # semantik esitlik raporu
+php tools/migrate-jobs.php                       # dry-run raporu, HICBIR SEY yazmaz
+php tools/migrate-jobs.php --out="$OUT"          # tek kok altina paketler
+php tools/migrate-jobs.php --verify --out="$OUT" # semantik esitlik raporu
 ```
+
+**Çıktı tek kök altında paketlenir. Hiçbir mod canlı `data/` ağacına yazmaz** —
+`data/jobs/` de, `data/pending-tr-titles.json` de dokunulmaz:
+
+```
+<out>/
+  jobs/
+    accountant/{common,en}.json
+    cashier/{common,en,tr,es}.json
+    ...
+  pending-tr-titles.json
+  migration-report.json      # entry id listesi + gorev sayilari + ID kaynagi
+```
+
+`migration-report.json` yalnızca insan raporu değil, **rollback girdisidir**: ürettiği
+entry kimliklerinin kesin listesini taşır, böylece geri alma `data/jobs/*/` gibi geniş
+bir glob'a değil bilinen id'lere dayanır.
+
+**Hedef dizin doğrulaması** — araç şunları reddeder ve çıkış kodu 1 verir:
+
+```php
+/** --out hedefi guvenli mi. Genis silme hedefleri ve canli agac reddedilir. */
+function migrate_target_ok(string $out, string &$why): bool
+{
+    $real = realpath($out) ?: $out;
+    $repo = realpath(ROOT) ?: ROOT;
+    $home = getenv('HOME') ?: '/root';
+    if ($out === '' || $real === '/' || $real === $home) {
+        $why = 'kok, home ya da bos yol olamaz';
+        return false;
+    }
+    if ($real === (realpath(JOBS_DIR) ?: JOBS_DIR)) {
+        $why = 'canli JOBS_DIR olamaz';
+        return false;
+    }
+    if ($real === $repo || str_starts_with($real . '/', $repo . '/')) {
+        $why = 'repo kokunun icinde olamaz (git add kazasi riski)';
+        return false;
+    }
+    if (is_dir($real) && (glob($real . '/*') ?: []) !== []) {
+        $why = 'hedef dizin bos degil';
+        return false;
+    }
+    return true;
+}
+```
+
+`--force` **yoktur**: dolu hedefi kullanıcı elle siler.
 
 **Uygulama ayrıntısı**
 
@@ -548,7 +652,7 @@ Alan bölüşümü (K1, K5):
 | `title`, `oneLiner`, `summary`, `whatSurvives`, `adaptPrompt`, `adaptTools`, `geoAnswer` | `en.json` (düzyazı) |
 | `verdict`, `safeUntil`, `resistanceTags`, `sources`, `evidenceStrength`, `reviewed` | `en.json` (yargı — EN kaynaktır) |
 | `formerSlugs` | `en.json` |
-| `titleTr` | **`data/pending-tr-titles.json`** (K4) |
+| `titleTr` | **`<out>/pending-tr-titles.json`** → 2D'de `data/pending-tr-titles.json` (K4) |
 
 `en.json` sabit başlık bloğuyla başlar:
 ```json
@@ -564,9 +668,9 @@ Araç sırayla:
 2. **`en.json` üretimi**, yukarıdaki bölüşümle.
 3. **TR/ES kopyalama.** `data/i18n/<id>/{tr,es}.json` varsa hedef dizine **kopyalanır**
    (taşınmaz — kaynak yerinde kalır).
-4. **`data/pending-tr-titles.json`** — bütün `titleTr` değerleri, id ile.
-   (`--out` hedefine değil, doğrudan `data/` altına: bu bir migration çıktısı değil,
-   TR entry'leri yazılana kadar duracak bir tohum dosyasıdır.)
+4. **`<out>/pending-tr-titles.json`** — bütün `titleTr` değerleri, id ile.
+   Canlı ağaca **Görev 2D'de**, kapı geçildikten sonra taşınır.
+5. **`<out>/migration-report.json`** — entry id listesi, görev sayıları, ID kaynağı.
 5. **Rapor**: entry başına satır — kaç görev, ID'ler nereden geldi (`i18n` / `uretildi`),
    hangi diller kopyalandı, `titleTr` yakalandı mı.
 
@@ -583,21 +687,51 @@ const COMPARE_KEYS = ['slug','title','category','verdict','safeUntil','oneLiner'
                       'sources','lastReviewed','evidenceStrength','geoAnswer',
                       'formerSlugs','reviewed'];
 
+/**
+ * Eksik alan ile bos alan ayni semantiktedir: eski entry'de hic olmayan bir liste
+ * ile yeni entry'deki bos liste sahte fark uretmemeli. Normalizasyon TIP bazlidir —
+ * genel gevsek karsilastirma DEGILDIR: dolu bir listenin bosalmasi ya da bir dizenin
+ * degismesi hala fark olarak raporlanir.
+ */
+const LIST_KEYS   = ['resistanceTags', 'sources', 'adaptTools', 'formerSlugs'];
+const STRING_KEYS = ['slug', 'title', 'category', 'verdict', 'safeUntil', 'oneLiner',
+                     'summary', 'whatSurvives', 'adaptPrompt', 'lastReviewed',
+                     'evidenceStrength', 'geoAnswer'];
+const BOOL_KEYS   = ['reviewed'];
+
+function norm_field(string $k, mixed $v): mixed
+{
+    if (in_array($k, LIST_KEYS, true)) {
+        return array_values((array)($v ?? []));
+    }
+    if (in_array($k, STRING_KEYS, true)) {
+        return (string)($v ?? '');      // eksik safeUntil ile '' ayni sayilir
+    }
+    if (in_array($k, BOOL_KEYS, true)) {
+        return (bool)($v ?? false);
+    }
+    return $v;
+}
+
+function norm_tasks(mixed $tasks): array
+{
+    return array_map(static fn ($t) => [
+        'name'    => (string)($t['name'] ?? ''),
+        'verdict' => (string)($t['verdict'] ?? ''),
+        'note'    => (string)($t['note'] ?? ''),
+        'tags'    => array_values((array)($t['tags'] ?? [])),
+    ], (array)$tasks);
+}
+
 function compare_entry(array $old, array $new): array
 {
     $diffs = [];
     foreach (COMPARE_KEYS as $k) {
-        $a = $old[$k] ?? null;
-        $b = $new[$k] ?? null;
+        $a = norm_field($k, $old[$k] ?? null);
+        $b = norm_field($k, $new[$k] ?? null);
         if ($k === 'tasks') {
-            $a = array_map(static fn ($t) => [
-                'name' => $t['name'] ?? '', 'verdict' => $t['verdict'] ?? '',
-                'note' => $t['note'] ?? '', 'tags' => array_values((array)($t['tags'] ?? [])),
-            ], (array)$a);
-            $b = array_map(static fn ($t) => [
-                'name' => $t['name'] ?? '', 'verdict' => $t['verdict'] ?? '',
-                'note' => $t['note'] ?? '', 'tags' => array_values((array)($t['tags'] ?? [])),
-            ], (array)$b);
+            $a = norm_tasks($a);
+            $b = norm_tasks($b);
         }
         if ($a !== $b) {
             $diffs[] = $k;
@@ -609,9 +743,11 @@ function compare_entry(array $old, array $new): array
 
 **Güvenlik kuralları — araç bunları ihlal edemez:**
 - `--out` verilmemişse **hiçbir dosya yazılmaz** (dry-run).
-- `--out` `data/jobs`'a eşitse araç **reddeder** ve çıkış kodu 1 verir.
-- Hedef dizin doluysa araç **reddeder** (`--force` yok; kullanıcı elle siler).
-- Kaynak `data/jobs/*.json` ve `data/i18n/**` **hiç açılmaz** yazma modunda.
+- Hiçbir mod canlı `data/jobs/`, `data/i18n/` veya `data/pending-tr-titles.json`
+  üzerine yazmaz. Kaynak dosyalar yalnızca **okuma** modunda açılır.
+- `--out` hedefi `migrate_target_ok()` doğrulamasından geçmeden hiçbir şey yazılmaz.
+- Hedef repo kökünün **içinde olamaz** — untracked bir dizinin yanlışlıkla
+  stage edilmesi riski böyle ortadan kalkar.
 
 - [ ] **Adım 1: Aracı yaz**
 
@@ -642,9 +778,12 @@ Beklenen: 17 satırlık rapor, `cashier` ve `administrative-assistant` için
 - [ ] **Adım 3: `--out` reddetme kurallarını sına**
 
 ```bash
-php tools/migrate-jobs.php --out=data/jobs; echo "cikis: $?"
+php tools/migrate-jobs.php --out=data/jobs;   echo "cikis: $?"   # canli JOBS_DIR
+php tools/migrate-jobs.php --out=.;           echo "cikis: $?"   # repo koku
+php tools/migrate-jobs.php --out=/;           echo "cikis: $?"   # kok
+php tools/migrate-jobs.php --out="$HOME";     echo "cikis: $?"   # home
 ```
-Beklenen: `HATA: --out canli dizin olamaz`, çıkış 1.
+Beklenen: dördü de gerekçeli `HATA:` satırı ve çıkış 1; `git status --short` **boş**.
 
 - [ ] **Adım 4: Commit**
 
@@ -680,17 +819,22 @@ Tek dosya.
 Veriyi gerçekten üretmek, doğrulamak ve **göze sunmak**. Bu görev commit üretmez;
 çıktısı bir karardır.
 
-- [ ] **Adım 1: Ayrı hedefe üret**
+- [ ] **Adım 1: Repo dışında güvenli hedefe üret**
 
 ```bash
-rm -rf data/jobs2
-php tools/migrate-jobs.php --out=data/jobs2
+export MIGRATION_OUT="$(mktemp -d /tmp/willaistealit-migration.XXXXXX)"
+echo "$MIGRATION_OUT"          # bu yolu bu gorev boyunca sakla
+php tools/migrate-jobs.php --out="$MIGRATION_OUT"
+git status --short             # BOS olmali — canli agac dokunulmadi
 ```
+
+Hedef **repo kökünün dışındadır**: `data/jobs2` gibi repo içi bir dizin untracked
+kalır ve bir `git add` kazasıyla commit'e girebilir.
 
 - [ ] **Adım 2: Semantik eşitliği doğrula**
 
 ```bash
-php tools/migrate-jobs.php --verify --out=data/jobs2; echo "cikis: $?"
+php tools/migrate-jobs.php --verify --out="$MIGRATION_OUT"; echo "cikis: $?"
 ```
 Beklenen: **17/17 entry farksız**, çıkış 0. Tek satır fark çıkarsa migration
 düzeltilene kadar Görev 2D'ye geçilmez.
@@ -698,7 +842,7 @@ düzeltilene kadar Görev 2D'ye geçilmez.
 - [ ] **Adım 3: Görev ID eşleşmesini göze sun**
 
 ```bash
-php tools/migrate-jobs.php --out=data/jobs2 --report-ids
+php tools/migrate-jobs.php --verify --out="$MIGRATION_OUT" --report-ids
 ```
 İki fixture entry için id ↔ İngilizce görev adı çiftleri okunur ve `data/i18n/`'deki
 elle yazılmış id'lerin doğru görevlere düştüğü **elle** teyit edilir.
@@ -706,19 +850,21 @@ elle yazılmış id'lerin doğru görevlere düştüğü **elle** teyit edilir.
 - [ ] **Adım 4: Üretilen ağacın şeklini kontrol et**
 
 ```bash
-find data/jobs2 -type f | sort | head -20
-cat data/jobs2/cashier/common.json
-python3 -m json.tool data/jobs2/cashier/en.json > /dev/null && echo "en.json gecerli JSON"
-ls data/jobs2/cashier/          # common.json en.json tr.json es.json
-ls data/jobs2/accountant/       # common.json en.json  (TR/ES yok — dogru)
-cat data/pending-tr-titles.json | head
+find "$MIGRATION_OUT" -type f | sort | head -20
+cat "$MIGRATION_OUT/jobs/cashier/common.json"
+python3 -m json.tool "$MIGRATION_OUT/jobs/cashier/en.json" > /dev/null && echo "en.json gecerli JSON"
+ls "$MIGRATION_OUT/jobs/cashier/"      # common.json en.json tr.json es.json
+ls "$MIGRATION_OUT/jobs/accountant/"   # common.json en.json  (TR/ES yok — dogru)
+head "$MIGRATION_OUT/pending-tr-titles.json"
+python3 -c "import json;d=json.load(open('$MIGRATION_OUT/migration-report.json'));print(len(d['ids']),'entry')"
+git status --short                     # hala BOS
 ```
 
 **Kapı koşulu:** `--verify` 17/17 farksız **ve** ID eşleşmesi göz kontrolünden geçmiş
 olmalı. İkisi de sağlanmadan Görev 2D'ye geçilmez.
 
 **Rollback sınırı**
-`rm -rf data/jobs2`. Canlı ağaç bu görevde hiç değişmedi.
+`rm -rf "$MIGRATION_OUT"`. Canlı ağaç bu görevde hiç değişmedi; `git status` boş kaldı.
 
 ---
 
@@ -738,6 +884,9 @@ doğru" sorusunu belirsiz bırakır. Spec §10 bunu açıkça yasaklıyor.
 | `inc/functions.php` | 23 | `load_job()` → `load_entry()`'ye devreder |
 | `inc/functions.php` | 44 | `load_all_jobs()` → dizinleri tarar |
 | `inc/functions.php` | 150–156 | `serve_page_cache()` bağımlılıkları → `entry_dependency_files()` |
+| `inc/functions.php` | `write_page_cache()` | **Dil klasörüne yazar** — yoksa cache hiç isabet etmez |
+| `inc/functions.php` | `clear_cache()` | İç içe dil klasörlerini de temizler |
+| `job.php` | 318 | `write_page_cache($slug, $html, $lang)` |
 | `sitemap.php` | 21 | `lastmod` dosya yolu → dizin |
 | `og.php` | 26 | `$sourceFile` → `entry_dependency_files()` maksimumu |
 | `job.php` | 286 | GitHub düzenleme linki → `data/jobs/<id>/en.json` |
@@ -759,17 +908,19 @@ açacak. Smoke matrisine bunu sabitleyen iki satır eklenir.
 
 ```bash
 php tests/run.php && php tools/validate.php && ./tools/smoke.sh
-php tools/migrate-jobs.php --verify --out=data/jobs2
+php tools/migrate-jobs.php --verify --out="$MIGRATION_OUT"
 ```
 Dördü de temiz olmadan devam edilmez.
 
 - [ ] **Adım 2: Üretilen ağacı yerine koy, eskisini SİL­ME**
 
 ```bash
-cp -R data/jobs2/. data/jobs/          # dizinler eklenir, duz dosyalar yerinde kalir
+cp -R "$MIGRATION_OUT/jobs/." data/jobs/                       # dizinler eklenir
+cp "$MIGRATION_OUT/pending-tr-titles.json" data/pending-tr-titles.json
 ls data/jobs/ | head                   # hem *.json hem <id>/ gorunur
 ```
-Bu ara durum **commit edilmez**; sonraki adımlarla aynı commit'e girer.
+Düz dosyalar **yerinde kalır**. Bu ara durum tek başına commit edilmez; sonraki
+adımlarla aynı commit'e girer.
 
 - [ ] **Adım 3: `inc/functions.php`'yi devret**
 
@@ -831,6 +982,49 @@ function serve_page_cache(string $slug, string $lang = DEFAULT_LANG): bool
 > tabanlı hesap onun güvenli fallback'idir ve spec §8.2 bunu açıkça öngörüyor.
 > Sürüm dosyası Faz 3'te, locale bağımlılıkları da devreye girdiğinde eklenir.
 
+**Yazma tarafı da taşınmalı — yoksa cache hiç isabet etmez.** Bugün
+`write_page_cache()` `PAGES_DIR/<slug>.html`'e yazıyor; okuma `<lang>/` altına
+bakacaksa yazma da oraya gitmeli:
+
+```php
+function write_page_cache(string $slug, string $html, string $lang = DEFAULT_LANG): void
+{
+    $dir = PAGES_DIR . '/' . $lang;
+    if (!is_dir($dir) && !@mkdir($dir, 0775, true) && !is_dir($dir)) {
+        return;
+    }
+    // Atomik: yarim yazilmis HTML'i baska bir istek okumasin.
+    $tmp = $dir . '/' . $slug . '.' . bin2hex(random_bytes(4)) . '.tmp';
+    if (@file_put_contents($tmp, $html, LOCK_EX) === false) {
+        return;
+    }
+    if (!@rename($tmp, $dir . '/' . $slug . '.html')) {
+        @unlink($tmp);
+    }
+}
+
+/** Cache klasorlerini bosalt. Dil klasorleri IC ICE — duz glob yetmez. */
+function clear_cache(): int
+{
+    $n = 0;
+    $patterns = [PAGES_DIR . '/*.html', PAGES_DIR . '/*/*.html',
+                 PAGES_DIR . '/*.tmp',  PAGES_DIR . '/*/*.tmp',
+                 OG_DIR . '/*.png',     OG_DIR . '/*/*.png'];
+    foreach ($patterns as $pattern) {
+        foreach (glob($pattern) ?: [] as $f) {
+            if (@unlink($f)) {
+                $n++;
+            }
+        }
+    }
+    return $n;
+}
+```
+
+`job.php:318` çağrısı `write_page_cache($slug, $html, $lang)` olur. Eski düz
+`cache/pages/*.html` kalıntıları geçiş sırasında `clear_cache()` ile temizlenir —
+yukarıdaki ilk iki desen tam bunun için var.
+
 - [ ] **Adım 4: `validate.php`'yi yeni yapıya taşı**
 
 Mevcut kuralların hepsi korunur, üstüne (spec §7):
@@ -859,13 +1053,57 @@ git rm data/jobs/*.json
 ```
 Araç silmedi; **commit** siliyor. Böylece geri alma `git revert` ile tek adım.
 
-- [ ] **Adım 7: Tam doğrulama**
+- [ ] **Adım 7: Genişletilmiş kapı — dokuzu da geçmeden commit yok**
 
 ```bash
-php tests/run.php
-php tools/validate.php
-php tools/build-index.php
-./tools/smoke.sh
+php tests/run.php && php tools/validate.php && php tools/build-index.php && ./tools/smoke.sh
+```
+
+Üstüne, veri eşitliğinin ötesinde şu dokuz kapı:
+
+```bash
+# 1. 17 EN entry yeni yukleyiciyle yukleniyor
+php -r 'require "inc/entry.php"; echo count(load_all_jobs()), " EN entry\n";'   # 17
+
+# 2. Iki fixture uc dil dondurıyor
+php -r 'require "inc/entry.php";
+foreach (["cashier","administrative-assistant"] as $i)
+  printf("%-26s %s\n", $i, implode(",", entry_langs($i)));'                     # en,tr,es
+
+# 3. Gorev sayilari migration oncesiyle ayni (rapor dosyasindan)
+php -r 'require "inc/entry.php";
+$r = json_decode(file_get_contents(getenv("MIGRATION_OUT")."/migration-report.json"), true);
+$bad = 0;
+foreach ($r["ids"] as $id => $n) {
+  $c = count(load_entry($id, "en")["tasks"] ?? []);
+  if ($c !== $n) { printf("FARK %s: %d != %d\n", $id, $c, $n); $bad++; }
+}
+echo $bad === 0 ? "gorev sayilari ayni\n" : "$bad entry farkli\n";'
+
+# 4. Duz dosya kalmadi
+ls data/jobs/*.json 2>/dev/null && echo "HATA: duz dosya kaldi" || echo "duz dosya yok"
+
+# 5. build-index 17 entry uretiyor
+php tools/build-index.php | grep "entry indexlendi"                              # 17
+
+# 6. Page cache YENI yolda yazilip okunuyor (ilk istek yazar, ikincisi hit)
+rm -rf cache/pages/*
+php -S 127.0.0.1:8000 router.php > /dev/null 2>&1 & SRV=$!
+for i in $(seq 1 40); do curl -sf -o /dev/null 127.0.0.1:8000/ && break; sleep 0.25; done
+curl -s -o /dev/null 127.0.0.1:8000/cashier
+ls cache/pages/en/cashier.html && echo "cache YENI yolda yazildi"
+ls cache/pages/*.html 2>/dev/null && echo "HATA: duz yola da yazmis"
+curl -s 127.0.0.1:8000/cashier | grep -c "Cashier"     # ikinci istek: hit, ayni cikti
+kill $SRV
+
+# 7. TR hala servis edilmiyor (activeLangs=['en'])
+./tools/smoke.sh | grep -E "^/(tr/|og/tr/)"            # hepsi 404 satiri
+
+# 8. sync-evidence yalnizca en.json'a dokunuyor
+php tools/sync-evidence.php && git diff --name-only    # yalnizca data/jobs/*/en.json
+
+# 9. Migration ciktisi ve raporlar stage listesine GIRMIYOR
+git status --short | grep -E "migration|jobs2|\.tmp" && echo "HATA: sizinti" || echo "sizinti yok"
 ```
 
 - [ ] **Adım 8: Çıktı eşitliğini gözle doğrula (K5 + K4)**
@@ -886,10 +1124,27 @@ grep -c "bls.gov" /tmp/after.html                          # >=1 (sources)
 Beklenen: sayfa açılıyor, verdict ve görevler yerinde, Türkçe başlık **yok** (K4'ün
 kasıtlı farkı).
 
-- [ ] **Adım 9: Commit ve hash'i kaydet**
+- [ ] **Adım 9: Açık yollarla stage et, listeyi doğrula, commit et**
+
+`git add -A` **kullanılmaz** — aynı repoda başka oturumlar çalışıyor ve ilgisiz
+dosyaları commit'e çeker.
 
 ```bash
-git add -A
+git add data/jobs data/pending-tr-titles.json \
+        inc/functions.php inc/entry.php inc/routes_cache.php \
+        job.php index.php og.php sitemap.php \
+        tools/validate.php tools/sync-evidence.php tools/build-index.php \
+        tests/
+
+# Stage listesi beklenenle birebir mi — commit'ten ONCE gozle karsilastir
+git diff --cached --name-status
+```
+
+Beklenen listede **yalnızca** şunlar olmalı: `D data/jobs/*.json` (17 silme),
+`A data/jobs/*/{common,en,tr,es}.json`, `A data/pending-tr-titles.json` ve yukarıdaki
+PHP dosyaları. Başka bir yol görünüyorsa **commit edilmez**, önce sebebi bulunur.
+
+```bash
 git commit -m "refactor: switch to per-language entry directories"
 git rev-parse HEAD   # ---> KAYDET
 ```
@@ -914,9 +1169,21 @@ php tests/run.php && php tools/validate.php && php tools/build-index.php && ./to
 ```bash
 git revert <MIGRATION_COMMIT>
 ```
-Düz dosyalar takip edildiği için revert onları geri getirir. Dizinler silinir.
-**Yarıda kesilen migration için rollback gerekmez** — araç canlı ağaca hiç yazmadı;
-Adım 2'deki `cp` sonrası kesilme durumunda `rm -rf data/jobs/*/` yeter.
+Düz dosyalar takip edildiği için revert onları geri getirir.
+
+**Yarıda kesilen migration için rollback gerekmez** — araç canlı ağaca hiç yazmadı.
+Adım 2'deki `cp` sonrası kesilme durumunda temizlik **geniş glob ile değil**,
+`migration-report.json`'daki **kesin id listesiyle** yapılır:
+
+```bash
+php -r '$r = json_decode(file_get_contents(getenv("MIGRATION_OUT")."/migration-report.json"), true);
+foreach (array_keys($r["ids"]) as $id) { echo "data/jobs/$id\n"; }' | xargs rm -rf
+rm -f data/pending-tr-titles.json
+git status --short    # yalnizca duz dosyalar kalmali, calisma agaci temiz
+```
+
+`rm -rf data/jobs/*/` **kullanılmaz**: glob, migration'ın üretmediği bir dizini de
+silebilir.
 
 **Commit sınırı**
 Tek commit: veri + yükleyici + çağrı yerleri + validator. Bölünmesi yasak —
@@ -939,13 +1206,27 @@ Geçici klasörü kaldırmak — ama içindeki **editoryal kararları kaybetmede
 3. **`cashier` / TR yerel override araştırması bekliyor** — Türkiye'de kasiyer
    istihdamının yüksekliği tek başına yetmez, §7.1 gereği yetkili yerel kaynak şart.
 
-- [ ] **Adım 1: Kararları hafızaya taşımayı öner**
+> **Sıra kritiktir: kararlar güvenceye alınmadan README silinmez.** Hafıza commit'i
+> `data/i18n/` kaldırma commit'inden **önce** gelir; aksi halde onay beklerken klasör
+> silinmiş olur ve kararlar yalnızca git geçmişinde kalır.
+
+- [ ] **Adım 1: Kararları hafızaya taşımayı öner (diff olarak)**
 
 `docs/memory/decisions/2026-08-15-ceviri-kapsami-global-assessment.md` **önerilir** ve
 diff olarak sunulur. `docs/memory/` append-only ve otomatik yazılmaz — CLAUDE.md kuralı:
-*"Hafızaya yazarken: satırı öner, kullanıcı onaylasın."* Onay alınmadan bu adım kapanmaz.
+*"Hafızaya yazarken: satırı öner, kullanıcı onaylasın."*
 
-- [ ] **Adım 2: Kopyaların birebir taşındığını doğrula**
+- [ ] **Adım 2: Kullanıcı onayını bekle** — onay gelmeden Adım 3'e geçilmez.
+
+- [ ] **Adım 3: Hafıza commit'i**
+
+```bash
+git add docs/memory/decisions/2026-08-15-ceviri-kapsami-global-assessment.md docs/memory/README.md
+git diff --cached --name-status     # yalnizca bu iki dosya
+git commit -m "memory: record the translation scope decision"
+```
+
+- [ ] **Adım 4: Kopyaların birebir taşındığını doğrula**
 
 ```bash
 for f in cashier administrative-assistant; do
@@ -956,7 +1237,7 @@ done
 ```
 Beklenen: hiçbir `FARK:` satırı yok. **Tek bir fark bile varsa klasör silinmez.**
 
-- [ ] **Adım 3: Yükleyicinin gerçekten üç dili gördüğünü doğrula**
+- [ ] **Adım 5: Yükleyicinin gerçekten üç dili gördüğünü doğrula**
 
 ```bash
 php -r 'require "inc/entry.php";
@@ -965,7 +1246,7 @@ foreach (["cashier","administrative-assistant"] as $id)
 ```
 Beklenen: her ikisi için `en,tr,es`.
 
-- [ ] **Adım 4: `pending-tr-titles.json`'ın 17 başlığı taşıdığını doğrula**
+- [ ] **Adım 6: `pending-tr-titles.json`'ın 17 başlığı taşıdığını doğrula**
 
 ```bash
 php -r 'echo count(json_decode(file_get_contents("data/pending-tr-titles.json"), true)), " baslik\n";'
@@ -973,23 +1254,20 @@ php -r 'echo count(json_decode(file_get_contents("data/pending-tr-titles.json"),
 Beklenen: `17 baslik`. Dosya `data/` altında, yani `data/i18n/` kaldırılırken
 etkilenmez — TR entry'leri yazılana kadar tohum olarak durur.
 
-- [ ] **Adım 5: Klasörü kaldır**
+- [ ] **Adım 7: Klasörü kaldır ve commit et**
 
 ```bash
 git rm -r data/i18n
-```
-
-- [ ] **Adım 6: Commit**
-
-```bash
-git add -A
+git diff --cached --name-status     # yalnizca data/i18n/ silmeleri
 git commit -m "chore: remove the i18n staging folder after migration"
 ```
 
-**Kaldırma koşulu — üçü birden:**
-1. `data/jobs/<id>/{common,tr,es}.json` dosyaları `data/i18n/` kopyalarıyla **birebir aynı**
-2. `entry_langs()` her iki fixture için `en,tr,es` döndürüyor
-3. README'deki üç karar hafızaya taşınmış ve onaylanmış
+`git add -A` **kullanılmaz**; `git rm` zaten yalnızca hedeflenen yolları stage eder.
+
+**Kaldırma koşulu — üçü birden, bu sırayla:**
+1. README'deki üç karar hafızaya taşınmış ve **onaylanmış** (Adım 1–3)
+2. `data/jobs/<id>/{common,tr,es}.json` dosyaları `data/i18n/` kopyalarıyla **birebir aynı**
+3. `entry_langs()` her iki fixture için `en,tr,es` döndürüyor
 
 **Risk**
 Orta — silinen bir klasör geri gelmez. Ama üç koşul da makine ile doğrulanıyor ve
@@ -1013,18 +1291,25 @@ Yalnızca `data/i18n/` kaldırma. Hafıza dosyası **ayrı** commit'te ve ayrı 
 
 ## Commit haritası
 
-**5 commit + 1 kapı (commit üretmez) + 1 koşullu hafıza commit'i.**
+**5 commit + 1 kapı (commit üretmez).** Spec düzeltmesi (`docs: clarify assessment
+source ownership`) Faz 2 başlamadan ayrı commit olarak zaten landi.
 
 | # | Commit | Görev | Site etkisi |
 |---|---|---|---|
 | 1 | `feat: add multilingual entry loader, not yet wired` | 2A | — |
 | 2 | `tools: add migrate-jobs with dry-run and verify` | 2B | — |
-| — | *(migration kapısı — `--verify` 17/17)* | 2C | — |
+| — | *(migration kapısı — `--verify` 17/17 + ID göz kontrolü)* | 2C | — |
 | 3 | **`refactor: switch to per-language entry directories`** | 2D | **Tüm entry'ler** |
-| 4 | `chore: remove the i18n staging folder after migration` | 2E | — |
-| 5 | `memory: record the translation scope decision` (onaya bağlı) | 2E | — |
+| 4 | `memory: record the translation scope decision` (onaya bağlı) | 2E | — |
+| 5 | `chore: remove the i18n staging folder after migration` | 2E | — |
+
+**Sıra bağlayıcı:** hafıza commit'i (4) `data/i18n/` kaldırmadan (5) **önce** gelir —
+kararlar güvenceye alınmadan README silinmez.
 
 Yalnızca **3 numaralı** commit davranış değiştirir. Rollback `git revert <MIGRATION_COMMIT>`.
+
+Hiçbir commit'te `git add -A` kullanılmaz; her commit öncesi
+`git diff --cached --name-status` çıktısı beklenen dosya listesiyle karşılaştırılır.
 
 ## Faz 2 kapanış kontrolü
 
@@ -1076,3 +1361,14 @@ php -r 'require "inc/entry.php"; echo implode(",", entry_langs("cashier")), "\n"
 - `job.php`, `index.php`, `inc/header.php` şablonları — **Faz 3**.
 - `sitemap.php`'nin `xhtml:link` alternatifleri, dil seçici, dile özgü OG — **Faz 4**.
 - Arama harf katlaması (`search-fold.json`) — **Faz 4**.
+
+**Faz 2'de UYGULANAN ama henüz veride kullanılmayan yetenekler** (sessizce
+destekleniyormuş gibi bırakılmıyor, açıkça yazılıyor):
+
+- `inheritedSources: true` — yerel kaynakların global kaynakların üstüne eklenmesi.
+  Yükleyici destekliyor ve testi var; **hiçbir entry henüz kullanmıyor**.
+- Dil dosyasında `taskOrder` ezme ve `localTasks` — yükleyici destekliyor ve testi var;
+  **hiçbir entry henüz kullanmıyor**. İlk kullanıcısı `cashier`/TR yerel araştırması
+  tamamlandığında olacak.
+- Validator bu iki yeteneği Faz 2'de **doğrular** (yanlış kullanım hata verir), ama
+  hiçbir entry'yi bunları kullanmaya zorlamaz.
