@@ -46,6 +46,17 @@ the inputs the person will paste, say what comes back, and include the rules tha
 honest. Generic prompts ("You are a helpful assistant for accountants") get rejected. Test it in a
 real model before submitting.
 
+**A `safe` verdict means no task is `gone`.** Not one. If a single task in the breakdown
+has already fallen, the headline is `shrinking` at best — a structural wall that protects
+part of a job does not protect the job. Two entries on the site are `safe`, and neither has
+a `gone` task.
+
+**`shrinking` vs `on the menu` is not a task count.** Two entries can have an identical
+breakdown and different headlines. The question is what happens to the work that survives:
+if it still supports roughly as many people, the role is `shrinking`; if there is
+measurably less of it to go around, it is `on the menu`. Argue this in the summary — it is
+the part reviewers push back on.
+
 **Tags** are structural walls, not capability gaps. "AI is not good enough at this yet" is a
 countdown, not a tag — it means the task is `going`, with a year.
 

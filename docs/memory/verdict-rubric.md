@@ -150,24 +150,27 @@ Bu rubriğe özel olarak, mevcut eşiklerin hangi gözlemle kırılacağı:
   sigorta modelinin oturması, sertifikasyonun kaldırılması). Model yeteneği yetmez —
   yetenek zaten varsayılan olarak artıyor kabul ediliyor.
 
-## Açık mesele: yayınlanmış tanım bu rubriği üretmiyor
+## Çözüldü: yayınlanmış tanım artık bu rubriği üretiyor
 
-`inc/config.php`'deki verdict blurb'leri iki farklı eksende yazılmış:
+**15 Ağustos 2026'da kapandı.** Sorun şuydu: `inc/config.php`'deki 🔴 blurb'ü task
+yapılabilirliğinden bahsediyordu, 🟡 ise rolün kaderinden — iki farklı eksen. `copywriter`
+ve `graphic-designer` birebir aynı task dağılımına (2/2/3) sahip olduğu halde farklı
+verdict aldığı için yayınlanmış tanım mevcut verdict'leri açıklayamıyordu.
 
-- 🟡 `"The role narrows and shifts — it does not vanish."` → **rolün kaderi**
-- 🔴 `"The core tasks are becoming machine-doable."` → **task yapılabilirliği**
+Çözüm: 🔴 blurb'ü istihdam kapasitesini de söyleyecek şekilde yeniden yazıldı.
 
-`copywriter` ve `graphic-designer` birebir aynı task dağılımına sahip (2/2/3) ama farklı
-verdict alıyor. Yayınlanmış tanıma göre ikisi aynı olmalıydı; ayıran şey yukarıda yazılı
-istihdam kapasitesi kriteri ve o kriter hiçbir yerde yayınlanmamış.
+> "The core tasks are going, and what is left will not support as many people.
+> A time horizon applies."
 
-Önerilen çözüm: 🔴 blurb'ünü de role çevirmek — *"The role does not survive at its current
-size. A time horizon applies."* Mevcut 15 verdict doğru; kusurlu olan tanım metni.
+`inc/config.php` ve `README.md` birlikte güncellendi — ikisi ayrışırsa site kendi
+tanımıyla çelişir.
 
-Aynı durum "tek bir `gone` task varsa `safe` olamaz" eşiği için de geçerli: 15/15 veriyle
-doğrulanıyor ama yayınlanmamış. Bir katkıcı bilemez. `CONTRIBUTING.md` veya
-`/methodology`'ye taşınmalı.
+Aynı geçişte, daha önce yalnızca burada duran iki kural `CONTRIBUTING.md`'ye taşındı ve
+artık katkıcıya açık:
 
----
+- `safe` verdict için hiçbir task `gone` olamayacak
+- 🟡 ile 🔴 arasındaki farkın task sayısı değil, hayatta kalan işin istihdam kapasitesi
+  olduğu
 
-İlgili: [[docs/memory/README|Hafıza sistemi]] · [[voice]]
+Bu iki kural buraya kaydedildiğinde yayınlanmamıştı ve bir katkıcının entry'si onlarla
+reddedilebilirdi. Artık öyle değil.

@@ -61,7 +61,7 @@ const VERDICTS = [
         'dot'   => '🔴',
         'color' => '#b34455',
         'rgb'   => [179, 68, 85],
-        'blurb' => 'The core tasks are becoming machine-doable. A time horizon applies.',
+        'blurb' => 'The core tasks are going, and what is left will not support as many people. A time horizon applies.',
     ],
 ];
 

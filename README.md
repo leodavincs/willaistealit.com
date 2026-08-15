@@ -18,7 +18,7 @@ today. A red verdict should still leave you with something to do.
 |---------|---------|
 | 🟢 SAFE | The core of the job is structurally resistant. AI becomes a tool, not a replacement. |
 | 🟡 SHRINKING | Significant parts are automating. The role narrows and shifts — it does not vanish. |
-| 🔴 ON THE MENU | The core tasks are becoming machine-doable. A time horizon applies. |
+| 🔴 ON THE MENU | The core tasks are going, and what is left will not support as many people. A time horizon applies. |
 
 The full reasoning, including what would make a verdict change, is at
 [willaistealit.com/methodology](https://willaistealit.com/methodology).
