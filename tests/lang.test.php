@@ -75,16 +75,29 @@ t_eq('Thin evidence',
 t_eq('hicboyle.anahtar', $en->t('hicboyle.anahtar'), 'eksik anahtar kendini doner');
 
 // --- Kapsam: her verdict/kategori/tag cevrilmis
-//     (Faz 3D'de CATEGORIES -> CATEGORY_KEYS olunca bu iki satir guncellenecek) ---
+//     (Faz 3D'de CATEGORY_KEYS / RESISTANCE_KEYS'e gecildi) ---
 foreach (array_keys(VERDICTS) as $k) {
     t_eq(true, $en->verdictLabel($k) !== '' && $en->verdictBlurb($k) !== '', "en: '$k' verdict i cevrilmis");
 }
-foreach (array_keys(CATEGORIES) as $k) {
+foreach (CATEGORY_KEYS as $k) {
     t_eq(true, $en->has('category.' . $k), "en: '$k' kategorisi cevrilmis");
 }
-foreach (array_keys(RESISTANCE_TAGS) as $k) {
+foreach (RESISTANCE_KEYS as $k) {
     t_eq(true, $en->has('tag.' . $k), "en: '$k' tag i cevrilmis");
 }
+
+// SITE_TAG hala config'de (Faz 3F'de sablonlarla birlikte tasinacak) — kaymasin diye sabitliyoruz
+t_eq(SITE_TAG, $en->t('site.tagline'), 'SITE_TAG ile site.tagline ayni kalmali');
+
+// template_files() locale ve dil dosyalarini gormeli — yoksa bayat cache sessizce servis edilir
+$tf = template_files();
+$hasFile = static fn (string $needle): bool => (bool)array_filter($tf, static fn ($f) => str_contains($f, $needle));
+t_eq(true, $hasFile('/inc/lang/En.php'),    'sablon bagimliligi: dil sinifi');
+t_eq(true, $hasFile('/inc/lang/Tr.php'),    'sablon bagimliligi: TR dil sinifi');
+t_eq(true, $hasFile('/data/locale/en.php'), 'sablon bagimliligi: locale tablosu');
+t_eq(true, $hasFile('/data/locale/tr.php'), 'sablon bagimliligi: TR locale tablosu');
+t_eq(true, $hasFile('/inc/functions.php'),  'sablon bagimliligi: functions');
+t_eq(true, $hasFile('/job.php'),            'sablon bagimliligi: job.php');
 
 // ═══════════════════════════ TURKCE ═══════════════════════════
 $tr = lang_for('tr');
@@ -178,7 +191,7 @@ foreach ([$en, $tr, $es] as $L) {
 intl_available(null);
 
 // ═══════════ UC DILDE TAM KAPSAM ═══════════
-// (Faz 3D'de CATEGORIES -> CATEGORY_KEYS olunca bu donguler guncellenecek)
+// (Faz 3D'de CATEGORY_KEYS / RESISTANCE_KEYS'e gecildi)
 foreach ([$en, $tr, $es] as $L) {
     $c = $L->code();
     t_eq('', $L->month('bozuk'), "$c: bozuk ay bos doner");
@@ -190,10 +203,10 @@ foreach ([$en, $tr, $es] as $L) {
     foreach (array_keys(TASK_VERDICTS) as $k) {
         t_eq(true, $L->has("task.$k.label"), "$c: '$k' gorev verdict i var");
     }
-    foreach (array_keys(CATEGORIES) as $k) {
+    foreach (CATEGORY_KEYS as $k) {
         t_eq(true, $L->has('category.' . $k), "$c: '$k' kategorisi cevrilmis");
     }
-    foreach (array_keys(RESISTANCE_TAGS) as $k) {
+    foreach (RESISTANCE_KEYS as $k) {
         t_eq(true, $L->has('tag.' . $k), "$c: '$k' tag i cevrilmis");
     }
     t_eq(true, $L->has('category.unknown'), "$c: bilinmeyen kategori metni var");

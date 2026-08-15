@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 require_once __DIR__ . '/config.php';
 require_once __DIR__ . '/entry.php';
+require_once __DIR__ . '/locale.php';
 
 /** Slug'i dogrula: sadece [a-z0-9-], path traversal'a kapali. */
 function valid_slug(?string $slug): bool
@@ -85,24 +86,38 @@ function build_key_ok(?string $given): bool
     return is_string($given) && hash_equals(BUILD_KEY, $given);
 }
 
-function verdict_meta(?string $verdict): array
+/**
+ * Dilden bagimsiz (config) + dile bagli (locale) BIRLESIK doner.
+ * Sablonlar $v['label'] yazmaya devam eder — cikti degismez.
+ */
+function verdict_meta(?string $verdict, string $lang = DEFAULT_LANG): array
 {
-    return VERDICTS[$verdict] ?? VERDICTS['shrinking'];
+    $key = isset(VERDICTS[$verdict]) ? (string)$verdict : 'shrinking';
+    $L   = lang_for($lang);
+    return VERDICTS[$key] + [
+        'key'   => $key,
+        'label' => $L->verdictLabel($key),
+        'blurb' => $L->verdictBlurb($key),
+    ];
 }
 
-function task_verdict_meta(?string $v): array
+function task_verdict_meta(?string $v, string $lang = DEFAULT_LANG): array
 {
-    return TASK_VERDICTS[$v] ?? TASK_VERDICTS['going'];
+    $key = isset(TASK_VERDICTS[$v]) ? (string)$v : 'going';
+    return TASK_VERDICTS[$key] + [
+        'key'   => $key,
+        'label' => lang_for($lang)->taskVerdictLabel($key),
+    ];
 }
 
-function category_label(?string $key): string
+function category_label(?string $key, string $lang = DEFAULT_LANG): string
 {
-    return CATEGORIES[$key] ?? 'Uncategorised';
+    return lang_for($lang)->categoryLabel((string)$key);
 }
 
-function tag_definition(string $tag): string
+function tag_definition(string $tag, string $lang = DEFAULT_LANG): string
 {
-    return RESISTANCE_TAGS[$tag] ?? '';
+    return lang_for($lang)->tagDefinition($tag);
 }
 
 function job_url(string $slug): string
@@ -164,17 +179,32 @@ function serve_page_cache(string $slug, string $lang = DEFAULT_LANG): bool
  * config.php de buna dahil — GITHUB_URL gibi ayarlar sayfa ciktisini degistiriyor,
  * bunu unutmak "degisiklik neden gorunmuyor" hatasina yol aciyor.
  */
+/**
+ * Sablon tarafinin dosya listesi — test okuyabilsin diye ayri.
+ * inc/lang/ bir ALT DIZIN oldugu icin eski glob(inc/*.php) onu hic gormuyordu;
+ * data/locale/ ise hic bakilmiyordu. Genisletilmezse bir locale metni
+ * duzeltildiginde ESKI SAYFA servis edilmeye devam eder ve kimse fark etmez.
+ */
+function template_files(): array
+{
+    $files = [ROOT . '/job.php'];
+    foreach ([ROOT . '/inc/*.php',
+              ROOT . '/inc/lang/*.php',
+              ROOT . '/data/locale/*.php'] as $pattern) {
+        foreach (glob($pattern) ?: [] as $f) {
+            $files[] = $f;
+        }
+    }
+    return $files;
+}
+
 function template_mtime(): int
 {
     static $t = null;
     if ($t !== null) {
         return $t;
     }
-    $times = [filemtime(ROOT . '/job.php')];
-    foreach (glob(ROOT . '/inc/*.php') ?: [] as $f) {
-        $times[] = filemtime($f);
-    }
-    return $t = max($times);
+    return $t = max(array_map('filemtime', template_files()));
 }
 
 function write_page_cache(string $slug, string $html, string $lang = DEFAULT_LANG): void

@@ -8,6 +8,9 @@ declare(strict_types=1);
 
 const SITE_NAME   = 'Will AI Steal It?';
 const SITE_URL    = 'https://willaistealit.com';
+// SITE_TAG gecici olarak burada: onu okuyan sablonlar (index.php, inc/header.php)
+// Faz 3F'de yerellestirilecek. O ana kadar data/locale/en.php'deki 'site.tagline'
+// ile ayni kalmali — tests/lang.test.php bunu sabitliyor.
 const SITE_TAG    = 'Task-level verdicts on which jobs AI actually takes.';
 
 // ---- Deploy oncesi doldurulacak ----
@@ -42,57 +45,29 @@ const SPONSORS_LIVE = false;
 // Tanimlanmazsa tools/ web'den hic calismaz (bkz. build_key_ok()).
 defined('BUILD_KEY') || define('BUILD_KEY', 'change-me-before-deploy');
 
+/* ---- Dilden BAGIMSIZ olanlar burada; etiket ve tanimlar data/locale/<lang>.php'de.
+        Bolusum kurali (Faz 3, L2): anahtar + renk config'de, metin locale'de. ---- */
+
 const VERDICTS = [
-    'safe' => [
-        'label' => 'SAFE',
-        'dot'   => '🟢',
-        'color' => '#2b7d52',
-        'rgb'   => [43, 125, 82],
-        'blurb' => 'The core of this job is structurally resistant. AI becomes a tool, not a replacement.',
-    ],
-    'shrinking' => [
-        'label' => 'SHRINKING',
-        'dot'   => '🟡',
-        'color' => '#a8811f',
-        'rgb'   => [168, 129, 31],
-        'blurb' => 'Significant parts are being automated. The role narrows and shifts — it does not vanish.',
-    ],
-    'on-the-menu' => [
-        'label' => 'ON THE MENU',
-        'dot'   => '🔴',
-        'color' => '#b34455',
-        'rgb'   => [179, 68, 85],
-        'blurb' => 'The core tasks are going, and what is left will not support as many people. A time horizon applies.',
-    ],
+    'safe'        => ['dot' => '🟢', 'color' => '#2b7d52', 'rgb' => [43, 125, 82]],
+    'shrinking'   => ['dot' => '🟡', 'color' => '#a8811f', 'rgb' => [168, 129, 31]],
+    'on-the-menu' => ['dot' => '🔴', 'color' => '#b34455', 'rgb' => [179, 68, 85]],
 ];
 
 // Gorev seviyesi mini-verdict'ler
 const TASK_VERDICTS = [
-    'gone'  => ['label' => 'gone',  'color' => '#b34455'],
-    'going' => ['label' => 'going', 'color' => '#a8811f'],
-    'safe'  => ['label' => 'safe',  'color' => '#2b7d52'],
+    'gone'  => ['color' => '#b34455'],
+    'going' => ['color' => '#a8811f'],
+    'safe'  => ['color' => '#2b7d52'],
 ];
 
-const RESISTANCE_TAGS = [
-    'physical-presence'  => 'Requires hands and a body in the physical world.',
-    'legal-liability'    => 'A human must legally own the outcome and sign for it.',
-    'regulated'          => 'A licence, permit or statutory wall stands in the way.',
-    'trust-relationship' => 'The value is a personal trust relationship, not the output.',
-    'human-judgment'     => 'Contextual decisions under uncertainty that nobody wants to delegate.',
-    'creative-taste'     => 'Aesthetic judgment: AI can generate, it cannot choose.',
-    'accountability'     => '"Who gets blamed when this is wrong" demands a person.',
-    'physical-context'   => 'You have to be on site, in the room, at that moment.',
-    'emotional-labor'    => 'The emotional labour is the job itself.',
+const RESISTANCE_KEYS = [
+    'physical-presence', 'legal-liability', 'regulated', 'trust-relationship',
+    'human-judgment', 'creative-taste', 'accountability', 'physical-context',
+    'emotional-labor',
 ];
 
-const CATEGORIES = [
-    'tech'      => 'Tech & Engineering',
-    'finance'   => 'Finance & Accounting',
-    'legal'     => 'Legal',
-    'health'    => 'Health & Care',
-    'education' => 'Education',
-    'creative'  => 'Media & Creative',
-    'trades'    => 'Trades & Field Work',
-    'service'   => 'Sales & Service',
-    'ops'       => 'Operations & Admin',
+const CATEGORY_KEYS = [
+    'tech', 'finance', 'legal', 'health', 'education',
+    'creative', 'trades', 'service', 'ops',
 ];

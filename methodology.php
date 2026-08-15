@@ -28,7 +28,7 @@ require __DIR__ . '/inc/header.php';
         <tr><th>Verdict</th><th>What it means</th></tr>
       </thead>
       <tbody>
-        <?php foreach (VERDICTS as $meta): ?>
+        <?php foreach (array_keys(VERDICTS) as $vKey): $meta = verdict_meta($vKey); ?>
           <tr>
             <td><span class="badge v-<?= h(strtolower(str_replace(' ', '-', $meta['label']))) ?>" style="--v: <?= h($meta['color']) ?>"><?= h($meta['label']) ?></span></td>
             <td><?= h($meta['blurb']) ?></td>
@@ -50,7 +50,7 @@ require __DIR__ . '/inc/header.php';
     <table>
       <thead><tr><th>Tag</th><th>The wall</th></tr></thead>
       <tbody>
-        <?php foreach (RESISTANCE_TAGS as $tag => $def): ?>
+        <?php foreach (RESISTANCE_KEYS as $tag): $def = tag_definition($tag); ?>
           <tr><td><code><?= h($tag) ?></code></td><td><?= h($def) ?></td></tr>
         <?php endforeach; ?>
       </tbody>

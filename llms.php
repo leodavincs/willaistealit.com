@@ -42,7 +42,8 @@ $L('not predictions, and every entry carries a review date.');
 $L();
 $L('## Verdict scale');
 $L();
-foreach (VERDICTS as $key => $meta) {
+foreach (array_keys(VERDICTS) as $key) {
+    $meta = verdict_meta($key);
     $L('- ' . $key . ' (' . $meta['label'] . '): ' . $meta['blurb']);
 }
 $L();
@@ -60,8 +61,8 @@ $L('- safe: blocked by a structural reason, not a temporary capability gap.');
 $L();
 $L('## Resistance tags (why a task survives)');
 $L();
-foreach (RESISTANCE_TAGS as $tag => $def) {
-    $L('- ' . $tag . ': ' . $def);
+foreach (RESISTANCE_KEYS as $tag) {
+    $L('- ' . $tag . ': ' . tag_definition($tag));
 }
 $L();
 $L('## The "safe until" year');

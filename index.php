@@ -19,7 +19,7 @@ foreach ($jobs as $job) {
     $catStats[$cat]['v'][$v] = ($catStats[$cat]['v'][$v] ?? 0) + 1;
 }
 // CATEGORIES sirasini koru, bos olanlari at
-$catStats = array_filter(array_merge(array_fill_keys(array_keys(CATEGORIES), null), $catStats));
+$catStats = array_filter(array_merge(array_fill_keys(CATEGORY_KEYS, null), $catStats));
 
 $newestReview = '';
 foreach ($jobs as $j) {
@@ -109,12 +109,12 @@ require __DIR__ . '/inc/header.php';
       <?php foreach (['shrinking', 'on-the-menu', 'safe'] as $key): ?>
         <?php if ($counts[$key] === 0) { continue; } ?>
         <span class="bar-seg v-<?= h($key) ?>" style="flex: <?= (int)$counts[$key] ?>"
-              title="<?= h($counts[$key] . ' ' . VERDICTS[$key]['label']) ?>"></span>
+              title="<?= h($counts[$key] . ' ' . verdict_meta($key)['label']) ?>"></span>
       <?php endforeach; ?>
     </div>
     <ul class="legend">
       <?php foreach (['shrinking', 'on-the-menu', 'safe'] as $key): ?>
-        <li class="v-<?= h($key) ?>"><b><?= (int)$counts[$key] ?></b> <?= h(mb_strtolower(VERDICTS[$key]['label'])) ?></li>
+        <li class="v-<?= h($key) ?>"><b><?= (int)$counts[$key] ?></b> <?= h(mb_strtolower(verdict_meta($key)['label'])) ?></li>
       <?php endforeach; ?>
       <li class="legend-total"><b><?= $total ?></b> total</li>
       <li class="legend-link"><a href="/landscape">See the timeline &rarr;</a></li>
@@ -132,7 +132,7 @@ require __DIR__ . '/inc/header.php';
           <span class="facet-name">All</span>
           <span class="facet-n" data-count-verdict="all"><?= $total ?></span>
         </button>
-        <?php foreach (VERDICTS as $key => $meta): ?>
+        <?php foreach (array_keys(VERDICTS) as $key): $meta = verdict_meta($key); ?>
           <button class="facet v-<?= h($key) ?>" type="button" data-filter="<?= h($key) ?>" aria-pressed="false">
             <span class="facet-dot"></span>
             <span class="facet-name"><?= h(mb_strtolower($meta['label'])) ?></span>

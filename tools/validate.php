@@ -50,7 +50,7 @@ foreach (glob(JOBS_DIR . '/*/common.json') ?: [] as $commonPath) {
     if (($common['id'] ?? null) !== $id) {
         $errors[] = "$id/common.json: 'id' dizin adiyla uyusmuyor";
     }
-    if (!isset(CATEGORIES[$common['category'] ?? ''])) {
+    if (!in_array($common['category'] ?? '', CATEGORY_KEYS, true)) {
         $errors[] = "$id/common.json: bilinmeyen kategori '" . ($common['category'] ?? '') . "'";
     }
     $order = (array)($common['taskOrder'] ?? []);
@@ -152,7 +152,7 @@ foreach (glob(JOBS_DIR . '/*/common.json') ?: [] as $commonPath) {
                 $errors[] = "$where: '$tid' gecersiz gorev verdict override'i";
             }
             foreach ((array)($task['tags'] ?? []) as $tag) {
-                if (!isset(RESISTANCE_TAGS[$tag])) {
+                if (!in_array($tag, RESISTANCE_KEYS, true)) {
                     $errors[] = "$where: bilinmeyen direnc tag'i '$tag'";
                 }
             }
