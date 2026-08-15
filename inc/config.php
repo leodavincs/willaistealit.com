@@ -24,7 +24,7 @@ defined('CONTACT_EMAIL') || define('CONTACT_EMAIL', '');
 // engelleyen sey bu sabit degil, header.php'deki is_live_host() kontrolu.
 // Bos birakilirsa script hic basilmaz.
 const MATOMO_URL     = 'https://stats.willaistealit.com/';
-const MATOMO_SITE_ID = '';
+const MATOMO_SITE_ID = '1';
 const ROOT        = __DIR__ . '/..';
 const JOBS_DIR    = ROOT . '/data/jobs';
 const CACHE_DIR   = ROOT . '/cache';
