@@ -7,16 +7,16 @@
 declare(strict_types=1);
 require_once __DIR__ . '/inc/functions.php';
 
-$pageTitle     = 'Not available in this language yet — ' . SITE_NAME;
-$pageDesc      = 'This entry has not been published in this language yet.';
+$L             = lang_for($lang);
+$pageTitle     = $L->t('page.unavailable.title') . ' — ' . SITE_NAME;
+$pageDesc      = $L->t('page.unavailable.desc');
 $pageCanonical = false;   // var olmayan URL kendini canonical gosteremez
 $pageNoindex   = true;
 require __DIR__ . '/inc/header.php';
 ?>
 <div class="wrap notfound">
-  <h1>Not available in this language yet</h1>
-  <p>This entry exists, but it has not been written in this language. Read it in English,
-  or open a PR to add the translation.</p>
-  <p><a class="btn" href="/">Browse every verdict</a></p>
+  <h1><?= h($L->t('page.unavailable.title')) ?></h1>
+  <p><?= h($L->t('page.unavailable.text')) ?></p>
+  <p><a class="btn" href="<?= h(path_for($lang, 'home', '', load_routes())) ?>"><?= h($L->t('page.404.cta')) ?></a></p>
 </div>
 <?php require __DIR__ . '/inc/footer.php';

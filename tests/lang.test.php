@@ -295,3 +295,32 @@ t_eq('/og/cashier.png',    path_for('en', 'og', 'cashier', $routes),      'EN OG
 // url_for MUTLAK kalir — canonical, OG ve JSON-LD onu kullanir
 t_eq('https://willaistealit.com' . path_for('en', 'job', 'cashier', $routes),
      url_for('en', 'job', 'cashier', $routes), 'url_for = SITE_URL + path_for');
+
+// ═══════════ Editoryal ceviri kuyrugu (Faz 3F) ═══════════
+// Liste STATIK DEGIL, tablolardan hesaplanir — koddan ayrisamaz.
+t_eq([], locale_pending(DEFAULT_LANG), 'kaynak dilde bekleyen editoryal anahtar olamaz');
+t_eq(true, editorial_namespaces() !== [], 'editoryal on ek listesi bos olamaz');
+
+// Her bekleyen anahtar GERCEKTEN kaynak dilde var ve hedef dilde yok
+foreach (['tr', 'es'] as $lang) {
+    $pending = locale_pending($lang);
+    $src     = locale_table(DEFAULT_LANG);
+    $dst     = locale_table($lang);
+    foreach ($pending as $k) {
+        t_eq(true, isset($src[$k]),  "$lang: bekleyen '$k' kaynak dilde var");
+        t_eq(false, isset($dst[$k]), "$lang: bekleyen '$k' hedef dilde yok");
+        t_eq(true, is_editorial_key($k), "$lang: bekleyen '$k' editoryal on ekte");
+    }
+    // Editoryal olmayan hicbir anahtar eksik kalmamali: arayuz metni TAM cevrilmis olmali
+    $missingUi = array_values(array_filter(
+        array_keys($src),
+        static fn (string $k): bool => !isset($dst[$k]) && !is_editorial_key($k)
+    ));
+    t_eq([], $missingUi, "$lang: editoryal olmayan tum anahtarlar cevrilmis");
+}
+
+// Bir dil aktive edilmeden once kuyrugu sifir olmali — validator bunu blocker yapiyor
+$activeNow = load_routes()['activeLangs'] ?? [];
+foreach ($activeNow as $lang) {
+    t_eq([], locale_pending($lang), "aktif dil '$lang' bekleyen editoryal anahtar tasiyamaz");
+}

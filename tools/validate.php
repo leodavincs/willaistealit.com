@@ -238,6 +238,25 @@ foreach (glob(JOBS_DIR . '/*/common.json') ?: [] as $commonPath) {
     }
 }
 
+// --- Editoryal ceviri blocker'i (Faz 3F) ---
+// Bir dil AKTIF ise o dilde bekleyen editoryal anahtar KALMAMALI. Aktif olmayan
+// dillerde yalnizca bilgi amacli uyari — lansmandan once kapanmasi gereken is.
+$active = load_routes()['activeLangs'] ?? [DEFAULT_LANG];
+foreach (LANGS as $lang) {
+    $pending = locale_pending($lang);
+    if ($pending === []) {
+        continue;
+    }
+    $n = count($pending);
+    if (in_array($lang, $active, true)) {
+        $errors[] = "locale/$lang: $n editoryal anahtar cevrilmemis — bu dil AKTIF, "
+                  . "lansman blocker'i (ilk: " . implode(', ', array_slice($pending, 0, 3)) . ')';
+    } else {
+        $warnings[] = "locale/$lang: $n editoryal anahtar cevrilmeyi bekliyor — "
+                    . "bu dil aktive edilmeden once sifirlanmali";
+    }
+}
+
 // --- changelog tutarliligi ---
 $log = load_changelog();
 foreach ($log as $i => $e) {

@@ -3,13 +3,15 @@ declare(strict_types=1);
 require_once __DIR__ . '/inc/functions.php';
 
 http_response_code(404);
-$pageTitle = 'Not found — ' . SITE_NAME;
-$pageDesc  = 'No verdict at this address yet.';
+$lang      = $lang ?? DEFAULT_LANG;
+$L         = lang_for($lang);
+$pageTitle = $L->t('page.404.title') . ' — ' . SITE_NAME;
+$pageDesc  = $L->t('page.404.desc');
 require __DIR__ . '/inc/header.php';
 ?>
 <div class="wrap notfound">
-  <h1>404</h1>
-  <p>No verdict at this address. Either the job does not exist here yet — or it already got stolen.</p>
-  <p><a class="btn" href="/">Browse every verdict</a></p>
+  <h1><?= h($L->t('page.404.h1')) ?></h1>
+  <p><?= h($L->t('page.404.text')) ?></p>
+  <p><a class="btn" href="<?= h(path_for($lang, 'home', '', load_routes())) ?>"><?= h($L->t('page.404.cta')) ?></a></p>
 </div>
 <?php require __DIR__ . '/inc/footer.php';

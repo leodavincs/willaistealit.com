@@ -6,14 +6,17 @@ require_once __DIR__ . '/inc/functions.php';
 $log  = load_changelog();
 $jobs = load_all_jobs();
 
-$pageTitle     = 'Verdict changelog — ' . SITE_NAME;
-$pageDesc      = 'Every verdict change on willaistealit.com, dated, with the reason it moved. A site that quietly rewrites its own predictions is not worth reading.';
+$lang          = $lang ?? DEFAULT_LANG;
+$L             = lang_for($lang);
+$routes        = load_routes();
+$pageTitle     = $L->t('page.changelog.title') . ' — ' . SITE_NAME;
+$pageDesc      = $L->t('page.changelog.desc');
 $pageCanonical = SITE_URL . '/changelog';
 $pageOg        = SITE_URL . '/og/home.png';
 $pageJsonLd    = [
     '@context'        => 'https://schema.org',
     '@type'           => 'ItemList',
-    'name'            => 'Verdict changelog',
+    'name'            => $L->t('page.changelog.title'),
     'description'     => $pageDesc,
     'url'             => $pageCanonical,
     'numberOfItems'   => count($log),
@@ -32,13 +35,13 @@ require __DIR__ . '/inc/header.php';
 
 <div class="wrap">
   <header class="page-head">
-    <h1>Verdict changelog</h1>
-    <p class="lede">Every verdict that moved, when it moved, and why. A site that quietly rewrites its own predictions is not worth reading.</p>
+    <h1><?= h($L->t('page.changelog.title')) ?></h1>
+    <p class="lede"><?= h($L->t('page.changelog.lede')) ?></p>
   </header>
 
   <div style="padding-top:24px">
     <?php if (!$log): ?>
-      <p class="prose">Nothing has moved yet. When a model launch or a regulation actually changes a task breakdown, it gets recorded here.</p>
+      <p class="prose"><?= h($L->t('page.changelog.empty')) ?></p>
     <?php else: ?>
       <div class="log">
         <?php foreach ($log as $e): ?>
@@ -76,8 +79,8 @@ require __DIR__ . '/inc/header.php';
     <?php endif; ?>
 
     <div class="disagree" style="margin-top:34px">
-      <h2>How a verdict moves</h2>
-      <p>Not because the news was loud. A verdict changes when a specific task in the breakdown actually changes state — a tool ships that does it, or a regulator decides who may. The task moves first, the headline follows. <a href="/methodology">The full rules are here.</a></p>
+      <h2><?= h($L->t('page.changelog.how')) ?></h2>
+      <p><?= h($L->t('page.changelog.howText')) ?> <a href="<?= h(path_for($lang, 'page', 'methodology', $routes)) ?>"><?= h($L->t('page.changelog.rules')) ?></a></p>
     </div>
   </div>
 </div>
