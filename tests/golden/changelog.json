@@ -7,6 +7,28 @@
     "canonical": "https://willaistealit.com/changelog",
     "robots": null,
     "h1": "Verdict changelog",
+    "h2": [
+        "How a verdict moves"
+    ],
+    "h3": [
+        "<a href=\"/cashier\">Cashier</a>",
+        "<a href=\"/administrative-assistant\">Administrative Assistant</a>",
+        "<a href=\"/accountant\">Accountant</a>",
+        "<a href=\"/copywriter\">Copywriter</a>",
+        "<a href=\"/customer-support\">Customer Support Agent</a>",
+        "<a href=\"/data-analyst\">Data Analyst</a>",
+        "<a href=\"/graphic-designer\">Graphic Designer</a>",
+        "<a href=\"/lawyer\">Lawyer</a>",
+        "<a href=\"/marketer\">Marketer</a>",
+        "<a href=\"/nurse\">Nurse</a>",
+        "<a href=\"/photographer\">Photographer</a>",
+        "<a href=\"/recruiter\">Recruiter</a>",
+        "<a href=\"/software-developer\">Software Developer</a>",
+        "<a href=\"/teacher\">Teacher</a>",
+        "<a href=\"/translator\">Translator</a>",
+        "<a href=\"/truck-driver\">Truck Driver</a>",
+        "<a href=\"/video-editor\">Video Editor</a>"
+    ],
     "verdictLabel": null,
     "taskCount": 0,
     "tasks": [],

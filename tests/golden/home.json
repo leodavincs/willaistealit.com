@@ -7,6 +7,12 @@
     "canonical": "https://willaistealit.com/",
     "robots": null,
     "h1": "Will AI steal it?",
+    "h2": [
+        "Verdict distribution",
+        "Verdict",
+        "Category"
+    ],
+    "h3": [],
     "verdictLabel": null,
     "taskCount": 0,
     "tasks": [],

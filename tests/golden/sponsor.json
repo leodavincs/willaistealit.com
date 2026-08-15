@@ -7,6 +7,14 @@
     "canonical": "https://willaistealit.com/sponsor",
     "robots": null,
     "h1": "Sponsor",
+    "h2": [
+        "The rule that comes first",
+        "Who this fits",
+        "How it will work",
+        "Where it stands today",
+        "Get first refusal"
+    ],
+    "h3": [],
     "verdictLabel": null,
     "taskCount": 0,
     "tasks": [],
