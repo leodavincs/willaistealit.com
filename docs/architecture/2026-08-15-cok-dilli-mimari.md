@@ -269,10 +269,29 @@ dosyasında tanımlanır ve başka dile sızmaz.
 
 Kural iki kelimeyle: **yargı devralınır, düzyazı devralınmaz.**
 
-### 3.1 Devralınanlar
+### 3.1 Sahiplik ve devralma
 
-`assessmentScope: "global"` olduğunda şunlar `assessmentSourceLocale`'deki dosyadan
-(v1'de `en.json`) devralınır ve yerel dosyaya **yazılmaz**:
+İki ayrı eksen var ve karıştırılmamalıdır:
+
+> **Sahiplik.** Bir dosya, `assessmentSourceLocale` kendi diline eşitse yargının
+> **sahibidir**. Kaynak dosya yargı alanlarını **taşır**; kaynak olmayan dosya
+> **taşımaz**, devralır.
+>
+> **Kapsam.** `assessmentScope` yargının *global* mi yoksa *yerel* mi olduğunu
+> söyler — pazara özgü olup olmadığını. Yerel kapsam §7.1'deki kaynak standardına tabidir.
+
+Bu ayrım olmadan `en.json` çelişkiye düşerdi: kapsamı `global`'dir ama yargının
+kaynağı odur ve alanları yazmak zorundadır. Faz 2 sonrası tablo:
+
+| Dosya | `assessmentScope` | `assessmentSourceLocale` | Sahip mi | Yargı alanları |
+|---|---|---|---|---|
+| `en.json` | `global` | `en` | evet | **var** |
+| `tr.json` (v1) | `global` | `en` | hayır | **yok** |
+| `es.json` (v1) | `global` | `en` | hayır | **yok** |
+| `tr.json` (yerel araştırma sonrası) | `local` | `tr` | evet | **var** + kendi `sources` |
+
+Kaynak **olmayan** bir dosyada şunlar `assessmentSourceLocale`'deki dosyadan
+devralınır ve yerel dosyaya **yazılmaz**:
 
 ```
 verdict · safeUntil · resistanceTags · sources · evidenceStrength
@@ -323,7 +342,9 @@ ve iş piyasasıdır.
 | `assessmentReviewed` | Yargının en son incelendiği tarih | **Kullanıcıya bu gösterilir** |
 | `translationReviewed` | Yerel metnin en son yazıldığı/gözden geçirildiği tarih | Editoryal takip + validator |
 
-`global` scope'ta `assessmentReviewed` yazılmaz, devralınır. `local` scope'ta zorunludur.
+Kaynak **olmayan** dosyada `assessmentReviewed` yazılmaz, devralınır; kaynak dosyada
+zorunludur. `translationReviewed` kaynak olmayan dosyalarda zorunlu, kaynak dosyada
+isteğe bağlıdır (kaynakta çeviri yoktur; yazılmazsa `assessmentReviewed`'a eşit sayılır).
 
 **Tarih biçimi:** `YYYY-MM-DD` tercih edilir. Mevcut `YYYY-MM` verileri geriye
 uyumluluk için ayın ilk günü sayılır. Yeni girişler tam tarih yazmalıdır.
