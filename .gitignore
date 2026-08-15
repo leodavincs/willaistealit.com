@@ -6,3 +6,10 @@ cache/index.json
 .DS_Store
 *.log
 data/waitlist.jsonl
+
+# Calisma dosyalari — public_html'e gitmemeli.
+# docs/memory/ BILEREK disarida: editoryal kurallar acik kaynak katkicinin
+# PR'dan once okumasi gereken sey. Ticari strateji asla repoya girmez.
+docs/superpowers/
+research/
+willaisteal-plan.md
