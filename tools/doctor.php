@@ -76,6 +76,23 @@ foreach ([CACHE_DIR, PAGES_DIR, OG_DIR] as $dir) {
     }
 }
 
+echo "\nFontlar\n";
+require_once ROOT . '/inc/ttf.php';
+$required = ttf_required_codepoints();
+foreach (['Fraunces' => FONT_BOLD, 'Newsreader' => FONT_REG] as $name => $file) {
+    if (!is_file($file)) {
+        $check(false, "$name bulundu", $file);
+        continue;
+    }
+    $missing = ttf_missing_codepoints($file, $required);
+    // Eksik code point'ler TEK TEK listelenir (spec 9.1).
+    $detail = '';
+    foreach ($missing as $cp) {
+        $detail .= sprintf('U+%04X (%s) ', $cp, mb_chr($cp, 'UTF-8'));
+    }
+    $check($missing === [], "$name TR+ES kapsami", 'eksik: ' . trim($detail));
+}
+
 echo "\n";
 if ($fail > 0) {
     echo "$fail kritik hata, $warn uyari\n";
