@@ -58,3 +58,24 @@ php tools/build-index.php     # refresh index, clear stale caches
 
 Then push. Caches also self-invalidate on file timestamps, so a missed build is not fatal —
 it just means the first visitor pays for the render.
+
+## Matomo (stats.willaistealit.com)
+
+Matomo `public_html/stats_matomo/` altinda duruyor. Hostinger bu planda subdomain
+kokunu `public_html` disina almaya izin vermiyor — API sadece duz bir dizin adi
+kabul ediyor, `../` reddediliyor.
+
+Bunun iki sonucu var ve ikisi de ele alinmis durumda:
+
+1. **Apex'ten erisim kapali.** `stats_matomo/.htaccess` icindeki host kontrolu
+   yalnizca `stats.willaistealit.com` host'unu geciriyor; `willaistealit.com/stats_matomo/`
+   404 dönüyor. Bu dosya Matomo guncellemesinde kaybolabilir — **guncelleme sonrasi
+   `curl -o /dev/null -w '%{http_code}' https://willaistealit.com/stats_matomo/`
+   calistir, 404 gelmiyorsa .htaccess'i geri koy.**
+
+2. **Git deploy riski.** `stats_matomo/` repo'da takipli degil, dolayisiyla `git pull`
+   onu silmez. Yine de ilk deploy'dan sonra `https://stats.willaistealit.com/` acilip
+   kontrol edilmeli. Kaybolursa panik yok: Matomo'nun verisi MySQL'de
+   (`u359064650_matomo`), dosyalar yeniden yuklenip ayni veritabanina baglanir.
+
+Veritabani: `u359064650_matomo`, plan limiti 3 GB.

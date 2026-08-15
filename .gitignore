@@ -17,3 +17,7 @@ willaisteal-plan.md
 
 # Ortama ozel ayarlar (BUILD_KEY vb.) — repoya girmez
 inc/config.local.php
+
+# Matomo public_html/stats_matomo/ altinda yasiyor (Hostinger subdomain kokunu
+# disari almiyor). Repo'ya girmemeli: 13k dosya, ve deploy'da ustune yazilmamali.
+stats_matomo/
