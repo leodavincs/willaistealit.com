@@ -60,7 +60,7 @@ require __DIR__ . '/inc/header.php';
     </table>
     <p><?= $L->t('methodology.tags.note') ?></p>
 
-    <h2><?= h($L->t('methodology.until.h')) ?></h2>
+    <h2><?= $L->t('methodology.until.h') ?></h2>
     <p><?= $L->t('methodology.until.p1') ?></p>
     <p><?= $L->t('methodology.until.p2') ?></p>
     <p><?= $L->t('methodology.until.p3') ?></p>
