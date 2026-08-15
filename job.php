@@ -28,19 +28,25 @@ $v        = verdict_meta($job['verdict'] ?? '');
 $vClass   = 'v-' . ($job['verdict'] ?? 'shrinking');
 $title    = (string)($job['title'] ?? $slug);
 $oneLiner = (string)($job['oneLiner'] ?? '');
-$evidence = evidence_note($job);
+$evidence = evidence_note($job, $lang);
+$L        = lang_for($lang);
+$routes   = load_routes();
 
-$geoAnswer = geo_answer($job);
-$reviewed  = pretty_month((string)($job['lastReviewed'] ?? ''));
-$faq       = faq_pairs($job);
+$geoAnswer = geo_answer($job, $lang);
+$reviewed  = pretty_month((string)($job['lastReviewed'] ?? ''), $lang);
+$faq       = faq_pairs($job, $lang);
 $related   = related_jobs($job);
 
 // Baslikta "replace" — arama hacmi orada. "Steal" markanin kendisinde kaliyor.
-$pageTitle     = sprintf('Will AI replace %ss? — %s %s', strtolower($title), $v['dot'], $v['label']);
+$pageTitle     = $L->t('job.pageTitle', mb_strtolower($title), $v['dot'], $v['label']);
 $pageDesc      = $oneLiner !== '' ? $oneLiner : $v['blurb'];
-$pageCanonical = job_url($slug);
-$pageOg        = og_url($slug);
+$pageCanonical = job_url($slug, $lang);
+$pageOg        = og_url($slug, $lang);
 $modified      = ($job['lastReviewed'] ?? '') !== '' ? (string)$job['lastReviewed'] . '-01' : null;
+
+// Breadcrumb ogesi kaynak kimligidir; kok adres mevcut ciktida egik cizgisiz
+// yaziliyor. rtrim ile tek kaynagi (url_for) koruyup bicimi ayni tutuyoruz.
+$homeUrl = rtrim(url_for($lang, 'home', '', $routes), '/');
 
 $pageJsonLd = [
     [
@@ -54,7 +60,7 @@ $pageJsonLd = [
             '@type'       => 'Occupation',
             'name'        => $title,
             'description' => $oneLiner,
-            'occupationalCategory' => category_label($job['category'] ?? ''),
+            'occupationalCategory' => category_label($job['category'] ?? '', $lang),
             'skills'      => implode(', ', array_map(
                 static fn ($t) => str_replace('-', ' ', (string)$t),
                 (array)($job['resistanceTags'] ?? [])
@@ -77,8 +83,8 @@ $pageJsonLd = [
         '@context'        => 'https://schema.org',
         '@type'           => 'BreadcrumbList',
         'itemListElement' => [
-            ['@type' => 'ListItem', 'position' => 1, 'name' => 'All jobs', 'item' => SITE_URL],
-            ['@type' => 'ListItem', 'position' => 2, 'name' => category_label($job['category'] ?? ''), 'item' => SITE_URL . '/?q=' . rawurlencode(category_label($job['category'] ?? ''))],
+            ['@type' => 'ListItem', 'position' => 1, 'name' => $L->t('job.allJobs'), 'item' => $homeUrl],
+            ['@type' => 'ListItem', 'position' => 2, 'name' => category_label($job['category'] ?? '', $lang), 'item' => $homeUrl . '/?q=' . rawurlencode(category_label($job['category'] ?? ''))],
             ['@type' => 'ListItem', 'position' => 3, 'name' => $title, 'item' => $pageCanonical],
         ],
     ],
@@ -93,17 +99,17 @@ require __DIR__ . '/inc/header.php';
 
   <header class="job-head">
     <div class="wrap">
-      <p class="crumbs"><a href="/">All jobs</a> &nbsp;/&nbsp; <?= h(category_label($job['category'] ?? '')) ?></p>
+      <p class="crumbs"><a href="<?= h(path_for($lang, 'home', '', $routes)) ?>"><?= h($L->t('job.allJobs')) ?></a> &nbsp;/&nbsp; <?= h(category_label($job['category'] ?? '', $lang)) ?></p>
 
-      <h1 class="job-title">Will AI replace <?= h($title) ?>s?</h1>
+      <h1 class="job-title"><?= h($L->t('job.h1', $title)) ?></h1>
       <p class="job-title-tr">
-        <?php if ($reviewed !== ''): ?>Last reviewed: <time datetime="<?= h((string)$job['lastReviewed']) ?>"><?= h($reviewed) ?></time><?php endif; ?>
+        <?php if ($reviewed !== ''): ?><?= h($L->t('job.lastReviewed')) ?> <time datetime="<?= h((string)$job['lastReviewed']) ?>"><?= h($reviewed) ?></time><?php endif; ?>
       </p>
 
       <div class="verdict-row">
         <span class="badge badge-lg"><?= h($v['label']) ?></span>
         <?php if (!empty($job['safeUntil'])): ?>
-          <span class="safe-until">safe until <strong>~<?= h((string)$job['safeUntil']) ?></strong></span>
+          <span class="safe-until"><?= h($L->t('job.safeUntilLabel')) ?> <strong>~<?= h((string)$job['safeUntil']) ?></strong></span>
         <?php endif; ?>
       </div>
 
@@ -124,7 +130,7 @@ require __DIR__ . '/inc/header.php';
   <?php if (!empty($job['summary'])): ?>
   <section class="block">
     <div class="wrap">
-      <div class="block-head"><h2 class="block-title">The longer version</h2></div>
+      <div class="block-head"><h2 class="block-title"><?= h($L->t('job.longerVersion')) ?></h2></div>
       <div class="prose"><p><?= nl2br(h((string)$job['summary'])) ?></p></div>
     </div>
   </section>
@@ -133,12 +139,12 @@ require __DIR__ . '/inc/header.php';
   <section class="block">
     <div class="wrap">
       <div class="block-head">
-        <h2 class="block-title">Task breakdown</h2>
-        <p class="block-note">A verdict on a whole job is a slogan. This is where the argument lives.</p>
+        <h2 class="block-title"><?= h($L->t('job.taskBreakdown')) ?></h2>
+        <p class="block-note"><?= h($L->t('job.taskBreakdown.note')) ?></p>
       </div>
       <div class="tasks">
         <?php foreach (($job['tasks'] ?? []) as $task): ?>
-          <?php $tv = task_verdict_meta($task['verdict'] ?? ''); ?>
+          <?php $tv = task_verdict_meta($task['verdict'] ?? '', $lang); ?>
           <div class="task v-<?= h(($task['verdict'] ?? '') === 'gone' ? 'on-the-menu' : (($task['verdict'] ?? '') === 'safe' ? 'safe' : 'shrinking')) ?>">
             <span class="task-name"><?= h((string)($task['name'] ?? '')) ?></span>
             <span class="pill"><?= h($tv['label']) ?></span>
@@ -148,7 +154,7 @@ require __DIR__ . '/inc/header.php';
             <?php if (!empty($task['tags'])): ?>
               <div class="task-tags">
                 <?php foreach ($task['tags'] as $tag): ?>
-                  <span class="tag" title="<?= h(tag_definition((string)$tag)) ?>"><?= h((string)$tag) ?></span>
+                  <span class="tag" title="<?= h(tag_definition((string)$tag, $lang)) ?>"><?= h((string)$tag) ?></span>
                 <?php endforeach; ?>
               </div>
             <?php endif; ?>
@@ -162,14 +168,14 @@ require __DIR__ . '/inc/header.php';
   <section class="block">
     <div class="wrap">
       <div class="block-head">
-        <h2 class="block-title">Why the rest resists</h2>
-        <p class="block-note"><a href="/methodology">How we decide &rarr;</a></p>
+        <h2 class="block-title"><?= h($L->t('job.resists')) ?></h2>
+        <p class="block-note"><a href="<?= h(path_for($lang, 'page', 'methodology', $routes)) ?>"><?= h($L->t('job.howWeDecide')) ?> &rarr;</a></p>
       </div>
       <div class="moat">
         <?php foreach ($job['resistanceTags'] as $tag): ?>
           <div class="moat-item">
             <span class="moat-key"><?= h((string)$tag) ?></span>
-            <span class="moat-def"><?= h(tag_definition((string)$tag)) ?></span>
+            <span class="moat-def"><?= h(tag_definition((string)$tag, $lang)) ?></span>
           </div>
         <?php endforeach; ?>
       </div>
@@ -184,13 +190,13 @@ require __DIR__ . '/inc/header.php';
   <section class="block" id="adapt">
     <div class="wrap">
       <div class="block-head">
-        <h2 class="block-title">Use it before it uses you</h2>
-        <p class="block-note">Paste this into Claude or ChatGPT and start today.</p>
+        <h2 class="block-title"><?= h($L->t('job.adapt.title')) ?></h2>
+        <p class="block-note"><?= h($L->t('job.adapt.note')) ?></p>
       </div>
       <div class="artifact">
         <div class="artifact-bar">
-          <span class="artifact-label">adapt prompt &middot; <?= h($slug) ?></span>
-          <button class="btn" type="button" data-copy="#adapt-prompt" data-event="prompt_copy">Copy prompt</button>
+          <span class="artifact-label"><?= h($L->t('job.adapt.label')) ?> &middot; <?= h($slug) ?></span>
+          <button class="btn" type="button" data-copy="#adapt-prompt" data-event="prompt_copy"><?= h($L->t('job.adapt.copy')) ?></button>
         </div>
         <pre id="adapt-prompt"><?= h((string)$job['adaptPrompt']) ?></pre>
       </div>
@@ -207,23 +213,23 @@ require __DIR__ . '/inc/header.php';
 
   <section class="block">
     <div class="wrap">
-      <div class="block-head"><h2 class="block-title">Share the verdict</h2></div>
+      <div class="block-head"><h2 class="block-title"><?= h($L->t('job.share.title')) ?></h2></div>
       <div class="share-grid">
         <div class="card">
           <p class="card-job"><?= h(strtoupper($title)) ?></p>
           <p class="card-verdict"><?= h($v['label']) ?></p>
           <?php if (!empty($job['safeUntil'])): ?>
-            <p class="card-until">safe until ~<?= h((string)$job['safeUntil']) ?></p>
+            <p class="card-until"><?= h($L->t('job.share.until', (string)$job['safeUntil'])) ?></p>
           <?php endif; ?>
-          <p class="card-survives"><b>What survives:</b> <?= h(implode(', ', (array)($job['resistanceTags'] ?? []))) ?></p>
+          <p class="card-survives"><b><?= h($L->t('job.share.survives')) ?></b> <?= h(implode(', ', (array)($job['resistanceTags'] ?? []))) ?></p>
           <p class="card-url">willaistealit.com/<?= h($slug) ?></p>
         </div>
         <div class="share-actions">
-          <a class="btn" href="https://x.com/intent/tweet?text=<?= rawurlencode(share_text($job)) ?>"
-             target="_blank" rel="noopener" data-event="share_x">Post on X</a>
-          <button class="btn btn-ghost" type="button" data-copy-text="<?= h(job_url($slug)) ?>" data-event="share_copy">Copy link</button>
-          <a class="btn btn-ghost" href="<?= h(og_url($slug)) ?>" target="_blank" rel="noopener">Open share image</a>
-          <p class="share-hint">The image above is generated for this page and shows up automatically when you paste the link.</p>
+          <a class="btn" href="https://x.com/intent/tweet?text=<?= rawurlencode(share_text($job, $lang)) ?>"
+             target="_blank" rel="noopener" data-event="share_x"><?= h($L->t('job.share.postX')) ?></a>
+          <button class="btn btn-ghost" type="button" data-copy-text="<?= h(job_url($slug, $lang)) ?>" data-event="share_copy"><?= h($L->t('job.share.copyLink')) ?></button>
+          <a class="btn btn-ghost" href="<?= h(og_url($slug, $lang)) ?>" target="_blank" rel="noopener"><?= h($L->t('job.share.openImage')) ?></a>
+          <p class="share-hint"><?= h($L->t('job.share.hint')) ?></p>
         </div>
       </div>
     </div>
@@ -231,36 +237,36 @@ require __DIR__ . '/inc/header.php';
 
   <section class="block">
     <div class="wrap">
-      <div class="block-head"><h2 class="block-title">Receipts</h2></div>
+      <div class="block-head"><h2 class="block-title"><?= h($L->t('job.receipts')) ?></h2></div>
       <div class="meta-grid">
         <div class="meta-cell">
-          <div class="meta-k">Verdict</div>
+          <div class="meta-k"><?= h($L->t('job.meta.verdict')) ?></div>
           <div class="meta-v"><?= h($v['label']) ?></div>
         </div>
         <div class="meta-cell">
-          <div class="meta-k">Category</div>
-          <div class="meta-v"><?= h(category_label($job['category'] ?? '')) ?></div>
+          <div class="meta-k"><?= h($L->t('job.meta.category')) ?></div>
+          <div class="meta-v"><?= h(category_label($job['category'] ?? '', $lang)) ?></div>
         </div>
         <?php if (!empty($job['safeUntil'])): ?>
         <div class="meta-cell">
-          <div class="meta-k">Safe until</div>
+          <div class="meta-k"><?= h($L->t('job.meta.safeUntil')) ?></div>
           <div class="meta-v">~<?= h((string)$job['safeUntil']) ?></div>
         </div>
         <?php endif; ?>
         <?php if (!empty($job['evidenceStrength'])): ?>
         <div class="meta-cell">
-          <div class="meta-k">Evidence</div>
+          <div class="meta-k"><?= h($L->t('job.meta.evidence')) ?></div>
           <div class="meta-v"><?= h((string)$job['evidenceStrength']) ?></div>
         </div>
         <?php endif; ?>
         <div class="meta-cell">
-          <div class="meta-k">Last reviewed</div>
-          <div class="meta-v"><?= h((string)($job['lastReviewed'] ?? 'unknown')) ?></div>
+          <div class="meta-k"><?= h($L->t('job.meta.lastReviewed')) ?></div>
+          <div class="meta-v"><?= h((string)($job['lastReviewed'] ?? $L->t('job.meta.unknown'))) ?></div>
         </div>
       </div>
 
       <?php if (!empty($job['sources'])): ?>
-        <div class="block-head" style="margin-top:24px"><h2 class="block-title">Sources</h2></div>
+        <div class="block-head" style="margin-top:24px"><h2 class="block-title"><?= h($L->t('job.sources')) ?></h2></div>
         <ul class="src-list">
           <?php foreach ($job['sources'] as $src): ?>
             <li><a href="<?= h((string)$src) ?>" rel="noopener nofollow" target="_blank"><?= h((string)$src) ?></a></li>
@@ -269,7 +275,7 @@ require __DIR__ . '/inc/header.php';
       <?php endif; ?>
 
       <?php if ($faq): ?>
-        <div class="block-head" style="margin-top:34px"><h2 class="block-title">Straight answers</h2></div>
+        <div class="block-head" style="margin-top:34px"><h2 class="block-title"><?= h($L->t('job.faq')) ?></h2></div>
         <div class="faq">
           <?php foreach ($faq as $pair): ?>
             <details class="faq-item">
@@ -281,9 +287,9 @@ require __DIR__ . '/inc/header.php';
       <?php endif; ?>
 
       <div class="disagree">
-        <h2>Think this verdict is wrong?</h2>
-        <p>Good — that is the point. Every entry is one JSON file. Change it, argue in the PR, and if the argument holds the verdict changes.
-        <?php if (has_github()): ?><a href="<?= h(github_url('/blob/main/data/jobs/' . $slug . '/' . $lang . '.json')) ?>" rel="noopener" target="_blank">Edit this entry</a> &middot; <?php endif; ?><a href="/methodology">Read the methodology</a></p>
+        <h2><?= h($L->t('job.disagree.title')) ?></h2>
+        <p><?= h($L->t('job.disagree.text')) ?>
+        <?php if (has_github()): ?><a href="<?= h(github_url('/blob/main/data/jobs/' . $slug . '/' . $lang . '.json')) ?>" rel="noopener" target="_blank"><?= h($L->t('job.disagree.edit')) ?></a> &middot; <?php endif; ?><a href="<?= h(path_for($lang, 'page', 'methodology', $routes)) ?>"><?= h($L->t('job.disagree.method')) ?></a></p>
       </div>
     </div>
   </section>
@@ -292,14 +298,14 @@ require __DIR__ . '/inc/header.php';
   <section class="block">
     <div class="wrap">
       <div class="block-head">
-        <h2 class="block-title">Jobs on the same fault line</h2>
-        <p class="block-note">Same category, or the same reason for surviving.</p>
+        <h2 class="block-title"><?= h($L->t('job.related.title')) ?></h2>
+        <p class="block-note"><?= h($L->t('job.related.note')) ?></p>
       </div>
       <div class="job-grid">
         <?php foreach ($related as $rSlug => $rJob): ?>
-          <?php $rv = verdict_meta($rJob['verdict'] ?? ''); ?>
-          <a class="job-card v-<?= h((string)($rJob['verdict'] ?? 'shrinking')) ?>" href="/<?= h((string)$rSlug) ?>">
-            <h3>Will AI replace <?= h((string)($rJob['title'] ?? $rSlug)) ?>s?</h3>
+          <?php $rv = verdict_meta($rJob['verdict'] ?? '', $lang); ?>
+          <a class="job-card v-<?= h((string)($rJob['verdict'] ?? 'shrinking')) ?>" href="<?= h(path_for($lang, 'job', (string)$rSlug, $routes)) ?>">
+            <h3><?= h($L->t('job.h1', (string)($rJob['title'] ?? $rSlug))) ?></h3>
             <span class="jc-verdict"><?= h($rv['label']) ?><?= !empty($rJob['safeUntil']) ? ' &middot; ~' . h((string)$rJob['safeUntil']) : '' ?></span>
             <p><?= h((string)($rJob['oneLiner'] ?? '')) ?></p>
           </a>
