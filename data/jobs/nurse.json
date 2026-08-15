@@ -4,8 +4,8 @@
     "titleTr": "Hemşire",
     "category": "health",
     "verdict": "safe",
-    "oneLiner": "Every part of this job that a machine could take was paperwork, and there is a lot of it.",
-    "summary": "Nursing sits behind three walls at once — you must be physically present, you must be licensed, and someone must be legally accountable for a patient's care. There is also a global shortage, which means the economic pressure runs toward keeping nurses rather than replacing them. What AI genuinely changes is the documentation burden that consumes a large share of every shift and drives people out of the profession. Charting, handover notes, care-plan drafting and coding are real hours that can go back to patients. The honest caveat is that history says recovered hours get filled with more patients rather than more time per patient, and that is a staffing decision, not a technology one.",
+    "oneLiner": "Everything a machine could take was paperwork, and there was a mountain of it. The rest is a body in a room.",
+    "summary": "Nursing sits behind three walls at once — you must be physically present, you must be licensed, and someone must be legally accountable for a patient's care. There is also a global shortage, which means the economic pressure runs toward keeping nurses rather than replacing them. What AI genuinely changes is the documentation burden that consumes a large share of every shift and drives people out of the profession. Charting, handover notes, care-plan drafting and coding are real hours that can go back to patients. The honest caveat is that history says recovered hours get filled with more patients rather than more time per patient. That is a staffing decision, not a technology one.",
     "tasks": [
         {
             "name": "Charting & clinical documentation",

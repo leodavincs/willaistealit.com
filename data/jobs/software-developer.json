@@ -6,7 +6,7 @@
     "verdict": "shrinking",
     "safeUntil": "2032",
     "oneLiner": "Writing the code stopped being the hard part. Knowing what to build never was.",
-    "summary": "Developers built the thing that automates developers, and they did it enthusiastically, because typing was never the enjoyable part. What is collapsing is the middle of the job: boilerplate, glue code, the second implementation of something you already wrote elsewhere. What is not collapsing is deciding what should exist, holding a system in your head across years of change, and being the person who gets paged at 3am. The uncomfortable part is distributional: the job compresses from the bottom. A senior who directs three agents is more productive than ever; the junior who used to earn their seniority by writing that boilerplate has lost the ladder.",
+    "summary": "Developers built the thing that automates developers, and they did it enthusiastically, because typing was never the enjoyable part. What is collapsing is the middle of the job: boilerplate, glue code, the second implementation of something you already wrote elsewhere. What is not collapsing is deciding what should exist, holding a system in your head across years of change, and being the person who gets paged at 3am. The uncomfortable part is distributional. The job compresses from the bottom. A senior who directs three agents is more productive than ever; the junior who used to earn their seniority by writing that boilerplate has lost the ladder.",
     "tasks": [
         {
             "name": "Boilerplate, scaffolding, CRUD",

@@ -29,10 +29,14 @@ Kural: **uzun cümleden sonra kısa cümle.** En akılda kalan yerler bu düşü
 > "A wedding happened once. A newborn is this size for two weeks. A press photograph is
 > worthless if it was generated." — photographer (29 → 9 → 4 → 8 → 9)
 
-**Her `summary` en az bir tane 10 kelimeden kısa cümle taşımalı.** Şu an 15'in 11'inde var.
-Taşımayan dördü — `graphic-designer`, `lawyer`, `nurse`, `recruiter` — tamamen 16+ kelimelik
-cümlelerden oluşuyor ve okurken düzleşen entry'ler tam olarak bunlar. Sıradaki revizyonda
-düzeltilecek.
+**Her `summary` en az bir tane 10 kelimeden kısa cümle taşımalı.** 15/15 taşıyor
+(15 Ağustos 2026 revizyonu). Düşüşü uzun cümlenin hemen ardına koy ya da entry'yi onunla
+kapat — iki güçlü pozisyon bunlar:
+
+> "What survives sits above that line... **The gap widens.**" — graphic-designer (40 → 3)
+
+> "...most jurisdictions require a human decision-maker on the record." öncesinde
+> **"Regulation adds a second wall."** — recruiter (39 → 5)
 
 Üst sınır: 40 kelimeyi geçen cümle yok. Cümlelerin %6'sı 30 kelimenin üstünde; bu tavan.
 
@@ -69,7 +73,7 @@ geçiyor — dışarıdan gelen PR'ın en sık kayacağı yer burası.
 
 Sayfanın kancası. Okuyucunun kalıp kalmayacağı burada belli oluyor.
 
-**14/15'i iki cümlelik karşıtlık.** Birinci cümle kaybedileni ilan eder, ikinci cümle
+**15/15'i iki cümlelik karşıtlık.** Birinci cümle kaybedileni ilan eder, ikinci cümle
 kalanı olumsuzlama veya karşıtlıkla kurar — açılan boşluk okuyucuyu içeri çeker:
 
 > "The data entry is already gone. The signature and the trust are not." — accountant
@@ -88,10 +92,9 @@ Birinci cümlenin zamanı bitmişlik taşır: `is already gone`, `is free now`, 
 Kurallar: asla soru cümlesi (15/15 beyan), asla ünlem, meslek adı geçmez (sayfa zaten o
 meslekte), tam iki cümle.
 
-**Tek istisna ve düzeltilecek:** `nurse`. "Every part of this job that a machine could take
-was paperwork, and there is a lot of it." Tek cümle, karşıtlık yok, kanca yok — sitedeki en
-düz `oneLiner` ve kalıbın neden işe yaradığının kanıtı. Sıradaki revizyonda iki cümleye
-çevrilecek.
+`nurse` uzun süre tek istisnaydı ("Every part of this job that a machine could take was
+paperwork, and there is a lot of it." — tek cümle, kanca yok). 15 Ağustos 2026'da kalıba
+çevrildi; artık 15/15 iki cümlelik karşıtlık taşıyor.
 
 ## `summary`
 
