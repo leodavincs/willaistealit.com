@@ -8,10 +8,7 @@ declare(strict_types=1);
 
 const SITE_NAME   = 'Will AI Steal It?';
 const SITE_URL    = 'https://willaistealit.com';
-// SITE_TAG gecici olarak burada: onu okuyan sablonlar (index.php, inc/header.php)
-// Faz 3F'de yerellestirilecek. O ana kadar data/locale/en.php'deki 'site.tagline'
-// ile ayni kalmali — tests/lang.test.php bunu sabitliyor.
-const SITE_TAG    = 'Task-level verdicts on which jobs AI actually takes.';
+// SITE_TAG kalkti — site sloganı artik locale'de: 'site.tagline' (Faz 3F).
 
 // ---- Deploy oncesi doldurulacak ----
 

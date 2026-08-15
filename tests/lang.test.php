@@ -86,9 +86,6 @@ foreach (RESISTANCE_KEYS as $k) {
     t_eq(true, $en->has('tag.' . $k), "en: '$k' tag i cevrilmis");
 }
 
-// SITE_TAG hala config'de (Faz 3F'de sablonlarla birlikte tasinacak) — kaymasin diye sabitliyoruz
-t_eq(SITE_TAG, $en->t('site.tagline'), 'SITE_TAG ile site.tagline ayni kalmali');
-
 // template_files() locale ve dil dosyalarini gormeli — yoksa bayat cache sessizce servis edilir
 $tf = template_files();
 $hasFile = static fn (string $needle): bool => (bool)array_filter($tf, static fn ($f) => str_contains($f, $needle));
