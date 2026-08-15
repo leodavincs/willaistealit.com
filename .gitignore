@@ -1,0 +1,8 @@
+cache/og/*
+cache/pages/*
+cache/index.json
+!cache/og/.gitkeep
+!cache/pages/.gitkeep
+.DS_Store
+*.log
+data/waitlist.jsonl

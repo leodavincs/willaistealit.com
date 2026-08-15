@@ -1,0 +1,29 @@
+{
+  "slug": "truck-driver",
+  "title": "Truck Driver",
+  "titleTr": "Kamyon Şoförü",
+  "category": "trades",
+  "verdict": "shrinking",
+  "safeUntil": "2035",
+  "oneLiner": "The highway middle is going. The first mile, the last mile and the paperwork are not.",
+  "summary": "Trucking is the job where the automation story has been ten years away for fifteen years, and the reason is instructive: the driving was the easy part. Long-haul motorway driving is genuinely being automated — it is repetitive, mapped, and commercially valuable enough to justify the investment. Driverless freight corridors are operating commercially in parts of the US. What resists is everything at the ends of the route: urban delivery, loading and securing, the customer who signs, the awkward yard, the breakdown, the load that shifts. The likely shape is not mass unemployment but a split, with hub-to-hub motorway sections automated and human drivers doing the complicated ends. Regulation, insurance and liability move slowly, and each buys the profession years.",
+  "tasks": [
+    { "name": "Motorway long-haul driving", "verdict": "going", "note": "The most automatable segment: predictable, mapped, high value. Driverless freight corridors are already in commercial operation." },
+    { "name": "Route planning & dispatch", "verdict": "gone", "note": "Optimised by software including traffic, hours-of-service rules and fuel. Dispatch roles thinned out first." },
+    { "name": "Logging & compliance paperwork", "verdict": "gone", "note": "Electronic logging is mandatory and automatic in most markets." },
+    { "name": "Yard manoeuvring & docking", "verdict": "going", "note": "Automated in controlled private yards. Tight, unmapped, real-world docks are a different problem entirely." },
+    { "name": "Urban & last-mile delivery", "verdict": "safe", "tags": ["physical-context", "physical-presence"], "note": "Unpredictable streets, double-parked cars, gestures from a person waving you back. Cost per mile is highest exactly where automation is hardest." },
+    { "name": "Loading and securing freight", "verdict": "safe", "tags": ["physical-presence"], "note": "Straps, pallets, tail lifts, a load that shifted in transit. Physical work with legal safety consequences." },
+    { "name": "Handling breakdowns, accidents and refusals", "verdict": "safe", "tags": ["physical-presence", "human-judgment"], "note": "Blown tyre on a hard shoulder, a customer refusing delivery, a road closed with no diversion. The long tail is where drivers earn their pay." },
+    { "name": "Customer contact & handover", "verdict": "safe", "tags": ["physical-presence", "accountability"], "note": "Someone signs for the goods, checks the condition and answers for what arrived." }
+  ],
+  "resistanceTags": ["physical-presence", "physical-context", "human-judgment"],
+  "whatSurvives": "Both ends of the route — everything that is not a mapped motorway in good weather.",
+  "adaptPrompt": "You are my logistics and business assistant. I drive; you handle the paperwork and the numbers that decide whether a load is worth taking.\n\nFor loads and rates — this is where owner-operators lose money:\n1. Given a load offer (origin, destination, rate, weight, deadhead miles), calculate my real cost per mile: fuel at current price and my truck's mpg, tolls, maintenance reserve, insurance, and my time. Then tell me the actual profit, not the gross.\n2. Compare it to what I should be getting on that lane and tell me plainly whether to take it, negotiate it or decline it.\n3. Flag the hidden costs: detention risk, a delivery window I cannot make legally, an area where I will sit empty afterwards.\n\nFor operations:\n4. Plan the route against my hours-of-service: where my breaks land, where I will legally park for the night, and where the timing is tight.\n5. Explain the specific permits, restrictions and rules for the states or countries I am crossing.\n6. Draft the professional message when something goes wrong — a delay, damage, a refused delivery — that protects my position and stays civil.\n\nFor the business:\n7. Track my numbers by month and tell me which lanes and which brokers actually make me money, and which I keep running out of habit.\n\nRules: never tell me to run over my legal hours or push through fatigue. If a load only works by breaking the rules, say the load does not work. Show your arithmetic on every rate calculation so I can check it at a truck stop.",
+  "adaptTools": ["Claude", "Trucker Path", "DAT load board analytics", "Motive"],
+  "sources": [
+    "https://www.bls.gov/ooh/transportation-and-material-moving/heavy-and-tractor-trailer-truck-drivers.htm",
+    "https://www.fmcsa.dot.gov/regulations"
+  ],
+  "lastReviewed": "2026-08"
+}

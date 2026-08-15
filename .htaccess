@@ -1,0 +1,44 @@
+Options -Indexes
+DirectoryIndex index.php
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # OG kartlari: /og/accountant.png -> og.php?slug=accountant
+    RewriteRule ^og/([a-z0-9-]+)\.png$ og.php?slug=$1 [L,QSA]
+
+    # Gercek dosya/klasor varsa dokunma
+    RewriteCond %{REQUEST_FILENAME} -f [OR]
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteRule ^ - [L]
+
+    # Uretilen dosyalar (statik gibi gorunur, PHP uretir)
+    RewriteRule ^sitemap\.xml$ sitemap.php [L]
+    RewriteRule ^llms\.txt$    llms.php [L]
+
+    # Sabit sayfalar
+    RewriteRule ^methodology/?$ methodology.php [L]
+    RewriteRule ^sponsor/?$     sponsor.php [L]
+    RewriteRule ^changelog/?$   changelog.php [L]
+
+    # Entry sayfalari: /accountant -> job.php?slug=accountant
+    RewriteRule ^([a-z0-9-]+)/?$ job.php?slug=$1 [L,QSA]
+</IfModule>
+
+# Hassas klasorleri kapat
+RedirectMatch 404 ^/(data|inc|tools|cache|fonts)(/|$)
+
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType text/css            "access plus 1 year"
+    ExpiresByType application/javascript "access plus 1 year"
+    ExpiresByType image/png           "access plus 30 days"
+    ExpiresByType font/ttf            "access plus 1 year"
+</IfModule>
+
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options "nosniff"
+    Header set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+ErrorDocument 404 /404.php

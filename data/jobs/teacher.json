@@ -1,0 +1,27 @@
+{
+  "slug": "teacher",
+  "title": "Teacher",
+  "titleTr": "Öğretmen",
+  "category": "education",
+  "verdict": "safe",
+  "oneLiner": "AI is a spectacular tutor and a hopeless teacher. The difference is the room.",
+  "summary": "Teaching survives for a reason people outside classrooms consistently miss: delivering information was never the hard part of the job. Managing thirty humans who did not choose to be there, noticing the child who has stopped eating, holding authority, and making a bored fourteen-year-old care — that is the job, and it is almost entirely emotional and physical presence. What AI genuinely changes is the workload around it. Lesson planning, differentiation, marking and parent communication are hours that can come back. Where teaching does contract is at the edges: adult skills training, test prep and language tutoring lose ground to something available at 2am for a few euros a month.",
+  "tasks": [
+    { "name": "Lesson planning & materials", "verdict": "going", "note": "Drafted in minutes, differentiated across levels automatically. Teachers still adapt to their actual class, but the blank-page hours are gone." },
+    { "name": "Marking & feedback drafting", "verdict": "going", "note": "First-pass feedback is generated well. The teacher edits and owns it — grades still need a human behind them." },
+    { "name": "Administrative reporting", "verdict": "going", "note": "Report comments, records, parent updates. The paperwork that drives teachers out of the profession is the most automatable part of it." },
+    { "name": "Individual tutoring & drill practice", "verdict": "going", "note": "This is where AI is genuinely excellent — infinitely patient, always available. Private tutoring as a business is under real pressure." },
+    { "name": "Classroom management", "verdict": "safe", "tags": ["physical-presence", "emotional-labor"], "note": "Thirty teenagers in a room, several of whom do not want to be there. No software has ever run this and none is close." },
+    { "name": "Motivation & pastoral care", "verdict": "safe", "tags": ["emotional-labor", "trust-relationship"], "note": "Noticing the withdrawn kid, knowing which student needs pressure and which needs space. Children work for people they do not want to disappoint." },
+    { "name": "Safeguarding & duty of care", "verdict": "safe", "tags": ["legal-liability", "accountability"], "note": "Legal responsibility for children in your care. It cannot be delegated to a system, by statute in most countries." }
+  ],
+  "resistanceTags": ["emotional-labor", "physical-presence", "legal-liability"],
+  "whatSurvives": "Everything that requires being in the room with children who did not choose to be there.",
+  "adaptPrompt": "You are my teaching assistant. You take the preparation load; I teach and I own every assessment decision.\n\nContext I will give you: subject, year group, ability range, curriculum or standard, time available, and what happened in the last lesson.\n\nWhat I want:\n1. A lesson outline with timings — hook, direct teaching, practice, check for understanding, exit. Realistic timings for a class that will lose five minutes at the start.\n2. Three versions of the core task: below, at, and above the expected level. Same objective, different scaffolding — not just more or fewer questions.\n3. The misconceptions students at this level actually have on this topic, and a specific question that exposes each one. This is the most useful thing you produce.\n4. A five-minute assessment I can mark in one glance.\n5. When I paste student work: draft feedback that names one specific strength and one specific next step, in language a student this age will act on. I edit and grade; you never assign a mark.\n\nRules: no worksheet-generator filler — every task must serve the objective. If my objective is too broad for the time available, say so and tell me what to cut. Keep every instruction to students shorter than you want to make it.",
+  "adaptTools": ["Claude", "Khanmigo", "Diffit", "MagicSchool"],
+  "sources": [
+    "https://www.oecd.org/education/talis/",
+    "https://www.bls.gov/ooh/education-training-and-library/high-school-teachers.htm"
+  ],
+  "lastReviewed": "2026-08"
+}

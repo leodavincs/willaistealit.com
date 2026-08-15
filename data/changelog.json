@@ -1,0 +1,125 @@
+{
+    "note": "Verdict degisiklikleri. Yeni girisi basa ekle. date: YYYY-MM-DD, from/to: verdict anahtari; from=null ise yeni entry.",
+    "entries": [
+        {
+            "date": "2026-08-15",
+            "slug": "accountant",
+            "title": "Accountant",
+            "from": null,
+            "to": "shrinking",
+            "why": "First published. The data entry is already gone. The signature and the trust are not."
+        },
+        {
+            "date": "2026-08-15",
+            "slug": "copywriter",
+            "title": "Copywriter",
+            "from": null,
+            "to": "on-the-menu",
+            "why": "First published. Nobody is buying words any more. They are buying the judgment about which words."
+        },
+        {
+            "date": "2026-08-15",
+            "slug": "customer-support",
+            "title": "Customer Support Agent",
+            "from": null,
+            "to": "on-the-menu",
+            "why": "First published. Tier 1 is already a bot. What is left is every conversation the bot made worse."
+        },
+        {
+            "date": "2026-08-15",
+            "slug": "data-analyst",
+            "title": "Data Analyst",
+            "from": null,
+            "to": "shrinking",
+            "why": "First published. Anyone can get the number now. Knowing which number to ask for is the job."
+        },
+        {
+            "date": "2026-08-15",
+            "slug": "graphic-designer",
+            "title": "Graphic Designer",
+            "from": null,
+            "to": "shrinking",
+            "why": "First published. Generation is free now. Choosing, and defending the choice, is the whole job."
+        },
+        {
+            "date": "2026-08-15",
+            "slug": "lawyer",
+            "title": "Lawyer",
+            "from": null,
+            "to": "shrinking",
+            "why": "First published. Research and drafting hours are evaporating. The bar card and the blame are not transferable."
+        },
+        {
+            "date": "2026-08-15",
+            "slug": "marketer",
+            "title": "Marketer",
+            "from": null,
+            "to": "shrinking",
+            "why": "First published. Execution went to zero, so everyone is executing. Deciding what not to do is the remaining edge."
+        },
+        {
+            "date": "2026-08-15",
+            "slug": "nurse",
+            "title": "Nurse",
+            "from": null,
+            "to": "safe",
+            "why": "First published. Every part of this job that a machine could take was paperwork, and there is a lot of it."
+        },
+        {
+            "date": "2026-08-15",
+            "slug": "photographer",
+            "title": "Photographer",
+            "from": null,
+            "to": "shrinking",
+            "why": "First published. Generated images killed the stock market. They cannot attend your wedding."
+        },
+        {
+            "date": "2026-08-15",
+            "slug": "recruiter",
+            "title": "Recruiter",
+            "from": null,
+            "to": "shrinking",
+            "why": "First published. Both sides now use AI, so volume is worthless. Persuading one specific person is not."
+        },
+        {
+            "date": "2026-08-15",
+            "slug": "software-developer",
+            "title": "Software Developer",
+            "from": null,
+            "to": "shrinking",
+            "why": "First published. Writing the code stopped being the hard part. Knowing what to build never was."
+        },
+        {
+            "date": "2026-08-15",
+            "slug": "teacher",
+            "title": "Teacher",
+            "from": null,
+            "to": "safe",
+            "why": "First published. AI is a spectacular tutor and a hopeless teacher. The difference is the room."
+        },
+        {
+            "date": "2026-08-15",
+            "slug": "translator",
+            "title": "Translator",
+            "from": null,
+            "to": "on-the-menu",
+            "why": "First published. The volume work is already priced at zero. What is left is the work where being wrong is expensive."
+        },
+        {
+            "date": "2026-08-15",
+            "slug": "truck-driver",
+            "title": "Truck Driver",
+            "from": null,
+            "to": "shrinking",
+            "why": "First published. The highway middle is going. The first mile, the last mile and the paperwork are not."
+        },
+        {
+            "date": "2026-08-15",
+            "slug": "video-editor",
+            "title": "Video Editor",
+            "from": null,
+            "to": "shrinking",
+            "why": "First published. The tedious half of editing is gone. Rhythm, and knowing when to cut, is not."
+        }
+    ]
+}

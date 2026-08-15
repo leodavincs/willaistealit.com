@@ -1,0 +1,28 @@
+{
+  "slug": "lawyer",
+  "title": "Lawyer",
+  "titleTr": "Avukat",
+  "category": "legal",
+  "verdict": "shrinking",
+  "safeUntil": "2033",
+  "oneLiner": "Research and drafting hours are evaporating. The bar card and the blame are not transferable.",
+  "summary": "Law is protected by two walls that have nothing to do with capability: you must be licensed to practise, and someone must be liable when the advice is wrong. Neither wall stops the work inside from being automated, and the billable-hour engine is where the damage lands. Document review, first-pass research and standard drafting were the profitable base of large firms and the training ground for juniors; both are collapsing at once. Litigation strategy, negotiation, courtroom judgment and the client relationship stay human — but the pyramid that funded them is losing its bottom layer, and firms have not worked out what replaces it.",
+  "tasks": [
+    { "name": "Document review & discovery", "verdict": "gone", "note": "Machine review at a scale and cost no associate team matches. This was a major revenue line; it is now a software licence." },
+    { "name": "Legal research & memo drafting", "verdict": "going", "note": "First-pass research is minutes, not days. A lawyer still verifies every citation — models still invent cases, and courts still sanction people for it." },
+    { "name": "Standard contract drafting", "verdict": "going", "note": "Templates plus generation cover routine agreements. The negotiated clauses, the ones that decide who loses, remain argued by people." },
+    { "name": "Due diligence & compliance review", "verdict": "going", "note": "Flagging is automated and better than manual. Deciding what a flag means for this deal is not." },
+    { "name": "Litigation strategy & advocacy", "verdict": "safe", "tags": ["human-judgment", "regulated"], "note": "Reading a judge, choosing which argument to abandon, deciding when to settle. Adversarial judgment under incomplete information." },
+    { "name": "Negotiation & client counsel", "verdict": "safe", "tags": ["trust-relationship", "emotional-labor"], "note": "Clients in legal trouble are frightened. They are buying a person who will sit across from them and say what to do." },
+    { "name": "Signing, representing, being liable", "verdict": "safe", "tags": ["legal-liability", "regulated"], "note": "Unauthorised practice rules and malpractice liability mean a licensed human must own the advice. This is the hardest wall on the site." }
+  ],
+  "resistanceTags": ["legal-liability", "regulated", "trust-relationship"],
+  "whatSurvives": "The licence, the courtroom, and the person the client can hold responsible.",
+  "adaptPrompt": "You are my legal research and drafting assistant. I am a licensed practitioner. You do not give legal advice; you prepare work product that I verify, own and sign.\n\nI will give you: jurisdiction, area of law, the facts as I have them, and the document or question.\n\nFor research tasks:\n1. Set out the applicable framework — statute, regulation, leading authorities — and mark clearly where you are uncertain about currency.\n2. Give me the strongest version of the argument against my client's position first, then my position. I need the weakness before I need the pitch.\n3. Every citation gets flagged UNVERIFIED. I will check each one. Never present a case, section or quote as confirmed.\n4. Identify what facts I am missing that would change the analysis.\n\nFor drafting tasks:\n1. Draft in the register and format of the jurisdiction I named.\n2. Mark every clause where a real negotiation choice exists, with the position it favours and the fallback I could accept.\n3. List the risks I am accepting on my client's behalf by using this draft as-is.\n\nAbsolute rules: never invent authority. If you do not know whether a case exists or is still good law, say exactly that. Never state a conclusion as settled law — frame it as an analysis I will verify. Flag anything that touches privilege, conflicts, or a deadline.",
+  "adaptTools": ["Claude", "Harvey", "Lexis+ AI", "Westlaw Precision AI"],
+  "sources": [
+    "https://www.bls.gov/ooh/legal/lawyers.htm",
+    "https://www.americanbar.org/groups/law_practice/resources/tech-report/"
+  ],
+  "lastReviewed": "2026-08"
+}

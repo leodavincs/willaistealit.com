@@ -1,0 +1,55 @@
+{
+  "slug": "accountant",
+  "title": "Accountant",
+  "titleTr": "Muhasebeci",
+  "category": "finance",
+  "verdict": "shrinking",
+  "safeUntil": "2031",
+  "oneLiner": "The data entry is already gone. The signature and the trust are not.",
+  "summary": "Bookkeeping was the first thing to fall, and it fell quietly — bank feeds and OCR did most of the damage before anyone called it AI. What remains is the part clients were actually paying for without knowing it: someone who reads the numbers, tells them what to do, and puts their name on the filing. Accounting does not disappear. It compresses. Firms that billed by the hour for data processing lose that revenue line; the ones that sell judgment keep growing.",
+  "tasks": [
+    {
+      "name": "Data entry & bookkeeping",
+      "verdict": "gone",
+      "note": "Bank feeds, receipt OCR and auto-categorisation handle the bulk of transaction coding. Junior roles built on this work are already thinning out."
+    },
+    {
+      "name": "Reconciliation & month-end close",
+      "verdict": "going",
+      "note": "Matching and exception-flagging are largely automated. A human still resolves the exceptions, but ten of them, not a thousand."
+    },
+    {
+      "name": "Tax filing & compliance prep",
+      "verdict": "going",
+      "note": "Software drafts the return; the accountant reviews positions and edge cases. The prep hours collapse, the review hours stay."
+    },
+    {
+      "name": "Advisory on cash flow, structure and planning",
+      "verdict": "safe",
+      "tags": ["trust-relationship", "human-judgment"],
+      "note": "Clients want a person who knows their business arguing for a specific decision — not a model's average answer to a generic prompt."
+    },
+    {
+      "name": "Audit judgment & materiality calls",
+      "verdict": "safe",
+      "tags": ["human-judgment", "accountability"],
+      "note": "AI can surface anomalies at a scale no team can match. Deciding which ones matter, and defending that call, stays human."
+    },
+    {
+      "name": "Legal sign-off & representation",
+      "verdict": "safe",
+      "tags": ["legal-liability", "regulated"],
+      "note": "A licensed human must sign filings and face the tax authority. No model can hold that liability."
+    }
+  ],
+  "resistanceTags": ["legal-liability", "trust-relationship", "human-judgment"],
+  "whatSurvives": "Judgment you can be sued for, and a relationship the client will not re-shop every year.",
+  "adaptPrompt": "You are my accounting co-pilot. I am a practising accountant and you are speeding up my prep work, not replacing my judgment.\n\nContext I will give you: client industry, entity type, jurisdiction, reporting period, and the raw data (trial balance, ledger export, or bank transactions).\n\nWhat I want from you, every time:\n1. Flag anomalies: transactions that break the pattern of prior periods, misclassifications, duplicates, and anything with an unusual counterparty or round-number amount. Rank them by materiality, not count.\n2. Draft the working papers: a reconciliation summary, the variance commentary vs prior period, and a short list of questions I should put to the client.\n3. Surface the positions: for anything with a tax or treatment choice, lay out the options, the argument for each, and which one carries audit risk. Never pick one for me.\n4. Write the client-facing note in plain language, six sentences maximum, ending with the specific decision I need from them.\n\nRules: cite the exact line items you are reasoning from. If a number is missing or ambiguous, say so and stop — do not estimate it. Never state a legal or tax conclusion as settled; frame it as a position I will review and sign for.",
+  "adaptTools": ["Claude", "Excel Copilot", "Dext / Hubdoc", "Xero or QuickBooks automation rules"],
+  "sources": [
+    "https://www.bls.gov/ooh/business-and-financial/accountants-and-auditors.htm",
+    "https://www.imf.org/en/Publications/fandd/issues/2024/06/AI-will-transform-the-global-economy-Georgieva"
+  ],
+  "lastReviewed": "2026-08",
+  "reviewed": true
+}
