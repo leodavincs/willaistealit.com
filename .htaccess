@@ -37,6 +37,13 @@ DirectoryIndex index.php
 # tarayicidan tetiklemek gerekiyor. Korumasi BUILD_KEY (bkz. build_key_ok()).
 RedirectMatch 404 ^/(data|inc|cache|docs|research)(/|$)
 
+# Depo dosyalari siteden servis edilmez: README, CLAUDE.md, DEPLOY.md, .gitignore.
+# Sir icermiyorlar (repo zaten public) ama Google indeksliyor ve .gitignore
+# gizlenen dosyalarin adlarini ilan ediyor.
+# .well-known disarida: SSL yenileme ve security.txt oraya bakiyor.
+RedirectMatch 404 ^/.+\.(md|example)$
+RedirectMatch 404 ^/\.(?!well-known)
+
 <IfModule mod_expires.c>
     ExpiresActive On
     ExpiresByType text/css            "access plus 1 year"

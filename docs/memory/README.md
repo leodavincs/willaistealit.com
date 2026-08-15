@@ -14,7 +14,12 @@ kararlarının gerekçesi.
 
 Kayıtlı kararlar: [[2026-08-15-acik-kaynak-gizlilik-siniri]] ·
 [[2026-08-15-hafiza-repo-icinde]] · [[2026-08-15-stack-php-json]] ·
-[[2026-08-15-hosting-hostinger]] · [[2026-08-15-konumlandirma-adaptasyon]]
+[[2026-08-15-hosting-hostinger]] · [[2026-08-15-konumlandirma-adaptasyon]] ·
+[[2026-08-15-analytics-matomo]] · [[2026-08-15-sponsor-tiklama-sunucu-tarafi]] ·
+[[2026-08-15-icerik-tavani-93]]
+
+Yeni karar notu eklerken bu listeye de ekle — hub bağlantısı olmayan not Obsidian
+grafiğinde kopuk kalır.
 
 ## Sınır: CONTRIBUTING.md
 
