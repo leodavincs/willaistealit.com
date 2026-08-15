@@ -221,6 +221,11 @@ function golden_self_test(): int
          static fn (string $b): string => (string)preg_replace(
              '#(<span class="badge badge-lg">)([^<]*)#', '$1BOZUK', $b, 1),
          'verdictLabel'],
+        // Ara basliklar da alan setinde: 3F'de <h2> icindeki tirnak kacisi
+        // semantik golden'in kor noktasindaydi.
+        ['methodology', 'text/html; charset=UTF-8',
+         static fn (string $b): string => (string)preg_replace('#(<h2[^>]*>)([^<]*)#', '$1BOZUK', $b, 1),
+         'h2'],
         ['sitemap', 'application/xml; charset=utf-8',
          static fn (string $b): string => (string)preg_replace('#<priority>0\.9</priority>#', '<priority>0.8</priority>', $b, 1),
          'urls'],
