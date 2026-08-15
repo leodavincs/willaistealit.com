@@ -12,8 +12,5 @@ declare(strict_types=1);
 // Tanimlanmazsa tools/ hic calismaz. Rastgele uzun bir deger uret.
 define('BUILD_KEY', 'buraya-rastgele-uzun-bir-deger');
 
-// Plausible alan adi. Bos birakirsan analytics script'i hic basilmaz.
-define('ANALYTICS_DOMAIN', '');
-
 // Iletisim adresi. Kutuyu acmadan doldurma — /sponsor sayfasinda gorunur.
 define('CONTACT_EMAIL', '');

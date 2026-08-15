@@ -83,6 +83,16 @@ function has_contact(): bool
  * Anahtar degistirilmemisse hicbir key kabul edilmez — deploy'da unutulan
  * varsayilan anahtar acik kapi birakmasin.
  */
+/**
+ * Analytics yalnizca canli host'ta basilir. Lokalde `php -S` ile calisirken
+ * HTTP_HOST 'localhost:8000' olur ve Matomo'ya kendi gelistirme trafigimizi
+ * yollamayiz — aksi halde ilk gunun verisi bizim sayfa yenilemelerimiz olurdu.
+ */
+function is_live_host(): bool
+{
+    return ($_SERVER['HTTP_HOST'] ?? '') === parse_url(SITE_URL, PHP_URL_HOST);
+}
+
 function build_key_ok(?string $given): bool
 {
     if (BUILD_KEY === '' || BUILD_KEY === 'change-me-before-deploy') {

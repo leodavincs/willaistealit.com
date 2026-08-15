@@ -3,9 +3,10 @@
   'use strict';
 
   function track(name, props) {
-    if (typeof window.plausible === 'function') {
-      window.plausible(name, props ? { props: props } : undefined);
-    }
+    // _paq bir dizi: Matomo yuklenmeden once push edilenler kuyruga girer ve
+    // tracker gelince gonderilir. Analytics kapaliyken sessizce duser.
+    if (!window._paq || typeof window._paq.push !== 'function') return;
+    window._paq.push(['trackEvent', 'engagement', name, props && props.slug ? props.slug : undefined]);
   }
 
   function flash(btn, label) {

@@ -11,7 +11,7 @@ Run through this once. Everything here is a thing that silently looks fine and i
    | `BUILD_KEY` | `/tools/*.php` refuses to run over the web, entirely | Set it to something random. Nothing rebuilds until you do |
    | `GITHUB_URL` | Every "contribute / open a PR / edit this entry" link is hidden | Hidden, not broken — safe to launch without it, but the contribution loop is dead |
    | `CONTACT_EMAIL` | The "rather just talk?" block on /sponsor disappears | Create the mailbox in hPanel *first*, then fill this in |
-   | `ANALYTICS_DOMAIN` | No analytics script is loaded at all | Plausible domain, e.g. `willaistealit.com`. You will not know if launch worked without this |
+   | `MATOMO_SITE_ID` | No analytics script is loaded at all | Lives in `inc/config.php`, not `config.local.php` — a site ID is not a secret. Local dev is excluded by `is_live_host()`, not by leaving this blank |
 
 2. **Check `SITE_URL`** matches the live domain exactly, including `https://` and no trailing slash.
    It is used for canonicals, OG images, sitemap and JSON-LD — wrong here means wrong everywhere.

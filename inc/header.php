@@ -43,9 +43,22 @@ $pageCanonical = $pageCanonical ?? SITE_URL . '/';
 })();
 </script>
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
-<?php if (ANALYTICS_DOMAIN !== ''): ?>
-<script defer data-domain="<?= h(ANALYTICS_DOMAIN) ?>" src="https://plausible.io/js/script.tagged-events.js"></script>
-<script>window.plausible = window.plausible || function () { (window.plausible.q = window.plausible.q || []).push(arguments) };</script>
+<?php if (MATOMO_SITE_ID !== '' && is_live_host()): ?>
+<script>
+  // disableCookies, trackPageView'den ONCE gelmeli. Sonra gelirse ilk istekte
+  // cerez yazilir ve cerez onayi gerekliligi geri doner.
+  var _paq = window._paq = window._paq || [];
+  _paq.push(['disableCookies']);
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function () {
+    var u = <?= json_encode(MATOMO_URL, JSON_UNESCAPED_SLASHES) ?>;
+    _paq.push(['setTrackerUrl', u + 'matomo.php']);
+    _paq.push(['setSiteId', <?= json_encode(MATOMO_SITE_ID) ?>]);
+    var d = document, g = d.createElement('script'), s = d.getElementsByTagName('script')[0];
+    g.async = true; g.src = u + 'matomo.js'; s.parentNode.insertBefore(g, s);
+  })();
+</script>
 <?php endif; ?>
 <?php
 // $pageJsonLd tek nesne ya da nesne listesi olabilir; liste ise @graph'a sarilir.

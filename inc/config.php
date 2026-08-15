@@ -19,8 +19,12 @@ const GITHUB_URL = 'https://github.com/leodavincs/willaistealit.com';
 // Iletisim adresi. config.local.php'den gelir; kutu acilmadan doldurma.
 defined('CONTACT_EMAIL') || define('CONTACT_EMAIL', '');
 
-// Plausible alan adi. config.local.php'den gelir. Bos = script hic basilmaz.
-defined('ANALYTICS_DOMAIN') || define('ANALYTICS_DOMAIN', '');
+// Matomo kendi sunucumuzda: stats.willaistealit.com. Site ID gizli bir deger
+// degil, o yuzden repoda duruyor. Lokal gelistirmenin kendi trafigini olcmesini
+// engelleyen sey bu sabit degil, header.php'deki is_live_host() kontrolu.
+// Bos birakilirsa script hic basilmaz.
+const MATOMO_URL     = 'https://stats.willaistealit.com/';
+const MATOMO_SITE_ID = '';
 const ROOT        = __DIR__ . '/..';
 const JOBS_DIR    = ROOT . '/data/jobs';
 const CACHE_DIR   = ROOT . '/cache';
