@@ -10,32 +10,29 @@ DirectoryIndex index.php
     RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
     RewriteRule ^ https://%1%{REQUEST_URI} [L,R=301]
 
-    # OG kartlari: /og/accountant.png -> og.php?slug=accountant
-    RewriteRule ^og/([a-z0-9-]+)\.png$ og.php?slug=$1 [L,QSA]
+    # GUVENLIK, gercek dosya kontrolunden ONCE (spec 1.8).
+    # Ters sirada data/jobs/*.json gercek dosya oldugu icin ham servis edilir.
+    RewriteRule ^(data|inc|cache|docs|research|tests)(/|$) - [R=404,L]
+    RewriteRule (^|/)\.(?!well-known(/|$)) - [R=404,L]
+    RewriteRule \.(md|example)$ - [R=404,L]
 
-    # Gercek dosya/klasor varsa dokunma
+    # tools/ BILEREK acik: shared hosting'de SSH olmayabiliyor, build'i
+    # tarayicidan tetiklemek gerekiyor. Korumasi BUILD_KEY (build_key_ok()).
+    RewriteRule ^tools/ - [L]
+
+    # Gercek dosya/klasor varsa dokunma (assets, fonts, .well-known).
     RewriteCond %{REQUEST_FILENAME} -f [OR]
     RewriteCond %{REQUEST_FILENAME} -d
     RewriteRule ^ - [L]
 
-    # Uretilen dosyalar (statik gibi gorunur, PHP uretir)
-    RewriteRule ^sitemap\.xml$ sitemap.php [L]
-    RewriteRule ^llms\.txt$    llms.php [L]
-
-    # Sabit sayfalar
-    RewriteRule ^methodology/?$ methodology.php [L]
-    RewriteRule ^sponsor/?$     sponsor.php [L]
-    RewriteRule ^changelog/?$   changelog.php [L]
-    RewriteRule ^landscape/?$   landscape.php [L]
-
-    # Entry sayfalari: /accountant -> job.php?slug=accountant
-    RewriteRule ^([a-z0-9-]+)/?$ job.php?slug=$1 [L,QSA]
+    # Kalan her sey tek giris noktasina. URL kurali route.php'de yasar.
+    RewriteRule ^ route.php [L,QSA]
 </IfModule>
 
 # Hassas klasorleri kapat.
 # tools/ BILEREK disarida: shared hosting'de SSH olmayabiliyor, build'i
 # tarayicidan tetiklemek gerekiyor. Korumasi BUILD_KEY (bkz. build_key_ok()).
-RedirectMatch 404 ^/(data|inc|cache|docs|research)(/|$)
+RedirectMatch 404 ^/(data|inc|cache|docs|research|tests)(/|$)
 
 # Depo dosyalari siteden servis edilmez: README, CLAUDE.md, DEPLOY.md, .gitignore.
 # Sir icermiyorlar (repo zaten public) ama Google indeksliyor ve .gitignore
