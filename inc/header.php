@@ -18,12 +18,17 @@ $pageCanonical = $pageCanonical ?? SITE_URL . '/';
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title><?= h($pageTitle) ?></title>
 <meta name="description" content="<?= h($pageDesc) ?>">
-<link rel="canonical" href="<?= h($pageCanonical) ?>">
+<?php if (!empty($pageNoindex)): ?><meta name="robots" content="noindex, follow">
+<?php endif; ?>
+<?php /* $pageCanonical === false: var olmayan URL kendini canonical gosteremez (spec 5.4). */ ?>
+<?php if ($pageCanonical !== false): ?><link rel="canonical" href="<?= h($pageCanonical) ?>">
+<?php endif; ?>
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="<?= h(SITE_NAME) ?>">
 <meta property="og:title" content="<?= h($pageTitle) ?>">
 <meta property="og:description" content="<?= h($pageDesc) ?>">
-<meta property="og:url" content="<?= h($pageCanonical) ?>">
+<?php if ($pageCanonical !== false): ?><meta property="og:url" content="<?= h($pageCanonical) ?>">
+<?php endif; ?>
 <meta property="og:image" content="<?= h($pageOg) ?>">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
