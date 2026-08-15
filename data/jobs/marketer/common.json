@@ -1,0 +1,14 @@
+{
+    "id": "marketer",
+    "category": "service",
+    "taskOrder": [
+        "content-production-volume",
+        "campaign-reporting-dashboards",
+        "audience-segmentation-targeting",
+        "b-testing-optimisation",
+        "positioning-strategy",
+        "budget-allocation-saying",
+        "brand-partnership-relationships",
+        "reading-market"
+    ]
+}

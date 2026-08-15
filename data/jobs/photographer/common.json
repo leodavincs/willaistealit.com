@@ -1,0 +1,14 @@
+{
+    "id": "photographer",
+    "category": "creative",
+    "taskOrder": [
+        "stock-concept-imagery",
+        "standard-product-photography",
+        "retouching-culling",
+        "basic-editorial-illustration",
+        "weddings-ceremonies-live",
+        "photojournalism-documentary",
+        "portraiture-real-people",
+        "directing-real-shoot"
+    ]
+}

@@ -1,0 +1,13 @@
+{
+    "id": "teacher",
+    "category": "education",
+    "taskOrder": [
+        "lesson-planning-materials",
+        "marking-feedback-drafting",
+        "administrative-reporting",
+        "individual-tutoring-drill",
+        "classroom-management",
+        "motivation-pastoral-care",
+        "safeguarding-duty-care"
+    ]
+}

@@ -1,74 +1,80 @@
 {
+    "assessmentScope": "global",
+    "assessmentSourceLocale": "en",
+    "assessmentReviewed": "2026-08",
     "slug": "marketer",
     "title": "Marketer",
-    "titleTr": "Pazarlamacı",
-    "category": "service",
-    "verdict": "shrinking",
-    "safeUntil": "2031",
     "oneLiner": "Execution went to zero, so everyone is executing. Deciding what not to do is the remaining edge.",
     "summary": "Marketing absorbed AI faster than almost any other function, and the result is instructive: when everyone can produce infinite content, content stops being a differentiator. Campaign execution — copy, creative variants, audience segments, reporting — is largely automated, and the junior execution roles built around it are the ones disappearing. What gains value is the opposite of volume: positioning, choosing which market to fight in, and having the nerve to say no to four of five proposed channels. There is a second effect worth watching. As AI-generated content floods every channel, distribution gets harder and trust gets scarcer, which pushes value back toward brand, community and things that are hard to fake.",
-    "tasks": [
-        {
+    "tasks": {
+        "content-production-volume": {
             "name": "Content production at volume",
             "verdict": "gone",
             "note": "Posts, emails, variants, ad copy. Produced instantly, which is exactly why it stopped working as a differentiator."
         },
-        {
+        "campaign-reporting-dashboards": {
             "name": "Campaign reporting & dashboards",
             "verdict": "gone",
             "note": "Automated end to end, including the narrative summary."
         },
-        {
+        "audience-segmentation-targeting": {
             "name": "Audience segmentation & targeting",
             "verdict": "going",
             "note": "Platform algorithms do this better than manual segmentation, and increasingly refuse to let you do it manually anyway."
         },
-        {
+        "b-testing-optimisation": {
             "name": "A/B testing & optimisation",
             "verdict": "going",
             "note": "Automated generation and selection of variants. Deciding what is worth testing — and whether the win is real — stays human."
         },
-        {
+        "positioning-strategy": {
             "name": "Positioning & strategy",
             "verdict": "safe",
+            "note": "Choosing who you are for and who you are not for. Models optimise toward the average, and positioning is a deliberate refusal to be average.",
             "tags": [
                 "human-judgment",
                 "creative-taste"
-            ],
-            "note": "Choosing who you are for and who you are not for. Models optimise toward the average, and positioning is a deliberate refusal to be average."
+            ]
         },
-        {
+        "budget-allocation-saying": {
             "name": "Budget allocation & saying no",
             "verdict": "safe",
+            "note": "Killing the channel the CEO likes. Someone owns the number and defends the allocation.",
             "tags": [
                 "human-judgment",
                 "accountability"
-            ],
-            "note": "Killing the channel the CEO likes. Someone owns the number and defends the allocation."
+            ]
         },
-        {
+        "brand-partnership-relationships": {
             "name": "Brand & partnership relationships",
             "verdict": "safe",
+            "note": "Partnerships, press, community and crisis response are conducted between people who know each other.",
             "tags": [
                 "trust-relationship",
                 "emotional-labor"
-            ],
-            "note": "Partnerships, press, community and crisis response are conducted between people who know each other."
+            ]
         },
-        {
+        "reading-market": {
             "name": "Reading the market",
             "verdict": "safe",
+            "note": "Noticing that the thing that worked for two years has quietly stopped working. Models trained on the past are structurally late to this.",
             "tags": [
                 "human-judgment"
-            ],
-            "note": "Noticing that the thing that worked for two years has quietly stopped working. Models trained on the past are structurally late to this."
+            ]
         }
-    ],
+    },
+    "verdict": "shrinking",
+    "safeUntil": "2031",
     "resistanceTags": [
         "human-judgment",
         "creative-taste",
         "trust-relationship"
     ],
+    "sources": [
+        "https://www.bls.gov/ooh/management/advertising-promotions-and-marketing-managers.htm",
+        "https://www.gartner.com/en/marketing/topics/marketing-technology"
+    ],
+    "evidenceStrength": "moderate",
     "whatSurvives": "Choosing the fight, refusing the rest, and owning the number at the end of the quarter.",
     "adaptPrompt": "You are my marketing strategist and production engine, in that order. I want the strategic pushback more than I want the content.\n\nContext I will give you: product, market, current positioning, budget, channels, and the numbers so far.\n\nStart with the uncomfortable questions:\n1. Who is this genuinely for, and — more importantly — who is it explicitly not for? If my positioning does not exclude anyone, tell me it is not positioning.\n2. What are we claiming that every competitor also claims? List those claims and tell me which are worthless.\n3. Given my budget, which of my current channels should I kill? Name one, with the reasoning, even if I do not want to hear it.\n\nThen the work:\n4. The message hierarchy: the one thing they must believe, the three supports, and the proof for each. If there is no proof, mark it as an assertion and tell me what evidence we need.\n5. Campaign concepts — three, genuinely different, each with the audience it targets and the mechanism by which it is supposed to work.\n6. Production: copy, variants and assets for whichever direction I choose.\n7. The measurement plan: what number should move, by when, and what result would mean we were wrong. Define the failure condition before we start.\n\nRules: no vanity metrics — impressions and engagement are not outcomes. No 'increase brand awareness' as an objective unless you can tell me how we would know. When my plan is just doing more of everything, say so.",
     "adaptTools": [
@@ -76,11 +82,5 @@
         "HubSpot AI",
         "Jasper",
         "Google Performance Max"
-    ],
-    "sources": [
-        "https://www.bls.gov/ooh/management/advertising-promotions-and-marketing-managers.htm",
-        "https://www.gartner.com/en/marketing/topics/marketing-technology"
-    ],
-    "lastReviewed": "2026-08",
-    "evidenceStrength": "moderate"
+    ]
 }

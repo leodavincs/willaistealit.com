@@ -1,74 +1,80 @@
 {
+    "assessmentScope": "global",
+    "assessmentSourceLocale": "en",
+    "assessmentReviewed": "2026-08",
     "slug": "data-analyst",
     "title": "Data Analyst",
-    "titleTr": "Veri Analisti",
-    "category": "tech",
-    "verdict": "shrinking",
-    "safeUntil": "2030",
     "oneLiner": "Anyone can get the number now. Knowing which number to ask for is the job.",
     "summary": "The analyst role was always two jobs pretending to be one: a query-writing service desk, and a person who tells the business something it did not know. The service desk is being dismantled — natural-language querying means the marketing manager gets their own answer without waiting three days for a ticket. That was a large share of analyst headcount, and it is also where analysts learned the data by being forced to touch all of it. What survives is the part that requires knowing the business: which question is worth asking, why the number is wrong, and what decision the answer should change. Analysts who were dashboard vending machines are exposed. Analysts who argue with executives are not.",
-    "tasks": [
-        {
+    "tasks": {
+        "ad-hoc-queries": {
             "name": "Ad-hoc queries & pulls",
             "verdict": "gone",
             "note": "Natural-language interfaces removed the analyst from the middle of the request. Stakeholders self-serve."
         },
-        {
+        "dashboard-building-maintenance": {
             "name": "Dashboard building & maintenance",
             "verdict": "going",
             "note": "Generated and auto-updated. The remaining skill is deciding which four metrics belong on it and killing the other thirty."
         },
-        {
+        "data-cleaning-transformation": {
             "name": "Data cleaning & transformation",
             "verdict": "going",
             "note": "Largely automated, and reliably so — right up until the model cheerfully cleans away the anomaly that mattered."
         },
-        {
+        "standard-reporting-commentary": {
             "name": "Standard reporting & commentary",
             "verdict": "going",
             "note": "First-draft narrative is generated from the numbers. Someone still has to say which movement is signal and which is a tracking bug."
         },
-        {
+        "knowing-why-data": {
             "name": "Knowing why the data is wrong",
             "verdict": "safe",
+            "note": "Every real dataset is broken in undocumented ways. Knowing that the Q3 spike is a migration artefact is institutional memory, not analysis.",
             "tags": [
                 "human-judgment"
-            ],
-            "note": "Every real dataset is broken in undocumented ways. Knowing that the Q3 spike is a migration artefact is institutional memory, not analysis."
+            ]
         },
-        {
+        "framing-right-question": {
             "name": "Framing the right question",
             "verdict": "safe",
+            "note": "Stakeholders ask for the metric they thought of, not the one that answers their problem. Rewriting the request is most of the value.",
             "tags": [
                 "human-judgment",
                 "trust-relationship"
-            ],
-            "note": "Stakeholders ask for the metric they thought of, not the one that answers their problem. Rewriting the request is most of the value."
+            ]
         },
-        {
+        "causal-reasoning-experiment": {
             "name": "Causal reasoning & experiment design",
             "verdict": "safe",
+            "note": "Correlation is cheap now, which makes rigour scarcer, not less necessary. Designing a test that survives scrutiny is expert work.",
             "tags": [
                 "human-judgment",
                 "accountability"
-            ],
-            "note": "Correlation is cheap now, which makes rigour scarcer, not less necessary. Designing a test that survives scrutiny is expert work."
+            ]
         },
-        {
+        "defending-recommendation": {
             "name": "Defending a recommendation",
             "verdict": "safe",
+            "note": "Telling a VP their favourite initiative is not working, and standing behind it when they push back.",
             "tags": [
                 "accountability",
                 "trust-relationship"
-            ],
-            "note": "Telling a VP their favourite initiative is not working, and standing behind it when they push back."
+            ]
         }
-    ],
+    },
+    "verdict": "shrinking",
+    "safeUntil": "2030",
     "resistanceTags": [
         "human-judgment",
         "accountability",
         "trust-relationship"
     ],
+    "sources": [
+        "https://www.bls.gov/ooh/math/data-scientists.htm",
+        "https://www.oecd.org/employment-outlook/"
+    ],
+    "evidenceStrength": "moderate",
     "whatSurvives": "Knowing which question matters, why the data lies, and what decision the answer should change.",
     "adaptPrompt": "You are my analysis assistant. You accelerate the mechanics; I own the interpretation and the recommendation.\n\nI will give you: schema, business context, the question as it was asked, and the data or query.\n\nAlways start with this, before any analysis:\n1. Restate the question as the stakeholder asked it, and then the question they probably meant. If those differ, tell me before doing anything else.\n2. List what would have to be true for this analysis to be valid — and which of those you cannot verify from what I gave you.\n\nThen:\n3. Write the query, commented, with the joins and filters that carry risk called out explicitly.\n4. Interpret the result: what moved, by how much, over what period, against what baseline. Distinguish 'this changed' from 'this is noise' and say which test you would use.\n5. List the alternative explanations before the causal one. Include the boring ones — tracking changes, seasonality, a definition that shifted, a pipeline that broke.\n6. Give me the finding as one sentence a VP will understand, and the specific decision it should change. If it changes no decision, say so — that is a valid and useful answer.\n\nRules: never present a correlation as a cause. Never fill a gap in the data with a plausible number. If the sample is too small to support the claim, say the number and stop.",
     "adaptTools": [
@@ -76,11 +82,5 @@
         "ChatGPT Advanced Data Analysis",
         "Hex Magic",
         "dbt"
-    ],
-    "sources": [
-        "https://www.bls.gov/ooh/math/data-scientists.htm",
-        "https://www.oecd.org/employment-outlook/"
-    ],
-    "lastReviewed": "2026-08",
-    "evidenceStrength": "moderate"
+    ]
 }

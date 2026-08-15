@@ -1,60 +1,66 @@
 {
+    "assessmentScope": "global",
+    "assessmentSourceLocale": "en",
+    "assessmentReviewed": "2026-08",
     "slug": "translator",
     "title": "Translator",
-    "titleTr": "Çevirmen",
-    "category": "creative",
-    "verdict": "on-the-menu",
-    "safeUntil": "2029",
     "oneLiner": "The volume work is already priced at zero. What is left is the work where being wrong is expensive.",
     "summary": "Translation is the clearest case on this site. It hurts to write. Machine output crossed the threshold of 'good enough for the client's purpose' for most commercial text, and once that happened the rate per word collapsed rather than the job title. The remaining market is real but small and specific: work where a mistranslation costs money, safety, a lawsuit, or a brand. Literary translation, legal and medical certification, and localisation that has to actually land in a culture are still human — but they were always the minority of the pages. Most working translators are now paid to post-edit machine output at a fraction of their old rate, which is a different job wearing the same name.",
-    "tasks": [
-        {
+    "tasks": {
+        "bulk-commercial-translation": {
             "name": "Bulk commercial translation",
             "verdict": "gone",
             "note": "Manuals, product listings, internal documents, support content. The client compares machine output against your quote and stops calling."
         },
-        {
+        "post-editing-machine": {
             "name": "Post-editing machine output",
             "verdict": "going",
             "note": "The growth area and the trap: real work, real skill, roughly a third of the old rate, and the models keep narrowing what needs editing."
         },
-        {
+        "subtitling-media-translation": {
             "name": "Subtitling & media translation",
             "verdict": "going",
             "note": "Timing and drafting are automated. Humour, register and the line that must land in two seconds still need a person — but fewer of them."
         },
-        {
+        "certified-legal-medical": {
             "name": "Certified legal & medical translation",
             "verdict": "safe",
+            "note": "A sworn or certified translator signs and carries liability. Courts and immigration authorities do not accept a model's output on its own.",
             "tags": [
                 "legal-liability",
                 "regulated"
-            ],
-            "note": "A sworn or certified translator signs and carries liability. Courts and immigration authorities do not accept a model's output on its own."
+            ]
         },
-        {
+        "literary-brand-translation": {
             "name": "Literary & brand translation",
             "verdict": "safe",
+            "note": "Translating voice rather than meaning. AI produces fluent, average prose — average is precisely the failure mode here.",
             "tags": [
                 "creative-taste"
-            ],
-            "note": "Translating voice rather than meaning. AI produces fluent, average prose — average is precisely the failure mode here."
+            ]
         },
-        {
+        "live-interpretation-high": {
             "name": "Live interpretation in high-stakes settings",
             "verdict": "safe",
+            "note": "Court, hospital, negotiation. Real time, no second pass, someone accountable in the room for what was said.",
             "tags": [
                 "physical-context",
                 "accountability"
-            ],
-            "note": "Court, hospital, negotiation. Real time, no second pass, someone accountable in the room for what was said."
+            ]
         }
-    ],
+    },
+    "verdict": "on-the-menu",
+    "safeUntil": "2029",
     "resistanceTags": [
         "legal-liability",
         "creative-taste",
         "accountability"
     ],
+    "sources": [
+        "https://www.bls.gov/ooh/media-and-communication/interpreters-and-translators.htm",
+        "https://ec.europa.eu/info/departments/translation_en"
+    ],
+    "evidenceStrength": "strong",
     "whatSurvives": "Translation where a mistake has a price: a signature, a courtroom, a brand, a diagnosis.",
     "adaptPrompt": "You are my translation assistant. I am a professional translator; you produce drafts and analysis, I produce the translation that ships.\n\nI will give you: source text, source and target language, target audience, register, and the purpose of the text.\n\nFor every passage, give me:\n1. A working draft in the target language, matching the register I specified.\n2. An alternatives list for every phrase where a real choice exists — each option with what it gains and what it loses. This is the part I actually want from you.\n3. Flags: anything culturally untranslatable, any idiom that will not survive, any legal or technical term that needs a verified equivalent rather than a plausible one, and any ambiguity in the source that the author needs to resolve.\n4. A consistency table for recurring terms, so the whole document stays aligned.\n\nRules: never smooth over an ambiguity in the source — surface it. Never invent a term of art; if you are not certain of the accepted equivalent in this jurisdiction or field, say so and mark it for verification. When the source is badly written, translate what it says and tell me separately what it probably meant.\n\nThen tell me where the risk in this document is concentrated, so I know where to spend my review time.",
     "adaptTools": [
@@ -62,11 +68,5 @@
         "DeepL",
         "Trados with AI post-editing",
         "memoQ"
-    ],
-    "sources": [
-        "https://www.bls.gov/ooh/media-and-communication/interpreters-and-translators.htm",
-        "https://ec.europa.eu/info/departments/translation_en"
-    ],
-    "lastReviewed": "2026-08",
-    "evidenceStrength": "strong"
+    ]
 }

@@ -1,0 +1,14 @@
+{
+    "id": "video-editor",
+    "category": "creative",
+    "taskOrder": [
+        "transcription-sync-logging",
+        "rough-assembly-from",
+        "captions-reframing-format",
+        "social-short-form",
+        "colour-sound-cleanup",
+        "narrative-pacing-decisions",
+        "story-structure-from",
+        "director-client-collaboration"
+    ]
+}

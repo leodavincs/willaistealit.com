@@ -1,0 +1,13 @@
+{
+    "id": "lawyer",
+    "category": "legal",
+    "taskOrder": [
+        "document-review-discovery",
+        "legal-research-memo",
+        "standard-contract-drafting",
+        "due-diligence-compliance",
+        "litigation-strategy-advocacy",
+        "negotiation-client-counsel",
+        "signing-representing-being"
+    ]
+}

@@ -144,13 +144,27 @@ function build_routes(?array &$conflicts = null): array
         $slugs[$lang][$slug] = $id;
     };
 
-    foreach (load_all_jobs() as $slug => $job) {
-        $ids[$slug]       = ['en' => $slug];
-        $published[$slug] = ['en'];
-        $claim('en', (string)$slug, (string)$slug);
-        foreach ((array)($job['formerSlugs'] ?? []) as $former) {
-            if (valid_slug((string)$former)) {
-                $claim('en', (string)$former, (string)$slug);
+    foreach (glob(JOBS_DIR . '/*/common.json') ?: [] as $path) {
+        $id = basename(dirname($path));
+        // published GERCEK dil dosyalarindan hesaplanir; activeLangs ayri bir
+        // eksendir ve Faz 2'de ['en'] kalir, yani TR/ES servis EDILMEZ.
+        $langs = entry_langs($id);
+        if ($langs === []) {
+            continue;
+        }
+        $published[$id] = $langs;
+        $ids[$id] = [];
+        foreach ($langs as $lang) {
+            $job = load_entry($id, $lang);
+            if ($job === null) {
+                continue;
+            }
+            $ids[$id][$lang] = (string)$job['slug'];
+            $claim($lang, (string)$job['slug'], $id);
+            foreach ((array)($job['formerSlugs'] ?? []) as $former) {
+                if (valid_slug((string)$former)) {
+                    $claim($lang, (string)$former, $id);
+                }
             }
         }
     }

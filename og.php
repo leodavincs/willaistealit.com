@@ -23,8 +23,15 @@ if ($slug !== 'home' && $job === null) {
 }
 
 $cacheFile  = OG_DIR . '/' . $slug . '.png';
-$sourceFile = $slug === 'home' ? __FILE__ : JOBS_DIR . '/' . $slug . '.json';
-$newest     = max(filemtime($sourceFile), filemtime(__DIR__ . '/inc/ogcard.php'));
+// Kaynak zamani: entry'nin TUM bagimlilik dosyalarinin en yenisi (spec 8.1).
+$newest = filemtime(__DIR__ . '/inc/ogcard.php');
+if ($slug === 'home') {
+    $newest = max($newest, filemtime(__FILE__));
+} else {
+    foreach (entry_dependency_files($slug, DEFAULT_LANG) as $f) {
+        $newest = max($newest, filemtime($f));
+    }
+}
 
 // Cache gecerliyse dogrudan servis et.
 if (is_file($cacheFile) && filemtime($cacheFile) >= $newest) {

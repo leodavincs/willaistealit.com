@@ -1,0 +1,13 @@
+{
+    "id": "software-developer",
+    "category": "tech",
+    "taskOrder": [
+        "boilerplate-scaffolding-crud",
+        "feature-implementation-from",
+        "test-writing-documentation",
+        "debugging-production-systems",
+        "architecture-technical-judgment",
+        "translating-fuzzy-business",
+        "ownership-when-it"
+    ]
+}

@@ -1,0 +1,13 @@
+{
+    "id": "copywriter",
+    "category": "creative",
+    "taskOrder": [
+        "seo-content-marketing",
+        "product-descriptions-catalogue",
+        "email-sequences-social",
+        "long-form-ghostwriting",
+        "brand-voice-positioning",
+        "campaign-concept",
+        "client-stakeholder-work"
+    ]
+}

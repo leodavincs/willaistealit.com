@@ -183,7 +183,7 @@ require __DIR__ . '/inc/header.php';
             ?>
             <tr class="row v-<?= h((string)($job['verdict'] ?? 'shrinking')) ?>"
                 data-name="<?= h(mb_strtolower($name)) ?>"
-                data-search="<?= h(mb_strtolower($name . ' ' . (string)($job['titleTr'] ?? '') . ' ' . (string)($job['oneLiner'] ?? '') . ' ' . implode(' ', $tags) . ' ' . category_label($job['category'] ?? ''))) ?>"
+                data-search="<?= h(mb_strtolower($name . ' ' . implode(' ', (array)($job['aka'] ?? [])) . ' ' . (string)($job['oneLiner'] ?? '') . ' ' . implode(' ', $tags) . ' ' . category_label($job['category'] ?? ''))) ?>"
                 data-verdict="<?= h((string)($job['verdict'] ?? '')) ?>"
                 data-verdict-rank="<?= (int)array_search($job['verdict'] ?? '', ['safe', 'shrinking', 'on-the-menu'], true) ?>"
                 data-until="<?= h((string)($job['safeUntil'] ?? '9999')) ?>"
@@ -203,7 +203,7 @@ require __DIR__ . '/inc/header.php';
       <p class="empty" id="empty">No job by that name yet.<?php if (has_github()): ?> <a href="<?= h(github_url('/blob/main/CONTRIBUTING.md')) ?>" rel="noopener" target="_blank">Add it</a> — it is one JSON file.<?php endif; ?></p>
 
       <?php if ($total === 0): ?>
-        <p class="prose">No entries yet. Drop a JSON file into <code>data/jobs/</code> and run <code>php tools/build-index.php</code>.</p>
+        <p class="prose">No entries yet. Add a directory under <code>data/jobs/&lt;id&gt;/</code> and run <code>php tools/build-index.php</code>.</p>
       <?php endif; ?>
     </div>
   </div>

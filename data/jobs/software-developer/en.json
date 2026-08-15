@@ -1,69 +1,75 @@
 {
+    "assessmentScope": "global",
+    "assessmentSourceLocale": "en",
+    "assessmentReviewed": "2026-08",
     "slug": "software-developer",
     "title": "Software Developer",
-    "titleTr": "Yazılım Geliştirici",
-    "category": "tech",
-    "verdict": "shrinking",
-    "safeUntil": "2032",
     "oneLiner": "Writing the code stopped being the hard part. Knowing what to build never was.",
     "summary": "Developers built the thing that automates developers, and they did it enthusiastically, because typing was never the enjoyable part. What is collapsing is the middle of the job: boilerplate, glue code, the second implementation of something you already wrote elsewhere. What is not collapsing is deciding what should exist, holding a system in your head across years of change, and being the person who gets paged at 3am. The uncomfortable part is distributional. The job compresses from the bottom. A senior who directs three agents is more productive than ever; the junior who used to earn their seniority by writing that boilerplate has lost the ladder.",
-    "tasks": [
-        {
+    "tasks": {
+        "boilerplate-scaffolding-crud": {
             "name": "Boilerplate, scaffolding, CRUD",
             "verdict": "gone",
             "note": "Nobody is paid to hand-write a REST endpoint or a settings form any more. This work is prompt-and-review."
         },
-        {
+        "feature-implementation-from": {
             "name": "Feature implementation from a clear spec",
             "verdict": "going",
             "note": "The model writes the first pass and increasingly the second. The developer's time moves to specifying precisely and reviewing hard."
         },
-        {
+        "test-writing-documentation": {
             "name": "Test writing & documentation",
             "verdict": "going",
             "note": "Generated well and cheaply. Deciding what deserves a test — and what a passing suite actually proves — does not come from the model."
         },
-        {
+        "debugging-production-systems": {
             "name": "Debugging production systems",
             "verdict": "safe",
+            "note": "Real incidents are missing context, misleading logs and unreliable reports. Someone has to form a theory about a system nobody fully documented, and be wrong in public until they are right.",
             "tags": [
                 "human-judgment",
                 "accountability"
-            ],
-            "note": "Real incidents are missing context, misleading logs and unreliable reports. Someone has to form a theory about a system nobody fully documented, and be wrong in public until they are right."
+            ]
         },
-        {
+        "architecture-technical-judgment": {
             "name": "Architecture & technical judgment",
             "verdict": "safe",
+            "note": "Choosing what not to build, which constraint to accept, and which decision the company will still be living with in five years. Models optimise the request; they do not challenge it.",
             "tags": [
                 "human-judgment",
                 "accountability"
-            ],
-            "note": "Choosing what not to build, which constraint to accept, and which decision the company will still be living with in five years. Models optimise the request; they do not challenge it."
+            ]
         },
-        {
+        "translating-fuzzy-business": {
             "name": "Translating fuzzy business needs into systems",
             "verdict": "safe",
+            "note": "The requirement given is almost never the requirement meant. Extracting the real one takes arguing with people who have not decided what they want.",
             "tags": [
                 "human-judgment",
                 "trust-relationship"
-            ],
-            "note": "The requirement given is almost never the requirement meant. Extracting the real one takes arguing with people who have not decided what they want."
+            ]
         },
-        {
+        "ownership-when-it": {
             "name": "Ownership when it breaks",
             "verdict": "safe",
+            "note": "Someone signs off the deploy and answers for the outage. That signature has not moved and will not.",
             "tags": [
                 "accountability"
-            ],
-            "note": "Someone signs off the deploy and answers for the outage. That signature has not moved and will not."
+            ]
         }
-    ],
+    },
+    "verdict": "shrinking",
+    "safeUntil": "2032",
     "resistanceTags": [
         "human-judgment",
         "accountability",
         "trust-relationship"
     ],
+    "sources": [
+        "https://survey.stackoverflow.co/2025/ai",
+        "https://www.bls.gov/ooh/computer-and-information-technology/software-developers.htm"
+    ],
+    "evidenceStrength": "strong",
     "whatSurvives": "Deciding what to build and owning what happens when it breaks — the parts that were never typing.",
     "adaptPrompt": "You are my senior engineering pair. I direct, you produce; I own everything that ships.\n\nBefore writing any code:\n1. Restate the requirement as you understand it, including what you think I have left unsaid.\n2. List the assumptions you are about to make. If any of them is load-bearing and unverified, ask me instead of guessing.\n3. Name the two or three approaches available, with the real trade-off between them (not a textbook list — the one that matters for this codebase).\n\nWhen you write code:\n- Match the conventions already in the files I gave you, even where you would do it differently. Note the disagreement in one line; do not act on it.\n- Handle the error paths explicitly. Do not silently swallow anything.\n- Point out every place your implementation touches something you cannot see, and tell me what to check.\n\nAfter writing:\n- List what you did NOT test and what could break in production that a passing test suite would not catch.\n- Suggest the smallest thing I should verify by hand before merging.\n\nRules: never claim something works when you have not run it — say what you verified and how. If you are guessing about an API, a version, or a behaviour, say 'I am guessing' in that sentence. I would rather have an honest gap than a confident invention.",
     "adaptTools": [
@@ -71,11 +77,5 @@
         "Cursor",
         "GitHub Copilot",
         "Codex"
-    ],
-    "sources": [
-        "https://survey.stackoverflow.co/2025/ai",
-        "https://www.bls.gov/ooh/computer-and-information-technology/software-developers.htm"
-    ],
-    "lastReviewed": "2026-08",
-    "evidenceStrength": "strong"
+    ]
 }

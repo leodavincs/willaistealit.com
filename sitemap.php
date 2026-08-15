@@ -18,8 +18,11 @@ $lastmod = static function (array $job, string $slug): string {
     if (preg_match('/^\d{4}-\d{2}$/', $ym) === 1) {
         return $ym . '-01';
     }
-    $file = JOBS_DIR . '/' . $slug . '.json';
-    return date('Y-m-d', is_file($file) ? (int)filemtime($file) : time());
+    $newest = 0;
+    foreach (entry_dependency_files($slug, DEFAULT_LANG) as $f) {
+        $newest = max($newest, filemtime($f));
+    }
+    return date('Y-m-d', $newest > 0 ? $newest : time());
 };
 
 $newest = '1970-01-01';

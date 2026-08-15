@@ -1,66 +1,72 @@
 {
+    "assessmentScope": "global",
+    "assessmentSourceLocale": "en",
+    "assessmentReviewed": "2026-08",
     "slug": "graphic-designer",
     "title": "Graphic Designer",
-    "titleTr": "Grafik Tasarımcı",
-    "category": "creative",
-    "verdict": "shrinking",
-    "safeUntil": "2029",
     "oneLiner": "Generation is free now. Choosing, and defending the choice, is the whole job.",
     "summary": "The bottom of this market is gone and is not coming back: the social post, the flyer, the fifteenth banner variant, the stock illustration. A model produces forty options in a minute, and the client who used to pay for one is now paying for none. What survives sits above that line — deciding what a brand should look like, judging which of the forty options is right and why, and taking responsibility for a visual system that has to hold together across years and channels. The gap widens. Designers with taste and an argument are more productive than they have ever been; designers who competed on execution speed are competing against something free.",
-    "tasks": [
-        {
+    "tasks": {
+        "social-posts-banners": {
             "name": "Social posts, banners, resizes",
             "verdict": "gone",
             "note": "Templates plus generation killed this tier. The client does it themselves in the time it takes to write your brief."
         },
-        {
+        "stock-illustration-spot": {
             "name": "Stock illustration & spot imagery",
             "verdict": "gone",
             "note": "Generated on demand, in the exact style requested, at zero marginal cost."
         },
-        {
+        "layout-production-artwork": {
             "name": "Layout & production artwork",
             "verdict": "going",
             "note": "Tools auto-compose and auto-adapt. A designer still fixes what the machine does not see — but in minutes, not days."
         },
-        {
+        "concept-development": {
             "name": "Concept development",
             "verdict": "going",
             "note": "AI is an excellent divergence engine and a poor convergence one. It floods you with directions; picking the right one is unchanged."
         },
-        {
+        "brand-identity-visual": {
             "name": "Brand identity & visual systems",
             "verdict": "safe",
+            "note": "A system that must survive ten channels and five years, and be defensible to a board. Coherence over time is not a prompt.",
             "tags": [
                 "creative-taste",
                 "trust-relationship"
-            ],
-            "note": "A system that must survive ten channels and five years, and be defensible to a board. Coherence over time is not a prompt."
+            ]
         },
-        {
+        "art-direction-critique": {
             "name": "Art direction & critique",
             "verdict": "safe",
+            "note": "The value is the rejection. Knowing why three of forty options are right, and being able to say so out loud, is what clients actually buy.",
             "tags": [
                 "creative-taste",
                 "human-judgment"
-            ],
-            "note": "The value is the rejection. Knowing why three of forty options are right, and being able to say so out loud, is what clients actually buy."
+            ]
         },
-        {
+        "client-persuasion-stakeholder": {
             "name": "Client persuasion & stakeholder work",
             "verdict": "safe",
+            "note": "Most design work dies in a meeting, not in the file. Defending an idea to a nervous client is the job nobody automates.",
             "tags": [
                 "trust-relationship",
                 "emotional-labor"
-            ],
-            "note": "Most design work dies in a meeting, not in the file. Defending an idea to a nervous client is the job nobody automates."
+            ]
         }
-    ],
+    },
+    "verdict": "shrinking",
+    "safeUntil": "2029",
     "resistanceTags": [
         "creative-taste",
         "trust-relationship",
         "human-judgment"
     ],
+    "sources": [
+        "https://www.bls.gov/ooh/arts-and-design/graphic-designers.htm",
+        "https://www.aiga.org/resources/design-industry-research"
+    ],
+    "evidenceStrength": "strong",
     "whatSurvives": "Judgment and the argument behind it — generating options was never the scarce part.",
     "adaptPrompt": "You are my design collaborator. You widen the option space; I decide and I direct.\n\nContext I will give you: the brand, the audience, the medium, the constraint I cannot break, and the feeling the work has to produce.\n\nWhat I want from you:\n1. Six distinct directions — actually distinct, not one idea in six colourways. For each: the core visual idea in one sentence, the reference world it draws from, and who it will alienate. That last part matters; work that alienates nobody says nothing.\n2. For the direction I pick: expand it into a system. Type pairing with a reason, palette with a reason, spacing logic, image treatment, and how it degrades on a small screen or in one colour.\n3. A critique pass on my work when I share it. Be specific and structural — hierarchy, contrast, rhythm, alignment. 'Looks good' is worthless to me; tell me what is fighting what.\n4. The argument I will need in the client meeting: why this choice serves their stated objective, in their language, not in design language.\n\nRules: never tell me something works because it is 'modern' or 'clean'. Give the mechanism. When I am about to make a safe, boring choice, say so plainly.",
     "adaptTools": [
@@ -68,11 +74,5 @@
         "Midjourney",
         "Figma AI",
         "Adobe Firefly"
-    ],
-    "sources": [
-        "https://www.bls.gov/ooh/arts-and-design/graphic-designers.htm",
-        "https://www.aiga.org/resources/design-industry-research"
-    ],
-    "lastReviewed": "2026-08",
-    "evidenceStrength": "strong"
+    ]
 }

@@ -1,0 +1,14 @@
+{
+    "id": "data-analyst",
+    "category": "tech",
+    "taskOrder": [
+        "ad-hoc-queries",
+        "dashboard-building-maintenance",
+        "data-cleaning-transformation",
+        "standard-reporting-commentary",
+        "knowing-why-data",
+        "framing-right-question",
+        "causal-reasoning-experiment",
+        "defending-recommendation"
+    ]
+}

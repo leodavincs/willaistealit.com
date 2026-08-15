@@ -6,7 +6,11 @@
  * Entry sayfasinin kanit gucunu gosterebilmesi icin bilginin entry'nin kendi
  * dosyasinda olmasi gerekiyor. Kutuphane calisma alani, data/jobs/ ise yayin.
  *
- *   CLI: php tools/sync-evidence.php
+ *   php tools/sync-evidence.php
+ *   php tools/sync-evidence.php --dry-run                  # hicbir sey yazmaz
+ *   php tools/sync-evidence.php --root=<agac> --dry-run    # baska bir agac uzerinde
+ *
+ * Bu arac ICERIK YAZAR. Migration kapilarinda yalnizca --dry-run ile kosar.
  */
 declare(strict_types=1);
 
@@ -15,6 +19,14 @@ require_once __DIR__ . '/../inc/functions.php';
 if (PHP_SAPI !== 'cli') {
     http_response_code(403);
     exit("cli only\n");
+}
+
+$dryRun = in_array('--dry-run', $argv, true);
+$root   = JOBS_DIR;
+foreach ($argv as $a) {
+    if (str_starts_with($a, '--root=')) {
+        $root = substr($a, 7);
+    }
 }
 
 $libPath = ROOT . '/research/occupations.json';
@@ -36,8 +48,8 @@ foreach ($rows as $r) {
 $changed = 0;
 $missing = [];
 
-foreach (glob(JOBS_DIR . '/*.json') ?: [] as $path) {
-    $slug = basename($path, '.json');
+foreach (glob($root . '/*/en.json') ?: [] as $path) {
+    $slug = basename(dirname($path));
     if (!isset($byslug[$slug])) {
         $missing[] = $slug;
         continue;
@@ -54,11 +66,11 @@ foreach (glob(JOBS_DIR . '/*.json') ?: [] as $path) {
         continue;
     }
 
-    // lastReviewed'dan hemen sonraya yerlestir ki dosyalar tutarli kalsin
+    // assessmentReviewed'dan hemen sonraya yerlestir ki dosyalar tutarli kalsin
     $out = [];
     foreach ($job as $k => $v) {
         $out[$k] = $v;
-        if ($k === 'lastReviewed') {
+        if ($k === 'assessmentReviewed') {
             $out['evidenceStrength'] = $strength;
         }
     }
@@ -66,15 +78,19 @@ foreach (glob(JOBS_DIR . '/*.json') ?: [] as $path) {
         $out['evidenceStrength'] = $strength;
     }
 
-    file_put_contents(
-        $path,
-        json_encode($out, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) . "\n"
-    );
-    echo "  $slug -> $strength\n";
+    if ($dryRun) {
+        echo "  (dry-run) $slug -> $strength\n";
+    } else {
+        file_put_contents(
+            $path,
+            json_encode($out, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) . "\n"
+        );
+        echo "  $slug -> $strength\n";
+    }
     $changed++;
 }
 
-echo "\n$changed entry guncellendi.\n";
+echo "\n$changed entry " . ($dryRun ? "degisecekti (dry-run).\n" : "guncellendi.\n");
 if ($missing) {
     echo "Kutuphanede karsiligi olmayan: " . implode(', ', $missing) . "\n";
 }

@@ -1,0 +1,13 @@
+{
+    "id": "customer-support",
+    "category": "service",
+    "taskOrder": [
+        "faq-informational-queries",
+        "order-status-returns",
+        "triage-routing",
+        "complex-troubleshooting",
+        "de-escalation-angry",
+        "judgment-calls-exceptions",
+        "vulnerable-high-stakes"
+    ]
+}

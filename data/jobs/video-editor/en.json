@@ -1,70 +1,75 @@
 {
+    "assessmentScope": "global",
+    "assessmentSourceLocale": "en",
+    "assessmentReviewed": "2026-08",
     "slug": "video-editor",
     "title": "Video Editor",
-    "titleTr": "Video Editörü",
-    "category": "creative",
-    "verdict": "shrinking",
-    "safeUntil": "2030",
     "oneLiner": "The tedious half of editing is gone. Rhythm, and knowing when to cut, is not.",
     "summary": "Editing has been quietly automated from the inside for years, and most editors welcomed it: transcription, syncing, rough cuts, captions, colour matching, silence removal. That was the unpaid-feeling half of the work. The exposed part is the volume tier — social clips, talking-head edits, podcast repurposing — where tools now produce an acceptable cut with no editor at all. What holds is narrative editing, where the value is deciding what the audience feels and when. An edit is a sequence of decisions about attention, and models still have no model of an audience. Generated footage complicates the picture further, but it changes what an editor works with more than whether one is needed.",
-    "tasks": [
-        {
+    "tasks": {
+        "transcription-sync-logging": {
             "name": "Transcription, sync, logging",
             "verdict": "gone",
             "note": "Automatic and better than manual. Nobody misses this work."
         },
-        {
+        "rough-assembly-from": {
             "name": "Rough assembly from a script",
             "verdict": "gone",
             "note": "Text-based editing tools assemble a first cut from the transcript in seconds."
         },
-        {
+        "captions-reframing-format": {
             "name": "Captions, reframing, format versions",
             "verdict": "gone",
             "note": "One-click across aspect ratios. An entire freelance tier disappeared with this feature."
         },
-        {
+        "social-short-form": {
             "name": "Social & short-form clipping",
             "verdict": "going",
             "note": "AI picks the moments and cuts them. It picks obvious moments — which is enough for most clients, and that is the problem."
         },
-        {
+        "colour-sound-cleanup": {
             "name": "Colour & sound cleanup",
             "verdict": "going",
             "note": "Automated matching and repair handle the technical baseline. A colourist's look is a taste decision that survives."
         },
-        {
+        "narrative-pacing-decisions": {
             "name": "Narrative & pacing decisions",
             "verdict": "safe",
+            "note": "Holding a shot two seconds too long on purpose. Editing is manipulation of attention over time and requires a model of the viewer.",
             "tags": [
                 "creative-taste",
                 "human-judgment"
-            ],
-            "note": "Holding a shot two seconds too long on purpose. Editing is manipulation of attention over time and requires a model of the viewer."
+            ]
         },
-        {
+        "story-structure-from": {
             "name": "Story structure from raw material",
             "verdict": "safe",
+            "note": "Finding the film inside forty hours of documentary footage. The material does not announce its own story.",
             "tags": [
                 "creative-taste"
-            ],
-            "note": "Finding the film inside forty hours of documentary footage. The material does not announce its own story."
+            ]
         },
-        {
+        "director-client-collaboration": {
             "name": "Director & client collaboration",
             "verdict": "safe",
+            "note": "Interpreting 'it feels off' into six specific changes, and defending the cut you believe in.",
             "tags": [
                 "trust-relationship",
                 "emotional-labor"
-            ],
-            "note": "Interpreting 'it feels off' into six specific changes, and defending the cut you believe in."
+            ]
         }
-    ],
+    },
+    "verdict": "shrinking",
+    "safeUntil": "2030",
     "resistanceTags": [
         "creative-taste",
         "human-judgment",
         "trust-relationship"
     ],
+    "sources": [
+        "https://www.bls.gov/ooh/media-and-communication/film-and-video-editors-and-camera-operators.htm"
+    ],
+    "evidenceStrength": "moderate",
     "whatSurvives": "Deciding what the audience feels and exactly when — every cut is a claim about attention.",
     "adaptPrompt": "You are my edit assistant. You handle structure and options; I make the cut.\n\nI will give you: the transcript or shot log, the runtime target, the platform, the audience, and what the piece has to make them do or feel.\n\nWhat I want:\n1. A structural pass: mark the strongest opening moment in the material (with timecode), the natural act breaks, and every section that is dead weight. Be brutal about the dead weight — my attachment to footage is the enemy.\n2. Three different structures for the same material — chronological, thematic, and one that opens at the most dramatic point. Tell me what each gains and loses.\n3. A tightening pass on my current sequence: which sections drag, where the energy drops, and what the audience is being asked to hold in their head that they will not.\n4. B-roll and coverage notes: for each claim in the voiceover, what should be on screen and why.\n5. The three moments in this piece where a viewer decides to leave, and what has to happen just before each one.\n\nRules: always work in timecodes so I can act on it. Never suggest 'add upbeat music' or similar filler — name the mechanism you want the change to produce. When the material simply does not support the runtime I asked for, say so.",
     "adaptTools": [
@@ -72,10 +77,5 @@
         "Descript",
         "Adobe Premiere AI",
         "DaVinci Resolve Neural Engine"
-    ],
-    "sources": [
-        "https://www.bls.gov/ooh/media-and-communication/film-and-video-editors-and-camera-operators.htm"
-    ],
-    "lastReviewed": "2026-08",
-    "evidenceStrength": "moderate"
+    ]
 }

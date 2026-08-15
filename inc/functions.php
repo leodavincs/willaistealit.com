@@ -2,6 +2,7 @@
 declare(strict_types=1);
 
 require_once __DIR__ . '/config.php';
+require_once __DIR__ . '/entry.php';
 
 /** Slug'i dogrula: sadece [a-z0-9-], path traversal'a kapali. */
 function valid_slug(?string $slug): bool
@@ -14,38 +15,21 @@ function h(?string $s): string
     return htmlspecialchars((string)$s, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
 }
 
-/** Tek bir entry'yi yukle. Bulunamazsa / bozuksa null. */
-function load_job(string $slug): ?array
+/** Tek bir entry'yi yukle. Bulunamazsa / yayinlanmamissa null. */
+function load_job(string $slug, string $lang = DEFAULT_LANG): ?array
 {
-    if (!valid_slug($slug)) {
-        return null;
-    }
-    $path = JOBS_DIR . '/' . $slug . '.json';
-    if (!is_file($path)) {
-        return null;
-    }
-    $raw = file_get_contents($path);
-    if ($raw === false) {
-        return null;
-    }
-    $data = json_decode($raw, true);
-    if (!is_array($data)) {
-        return null;
-    }
-    // Dosya adi her zaman kazanir.
-    $data['slug'] = $slug;
-    return $data;
+    return load_entry($slug, $lang);
 }
 
 /** Tum entry'leri yukle (build ve listeleme icin). */
-function load_all_jobs(): array
+function load_all_jobs(string $lang = DEFAULT_LANG): array
 {
     $jobs = [];
-    foreach (glob(JOBS_DIR . '/*.json') ?: [] as $path) {
-        $slug = basename($path, '.json');
-        $job  = load_job($slug);
+    foreach (glob(JOBS_DIR . '/*/common.json') ?: [] as $path) {
+        $id  = basename(dirname($path));
+        $job = load_entry($id, $lang);
         if ($job !== null) {
-            $jobs[$slug] = $job;
+            $jobs[$id] = $job;
         }
     }
     ksort($jobs);
@@ -143,17 +127,29 @@ function share_text(array $job): string
     return sprintf("%s: %s\n\n%s\n\n%s", strtoupper($t), $line, (string)($job['oneLiner'] ?? ''), job_url($job['slug']));
 }
 
-/** Sayfa cache'i: dosya JSON'dan yeniyse dogrudan bas. */
-function serve_page_cache(string $slug): bool
+/**
+ * Sayfa cache'i: bagimliliklardan yeniyse dogrudan bas.
+ * Klasor mtime'ina GUVENILMEZ (spec 8): dizin zaman damgasi dosya icerigi
+ * degistiginde degismez. Kesin maksimum dosya mtime'i hesaplanir.
+ */
+function serve_page_cache(string $slug, string $lang = DEFAULT_LANG): bool
 {
-    $cached = PAGES_DIR . '/' . $slug . '.html';
-    $source = JOBS_DIR . '/' . $slug . '.json';
-    if (!is_file($cached) || !is_file($source)) {
+    $cached = PAGES_DIR . '/' . $lang . '/' . $slug . '.html';
+    $deps   = entry_dependency_files($slug, $lang);
+    if (!is_file($cached) || $deps === []) {
         return false;
     }
-    // Sablon, ayar, kendi verisi ya da entry kumesi degistiyse cache gecersiz.
-    // (JOBS_DIR zamani: related-jobs blogu diger entry'lere bagli.)
-    $newest = max(filemtime($source), filemtime(JOBS_DIR), template_mtime());
+
+    $newest = template_mtime();
+    foreach ($deps as $f) {
+        $newest = max($newest, filemtime($f));
+    }
+    // related-jobs blogu tum evrene bagli. content-version.json (spec 8.2) Faz 3'te
+    // gelecek; o gelene kadar guvenli fallback: tum entry dosyalarinin en yenisi.
+    foreach (glob(JOBS_DIR . '/*/*.json') ?: [] as $f) {
+        $newest = max($newest, filemtime($f));
+    }
+
     // <= bilerek: filemtime saniye hassasiyetinde. Ayni saniye icinde yazilan
     // cache ile degisen kaynagi ayirt edemiyoruz, o yuzden supheliyi at.
     if (filemtime($cached) <= $newest) {
@@ -181,19 +177,33 @@ function template_mtime(): int
     return $t = max($times);
 }
 
-function write_page_cache(string $slug, string $html): void
+function write_page_cache(string $slug, string $html, string $lang = DEFAULT_LANG): void
 {
-    if (!is_dir(PAGES_DIR)) {
-        @mkdir(PAGES_DIR, 0775, true);
+    // Dil klasorune yazilir — okuma da oradan (serve_page_cache). Ikisi ayrisirsa
+    // site calisir ama HICBIR sayfa cache hit almaz.
+    $dir = PAGES_DIR . '/' . $lang;
+    if (!is_dir($dir) && !@mkdir($dir, 0775, true) && !is_dir($dir)) {
+        return;
     }
-    @file_put_contents(PAGES_DIR . '/' . $slug . '.html', $html, LOCK_EX);
+    // Atomik: yarim yazilmis HTML'i baska bir istek okumasin.
+    $tmp = $dir . '/' . $slug . '.' . bin2hex(random_bytes(4)) . '.tmp';
+    if (@file_put_contents($tmp, $html, LOCK_EX) === false) {
+        return;
+    }
+    if (!@rename($tmp, $dir . '/' . $slug . '.html')) {
+        @unlink($tmp);
+    }
 }
 
 /** Cache klasorlerini bosalt (build sirasinda cagrilir). */
 function clear_cache(): int
 {
     $n = 0;
-    foreach ([PAGES_DIR . '/*.html', OG_DIR . '/*.png'] as $pattern) {
+    // Dil klasorleri IC ICE — duz glob yetmez. Eski duz kalintilar da temizlenir.
+    $patterns = [PAGES_DIR . '/*.html', PAGES_DIR . '/*/*.html',
+                 PAGES_DIR . '/*.tmp',  PAGES_DIR . '/*/*.tmp',
+                 OG_DIR . '/*.png',     OG_DIR . '/*/*.png'];
+    foreach ($patterns as $pattern) {
         foreach (glob($pattern) ?: [] as $f) {
             if (@unlink($f)) {
                 $n++;

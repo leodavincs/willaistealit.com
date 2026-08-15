@@ -1,0 +1,13 @@
+{
+    "id": "graphic-designer",
+    "category": "creative",
+    "taskOrder": [
+        "social-posts-banners",
+        "stock-illustration-spot",
+        "layout-production-artwork",
+        "concept-development",
+        "brand-identity-visual",
+        "art-direction-critique",
+        "client-persuasion-stakeholder"
+    ]
+}

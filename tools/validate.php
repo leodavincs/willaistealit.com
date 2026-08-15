@@ -8,6 +8,7 @@
 declare(strict_types=1);
 
 require_once __DIR__ . '/../inc/functions.php';
+require_once __DIR__ . '/../inc/routes_cache.php';   // PAGE_SLUGS
 
 $cli = PHP_SAPI === 'cli';
 if (!$cli) {
@@ -18,115 +19,222 @@ if (!$cli) {
     }
 }
 
-const REQUIRED_FIELDS = ['slug', 'title', 'category', 'verdict', 'oneLiner', 'tasks', 'resistanceTags', 'adaptPrompt', 'lastReviewed'];
+const REQUIRED_FIELDS = ['slug', 'title', 'oneLiner', 'summary', 'tasks',
+                         'whatSurvives', 'adaptPrompt'];
+
+/** Yargi alanlari — YALNIZCA kaynak dosya tasiyabilir (spec 3.1). */
+const JUDGMENT_FIELDS = ['verdict', 'safeUntil', 'resistanceTags', 'sources',
+                         'evidenceStrength', 'assessmentReviewed'];
 
 $errors   = [];
 $warnings = [];
 $count    = 0;
 
-foreach (glob(JOBS_DIR . '/*.json') ?: [] as $path) {
-    $file = basename($path);
-    $slug = basename($path, '.json');
+$reserved = array_merge(LANGS, ['og', 'tools', 'assets', 'fonts']);
+
+foreach (glob(JOBS_DIR . '/*/common.json') ?: [] as $commonPath) {
+    $id  = basename(dirname($commonPath));
+    $dir = dirname($commonPath);
     $count++;
 
-    if (!valid_slug($slug)) {
-        $errors[] = "$file: dosya adi gecerli bir slug degil (sadece a-z, 0-9, tek tire)";
+    if (!valid_slug($id)) {
+        $errors[] = "$id: dizin adi gecerli bir slug degil";
         continue;
     }
 
-    $raw  = (string)file_get_contents($path);
-    $job  = json_decode($raw, true);
-    if (!is_array($job)) {
-        $errors[] = "$file: gecersiz JSON — " . json_last_error_msg();
+    $common = json_decode((string)file_get_contents($commonPath), true);
+    if (!is_array($common)) {
+        $errors[] = "$id/common.json: gecersiz JSON — " . json_last_error_msg();
         continue;
     }
+    if (($common['id'] ?? null) !== $id) {
+        $errors[] = "$id/common.json: 'id' dizin adiyla uyusmuyor";
+    }
+    if (!isset(CATEGORIES[$common['category'] ?? ''])) {
+        $errors[] = "$id/common.json: bilinmeyen kategori '" . ($common['category'] ?? '') . "'";
+    }
+    $order = (array)($common['taskOrder'] ?? []);
+    if ($order === []) {
+        $errors[] = "$id/common.json: 'taskOrder' bos";
+    }
+    if (count($order) !== count(array_unique($order))) {
+        $errors[] = "$id/common.json: 'taskOrder' tekrarli id iceriyor";
+    }
+    if (count($order) < 4 || count($order) > 8) {
+        $warnings[] = "$id: " . count($order) . " gorev var — plan 4-8 arasi oneriyor";
+    }
 
-    foreach (REQUIRED_FIELDS as $field) {
-        if (!isset($job[$field]) || $job[$field] === '' || $job[$field] === []) {
-            $errors[] = "$file: zorunlu alan eksik veya bos — '$field'";
+    $seenSlugs = [];
+    foreach (LANGS as $lang) {
+        $file = $dir . '/' . $lang . '.json';
+        if (!is_file($file)) {
+            continue;
         }
-    }
-
-    if (isset($job['slug']) && $job['slug'] !== $slug) {
-        $errors[] = "$file: JSON icindeki slug ('{$job['slug']}') dosya adiyla uyusmuyor";
-    }
-
-    if (isset($job['verdict']) && !isset(VERDICTS[$job['verdict']])) {
-        $errors[] = "$file: bilinmeyen verdict '{$job['verdict']}' (gecerli: " . implode(', ', array_keys(VERDICTS)) . ')';
-    }
-
-    if (isset($job['category']) && !isset(CATEGORIES[$job['category']])) {
-        $errors[] = "$file: bilinmeyen kategori '{$job['category']}' (gecerli: " . implode(', ', array_keys(CATEGORIES)) . ')';
-    }
-
-    // Gorev kirilimi
-    if (isset($job['tasks']) && is_array($job['tasks'])) {
-        $n = count($job['tasks']);
-        if ($n < 4 || $n > 8) {
-            $warnings[] = "$file: $n gorev var — plan 4-8 arasi oneriyor";
+        $where = "$id/$lang.json";
+        $doc   = json_decode((string)file_get_contents($file), true);
+        if (!is_array($doc)) {
+            $errors[] = "$where: gecersiz JSON — " . json_last_error_msg();
+            continue;
         }
-        foreach ($job['tasks'] as $i => $task) {
-            $where = "$file: tasks[$i]";
+
+        foreach (REQUIRED_FIELDS as $f) {
+            if (!isset($doc[$f]) || $doc[$f] === '' || $doc[$f] === []) {
+                $errors[] = "$where: zorunlu alan eksik veya bos — '$f'";
+            }
+        }
+
+        // --- Sahiplik (spec 3.1) ---
+        $srcLang = (string)($doc['assessmentSourceLocale'] ?? DEFAULT_LANG);
+        $isOwner = $srcLang === $lang;
+        if (!in_array($srcLang, LANGS, true)) {
+            $errors[] = "$where: bilinmeyen assessmentSourceLocale '$srcLang'";
+        }
+        $scope = (string)($doc['assessmentScope'] ?? '');
+        if (!in_array($scope, ['global', 'local'], true)) {
+            $errors[] = "$where: assessmentScope 'global' ya da 'local' olmali";
+        }
+        if ($scope === 'local' && !$isOwner) {
+            $errors[] = "$where: yerel kapsam kendi dilini kaynak gostermeli";
+        }
+
+        foreach (JUDGMENT_FIELDS as $f) {
+            $has = isset($doc[$f]);
+            if ($isOwner && !$has && $f !== 'safeUntil') {
+                $errors[] = "$where: kaynak dosya '$f' tasimak zorunda";
+            }
+            if (!$isOwner && $has) {
+                $errors[] = "$where: kaynak olmayan dosya '$f' tasiyamaz — devralinir";
+            }
+        }
+        if (!$isOwner && empty($doc['translationReviewed'])) {
+            $errors[] = "$where: 'translationReviewed' zorunlu";
+        }
+        if ($scope === 'local' && empty($doc['sources'])) {
+            $errors[] = "$where: yerel degerlendirme kendi kaynagini tasimali (spec 7.1)";
+        }
+
+        // --- Slug ---
+        $slug = (string)($doc['slug'] ?? '');
+        if (!valid_slug($slug)) {
+            $errors[] = "$where: gecersiz slug '$slug'";
+        } elseif (in_array($slug, $reserved, true) || isset(PAGE_SLUGS[$lang][$slug])
+                  || in_array($slug, PAGE_SLUGS[$lang], true)) {
+            $errors[] = "$where: '$slug' rezerve kelime ya da sabit sayfa slug'i";
+        }
+        foreach ((array)($doc['formerSlugs'] ?? []) as $former) {
+            if (!valid_slug((string)$former)) {
+                $errors[] = "$where: gecersiz formerSlug '$former'";
+            }
+        }
+        $seenSlugs[$lang] = $slug;
+
+        // --- Gorevler: sira + metin kapsami ---
+        $langOrder = (array)($doc['taskOrder'] ?? $order);
+        $local     = (array)($doc['localTasks'] ?? []);
+        foreach ($langOrder as $tid) {
+            $tid  = (string)$tid;
+            $task = $doc['tasks'][$tid] ?? $local[$tid] ?? null;
             if (!is_array($task)) {
-                $errors[] = "$where: nesne olmali";
+                $errors[] = "$where: '$tid' gorevi eksik";
                 continue;
             }
-            if (empty($task['name'])) {
-                $errors[] = "$where: 'name' eksik";
+            if ((string)($task['name'] ?? '') === '') {
+                $errors[] = "$where: '$tid' gorevinin adi bos";
             }
-            if (!isset($task['verdict']) || !isset(TASK_VERDICTS[$task['verdict']])) {
-                $errors[] = "$where: gorev verdict'i gone|going|safe olmali";
+            if ((string)($task['note'] ?? '') === '') {
+                $errors[] = "$where: '$tid' gorevinin notu bos — not devralinmaz";
             }
-            foreach ($task['tags'] ?? [] as $tag) {
+            $tv = $task['verdict'] ?? null;
+            if ($isOwner && !isset(TASK_VERDICTS[(string)$tv])) {
+                $errors[] = "$where: '$tid' gorev verdict'i gone|going|safe olmali";
+            }
+            if (!$isOwner && $tv !== null && !isset(TASK_VERDICTS[(string)$tv])) {
+                $errors[] = "$where: '$tid' gecersiz gorev verdict override'i";
+            }
+            foreach ((array)($task['tags'] ?? []) as $tag) {
                 if (!isset(RESISTANCE_TAGS[$tag])) {
                     $errors[] = "$where: bilinmeyen direnc tag'i '$tag'";
                 }
             }
-            if ((($task['verdict'] ?? '') === 'safe') && empty($task['tags'])) {
-                $warnings[] = "$where: 'safe' gorevin neden dirençli oldugunu soyleyen tag'i yok";
+        }
+        foreach (array_keys($local) as $ltid) {
+            if (!in_array((string)$ltid, $langOrder, true)) {
+                $errors[] = "$where: localTasks '$ltid' taskOrder'da yok";
             }
         }
-    } elseif (isset($job['tasks'])) {
-        $errors[] = "$file: 'tasks' dizi olmali";
-    }
 
-    // Direnc tag'leri
-    if (isset($job['resistanceTags']) && is_array($job['resistanceTags'])) {
-        $n = count($job['resistanceTags']);
-        if ($n < 1 || $n > 3) {
-            $warnings[] = "$file: $n direnc tag'i var — 1-3 arasi olmali";
+        // --- Yuklenmis haliyle rubrik esikleri ---
+        $job = load_entry($id, $lang);
+        if ($job === null) {
+            $errors[] = "$where: yuklenemedi (yayinlanmamis sayilir)";
+            continue;
         }
-        foreach ($job['resistanceTags'] as $tag) {
-            if (!isset(RESISTANCE_TAGS[$tag])) {
-                $errors[] = "$file: bilinmeyen direnc tag'i '$tag'";
+        if (!isset(VERDICTS[$job['verdict'] ?? ''])) {
+            $errors[] = "$where: bilinmeyen verdict '" . ($job['verdict'] ?? '') . "'";
+        }
+        $gone = 0;
+        foreach ($job['tasks'] as $tk) {
+            if (($tk['verdict'] ?? '') === 'gone') {
+                $gone++;
             }
         }
+        if (($job['verdict'] ?? '') === 'safe' && $gone > 0) {
+            // CONTRIBUTING.md'de yayinlanmis sert esik.
+            $errors[] = "$where: 'safe' verdict'te $gone adet 'gone' gorev var";
+        }
+        if (($job['verdict'] ?? '') === 'safe' && !empty($job['safeUntil'])) {
+            $errors[] = "$where: 'safe' verdict'te safeUntil olamaz";
+        }
+        if (($job['verdict'] ?? '') !== 'safe' && empty($job['safeUntil'])) {
+            $warnings[] = "$where: safe olmayan verdict'te safeUntil bekleniyor";
+        }
+        if (!empty($job['safeUntil']) && !preg_match('/^(19|20)\d{2}$/', (string)$job['safeUntil'])) {
+            $errors[] = "$where: safeUntil 4 haneli yil olmali";
+        }
+        if (!preg_match('/^(19|20)\d{2}-(0[1-9]|1[0-2])(-\d{2})?$/', (string)($job['lastReviewed'] ?? ''))) {
+            $errors[] = "$where: assessmentReviewed YYYY-MM ya da YYYY-MM-DD olmali";
+        }
+        if (mb_strlen((string)$job['adaptPrompt']) < 200) {
+            $warnings[] = "$where: adaptPrompt cok kisa";
+        }
+        if (empty($job['sources'])) {
+            $warnings[] = "$where: 'sources' bos — community draft olarak isaretlenecek";
+        }
+        if (mb_strlen((string)$job['oneLiner']) > 120) {
+            $warnings[] = "$where: oneLiner 120 karakteri asiyor — OG kartinda kesilir";
+        }
+        // Tazelik: ceviri, guncellenen degerlendirmenin gerisinde mi (spec 3.4)
+        $tRev = (string)($doc['translationReviewed'] ?? '');
+        $aRev = (string)($job['lastReviewed'] ?? '');
+        if (!$isOwner && $tRev !== '' && $aRev !== '' && $tRev < $aRev) {
+            $warnings[] = "$where: ceviri ($tRev) degerlendirmeden ($aRev) eski — bayat";
+        }
     }
 
-    // safeUntil
-    if (isset($job['safeUntil']) && !preg_match('/^(19|20)\d{2}$/', (string)$job['safeUntil'])) {
-        $errors[] = "$file: safeUntil 4 haneli yil olmali ('{$job['safeUntil']}')";
+    if (!is_file($dir . '/' . DEFAULT_LANG . '.json')) {
+        $errors[] = "$id: " . DEFAULT_LANG . ".json yok — kaynak dil zorunlu";
     }
-    if (($job['verdict'] ?? '') !== 'safe' && empty($job['safeUntil'])) {
-        $warnings[] = "$file: safe olmayan verdict'te safeUntil bekleniyor (paylasim kartinin malzemesi)";
-    }
+}
 
-    // lastReviewed
-    if (isset($job['lastReviewed']) && !preg_match('/^(19|20)\d{2}-(0[1-9]|1[0-2])$/', (string)$job['lastReviewed'])) {
-        $errors[] = "$file: lastReviewed YYYY-MM formatinda olmali ('{$job['lastReviewed']}')";
-    }
-
-    // Kopyalanabilir artifact — sitenin varlik sebebi
-    if (isset($job['adaptPrompt']) && mb_strlen((string)$job['adaptPrompt']) < 200) {
-        $warnings[] = "$file: adaptPrompt cok kisa (" . mb_strlen((string)$job['adaptPrompt']) . " karakter) — kullanilabilir bir prompt olmali";
-    }
-
-    if (empty($job['sources'])) {
-        $warnings[] = "$file: 'sources' bos — community draft olarak isaretlenecek";
-    }
-
-    if (mb_strlen((string)($job['oneLiner'] ?? '')) > 120) {
-        $warnings[] = "$file: oneLiner 120 karakteri asiyor — OG kartinda kesilir";
+// Ayni dilde slug tekilligi ve formerSlug golgelemesi
+$byLang = [];
+foreach (glob(JOBS_DIR . '/*/common.json') ?: [] as $commonPath) {
+    $id = basename(dirname($commonPath));
+    foreach (LANGS as $lang) {
+        $file = dirname($commonPath) . '/' . $lang . '.json';
+        if (!is_file($file)) {
+            continue;
+        }
+        $doc = json_decode((string)file_get_contents($file), true);
+        foreach (array_merge([(string)($doc['slug'] ?? '')], (array)($doc['formerSlugs'] ?? [])) as $s) {
+            if ($s === '') {
+                continue;
+            }
+            if (isset($byLang[$lang][$s]) && $byLang[$lang][$s] !== $id) {
+                $errors[] = "$lang: '$s' hem '{$byLang[$lang][$s]}' hem '$id' tarafindan isteniyor";
+            }
+            $byLang[$lang][$s] = $id;
+        }
     }
 }
 
@@ -140,7 +248,7 @@ foreach ($log as $i => $e) {
     $slug = (string)($e['slug'] ?? '');
     if (!valid_slug($slug)) {
         $errors[] = "$where: gecersiz slug '$slug'";
-    } elseif (!is_file(JOBS_DIR . '/' . $slug . '.json')) {
+    } elseif (!is_file(JOBS_DIR . '/' . $slug . '/common.json')) {
         $warnings[] = "$where: '$slug' entry'si artik yok";
     }
     if (!isset(VERDICTS[(string)($e['to'] ?? '')])) {
@@ -167,7 +275,7 @@ $out = static function (string $s) use ($cli): void {
     echo $s . "\n";
 };
 
-$out("$count entry tarandi.");
+$out("$count entry tarandi (dizin yapisi).");
 if ($warnings) {
     $out("\n" . count($warnings) . " uyari:");
     foreach ($warnings as $w) {

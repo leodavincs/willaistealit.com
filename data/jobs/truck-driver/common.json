@@ -1,0 +1,14 @@
+{
+    "id": "truck-driver",
+    "category": "trades",
+    "taskOrder": [
+        "motorway-long-haul",
+        "route-planning-dispatch",
+        "logging-compliance-paperwork",
+        "yard-manoeuvring-docking",
+        "urban-last-mile",
+        "loading-securing-freight",
+        "handling-breakdowns-accidents",
+        "customer-contact-handover"
+    ]
+}

@@ -4,6 +4,7 @@ declare(strict_types=1);
 require_once __DIR__ . '/inc/functions.php';
 
 $slug = (string)($_GET['slug'] ?? '');
+$lang = (string)($_GET['lang'] ?? DEFAULT_LANG);
 
 if (!valid_slug($slug)) {
     http_response_code(404);
@@ -12,7 +13,7 @@ if (!valid_slug($slug)) {
 }
 
 // Cache hit: sablonu hic calistirma.
-if (serve_page_cache($slug)) {
+if (serve_page_cache($slug, $lang)) {
     exit;
 }
 
@@ -96,7 +97,6 @@ require __DIR__ . '/inc/header.php';
 
       <h1 class="job-title">Will AI replace <?= h($title) ?>s?</h1>
       <p class="job-title-tr">
-        <?php if (!empty($job['titleTr'])): ?><?= h($job['titleTr']) ?> &middot; <?php endif; ?>
         <?php if ($reviewed !== ''): ?>Last reviewed: <time datetime="<?= h((string)$job['lastReviewed']) ?>"><?= h($reviewed) ?></time><?php endif; ?>
       </p>
 
@@ -283,7 +283,7 @@ require __DIR__ . '/inc/header.php';
       <div class="disagree">
         <h2>Think this verdict is wrong?</h2>
         <p>Good — that is the point. Every entry is one JSON file. Change it, argue in the PR, and if the argument holds the verdict changes.
-        <?php if (has_github()): ?><a href="<?= h(github_url('/blob/main/data/jobs/' . $slug . '.json')) ?>" rel="noopener" target="_blank">Edit this entry</a> &middot; <?php endif; ?><a href="/methodology">Read the methodology</a></p>
+        <?php if (has_github()): ?><a href="<?= h(github_url('/blob/main/data/jobs/' . $slug . '/' . $lang . '.json')) ?>" rel="noopener" target="_blank">Edit this entry</a> &middot; <?php endif; ?><a href="/methodology">Read the methodology</a></p>
       </div>
     </div>
   </section>
@@ -315,5 +315,5 @@ require __DIR__ . '/inc/header.php';
 <?php
 require __DIR__ . '/inc/footer.php';
 $html = (string)ob_get_clean();
-write_page_cache($slug, $html);
+write_page_cache($slug, $html, $lang);
 echo $html;

@@ -7,29 +7,15 @@ $root = sys_get_temp_dir() . '/wais-entry-' . bin2hex(random_bytes(4));
 $id   = 'cashier';
 @mkdir($root . '/' . $id, 0775, true);
 
-$flat   = json_decode((string)file_get_contents(ROOT . '/data/jobs/cashier.json'), true);
-$common = json_decode((string)file_get_contents(ROOT . '/data/i18n/cashier/common.json'), true);
-file_put_contents($root . '/' . $id . '/common.json', (string)json_encode($common));
-copy(ROOT . '/data/i18n/cashier/tr.json', $root . '/' . $id . '/tr.json');
-copy(ROOT . '/data/i18n/cashier/es.json', $root . '/' . $id . '/es.json');
-
-/* en.json'i duz dosyadan elle kur — migration araci Gorev 2B'de gelecek. */
-$en = [
-    'assessmentScope' => 'global', 'assessmentSourceLocale' => 'en',
-    'assessmentReviewed' => $flat['lastReviewed'], 'slug' => 'cashier',
-    'title' => $flat['title'], 'oneLiner' => $flat['oneLiner'], 'summary' => $flat['summary'],
-    'whatSurvives' => $flat['whatSurvives'], 'adaptPrompt' => $flat['adaptPrompt'],
-    'adaptTools' => $flat['adaptTools'], 'verdict' => $flat['verdict'],
-    'safeUntil' => $flat['safeUntil'], 'resistanceTags' => $flat['resistanceTags'],
-    'sources' => $flat['sources'], 'evidenceStrength' => $flat['evidenceStrength'],
-    'geoAnswer' => $flat['geoAnswer'], 'reviewed' => $flat['reviewed'], 'tasks' => [],
-];
-foreach ($common['taskOrder'] as $i => $tid) {
-    $t = $flat['tasks'][$i];
-    $en['tasks'][$tid] = ['name' => $t['name'], 'verdict' => $t['verdict'], 'note' => $t['note']]
-                       + (isset($t['tags']) ? ['tags' => $t['tags']] : []);
+/* Kaynak: MIGRE EDILMIS agac. Duz dosyaya bagimlilik yok — o format artik yok. */
+foreach (['common', 'en', 'tr', 'es'] as $f) {
+    copy(JOBS_DIR . '/' . $id . '/' . $f . '.json', $root . '/' . $id . '/' . $f . '.json');
 }
-file_put_contents($root . '/' . $id . '/en.json', (string)json_encode($en));
+$common = json_decode((string)file_get_contents(JOBS_DIR . '/' . $id . '/common.json'), true);
+$en     = json_decode((string)file_get_contents(JOBS_DIR . '/' . $id . '/en.json'), true);
+
+/* Beklenen gorev listesi: taskOrder sirasinda duzlestirilmis EN gorevleri. */
+$enTasks = array_map(static fn ($tid) => $en['tasks'][$tid], $common['taskOrder']);
 
 // --- yayinlanmis diller ---
 t_eq(['en', 'tr', 'es'], entry_langs($id, $root), 'uc dil de yayinlanmis');
@@ -37,37 +23,37 @@ t_eq([], entry_langs('hayali-meslek', $root), 'olmayan entry: dil yok');
 
 // --- EN yukleme: duz dosyayla ayni yargi ---
 $en_out = load_entry($id, 'en', $root);
-t_eq($flat['verdict'],        $en_out['verdict'],        'EN verdict');
-t_eq($flat['safeUntil'],      $en_out['safeUntil'],      'EN safeUntil');
-t_eq($flat['resistanceTags'], $en_out['resistanceTags'], 'EN resistanceTags');
-t_eq($flat['lastReviewed'],   $en_out['lastReviewed'],   'lastReviewed uyumluluk takma adi');
-t_eq($flat['geoAnswer'],      $en_out['geoAnswer'],      'geoAnswer korunur');
+t_eq($en['verdict'],        $en_out['verdict'],        'EN verdict');
+t_eq($en['safeUntil'],      $en_out['safeUntil'],      'EN safeUntil');
+t_eq($en['resistanceTags'], $en_out['resistanceTags'], 'EN resistanceTags');
+t_eq($en['assessmentReviewed'],   $en_out['lastReviewed'],   'lastReviewed uyumluluk takma adi');
+t_eq($en['geoAnswer'],      $en_out['geoAnswer'],      'geoAnswer korunur');
 t_eq('service',               $en_out['category'],       'kategori common.json dan');
 t_eq(6,                       count($en_out['tasks']),   'gorev sayisi');
-t_eq($flat['tasks'][0]['name'], $en_out['tasks'][0]['name'], 'gorev sirasi taskOrder a uyar');
-t_eq($flat['tasks'][3]['tags'], $en_out['tasks'][3]['tags'], 'gorev tag leri');
+t_eq($enTasks[0]['name'], $en_out['tasks'][0]['name'], 'gorev sirasi taskOrder a uyar');
+t_eq($enTasks[3]['tags'], $en_out['tasks'][3]['tags'], 'gorev tag leri');
 
 // --- TR yukleme: DUZYAZI yerel, YARGI devralinmis (spec 3.1) ---
 $tr = load_entry($id, 'tr', $root);
 t_eq('Kasiyer', $tr['title'],  'TR baslik yerel');
 t_eq('kasiyer', $tr['slug'],   'TR slug yerel');
-t_eq($flat['verdict'],   $tr['verdict'],   'TR verdict EN den devralindi');
-t_eq($flat['safeUntil'], $tr['safeUntil'], 'TR safeUntil devralindi');
-t_eq($flat['sources'],   $tr['sources'],   'TR sources devralindi');
+t_eq($en['verdict'],   $tr['verdict'],   'TR verdict EN den devralindi');
+t_eq($en['safeUntil'], $tr['safeUntil'], 'TR safeUntil devralindi');
+t_eq($en['sources'],   $tr['sources'],   'TR sources devralindi');
 t_eq('global',           $tr['assessmentScope'],        'TR scope global');
 t_eq('en',               $tr['assessmentSourceLocale'], 'TR kaynak dili en');
 t_eq('2026-08-15',       $tr['translationReviewed'],    'TR ceviri tarihi');
 t_eq(6, count($tr['tasks']), 'TR gorev sayisi');
 t_eq('Ürün okutma ve ödeme alma', $tr['tasks'][0]['name'], 'TR gorev adi yerel');
-t_eq($flat['tasks'][0]['verdict'], $tr['tasks'][0]['verdict'], 'TR gorev yargisi devralindi');
-t_eq($flat['tasks'][3]['tags'],    $tr['tasks'][3]['tags'],    'TR gorev tag leri devralindi');
+t_eq($enTasks[0]['verdict'], $tr['tasks'][0]['verdict'], 'TR gorev yargisi devralindi');
+t_eq($enTasks[3]['tags'],    $tr['tasks'][3]['tags'],    'TR gorev tag leri devralindi');
 // Duzyazi ASLA devralinmaz: TR notu Ingilizce olamaz.
 t_eq(true, str_contains($tr['tasks'][0]['note'], 'Self-servis'), 'TR notu yerel');
 
 // --- ES yukleme ---
 $es = load_entry($id, 'es', $root);
 t_eq('Cajero', $es['title'], 'ES baslik');
-t_eq($flat['verdict'], $es['verdict'], 'ES verdict devralindi');
+t_eq($en['verdict'], $es['verdict'], 'ES verdict devralindi');
 
 // --- Eksik/bozuk durumlar ---
 t_eq(null, load_entry($id, 'de', $root),      'bilinmeyen dil');
@@ -133,7 +119,7 @@ file_put_contents($root . '/' . $id . '/tr.json', (string)json_encode($local));
 $lt = load_entry($id, 'tr', $root);
 t_eq('shrinking', $lt['verdict'],   'yerel kapsam kendi verdict ini tasir');
 t_eq('2033',      $lt['safeUntil'], 'yerel safeUntil');
-t_eq(array_values(array_unique(array_merge($flat['sources'], ['https://www.turmob.org.tr/ornek']))),
+t_eq(array_values(array_unique(array_merge($en['sources'], ['https://www.turmob.org.tr/ornek']))),
      $lt['sources'], 'inheritedSources: global + yerel birlesir, tekrarsiz');
 t_eq(3, count($lt['tasks']), 'taskOrder dil dosyasinda ezilebilir');
 t_eq('KDV ve fis mevzuati uyumu', $lt['tasks'][1]['name'], 'localTasks yukleniyor');

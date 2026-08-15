@@ -1,0 +1,51 @@
+{
+    "assessmentScope": "global",
+    "assessmentSourceLocale": "en",
+    "translationReviewed": "2026-08-15",
+    "slug": "cajero",
+    "formerSlugs": [],
+    "title": "Cajero",
+    "aka": [
+        "Cajera de comercio",
+        "Operador de caja",
+        "Cajero de supermercado",
+        "Auxiliar de caja"
+    ],
+    "oneLiner": "Pasar la compra por el lector dejó de ser un puesto de trabajo. Estar entre la estantería y la puerta no.",
+    "summary": "Esto no lo tumbó un modelo de lenguaje. Lo tumbaron un código de barras, un datáfono y seis terminales con una sola persona en medio. En Estados Unidos se proyecta una caída del 9,9 % hasta 2034 — 313.600 puestos, el mayor descenso numérico de cualquier ocupación — y el motivo que da la oficina estadística es la caja de autoservicio y el aumento de la venta online. Los índices de exposición coinciden en que esto no va de chatbots: la OIT sitúa este trabajo en su banda más baja de IA generativa, con exposición general baja y solo algunas tareas automatizables. Aun así entra en esta web, porque automatizar no es solo el modelo — el escaneo y el pago pasaron al cliente, y el puesto se fue con ellos. Lo que queda es supervisar las máquinas y la parte de la sala a la que no llegan, y una persona cubre ahora lo que antes hacían seis. Se está cerrando la puerta de entrada más común al trabajo sin titulación, y nadie ha construido otra.",
+    "tasks": {
+        "scan-payment": {
+            "name": "Pasar productos y cobrar",
+            "note": "El autoservicio, el pago contactless y el escaneo mientras se compra trasladaron la operación al cliente. Donde la caja atendida sigue abierta, lo hace como decisión sobre las colas, no por necesidad."
+        },
+        "cash-reconciliation": {
+            "name": "Manejo de efectivo y cuadre de caja",
+            "note": "Las máquinas de reciclaje de efectivo cuentan y cuadran sin que nadie abra el cajón. El efectivo no ha desaparecido, así que el descuadre de la noche sigue teniendo dueño."
+        },
+        "returns-disputes": {
+            "name": "Devoluciones, reembolsos y disputas de precio",
+            "note": "El sistema aprueba la devolución rutinaria antes de que nadie pregunte. La discusión sobre la etiqueta que marcaba otro precio la cierra una persona con autoridad."
+        },
+        "age-restricted": {
+            "name": "Venta con restricción de edad y prevención de pérdidas",
+            "note": "El alcohol, el tabaco y los objetos cortantes están detrás de una comprobación legal que hace y responde una persona. Se ensaya la estimación de edad por visión artificial, pero la responsabilidad no se ha movido."
+        },
+        "selfcheckout-supervision": {
+            "name": "Supervisar las cajas de autoservicio",
+            "note": "Códigos que no leen, fruta a granel, billetes atascados y el cliente que ya se ha rendido. Es trabajo real, y lo hace una persona donde antes había seis."
+        },
+        "floor-service": {
+            "name": "Atención en sala entre operaciones",
+            "note": "Encontrar el producto, alcanzar el estante alto, reponer el hueco, ayudar a salir con la compra. La máquina cobra la mercancía pero no se la da a nadie."
+        }
+    },
+    "whatSurvives": "Las cajas que una máquina no lleva sola, la venta que la ley no le deja aprobar y unas manos en la sala.",
+    "adaptPrompt": "Me estás ayudando a pasar de la caja al trabajo que sí queda. Trabajo en caja y quiero un plan concreto, no ánimos.\n\nTe diré: el país y la ciudad donde trabajo, el tipo de establecimiento (supermercado, cadena de descuento, gasolinera, gran almacén, quiosco), el nombre del sistema de caja o TPV si lo sé, lo que hago realmente en un turno además de cobrar, mi jornada y tipo de contrato, y lo que no puedo hacer — noches, cargar peso, sin ordenador en casa, formación limitada.\n\nDevuélveme:\n1. Los puestos que crecen dentro de esta misma tienda o cadena mientras la caja se reduce, ordenados por lo alcanzables que son desde donde estoy hoy. De cada uno, la cosa concreta que aún no sé hacer.\n2. Las partes de mi turno actual que ya sirven como prueba para esos puestos, escritas como frases que pueda decirle a mi encargado tal cual.\n3. Un plan de 30 días con qué hago cada semana, usando solo formación gratuita o de la empresa. Nada que tenga que pagar.\n4. Tres preguntas para mi encargado y el mejor momento de la semana para hacerlas.\n\nReglas: no inventes nombres de certificados, cursos, programas ni ayudas — si no estás seguro de que existan en mi país, dilo e indícame qué organismo debo consultar. No supongas salarios, preavisos ni derechos laborales: cambian de un país a otro, así que pregúntame o dime dónde verificarlo. Si te doy el nombre de la cadena y no conoces sus puestos internos, dilo en lugar de inventarlos. Respuestas cortas, para leer en el móvil entre turnos.",
+    "adaptTools": [
+        "Claude",
+        "ChatGPT",
+        "Google Sheets",
+        "Coursera",
+        "LinkedIn Learning"
+    ]
+}

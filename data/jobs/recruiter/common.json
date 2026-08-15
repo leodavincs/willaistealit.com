@@ -1,0 +1,14 @@
+{
+    "id": "recruiter",
+    "category": "ops",
+    "taskOrder": [
+        "cv-screening-ranking",
+        "sourcing-outreach-drafting",
+        "scheduling-coordination",
+        "initial-screening-calls",
+        "persuading-passive-candidates",
+        "assessing-motivation-fit",
+        "closing-offers-counter",
+        "hiring-decisions-compliance"
+    ]
+}

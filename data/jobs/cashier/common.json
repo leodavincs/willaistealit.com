@@ -1,0 +1,12 @@
+{
+    "id": "cashier",
+    "category": "service",
+    "taskOrder": [
+        "scan-payment",
+        "cash-reconciliation",
+        "returns-disputes",
+        "age-restricted",
+        "selfcheckout-supervision",
+        "floor-service"
+    ]
+}

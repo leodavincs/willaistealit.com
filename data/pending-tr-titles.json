@@ -1,0 +1,19 @@
+{
+    "accountant": "Muhasebeci",
+    "administrative-assistant": "İdari Asistan",
+    "cashier": "Kasiyer",
+    "copywriter": "Metin Yazarı",
+    "customer-support": "Müşteri Temsilcisi",
+    "data-analyst": "Veri Analisti",
+    "graphic-designer": "Grafik Tasarımcı",
+    "lawyer": "Avukat",
+    "marketer": "Pazarlamacı",
+    "nurse": "Hemşire",
+    "photographer": "Fotoğrafçı",
+    "recruiter": "İşe Alım Uzmanı",
+    "software-developer": "Yazılım Geliştirici",
+    "teacher": "Öğretmen",
+    "translator": "Çevirmen",
+    "truck-driver": "Kamyon Şoförü",
+    "video-editor": "Video Editörü"
+}

@@ -1,74 +1,80 @@
 {
+    "assessmentScope": "global",
+    "assessmentSourceLocale": "en",
+    "assessmentReviewed": "2026-08",
     "slug": "nurse",
     "title": "Nurse",
-    "titleTr": "Hemşire",
-    "category": "health",
-    "verdict": "safe",
     "oneLiner": "Everything a machine could take was paperwork, and there was a mountain of it. The rest is a body in a room.",
     "summary": "Nursing sits behind three walls at once — you must be physically present, you must be licensed, and someone must be legally accountable for a patient's care. There is also a global shortage, which means the economic pressure runs toward keeping nurses rather than replacing them. What AI genuinely changes is the documentation burden that consumes a large share of every shift and drives people out of the profession. Charting, handover notes, care-plan drafting and coding are real hours that can go back to patients. The honest caveat is that history says recovered hours get filled with more patients rather than more time per patient. That is a staffing decision, not a technology one.",
-    "tasks": [
-        {
+    "tasks": {
+        "charting-clinical-documentation": {
             "name": "Charting & clinical documentation",
             "verdict": "going",
             "note": "Ambient documentation drafts notes from the encounter. The single biggest time sink in the job, and the most automatable."
         },
-        {
+        "handover-shift-summaries": {
             "name": "Handover & shift summaries",
             "verdict": "going",
             "note": "Generated from the record. A nurse verifies — a wrong handover kills people, so the verification step is not optional."
         },
-        {
+        "care-plan-drafting": {
             "name": "Care plan drafting & coding",
             "verdict": "going",
             "note": "Standard plans drafted from assessment data; the nurse adapts to the actual patient in front of them."
         },
-        {
+        "monitoring-early-warning": {
             "name": "Monitoring & early warning",
             "verdict": "going",
             "note": "Deterioration detection from vitals is genuinely better than periodic human observation. This augments; it does not replace the person who responds."
         },
-        {
+        "physical-care-clinical": {
             "name": "Physical care & clinical procedures",
             "verdict": "safe",
+            "note": "Cannulation, wound care, medication administration, moving and handling a frightened patient. Hands, in a room, on a body.",
             "tags": [
                 "physical-presence",
                 "regulated"
-            ],
-            "note": "Cannulation, wound care, medication administration, moving and handling a frightened patient. Hands, in a room, on a body."
+            ]
         },
-        {
+        "clinical-judgment-bedside": {
             "name": "Clinical judgment at the bedside",
             "verdict": "safe",
+            "note": "'Something is not right with this patient' — an assessment built from colour, breathing, mood and smell, often before the numbers move.",
             "tags": [
                 "human-judgment",
                 "physical-context"
-            ],
-            "note": "'Something is not right with this patient' — an assessment built from colour, breathing, mood and smell, often before the numbers move."
+            ]
         },
-        {
+        "patient-family-emotional": {
             "name": "Patient & family emotional care",
             "verdict": "safe",
+            "note": "Frightened people, bad news, dying patients. This is not a soft add-on to nursing; it is a large part of the work.",
             "tags": [
                 "emotional-labor",
                 "trust-relationship"
-            ],
-            "note": "Frightened people, bad news, dying patients. This is not a soft add-on to nursing; it is a large part of the work."
+            ]
         },
-        {
+        "accountability-care-delivered": {
             "name": "Accountability for care delivered",
             "verdict": "safe",
+            "note": "A registered professional is answerable to a regulator for every decision. That registration cannot be issued to software.",
             "tags": [
                 "legal-liability",
                 "regulated"
-            ],
-            "note": "A registered professional is answerable to a regulator for every decision. That registration cannot be issued to software."
+            ]
         }
-    ],
+    },
+    "verdict": "safe",
     "resistanceTags": [
         "physical-presence",
         "emotional-labor",
         "regulated"
     ],
+    "sources": [
+        "https://www.who.int/publications/i/item/9789240003279",
+        "https://www.bls.gov/ooh/healthcare/registered-nurses.htm"
+    ],
+    "evidenceStrength": "strong",
     "whatSurvives": "Hands on a patient, judgment at the bedside, and a registration that a person is answerable for.",
     "adaptPrompt": "You are my clinical documentation and study assistant. You never make clinical decisions and you never replace protocol — I verify everything against local policy before it touches a patient record.\n\nFor documentation:\n1. When I dictate an encounter, structure it into our standard note format. Use only what I said. If something required for the format is missing, list it as a gap — never infer a vital sign, a dose or an observation.\n2. Draft a handover in SBAR: situation, background, assessment, recommendation. Keep the assessment to what was actually observed.\n3. Flag anything in my dictation that is internally inconsistent, so I can correct it before it becomes part of the record.\n\nFor learning and preparation:\n4. Explain the pathophysiology behind what I am seeing, at the depth of a qualified nurse, not a layperson.\n5. Quiz me on medications for my specialty: mechanism, contraindications, interactions, and what to monitor. Tell me when I am wrong and why.\n6. Walk me through the escalation criteria for a deteriorating patient and let me practise the call I would make.\n\nAbsolute rules: never suggest a dose, never propose a treatment, never interpret a result as a diagnosis. If I ask you to, refuse and tell me to consult the protocol or the prescriber. Your job is to give me my time back, not to practise nursing.",
     "adaptTools": [
@@ -76,11 +82,5 @@
         "Abridge",
         "Nuance DAX",
         "Epic AI documentation"
-    ],
-    "sources": [
-        "https://www.who.int/publications/i/item/9789240003279",
-        "https://www.bls.gov/ooh/healthcare/registered-nurses.htm"
-    ],
-    "lastReviewed": "2026-08",
-    "evidenceStrength": "strong"
+    ]
 }

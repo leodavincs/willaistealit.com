@@ -1,0 +1,12 @@
+{
+    "id": "translator",
+    "category": "creative",
+    "taskOrder": [
+        "bulk-commercial-translation",
+        "post-editing-machine",
+        "subtitling-media-translation",
+        "certified-legal-medical",
+        "literary-brand-translation",
+        "live-interpretation-high"
+    ]
+}

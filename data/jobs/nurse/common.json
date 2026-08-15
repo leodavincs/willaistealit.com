@@ -1,0 +1,14 @@
+{
+    "id": "nurse",
+    "category": "health",
+    "taskOrder": [
+        "charting-clinical-documentation",
+        "handover-shift-summaries",
+        "care-plan-drafting",
+        "monitoring-early-warning",
+        "physical-care-clinical",
+        "clinical-judgment-bedside",
+        "patient-family-emotional",
+        "accountability-care-delivered"
+    ]
+}

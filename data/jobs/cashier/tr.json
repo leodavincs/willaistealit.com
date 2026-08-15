@@ -1,0 +1,51 @@
+{
+    "assessmentScope": "global",
+    "assessmentSourceLocale": "en",
+    "translationReviewed": "2026-08-15",
+    "slug": "kasiyer",
+    "formerSlugs": [],
+    "title": "Kasiyer",
+    "aka": [
+        "Kasa Görevlisi",
+        "Ön Kasa Elemanı",
+        "Satış Kasiyeri",
+        "Kasa Sorumlusu"
+    ],
+    "oneLiner": "Ürünü okutmak artık birinin yaptığı iş olmaktan çıktı. Rafla kapı arasında duran kişi çıkmadı.",
+    "summary": "Buradaki kaybı dil modeli yapmadı. Barkod, temassız kart ve ortasında tek görevli duran altı terminallik bir sıra yaptı. ABD'de istihdamın 2034'e kadar yüzde 9,9 düşmesi bekleniyor — 313.600 kişi, tüm meslekler içindeki en büyük sayısal düşüş — ve istatistik kurumunun gerekçesi self-servis kasa ile artan internet satışı. Maruziyet endeksleri de bunun bir sohbet botu hikâyesi olmadığını söylüyor: ILO bu işi en düşük üretken yapay zekâ kademesine koyuyor, yani genel maruziyet düşük, yalnızca bazı görevler otomatikleşebiliyor. Site yine de bunu kapsama alıyor, çünkü otomasyon sadece modeller demek değil — okutma ve ödeme müşteriye devredildi, iş de onunla birlikte gitti. Geriye makineleri gözetmek ve makinenin uzanamadığı reyon işi kaldı; altı kişinin yaptığını artık bir kişi yapıyor. Diplomasız girilen en yaygın kapı kapanıyor ve yerine bir şey konmuş değil.",
+    "tasks": {
+        "scan-payment": {
+            "name": "Ürün okutma ve ödeme alma",
+            "note": "Self-servis terminal, temassız kart ve mobil ödeme işlemi müşterinin kendisine devretti. Görevli kasa hâlâ varsa bu zorunluluktan değil, kuyruk yönetimi tercihinden."
+        },
+        "cash-reconciliation": {
+            "name": "Nakit sayımı ve vardiya sonu mutabakat",
+            "note": "Nakit döngü makineleri parayı sayıyor, tutuyor ve kasayı kimse açmadan denkleştiriyor. Nakit ortadan kalkmadığı için gün sonundaki açığın sahibi hâlâ bir insan."
+        },
+        "returns-disputes": {
+            "name": "İade, değişim ve fiyat itirazları",
+            "note": "Rutin iadeyi politika motoru kimseye sormadan onaylıyor. Etikette başka fiyat yazıyordu tartışmasını hâlâ yetkisi olan bir insan bitiriyor."
+        },
+        "age-restricted": {
+            "name": "Yaş sınırlı satış ve kayıp önleme",
+            "note": "Alkol, tütün ve kesici alet satışı, bir insanın yapıp hesabını vereceği yasal bir kontrolün arkasında. Makineyle yaş tahmini deneniyor ama sorumluluk yer değiştirmedi."
+        },
+        "selfcheckout-supervision": {
+            "name": "Self-servis kasayı gözetmek",
+            "note": "Okunmayan barkod, tartılacak sebze, sıkışan banknot ve pes etmiş müşteri. Gerçek bir iş, ama altı kişinin yaptığını tek kişi yapıyor."
+        },
+        "floor-service": {
+            "name": "İşlem aralarında reyon hizmeti",
+            "note": "Ürünü bulmak, üst raftan almak, boşalan yeri doldurmak, poşetlemek. Makine parayı tahsil eder ama malı kimsenin eline veremez."
+        }
+    },
+    "whatSurvives": "Makinenin tek başına çeviremediği kasa, kanunun makineye onaylatmadığı satış ve reyonda duran bir çift el.",
+    "adaptPrompt": "Kasadan, geriye kalan işe geçmemde bana yardım ediyorsun. Ben kasada çalışıyorum ve moral değil, somut bir plan istiyorum.\n\nSana söyleyeceklerim: çalıştığım ülke ve şehir, mağaza tipi (süpermarket, indirim marketi, akaryakıt istasyonu, mağaza, büfe), biliyorsam kasa veya POS sisteminin adı, bir vardiyada ürün okutmanın dışında fiilen ne yaptığım, çalışma saatlerim ve sözleşme tipim, bir de yapamayacaklarım — gece vardiyası, ağır kaldırma, evde bilgisayar yok, eğitim durumu.\n\nBana şunları ver:\n1. Kasa küçülürken aynı mağazada veya zincirde büyüyen roller; bugün bulunduğum yerden ulaşılabilirliklerine göre sıralı. Her biri için, henüz yapamadığım ve öğrenmem gereken tek somut şey.\n2. Şu anki vardiyamın hangi parçaları bu roller için zaten kanıt sayılır — müdürüme olduğu gibi söyleyebileceğim cümleler hâlinde.\n3. Haftalık adımları olan 30 günlük bir plan; yalnızca ücretsiz veya işverenin sağladığı eğitimlerle. Para ödemem gereken hiçbir şey olmasın.\n4. Müdürüme veya mağaza sorumluma soracağım üç soru ve bunları sormak için haftanın en uygun anı.\n\nKurallar: sertifika, kurs, program veya destek adı uydurma — ülkemde var olduğundan emin değilsen bunu söyle ve hangi kurumdan teyit edeceğimi yaz. Ücret, ihbar süresi veya kıdem hakkı konusunda tahmin yürütme; bunlar ülkeden ülkeye değişir, bana sor ya da nereden doğrulayacağımı söyle. Zincirin adını verdiğimde iç rol isimlerini bilmiyorsan bilmediğini söyle. Her cevabı, vardiya arasında telefondan okunacak kadar kısa tut.",
+    "adaptTools": [
+        "Claude",
+        "ChatGPT",
+        "İŞKUR kursları",
+        "MEB Hayat Boyu Öğrenme",
+        "Google E-Tablolar"
+    ]
+}

@@ -1,0 +1,12 @@
+{
+    "id": "accountant",
+    "category": "finance",
+    "taskOrder": [
+        "data-entry-bookkeeping",
+        "reconciliation-month-end",
+        "tax-filing-compliance",
+        "advisory-cash-flow",
+        "audit-judgment-materiality",
+        "legal-sign-off"
+    ]
+}

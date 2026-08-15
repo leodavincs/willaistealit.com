@@ -1,0 +1,79 @@
+{
+    "assessmentScope": "global",
+    "assessmentSourceLocale": "en",
+    "assessmentReviewed": "2026-08",
+    "slug": "cashier",
+    "title": "Cashier",
+    "oneLiner": "Scanning the shopping stopped being a job somebody does. Standing between the shelf and the door still is.",
+    "summary": "Nothing here fell to a language model. It fell to a barcode, a card reader and a bank of six terminals with one attendant standing in the middle of them. American employment is projected down 9.9 per cent to 2034 — 313,600 posts, the largest numeric decline of any occupation — and the reason the statisticians give is self-service checkout and rising online sales. The exposure indices agree that this is not a chatbot story: the ILO places the work in its lowest generative-AI band, where overall exposure is low and only some tasks are automatable at all. This site still counts it, because automation is not only the models — the scanning and the paying were handed to the customer, and the job went with them. What survives is supervising the machines and the parts of a shop floor they cannot reach, and one person now covers what six used to. The most common way into paid work without a qualification is closing, and nothing has been built to replace it.",
+    "tasks": {
+        "scan-payment": {
+            "name": "Scanning items and taking payment",
+            "verdict": "gone",
+            "note": "Self-service terminals, contactless cards and scan-as-you-shop moved the transaction to the customer. Where the staffed lane survives, it survives as a queue-management choice rather than a necessity."
+        },
+        "cash-reconciliation": {
+            "name": "Cash handling and end-of-shift reconciliation",
+            "verdict": "going",
+            "note": "Cash recyclers count, hold and balance the drawer without a person opening it. Cash has not disappeared, so somebody still owns the discrepancy at the end of the night."
+        },
+        "returns-disputes": {
+            "name": "Returns, refunds and price disputes",
+            "verdict": "going",
+            "note": "Policy engines approve the routine return before anyone is asked. The argument at the desk about the label that said a different price is still settled by a person with authority."
+        },
+        "age-restricted": {
+            "name": "Age-restricted sales and loss prevention",
+            "verdict": "safe",
+            "note": "Alcohol, tobacco and blades sit behind a statutory check that a person has to make and answer for. Machine age-estimation is being trialled, but the liability has not moved.",
+            "tags": [
+                "regulated",
+                "physical-presence"
+            ]
+        },
+        "selfcheckout-supervision": {
+            "name": "Supervising self-checkout",
+            "verdict": "safe",
+            "note": "Barcodes that will not read, loose produce, jammed notes and the customer who has given up. It is real work, and it is one person doing what six used to.",
+            "tags": [
+                "physical-presence",
+                "physical-context"
+            ]
+        },
+        "floor-service": {
+            "name": "Shop-floor service between transactions",
+            "verdict": "safe",
+            "note": "Finding the item, reaching the top shelf, filling the gap, carrying it out. The machine can charge for the goods but cannot hand them to anyone.",
+            "tags": [
+                "physical-presence"
+            ]
+        }
+    },
+    "verdict": "on-the-menu",
+    "safeUntil": "2032",
+    "resistanceTags": [
+        "physical-presence",
+        "regulated",
+        "physical-context"
+    ],
+    "sources": [
+        "https://www.bls.gov/ooh/sales/cashiers.htm",
+        "https://www.bls.gov/emp/tables/occupations-largest-job-declines.htm",
+        "https://www.ilo.org/resource/article/how-might-generative-ai-impact-different-occupations",
+        "https://www.onetonline.org/link/summary/41-2011.00",
+        "https://www.weforum.org/stories/2025/01/future-of-jobs-report-2025-the-fastest-growing-and-declining-jobs/",
+        "https://www.oecd.org/en/publications/the-oecd-ai-exposure-measure_f3da0f0a-en.html"
+    ],
+    "evidenceStrength": "strong",
+    "whatSurvives": "The lanes a machine cannot run alone, the sale the law will not let it approve, and a pair of hands on the shop floor.",
+    "adaptPrompt": "You are helping me move from the till into the work that is still there. I work a checkout and I want a concrete plan, not encouragement.\n\nI will tell you: the country I work in, the type of shop (supermarket, discount chain, petrol station, department store, kiosk), the till or point-of-sale system by name if I know it, what I actually do in a shift beyond scanning, my hours and contract type, and what I cannot do — nights, heavy lifting, no computer at home, limited schooling.\n\nGive me back:\n1. The roles inside this same shop or chain that grow while the till shrinks, ranked by how reachable they are from where I stand today. For each one, the specific thing I would have to be able to do that I cannot do yet.\n2. The parts of my current shift that already count as evidence for those roles, written as sentences I could say to my manager as they are.\n3. A 30-day plan with what I do each week, using only free or employer-provided training. Nothing I have to pay for.\n4. Three questions to ask my manager or store lead, and the best moment in the week to ask them.\n\nRules: never invent the name of a certificate, a training scheme or a grant — if you are not certain it exists in my country, say so and tell me which office or website to check. Do not guess at wages, notice periods or employment rights; labour law differs by country, so ask me or tell me where to verify it. If I give you the name of my chain and you do not know its internal job titles, say that instead of inventing them. Keep every answer short enough to read on a phone between shifts.",
+    "adaptTools": [
+        "Claude",
+        "ChatGPT",
+        "Google Sheets",
+        "LinkedIn Learning",
+        "Coursera"
+    ],
+    "geoAnswer": "As of August 2026, cashier work is on the menu: the core tasks are going and what is left will not support as many people, with the shift expected to land by around 2032. The mechanism is not generative AI. Scanning and payment were handed to the customer through self-service checkouts, contactless cards and online shopping, and US employment is projected to fall 9.9 per cent — 313,600 posts — by 2034, the largest numeric decline of any occupation. What resists is age-restricted sales the law requires a person to approve, supervising the self-checkout lanes, and service on the shop floor. The structural reason is physical presence, regulation and being in the room.",
+    "reviewed": true
+}
