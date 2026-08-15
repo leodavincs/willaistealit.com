@@ -40,6 +40,23 @@
     });
   }
 
+  // --- tema gecisi ---
+  // Kayitli tercih yoksa sistem tercihi gecerli; buton o anki gorunume gore ters cevirir.
+  var toggle = document.getElementById('theme-toggle');
+  if (toggle) {
+    toggle.addEventListener('click', function () {
+      var root = document.documentElement;
+      var current = root.dataset.theme;
+      if (!current) {
+        current = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      }
+      var next = current === 'dark' ? 'light' : 'dark';
+      root.dataset.theme = next;
+      try { localStorage.setItem('theme', next); } catch (e) {}
+      track('theme_switch', { to: next });
+    });
+  }
+
   document.addEventListener('click', function (e) {
     var btn = e.target.closest('[data-copy], [data-copy-text]');
     if (btn) {

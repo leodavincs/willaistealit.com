@@ -78,8 +78,8 @@ require __DIR__ . '/inc/header.php';
     <p>Every change is recorded and dated in the <a href="/changelog">verdict changelog</a>, because a site that quietly rewrites its own predictions is not worth reading. If you are citing a verdict, cite it with its review date — it will go stale, and that is by design.</p>
 
     <h2>Disagree</h2>
-    <p>Each entry is a single JSON file in a public repository. If you do the job we wrote about and think we got it wrong, you are a better source than we are: open a pull request, change the verdict, and make the argument in the description. If it holds, it ships.</p>
-    <p><a href="https://github.com/" rel="noopener" target="_blank">Contribute on GitHub</a> &middot; <a href="/">Browse every verdict</a></p>
+    <p>Each entry is a single JSON file<?= has_github() ? ' in a public repository' : '' ?>. If you do the job we wrote about and think we got it wrong, you are a better source than we are<?= has_github() ? ': open a pull request, change the verdict, and make the argument in the description. If it holds, it ships.' : '. Tell us, with the task that we got wrong.' ?></p>
+    <p><?php if (has_github()): ?><a href="<?= h(github_url()) ?>" rel="noopener" target="_blank">Contribute on GitHub</a> &middot; <?php endif; ?><a href="/">Browse every verdict</a></p>
 
   </div>
 </div>

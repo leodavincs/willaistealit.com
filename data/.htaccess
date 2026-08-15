@@ -1,0 +1,9 @@
+# Bu klasor web'den okunmaz. Kok .htaccess'teki kurala guvenmiyoruz:
+# rewrite siralamasi sunucudan sunucuya degisiyor, bu dosya degismiyor.
+<IfModule mod_authz_core.c>
+    Require all denied
+</IfModule>
+<IfModule !mod_authz_core.c>
+    Order allow,deny
+    Deny from all
+</IfModule>

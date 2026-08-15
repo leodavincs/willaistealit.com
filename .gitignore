@@ -14,3 +14,6 @@ docs/superpowers/
 research/
 willaisteal-plan.md
 .obsidian/
+
+# Ortama ozel ayarlar (BUILD_KEY vb.) — repoya girmez
+inc/config.local.php

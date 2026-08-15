@@ -1,29 +1,86 @@
 {
-  "slug": "recruiter",
-  "title": "Recruiter",
-  "titleTr": "İşe Alım Uzmanı",
-  "category": "ops",
-  "verdict": "shrinking",
-  "safeUntil": "2030",
-  "oneLiner": "Both sides now use AI, so volume is worthless. Persuading one specific person is not.",
-  "summary": "Recruitment has entered an arms race it cannot win: candidates generate applications at scale, employers screen them at scale, and the result is more noise on both sides at once. Sourcing, screening and scheduling — the mechanical core of agency recruitment — are largely automated, and the transactional agency model built on CV volume is under severe pressure. What survives is everything that requires convincing a specific person to make a life decision: persuading a happy senior engineer to take a call, managing a candidate through a counter-offer, and telling a hiring manager their requirements are unrealistic. Regulation adds a second wall — automated hiring decisions face growing legal scrutiny, and most jurisdictions require a human decision-maker on the record.",
-  "tasks": [
-    { "name": "CV screening & ranking", "verdict": "gone", "note": "Automated at every scale. Both sides now use models, which is why the signal is worse than it was a decade ago." },
-    { "name": "Sourcing & outreach drafting", "verdict": "gone", "note": "Candidate identification and personalised-looking messages are generated. Response rates fell accordingly." },
-    { "name": "Scheduling & coordination", "verdict": "gone", "note": "Fully automated. This was a large share of junior recruiting-coordinator headcount." },
-    { "name": "Initial screening calls", "verdict": "going", "note": "AI-led first-round screens are in production at volume employers. Candidates dislike them, and companies do it anyway." },
-    { "name": "Persuading passive candidates", "verdict": "safe", "tags": ["trust-relationship", "emotional-labor"], "note": "The people worth hiring are not applying. Getting a content senior hire to consider a move is a relationship, built over months." },
-    { "name": "Assessing motivation & fit", "verdict": "safe", "tags": ["human-judgment"], "note": "Why someone is really leaving, and whether they will still be there in eighteen months. Candidates do not put this on a CV or say it to a bot." },
-    { "name": "Closing offers and counter-offers", "verdict": "safe", "tags": ["emotional-labor", "trust-relationship"], "note": "The stage where hires are actually lost. Someone talks a nervous candidate through the biggest decision of their year." },
-    { "name": "Hiring decisions & compliance", "verdict": "safe", "tags": ["legal-liability", "regulated"], "note": "Discrimination law and AI-hiring regulation increasingly require an accountable human decision-maker with a documented rationale." }
-  ],
-  "resistanceTags": ["trust-relationship", "emotional-labor", "legal-liability"],
-  "whatSurvives": "Convincing one specific person to change their life, and being accountable for the decision.",
-  "adaptPrompt": "You are my recruiting assistant. You take the process load; every judgment about a human being stays with me.\n\nFor role definition — do this before anything else:\n1. Take the job description I was handed and tell me what it is really asking for. Separate genuine requirements from wish-list padding, and flag every requirement that will exclude good candidates for no reason.\n2. Tell me what this role competes against in the market: who else hires this profile, and what they offer that we do not.\n\nFor sourcing and outreach:\n3. Build the search: titles, adjacent titles, companies with the right environment, and the signals that suggest someone might be open to moving.\n4. Draft outreach that leads with something specific about their work. If I have not given you anything specific about them, tell me to go find it — generic personalisation is worse than none.\n\nFor the process:\n5. Write interview questions that probe evidence rather than opinion: what they did, what they decided, what went wrong. Include the follow-up that separates a real answer from a rehearsed one.\n6. Structure my notes after each interview into evidence against the criteria, and tell me where I am reasoning from impression rather than evidence.\n7. Draft candidate communication, including rejections — specific, quick and human. Rejected candidates are next year's hires.\n\nRules: never score or rank candidates, never infer anything from a name, photo, school, age or address, and never draft anything that touches a protected characteristic. If I ask you to, refuse. The hiring decision is mine and I have to be able to defend it.",
-  "adaptTools": ["Claude", "LinkedIn Recruiter AI", "Ashby", "Gem"],
-  "sources": [
-    "https://www.bls.gov/ooh/business-and-financial/human-resources-specialists.htm",
-    "https://www.eeoc.gov/ai"
-  ],
-  "lastReviewed": "2026-08"
+    "slug": "recruiter",
+    "title": "Recruiter",
+    "titleTr": "İşe Alım Uzmanı",
+    "category": "ops",
+    "verdict": "shrinking",
+    "safeUntil": "2030",
+    "oneLiner": "Both sides now use AI, so volume is worthless. Persuading one specific person is not.",
+    "summary": "Recruitment has entered an arms race it cannot win: candidates generate applications at scale, employers screen them at scale, and the result is more noise on both sides at once. Sourcing, screening and scheduling — the mechanical core of agency recruitment — are largely automated, and the transactional agency model built on CV volume is under severe pressure. What survives is everything that requires convincing a specific person to make a life decision: persuading a happy senior engineer to take a call, managing a candidate through a counter-offer, and telling a hiring manager their requirements are unrealistic. Regulation adds a second wall — automated hiring decisions face growing legal scrutiny, and most jurisdictions require a human decision-maker on the record.",
+    "tasks": [
+        {
+            "name": "CV screening & ranking",
+            "verdict": "gone",
+            "note": "Automated at every scale. Both sides now use models, which is why the signal is worse than it was a decade ago."
+        },
+        {
+            "name": "Sourcing & outreach drafting",
+            "verdict": "gone",
+            "note": "Candidate identification and personalised-looking messages are generated. Response rates fell accordingly."
+        },
+        {
+            "name": "Scheduling & coordination",
+            "verdict": "gone",
+            "note": "Fully automated. This was a large share of junior recruiting-coordinator headcount."
+        },
+        {
+            "name": "Initial screening calls",
+            "verdict": "going",
+            "note": "AI-led first-round screens are in production at volume employers. Candidates dislike them, and companies do it anyway."
+        },
+        {
+            "name": "Persuading passive candidates",
+            "verdict": "safe",
+            "tags": [
+                "trust-relationship",
+                "emotional-labor"
+            ],
+            "note": "The people worth hiring are not applying. Getting a content senior hire to consider a move is a relationship, built over months."
+        },
+        {
+            "name": "Assessing motivation & fit",
+            "verdict": "safe",
+            "tags": [
+                "human-judgment"
+            ],
+            "note": "Why someone is really leaving, and whether they will still be there in eighteen months. Candidates do not put this on a CV or say it to a bot."
+        },
+        {
+            "name": "Closing offers and counter-offers",
+            "verdict": "safe",
+            "tags": [
+                "emotional-labor",
+                "trust-relationship"
+            ],
+            "note": "The stage where hires are actually lost. Someone talks a nervous candidate through the biggest decision of their year."
+        },
+        {
+            "name": "Hiring decisions & compliance",
+            "verdict": "safe",
+            "tags": [
+                "legal-liability",
+                "regulated"
+            ],
+            "note": "Discrimination law and AI-hiring regulation increasingly require an accountable human decision-maker with a documented rationale."
+        }
+    ],
+    "resistanceTags": [
+        "trust-relationship",
+        "emotional-labor",
+        "legal-liability"
+    ],
+    "whatSurvives": "Convincing one specific person to change their life, and being accountable for the decision.",
+    "adaptPrompt": "You are my recruiting assistant. You take the process load; every judgment about a human being stays with me.\n\nFor role definition — do this before anything else:\n1. Take the job description I was handed and tell me what it is really asking for. Separate genuine requirements from wish-list padding, and flag every requirement that will exclude good candidates for no reason.\n2. Tell me what this role competes against in the market: who else hires this profile, and what they offer that we do not.\n\nFor sourcing and outreach:\n3. Build the search: titles, adjacent titles, companies with the right environment, and the signals that suggest someone might be open to moving.\n4. Draft outreach that leads with something specific about their work. If I have not given you anything specific about them, tell me to go find it — generic personalisation is worse than none.\n\nFor the process:\n5. Write interview questions that probe evidence rather than opinion: what they did, what they decided, what went wrong. Include the follow-up that separates a real answer from a rehearsed one.\n6. Structure my notes after each interview into evidence against the criteria, and tell me where I am reasoning from impression rather than evidence.\n7. Draft candidate communication, including rejections — specific, quick and human. Rejected candidates are next year's hires.\n\nRules: never score or rank candidates, never infer anything from a name, photo, school, age or address, and never draft anything that touches a protected characteristic. If I ask you to, refuse. The hiring decision is mine and I have to be able to defend it.",
+    "adaptTools": [
+        "Claude",
+        "LinkedIn Recruiter AI",
+        "Ashby",
+        "Gem"
+    ],
+    "sources": [
+        "https://www.bls.gov/ooh/business-and-financial/human-resources-specialists.htm",
+        "https://www.eeoc.gov/ai"
+    ],
+    "lastReviewed": "2026-08",
+    "evidenceStrength": "strong"
 }

@@ -34,6 +34,7 @@ $urls = [
     ['loc' => SITE_URL . '/',            'lastmod' => $newest, 'changefreq' => 'daily',   'priority' => '1.0'],
     ['loc' => SITE_URL . '/methodology', 'lastmod' => date('Y-m-d', (int)filemtime(__DIR__ . '/methodology.php')), 'changefreq' => 'monthly', 'priority' => '0.7'],
     ['loc' => SITE_URL . '/changelog',   'lastmod' => $newest, 'changefreq' => 'weekly',  'priority' => '0.6'],
+    ['loc' => SITE_URL . '/landscape',   'lastmod' => $newest, 'changefreq' => 'weekly',  'priority' => '0.8'],
     ['loc' => SITE_URL . '/sponsor',     'lastmod' => date('Y-m-d', (int)filemtime(__DIR__ . '/sponsor.php')), 'changefreq' => 'monthly', 'priority' => '0.3'],
 ];
 

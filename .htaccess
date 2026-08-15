@@ -20,13 +20,16 @@ DirectoryIndex index.php
     RewriteRule ^methodology/?$ methodology.php [L]
     RewriteRule ^sponsor/?$     sponsor.php [L]
     RewriteRule ^changelog/?$   changelog.php [L]
+    RewriteRule ^landscape/?$   landscape.php [L]
 
     # Entry sayfalari: /accountant -> job.php?slug=accountant
     RewriteRule ^([a-z0-9-]+)/?$ job.php?slug=$1 [L,QSA]
 </IfModule>
 
-# Hassas klasorleri kapat
-RedirectMatch 404 ^/(data|inc|tools|cache|fonts)(/|$)
+# Hassas klasorleri kapat.
+# tools/ BILEREK disarida: shared hosting'de SSH olmayabiliyor, build'i
+# tarayicidan tetiklemek gerekiyor. Korumasi BUILD_KEY (bkz. build_key_ok()).
+RedirectMatch 404 ^/(data|inc|cache|docs|research)(/|$)
 
 <IfModule mod_expires.c>
     ExpiresActive On

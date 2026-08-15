@@ -85,12 +85,18 @@ Nothing here is generated ahead of time, so none of it can go stale against the 
 
 ## Deploy
 
-Push to `main`; Hostinger's Git deployment pulls into `public_html`. After deploy, hit
-`/tools/build-index.php?key=…` and `/tools/build-og.php?key=…` (set `BUILD_KEY` in
-`inc/config.php` first) — or run both over SSH.
+Push to `main`; Hostinger's Git deployment pulls into `public_html`.
+
+Four constants in `inc/config.php` decide what the live site can do — `BUILD_KEY`,
+`GITHUB_URL`, `CONTACT_EMAIL`, `ANALYTICS_DOMAIN`. Anything left blank degrades quietly
+rather than breaking: no GitHub URL means the contribution links are hidden, no analytics
+domain means no script is loaded, and an unchanged `BUILD_KEY` means `/tools/*.php` refuses
+to run at all.
 
 `sitemap.xml` and `llms.txt` are rendered on request and need no build step. Submit the
 sitemap to Search Console once; it stays current on its own.
+
+**Full checklist, including the URLs that fail silently: [DEPLOY.md](DEPLOY.md).**
 
 ## Licence
 

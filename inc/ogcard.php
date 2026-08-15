@@ -73,20 +73,21 @@ function og_render(?array $job, string $slug)
 
     $rgb = $job !== null ? verdict_meta($job['verdict'] ?? '')['rgb'] : [242, 243, 245];
 
-    $bg     = imagecolorallocate($img, 11, 12, 14);
-    $ink    = imagecolorallocate($img, 242, 243, 245);
-    $ink2   = imagecolorallocate($img, 168, 173, 183);
-    $ink3   = imagecolorallocate($img, 111, 117, 127);
-    $line   = imagecolorallocate($img, 38, 41, 47);
+    // Kagit zemin — site ile ayni palet
+    $bg     = imagecolorallocate($img, 246, 243, 238);
+    $ink    = imagecolorallocate($img, 28, 26, 23);
+    $ink2   = imagecolorallocate($img, 85, 80, 74);
+    $ink3   = imagecolorallocate($img, 138, 130, 121);
+    $line   = imagecolorallocate($img, 221, 215, 205);
     $vcolor = imagecolorallocate($img, $rgb[0], $rgb[1], $rgb[2]);
 
     imagefilledrectangle($img, 0, 0, OG_W, OG_H, $bg);
 
     // Ust serit + asagi dogru sonen cok soluk parlama
     imagefilledrectangle($img, 0, 0, OG_W, 8, $vcolor);
-    $glowH = 260;
+    $glowH = 300;
     for ($i = 0; $i < $glowH; $i++) {
-        $alpha = (int)round(112 + ($i / $glowH) * 15);
+        $alpha = (int)round(104 + ($i / $glowH) * 23);
         if ($alpha >= 127) {
             break;
         }

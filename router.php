@@ -17,6 +17,13 @@ if (preg_match('#^/og/([a-z0-9-]+)\.png$#', $path, $m)) {
     return true;
 }
 
+// Uretimde .htaccess ile kapali olan klasorler — lokalde de ayni davransin
+if (preg_match('#^/(data|inc|cache|docs|research)(/|$)#', $path)) {
+    http_response_code(404);
+    require __DIR__ . '/404.php';
+    return true;
+}
+
 // Gercek dosya varsa built-in server servis etsin
 $file = __DIR__ . $path;
 if (is_file($file)) {
@@ -33,7 +40,7 @@ if ($path === '/llms.txt') {
     return true;
 }
 
-if (in_array($path, ['/methodology', '/sponsor', '/changelog'], true)) {
+if (in_array($path, ['/methodology', '/sponsor', '/changelog', '/landscape'], true)) {
     require __DIR__ . $path . '.php';
     return true;
 }

@@ -24,7 +24,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
         $ok = @file_put_contents(ROOT . '/data/waitlist.jsonl', $line . "\n", FILE_APPEND | LOCK_EX);
         if ($ok === false) {
-            $error = 'Could not save that — email hello@willaistealit.com instead.';
+            $error = has_contact()
+                ? 'Could not save that — email ' . CONTACT_EMAIL . ' instead.'
+                : 'Could not save that. Try again in a moment.';
         } else {
             $sent = true;
         }
@@ -90,8 +92,10 @@ require __DIR__ . '/inc/header.php';
       <p style="font-size:13px;color:var(--ink-3)">Stored as a line in a file. Used for one thing: telling you when slots open.</p>
     <?php endif; ?>
 
-    <h2>Rather just talk?</h2>
-    <p>Write to <a href="mailto:hello@willaistealit.com">hello@willaistealit.com</a> with what you are selling and who you want to reach.</p>
+    <?php if (has_contact()): ?>
+      <h2>Rather just talk?</h2>
+      <p>Write to <a href="mailto:<?= h(CONTACT_EMAIL) ?>"><?= h(CONTACT_EMAIL) ?></a> with what you are selling and who you want to reach.</p>
+    <?php endif; ?>
 
   </div>
 </div>

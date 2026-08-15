@@ -8,7 +8,7 @@ require_once __DIR__ . '/functions.php';
 /** @var string|null $pageCanonical */
 $pageTitle     = $pageTitle     ?? SITE_NAME;
 $pageDesc      = $pageDesc      ?? SITE_TAG;
-$pageOg        = $pageOg        ?? SITE_URL . '/assets/og-default.png';
+$pageOg        = $pageOg        ?? SITE_URL . '/og/home.png';
 $pageCanonical = $pageCanonical ?? SITE_URL;
 ?>
 <!doctype html>
@@ -32,7 +32,21 @@ $pageCanonical = $pageCanonical ?? SITE_URL;
 <meta name="twitter:description" content="<?= h($pageDesc) ?>">
 <meta name="twitter:image" content="<?= h($pageOg) ?>">
 <link rel="stylesheet" href="<?= h(asset('/assets/style.css')) ?>">
+<script>
+// Temayi CSS'ten ONCE uygula ki yanlis temanin bir kare gorunmesi olmasin.
+// Kayitli tercih yoksa hicbir sey yazmiyoruz: CSS prefers-color-scheme'e birakiyor.
+(function () {
+  try {
+    var t = localStorage.getItem('theme');
+    if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t;
+  } catch (e) {}
+})();
+</script>
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<?php if (ANALYTICS_DOMAIN !== ''): ?>
+<script defer data-domain="<?= h(ANALYTICS_DOMAIN) ?>" src="https://plausible.io/js/script.tagged-events.js"></script>
+<script>window.plausible = window.plausible || function () { (window.plausible.q = window.plausible.q || []).push(arguments) };</script>
+<?php endif; ?>
 <?php
 // $pageJsonLd tek nesne ya da nesne listesi olabilir; liste ise @graph'a sarilir.
 if (!empty($pageJsonLd)) {
@@ -52,14 +66,24 @@ if (!empty($pageJsonLd)) {
 <header class="site-head">
   <div class="wrap head-inner">
     <a class="brand" href="/">
-      <span class="brand-mark">will<span class="brand-ai">ai</span>stealit</span>
+      <span class="brand-mark">will<span class="brand-ai">Ai</span>stealit</span>
       <span class="brand-q">?</span>
     </a>
     <nav class="nav">
+      <a href="/landscape">Timeline</a>
       <a href="/methodology">Methodology</a>
       <a href="/changelog">Changelog</a>
       <a href="/sponsor">Sponsor</a>
-      <a href="https://github.com/" rel="noopener" target="_blank">GitHub</a>
+      <?php if (has_github()): ?><a href="<?= h(github_url()) ?>" rel="noopener" target="_blank">GitHub</a><?php endif; ?>
+      <button class="theme-btn" type="button" id="theme-toggle" aria-label="Switch between light and dark" title="Light / dark">
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="4"/>
+          <path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>
+        </svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/>
+        </svg>
+      </button>
     </nav>
   </div>
 </header>

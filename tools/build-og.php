@@ -11,9 +11,9 @@ require_once __DIR__ . '/../inc/ogcard.php';
 $cli = PHP_SAPI === 'cli';
 if (!$cli) {
     header('Content-Type: text/plain; charset=utf-8');
-    if (($_GET['key'] ?? '') !== BUILD_KEY) {
+    if (!build_key_ok($_GET['key'] ?? null)) {
         http_response_code(403);
-        exit("forbidden\n");
+        exit("forbidden — set BUILD_KEY in inc/config.php first\n");
     }
 }
 

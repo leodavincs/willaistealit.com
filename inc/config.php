@@ -1,54 +1,71 @@
 <?php
 declare(strict_types=1);
 
+/* Ortama ozel ve gizli ayarlar repoda DEGIL: inc/config.local.php icinde.
+   Repo public oldugu icin BUILD_KEY buraya yazilamaz. Ornek dosya:
+   inc/config.local.php.example — sunucuda kopyalanip doldurulur. */
+@include __DIR__ . '/config.local.php';
+
 const SITE_NAME   = 'Will AI Steal It?';
 const SITE_URL    = 'https://willaistealit.com';
 const SITE_TAG    = 'Task-level verdicts on which jobs AI actually takes.';
+
+// ---- Deploy oncesi doldurulacak ----
+
+// GitHub repo adresi. Bos birakilirsa sitedeki tum "contribute / open a PR"
+// baglantilari gizlenir — kirik link gostermekten iyidir.
+const GITHUB_URL = 'https://github.com/leodavincs/willaistealit.com';
+
+// Iletisim adresi. config.local.php'den gelir; kutu acilmadan doldurma.
+defined('CONTACT_EMAIL') || define('CONTACT_EMAIL', '');
+
+// Plausible alan adi. config.local.php'den gelir. Bos = script hic basilmaz.
+defined('ANALYTICS_DOMAIN') || define('ANALYTICS_DOMAIN', '');
 const ROOT        = __DIR__ . '/..';
 const JOBS_DIR    = ROOT . '/data/jobs';
 const CACHE_DIR   = ROOT . '/cache';
 const OG_DIR      = CACHE_DIR . '/og';
 const PAGES_DIR   = CACHE_DIR . '/pages';
 const INDEX_FILE  = CACHE_DIR . '/index.json';
-const FONT_BOLD   = ROOT . '/fonts/Inter-Bold.ttf';
-const FONT_REG    = ROOT . '/fonts/Inter-Regular.ttf';
+const FONT_BOLD   = ROOT . '/fonts/Fraunces.ttf';
+const FONT_REG    = ROOT . '/fonts/Newsreader.ttf';
 
 // Sponsor slotlari Faz 2'de acilir. false birakildiginda /sponsor waitlist modunda kalir.
 const SPONSORS_LIVE = false;
 
-// tools/*.php dosyalarini web'den tetiklemek icin gereken anahtar.
-// Deploy sonrasi Hostinger'da degistir.
-const BUILD_KEY = 'change-me-before-deploy';
+// tools/*.php anahtari. GERCEK DEGER config.local.php'de — repo public.
+// Tanimlanmazsa tools/ web'den hic calismaz (bkz. build_key_ok()).
+defined('BUILD_KEY') || define('BUILD_KEY', 'change-me-before-deploy');
 
 const VERDICTS = [
     'safe' => [
         'label' => 'SAFE',
         'dot'   => '🟢',
-        'color' => '#22c55e',
-        'rgb'   => [34, 197, 94],
+        'color' => '#2b7d52',
+        'rgb'   => [43, 125, 82],
         'blurb' => 'The core of this job is structurally resistant. AI becomes a tool, not a replacement.',
     ],
     'shrinking' => [
         'label' => 'SHRINKING',
         'dot'   => '🟡',
-        'color' => '#eab308',
-        'rgb'   => [234, 179, 8],
+        'color' => '#a8811f',
+        'rgb'   => [168, 129, 31],
         'blurb' => 'Significant parts are being automated. The role narrows and shifts — it does not vanish.',
     ],
     'on-the-menu' => [
         'label' => 'ON THE MENU',
         'dot'   => '🔴',
-        'color' => '#ef4444',
-        'rgb'   => [239, 68, 68],
+        'color' => '#b34455',
+        'rgb'   => [179, 68, 85],
         'blurb' => 'The core tasks are becoming machine-doable. A time horizon applies.',
     ],
 ];
 
 // Gorev seviyesi mini-verdict'ler
 const TASK_VERDICTS = [
-    'gone'  => ['label' => 'gone',  'color' => '#ef4444'],
-    'going' => ['label' => 'going', 'color' => '#eab308'],
-    'safe'  => ['label' => 'safe',  'color' => '#22c55e'],
+    'gone'  => ['label' => 'gone',  'color' => '#b34455'],
+    'going' => ['label' => 'going', 'color' => '#a8811f'],
+    'safe'  => ['label' => 'safe',  'color' => '#2b7d52'],
 ];
 
 const RESISTANCE_TAGS = [

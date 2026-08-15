@@ -27,7 +27,7 @@ $v        = verdict_meta($job['verdict'] ?? '');
 $vClass   = 'v-' . ($job['verdict'] ?? 'shrinking');
 $title    = (string)($job['title'] ?? $slug);
 $oneLiner = (string)($job['oneLiner'] ?? '');
-$isDraft  = empty($job['sources']);
+$evidence = evidence_note($job);
 
 $geoAnswer = geo_answer($job);
 $reviewed  = pretty_month((string)($job['lastReviewed'] ?? ''));
@@ -113,8 +113,10 @@ require __DIR__ . '/inc/header.php';
                cevabi buradan kuruyor. Sayfanin ilk duz paragrafi olmasi kasitli. */ ?>
       <p class="answer"><?= h($geoAnswer) ?></p>
 
-      <?php if ($isDraft): ?>
-        <p class="draft-note">Community draft — no sources attached yet. Have better evidence? Open a PR.</p>
+      <?php if ($evidence !== null): ?>
+        <p class="draft-note is-<?= h($evidence['level']) ?>">
+          <strong><?= h($evidence['label']) ?></strong> — <?= h($evidence['text']) ?>
+        </p>
       <?php endif; ?>
     </div>
   </header>
@@ -233,7 +235,7 @@ require __DIR__ . '/inc/header.php';
       <div class="meta-grid">
         <div class="meta-cell">
           <div class="meta-k">Verdict</div>
-          <div class="meta-v"><?= h($v['dot'] . ' ' . $v['label']) ?></div>
+          <div class="meta-v"><?= h($v['label']) ?></div>
         </div>
         <div class="meta-cell">
           <div class="meta-k">Category</div>
@@ -243,6 +245,12 @@ require __DIR__ . '/inc/header.php';
         <div class="meta-cell">
           <div class="meta-k">Safe until</div>
           <div class="meta-v">~<?= h((string)$job['safeUntil']) ?></div>
+        </div>
+        <?php endif; ?>
+        <?php if (!empty($job['evidenceStrength'])): ?>
+        <div class="meta-cell">
+          <div class="meta-k">Evidence</div>
+          <div class="meta-v"><?= h((string)$job['evidenceStrength']) ?></div>
         </div>
         <?php endif; ?>
         <div class="meta-cell">
@@ -274,7 +282,8 @@ require __DIR__ . '/inc/header.php';
 
       <div class="disagree">
         <h2>Think this verdict is wrong?</h2>
-        <p>Good — that is the point. Every entry is one JSON file. Change it, argue in the PR, and if the argument holds the verdict changes. <a href="https://github.com/" rel="noopener" target="_blank">Edit this entry</a> &middot; <a href="/methodology">Read the methodology</a></p>
+        <p>Good — that is the point. Every entry is one JSON file. Change it, argue in the PR, and if the argument holds the verdict changes.
+        <?php if (has_github()): ?><a href="<?= h(github_url('/blob/main/data/jobs/' . $slug . '.json')) ?>" rel="noopener" target="_blank">Edit this entry</a> &middot; <?php endif; ?><a href="/methodology">Read the methodology</a></p>
       </div>
     </div>
   </section>

@@ -102,6 +102,7 @@ if ($log) {
 }
 $L('## Machine-readable data');
 $L();
+$L('- ' . SITE_URL . '/landscape : every profession plotted against its expected year.');
 $L('- ' . SITE_URL . '/sitemap.xml : every page with its review date.');
 $L('- Each entry is one JSON file in a public repository; the schema is documented in CONTRIBUTING.md.');
 $L();

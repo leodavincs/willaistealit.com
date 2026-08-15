@@ -1,28 +1,78 @@
 {
-  "slug": "customer-support",
-  "title": "Customer Support Agent",
-  "titleTr": "Müşteri Temsilcisi",
-  "category": "service",
-  "verdict": "on-the-menu",
-  "safeUntil": "2028",
-  "oneLiner": "Tier 1 is already a bot. What is left is every conversation the bot made worse.",
-  "summary": "This is the most exposed high-volume job in the economy, and the transition is already visible on any support page you visit. Companies deployed AI here first because the work is text-based, high-volume, measurable and expensive — every condition automation wants. Tier 1 is largely handled. What remains is escalation: the angry customer, the case that does not fit a category, the situation where someone must decide to break policy and give a refund. Those roles are real and getting harder, because every human now inherits a customer who has already failed to get help twice. The headcount curve is unambiguous and the entry-level path into service careers is closing with it.",
-  "tasks": [
-    { "name": "FAQ & informational queries", "verdict": "gone", "note": "Resolved before a human sees the ticket. This was the majority of contact volume." },
-    { "name": "Order status, returns, routine account changes", "verdict": "gone", "note": "Transactional and system-integrated — the easiest work to hand over completely." },
-    { "name": "Triage & routing", "verdict": "gone", "note": "Classification is a solved problem and better than manual routing ever was." },
-    { "name": "Complex troubleshooting", "verdict": "going", "note": "AI drafts the diagnosis; a human handles the case where the customer's description of the problem is wrong." },
-    { "name": "De-escalation of angry customers", "verdict": "safe", "tags": ["emotional-labor", "trust-relationship"], "note": "A furious customer wants a person to acknowledge them. Being told a bot understands their frustration is the thing that makes it worse." },
-    { "name": "Judgment calls & exceptions", "verdict": "safe", "tags": ["human-judgment", "accountability"], "note": "Breaking policy to keep a customer, deciding a goodwill refund. Companies do not give that authority to a model — the loss is unbounded." },
-    { "name": "Vulnerable and high-stakes customer contact", "verdict": "safe", "tags": ["emotional-labor", "regulated"], "note": "Bereavement, medical, financial hardship, safeguarding. Regulated in many sectors and unacceptable to automate in the rest." }
-  ],
-  "resistanceTags": ["emotional-labor", "human-judgment", "accountability"],
-  "whatSurvives": "The conversations where a person has to absorb emotion and take a decision the system will not authorise.",
-  "adaptPrompt": "You are my support co-pilot. You handle the recall and the drafting; I handle the human and I own every promise made.\n\nI will paste: the customer's message, the account context, and the relevant policy.\n\nGive me:\n1. What they actually want, in one sentence — separating the stated problem from the underlying one. These differ more often than not.\n2. Their emotional state and what it means for my opening line. Somebody on their third contact needs an acknowledgement before an answer.\n3. A draft reply: acknowledge, answer, next step, timeline. No corporate padding, no 'we sincerely apologise for any inconvenience'. Plain and specific.\n4. Three variants: standard, more empathetic, and firmer for when the customer is being unreasonable.\n5. The escalation read: is this within policy, at the edge of it, or beyond it? If beyond, tell me exactly what authority I would need and what the cost of granting it is.\n6. The follow-up question I should ask now to avoid a fourth contact.\n\nRules: never invent a policy, a timeline, a refund amount or a compensation figure. If the policy I gave you does not cover this case, say so — that is the signal that this is my decision, not yours.",
-  "adaptTools": ["Claude", "Intercom Fin", "Zendesk AI", "Gorgias"],
-  "sources": [
-    "https://www.bls.gov/ooh/office-and-administrative-support/customer-service-representatives.htm",
-    "https://www.imf.org/en/Publications/Staff-Discussion-Notes/Issues/2024/01/14/Gen-AI-Artificial-Intelligence-and-the-Future-of-Work-542379"
-  ],
-  "lastReviewed": "2026-08"
+    "slug": "customer-support",
+    "title": "Customer Support Agent",
+    "titleTr": "Müşteri Temsilcisi",
+    "category": "service",
+    "verdict": "on-the-menu",
+    "safeUntil": "2028",
+    "oneLiner": "Tier 1 is already a bot. What is left is every conversation the bot made worse.",
+    "summary": "This is the most exposed high-volume job in the economy, and the transition is already visible on any support page you visit. Companies deployed AI here first because the work is text-based, high-volume, measurable and expensive — every condition automation wants. Tier 1 is largely handled. What remains is escalation: the angry customer, the case that does not fit a category, the situation where someone must decide to break policy and give a refund. Those roles are real and getting harder, because every human now inherits a customer who has already failed to get help twice. The headcount curve is unambiguous and the entry-level path into service careers is closing with it.",
+    "tasks": [
+        {
+            "name": "FAQ & informational queries",
+            "verdict": "gone",
+            "note": "Resolved before a human sees the ticket. This was the majority of contact volume."
+        },
+        {
+            "name": "Order status, returns, routine account changes",
+            "verdict": "gone",
+            "note": "Transactional and system-integrated — the easiest work to hand over completely."
+        },
+        {
+            "name": "Triage & routing",
+            "verdict": "gone",
+            "note": "Classification is a solved problem and better than manual routing ever was."
+        },
+        {
+            "name": "Complex troubleshooting",
+            "verdict": "going",
+            "note": "AI drafts the diagnosis; a human handles the case where the customer's description of the problem is wrong."
+        },
+        {
+            "name": "De-escalation of angry customers",
+            "verdict": "safe",
+            "tags": [
+                "emotional-labor",
+                "trust-relationship"
+            ],
+            "note": "A furious customer wants a person to acknowledge them. Being told a bot understands their frustration is the thing that makes it worse."
+        },
+        {
+            "name": "Judgment calls & exceptions",
+            "verdict": "safe",
+            "tags": [
+                "human-judgment",
+                "accountability"
+            ],
+            "note": "Breaking policy to keep a customer, deciding a goodwill refund. Companies do not give that authority to a model — the loss is unbounded."
+        },
+        {
+            "name": "Vulnerable and high-stakes customer contact",
+            "verdict": "safe",
+            "tags": [
+                "emotional-labor",
+                "regulated"
+            ],
+            "note": "Bereavement, medical, financial hardship, safeguarding. Regulated in many sectors and unacceptable to automate in the rest."
+        }
+    ],
+    "resistanceTags": [
+        "emotional-labor",
+        "human-judgment",
+        "accountability"
+    ],
+    "whatSurvives": "The conversations where a person has to absorb emotion and take a decision the system will not authorise.",
+    "adaptPrompt": "You are my support co-pilot. You handle the recall and the drafting; I handle the human and I own every promise made.\n\nI will paste: the customer's message, the account context, and the relevant policy.\n\nGive me:\n1. What they actually want, in one sentence — separating the stated problem from the underlying one. These differ more often than not.\n2. Their emotional state and what it means for my opening line. Somebody on their third contact needs an acknowledgement before an answer.\n3. A draft reply: acknowledge, answer, next step, timeline. No corporate padding, no 'we sincerely apologise for any inconvenience'. Plain and specific.\n4. Three variants: standard, more empathetic, and firmer for when the customer is being unreasonable.\n5. The escalation read: is this within policy, at the edge of it, or beyond it? If beyond, tell me exactly what authority I would need and what the cost of granting it is.\n6. The follow-up question I should ask now to avoid a fourth contact.\n\nRules: never invent a policy, a timeline, a refund amount or a compensation figure. If the policy I gave you does not cover this case, say so — that is the signal that this is my decision, not yours.",
+    "adaptTools": [
+        "Claude",
+        "Intercom Fin",
+        "Zendesk AI",
+        "Gorgias"
+    ],
+    "sources": [
+        "https://www.bls.gov/ooh/office-and-administrative-support/customer-service-representatives.htm",
+        "https://www.imf.org/en/Publications/Staff-Discussion-Notes/Issues/2024/01/14/Gen-AI-Artificial-Intelligence-and-the-Future-of-Work-542379"
+    ],
+    "lastReviewed": "2026-08",
+    "evidenceStrength": "strong"
 }

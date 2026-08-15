@@ -1,28 +1,77 @@
 {
-  "slug": "copywriter",
-  "title": "Copywriter",
-  "titleTr": "Metin Yazarı",
-  "category": "creative",
-  "verdict": "on-the-menu",
-  "safeUntil": "2028",
-  "oneLiner": "Nobody is buying words any more. They are buying the judgment about which words.",
-  "summary": "Copywriting was the first white-collar job to feel this properly, because text was the first thing the models got good at. The content-marketing engine — blog posts, product descriptions, SEO filler, email sequences — was a large, well-paid market built on producing acceptable prose at volume, and it has been priced to near zero. What is left is smaller and sharper: positioning, the line that defines a brand, the campaign concept, and writing where a specific human voice is the product. Many working copywriters have already migrated into strategy, editing and prompt direction. Those are real jobs. There are fewer of them, and they need judgment the volume tier never asked for.",
-  "tasks": [
-    { "name": "SEO & content-marketing articles", "verdict": "gone", "note": "The economics broke completely. Clients generate this in-house at zero marginal cost, and search now rewards it less anyway." },
-    { "name": "Product descriptions & catalogue copy", "verdict": "gone", "note": "Structured input, formulaic output — the ideal automation case. This tier no longer supports freelancers." },
-    { "name": "Email sequences & social copy", "verdict": "going", "note": "Drafted instantly. A human still decides the offer, the sequence logic and the line that makes someone open it." },
-    { "name": "Long-form ghostwriting", "verdict": "going", "note": "AI drafts convincingly in a supplied voice. Extracting a real point of view from a busy executive still takes an interview and a person." },
-    { "name": "Brand voice & positioning", "verdict": "safe", "tags": ["creative-taste", "human-judgment"], "note": "Deciding what a company sounds like and what it will refuse to say. A model averages toward the middle; positioning is the opposite of averaging." },
-    { "name": "Campaign concept", "verdict": "safe", "tags": ["creative-taste"], "note": "The idea underneath the words. AI generates a hundred taglines and cannot tell you which one is worth twelve months of budget." },
-    { "name": "Client and stakeholder work", "verdict": "safe", "tags": ["trust-relationship", "emotional-labor"], "note": "Interrogating a brief, saying no to a bad one, and getting the work approved by people with conflicting opinions." }
-  ],
-  "resistanceTags": ["creative-taste", "human-judgment", "trust-relationship"],
-  "whatSurvives": "Deciding what to say and what to refuse to say — the strategy the words were only ever expressing.",
-  "adaptPrompt": "You are my copy engine. You produce volume and variation; I decide what is right and I write the lines that matter.\n\nBrief I will give you: product, audience, the single thing we want them to believe, the objection blocking them, tone, format, and length.\n\nWhat I want:\n1. Fifteen headline options across genuinely different angles — benefit, objection, curiosity, contrarian, concrete-detail. Label the angle on each. Do not give me one idea rephrased fifteen times.\n2. For the angle I choose: three full drafts at different levels of aggression, from understated to hard sell.\n3. A cut pass on my draft: mark every sentence that could be deleted without loss, every claim that needs proof, and every place I wrote what the client wants to say instead of what the reader wants to hear.\n4. The strongest objection a sceptical reader has after reading it, and where in the copy it should have been answered.\n\nRules: no marketing filler — 'seamless', 'unlock', 'elevate', 'in today's fast-paced world' are banned. Short sentences. Concrete nouns. If the product claim is vague, tell me the copy cannot fix that and ask for the specific.",
-  "adaptTools": ["Claude", "ChatGPT", "Jasper", "Grammarly"],
-  "sources": [
-    "https://www.bls.gov/ooh/media-and-communication/writers-and-authors.htm",
-    "https://www.upwork.com/research/freelance-forward"
-  ],
-  "lastReviewed": "2026-08"
+    "slug": "copywriter",
+    "title": "Copywriter",
+    "titleTr": "Metin Yazarı",
+    "category": "creative",
+    "verdict": "on-the-menu",
+    "safeUntil": "2028",
+    "oneLiner": "Nobody is buying words any more. They are buying the judgment about which words.",
+    "summary": "Copywriting was the first white-collar job to feel this properly, because text was the first thing the models got good at. The content-marketing engine — blog posts, product descriptions, SEO filler, email sequences — was a large, well-paid market built on producing acceptable prose at volume, and it has been priced to near zero. What is left is smaller and sharper: positioning, the line that defines a brand, the campaign concept, and writing where a specific human voice is the product. Many working copywriters have already migrated into strategy, editing and prompt direction. Those are real jobs. There are fewer of them, and they need judgment the volume tier never asked for.",
+    "tasks": [
+        {
+            "name": "SEO & content-marketing articles",
+            "verdict": "gone",
+            "note": "The economics broke completely. Clients generate this in-house at zero marginal cost, and search now rewards it less anyway."
+        },
+        {
+            "name": "Product descriptions & catalogue copy",
+            "verdict": "gone",
+            "note": "Structured input, formulaic output — the ideal automation case. This tier no longer supports freelancers."
+        },
+        {
+            "name": "Email sequences & social copy",
+            "verdict": "going",
+            "note": "Drafted instantly. A human still decides the offer, the sequence logic and the line that makes someone open it."
+        },
+        {
+            "name": "Long-form ghostwriting",
+            "verdict": "going",
+            "note": "AI drafts convincingly in a supplied voice. Extracting a real point of view from a busy executive still takes an interview and a person."
+        },
+        {
+            "name": "Brand voice & positioning",
+            "verdict": "safe",
+            "tags": [
+                "creative-taste",
+                "human-judgment"
+            ],
+            "note": "Deciding what a company sounds like and what it will refuse to say. A model averages toward the middle; positioning is the opposite of averaging."
+        },
+        {
+            "name": "Campaign concept",
+            "verdict": "safe",
+            "tags": [
+                "creative-taste"
+            ],
+            "note": "The idea underneath the words. AI generates a hundred taglines and cannot tell you which one is worth twelve months of budget."
+        },
+        {
+            "name": "Client and stakeholder work",
+            "verdict": "safe",
+            "tags": [
+                "trust-relationship",
+                "emotional-labor"
+            ],
+            "note": "Interrogating a brief, saying no to a bad one, and getting the work approved by people with conflicting opinions."
+        }
+    ],
+    "resistanceTags": [
+        "creative-taste",
+        "human-judgment",
+        "trust-relationship"
+    ],
+    "whatSurvives": "Deciding what to say and what to refuse to say — the strategy the words were only ever expressing.",
+    "adaptPrompt": "You are my copy engine. You produce volume and variation; I decide what is right and I write the lines that matter.\n\nBrief I will give you: product, audience, the single thing we want them to believe, the objection blocking them, tone, format, and length.\n\nWhat I want:\n1. Fifteen headline options across genuinely different angles — benefit, objection, curiosity, contrarian, concrete-detail. Label the angle on each. Do not give me one idea rephrased fifteen times.\n2. For the angle I choose: three full drafts at different levels of aggression, from understated to hard sell.\n3. A cut pass on my draft: mark every sentence that could be deleted without loss, every claim that needs proof, and every place I wrote what the client wants to say instead of what the reader wants to hear.\n4. The strongest objection a sceptical reader has after reading it, and where in the copy it should have been answered.\n\nRules: no marketing filler — 'seamless', 'unlock', 'elevate', 'in today's fast-paced world' are banned. Short sentences. Concrete nouns. If the product claim is vague, tell me the copy cannot fix that and ask for the specific.",
+    "adaptTools": [
+        "Claude",
+        "ChatGPT",
+        "Jasper",
+        "Grammarly"
+    ],
+    "sources": [
+        "https://www.bls.gov/ooh/media-and-communication/writers-and-authors.htm",
+        "https://www.upwork.com/research/freelance-forward"
+    ],
+    "lastReviewed": "2026-08",
+    "evidenceStrength": "strong"
 }

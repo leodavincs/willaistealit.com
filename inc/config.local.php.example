@@ -1,0 +1,19 @@
+<?php
+/**
+ * Ortama ozel ayarlar. Bu dosyayi config.local.php olarak kopyala ve doldur.
+ * config.local.php .gitignore'da — repo public oldugu icin gizli deger buraya yazilmaz.
+ *
+ * Sunucuda (Hostinger): hPanel > Dosya Yoneticisi > public_html/inc/ altinda olustur.
+ * Deploy sirasinda silinmez, cunku Git bu dosyayi takip etmiyor.
+ */
+declare(strict_types=1);
+
+// tools/build-index.php ve tools/build-og.php'yi web'den tetiklemek icin.
+// Tanimlanmazsa tools/ hic calismaz. Rastgele uzun bir deger uret.
+define('BUILD_KEY', 'buraya-rastgele-uzun-bir-deger');
+
+// Plausible alan adi. Bos birakirsan analytics script'i hic basilmaz.
+define('ANALYTICS_DOMAIN', '');
+
+// Iletisim adresi. Kutuyu acmadan doldurma — /sponsor sayfasinda gorunur.
+define('CONTACT_EMAIL', '');

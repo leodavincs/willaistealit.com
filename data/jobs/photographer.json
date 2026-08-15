@@ -1,28 +1,86 @@
 {
-  "slug": "photographer",
-  "title": "Photographer",
-  "titleTr": "Fotoğrafçı",
-  "category": "creative",
-  "verdict": "shrinking",
-  "safeUntil": "2030",
-  "oneLiner": "Generated images killed the stock market. They cannot attend your wedding.",
-  "summary": "Photography splits cleanly along one line: whether the image has to be of something that really happened. Everything on the imaginary side — stock, catalogue product shots, concept imagery, generic lifestyle — has collapsed, because a client can now describe the picture instead of commissioning it. Everything on the real side holds, and holds firmly. A wedding happened once. A newborn is this size for two weeks. A press photograph is worthless if it was generated. Editing and retouching hours are also disappearing, which quietly removes the post-production income that carried many photographers between shoots.",
-  "tasks": [
-    { "name": "Stock & concept imagery", "verdict": "gone", "note": "Generated on demand, licence-free, in any style. This market did not shrink; it evaporated." },
-    { "name": "Standard product photography", "verdict": "going", "note": "AI generates or heavily augments packshots from a single reference. Premium and tactile products still get shot." },
-    { "name": "Retouching & culling", "verdict": "gone", "note": "Automated selection, masking, skin work and sky replacement. A substantial post-production income line, gone." },
-    { "name": "Basic editorial illustration", "verdict": "going", "note": "Publications generate accompanying imagery rather than licensing it — except where the image must document something real." },
-    { "name": "Weddings, ceremonies and live events", "verdict": "safe", "tags": ["physical-presence", "trust-relationship"], "note": "It happened once, you had to be there, and the client is buying a person they trust in the room on the most important day of their year." },
-    { "name": "Photojournalism & documentary", "verdict": "safe", "tags": ["physical-context", "accountability"], "note": "The entire value is the claim 'this really happened'. Generated imagery makes an accountable human witness more valuable, not less." },
-    { "name": "Portraiture with real people", "verdict": "safe", "tags": ["emotional-labor", "trust-relationship"], "note": "Getting a real person to relax and look like themselves is interpersonal work performed in a room." },
-    { "name": "Directing a real shoot", "verdict": "safe", "tags": ["physical-context", "creative-taste"], "note": "Light, location, crew, weather and a client changing their mind at 9am. Logistics and taste under live conditions." }
-  ],
-  "resistanceTags": ["physical-presence", "trust-relationship", "accountability"],
-  "whatSurvives": "Images of things that actually happened, taken by someone the client trusted to be there.",
-  "adaptPrompt": "You are my photography business assistant. You handle the words and the planning around the work; the shooting is mine.\n\nFor client work:\n1. Turn a client conversation into a shot list: must-haves, nice-to-haves, and the shots they will be upset about later if nobody mentioned them.\n2. Build a run of show with timings, light conditions by hour for the date and location, and the fallback plan for weather.\n3. Draft the client-facing questionnaire that surfaces what they actually want — including the family and relationship details that go wrong at events if you do not ask in advance.\n\nFor the business, which is where I actually lose money:\n4. Draft contracts and terms for review: deliverables, timeline, usage rights, cancellation, weather clause. Flag anything I should have a lawyer look at.\n5. Write the follow-up sequence: enquiry reply, booking confirmation, pre-shoot prep, gallery delivery, review request.\n6. Price analysis: given my costs, hours including editing, and target income, tell me what my day rate has to be and where my current pricing is losing money.\n\nRules: never write copy claiming I shot something I did not, and never suggest passing generated images off as photographs — that risk is existential in this business. When you draft client communication, keep it warm and short; nobody reads a five-paragraph email about their own wedding.",
-  "adaptTools": ["Claude", "Lightroom AI", "Aftershoot", "Photoshop Generative Fill"],
-  "sources": [
-    "https://www.bls.gov/ooh/media-and-communication/photographers.htm"
-  ],
-  "lastReviewed": "2026-08"
+    "slug": "photographer",
+    "title": "Photographer",
+    "titleTr": "Fotoğrafçı",
+    "category": "creative",
+    "verdict": "shrinking",
+    "safeUntil": "2030",
+    "oneLiner": "Generated images killed the stock market. They cannot attend your wedding.",
+    "summary": "Photography splits cleanly along one line: whether the image has to be of something that really happened. Everything on the imaginary side — stock, catalogue product shots, concept imagery, generic lifestyle — has collapsed, because a client can now describe the picture instead of commissioning it. Everything on the real side holds, and holds firmly. A wedding happened once. A newborn is this size for two weeks. A press photograph is worthless if it was generated. Editing and retouching hours are also disappearing, which quietly removes the post-production income that carried many photographers between shoots.",
+    "tasks": [
+        {
+            "name": "Stock & concept imagery",
+            "verdict": "gone",
+            "note": "Generated on demand, licence-free, in any style. This market did not shrink; it evaporated."
+        },
+        {
+            "name": "Standard product photography",
+            "verdict": "going",
+            "note": "AI generates or heavily augments packshots from a single reference. Premium and tactile products still get shot."
+        },
+        {
+            "name": "Retouching & culling",
+            "verdict": "gone",
+            "note": "Automated selection, masking, skin work and sky replacement. A substantial post-production income line, gone."
+        },
+        {
+            "name": "Basic editorial illustration",
+            "verdict": "going",
+            "note": "Publications generate accompanying imagery rather than licensing it — except where the image must document something real."
+        },
+        {
+            "name": "Weddings, ceremonies and live events",
+            "verdict": "safe",
+            "tags": [
+                "physical-presence",
+                "trust-relationship"
+            ],
+            "note": "It happened once, you had to be there, and the client is buying a person they trust in the room on the most important day of their year."
+        },
+        {
+            "name": "Photojournalism & documentary",
+            "verdict": "safe",
+            "tags": [
+                "physical-context",
+                "accountability"
+            ],
+            "note": "The entire value is the claim 'this really happened'. Generated imagery makes an accountable human witness more valuable, not less."
+        },
+        {
+            "name": "Portraiture with real people",
+            "verdict": "safe",
+            "tags": [
+                "emotional-labor",
+                "trust-relationship"
+            ],
+            "note": "Getting a real person to relax and look like themselves is interpersonal work performed in a room."
+        },
+        {
+            "name": "Directing a real shoot",
+            "verdict": "safe",
+            "tags": [
+                "physical-context",
+                "creative-taste"
+            ],
+            "note": "Light, location, crew, weather and a client changing their mind at 9am. Logistics and taste under live conditions."
+        }
+    ],
+    "resistanceTags": [
+        "physical-presence",
+        "trust-relationship",
+        "accountability"
+    ],
+    "whatSurvives": "Images of things that actually happened, taken by someone the client trusted to be there.",
+    "adaptPrompt": "You are my photography business assistant. You handle the words and the planning around the work; the shooting is mine.\n\nFor client work:\n1. Turn a client conversation into a shot list: must-haves, nice-to-haves, and the shots they will be upset about later if nobody mentioned them.\n2. Build a run of show with timings, light conditions by hour for the date and location, and the fallback plan for weather.\n3. Draft the client-facing questionnaire that surfaces what they actually want — including the family and relationship details that go wrong at events if you do not ask in advance.\n\nFor the business, which is where I actually lose money:\n4. Draft contracts and terms for review: deliverables, timeline, usage rights, cancellation, weather clause. Flag anything I should have a lawyer look at.\n5. Write the follow-up sequence: enquiry reply, booking confirmation, pre-shoot prep, gallery delivery, review request.\n6. Price analysis: given my costs, hours including editing, and target income, tell me what my day rate has to be and where my current pricing is losing money.\n\nRules: never write copy claiming I shot something I did not, and never suggest passing generated images off as photographs — that risk is existential in this business. When you draft client communication, keep it warm and short; nobody reads a five-paragraph email about their own wedding.",
+    "adaptTools": [
+        "Claude",
+        "Lightroom AI",
+        "Aftershoot",
+        "Photoshop Generative Fill"
+    ],
+    "sources": [
+        "https://www.bls.gov/ooh/media-and-communication/photographers.htm"
+    ],
+    "lastReviewed": "2026-08",
+    "evidenceStrength": "thin"
 }

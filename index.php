@@ -7,23 +7,19 @@ $jobs   = load_all_jobs();
 $counts = verdict_counts($jobs);
 $total  = count($jobs);
 
-// Kategoriye gore grupla, CATEGORIES sirasini koru.
-$byCategory = [];
-foreach (array_keys(CATEGORIES) as $key) {
-    $byCategory[$key] = [];
-}
-foreach ($jobs as $slug => $job) {
+// Kategori basina sayi ve verdict kirilimi (mini cubuk icin)
+$catStats = [];
+foreach ($jobs as $job) {
     $cat = (string)($job['category'] ?? '');
-    if (!isset($byCategory[$cat])) {
-        $byCategory[$cat] = [];
+    if ($cat === '') {
+        continue;
     }
-    $byCategory[$cat][$slug] = $job;
+    $catStats[$cat]['n'] = ($catStats[$cat]['n'] ?? 0) + 1;
+    $v = (string)($job['verdict'] ?? 'shrinking');
+    $catStats[$cat]['v'][$v] = ($catStats[$cat]['v'][$v] ?? 0) + 1;
 }
-$byCategory = array_filter($byCategory);
-
-// Baslikta aranan kalip ("replace"), markanin kendisi ikinci sirada.
-$pageTitle     = 'Will AI replace your job? — task-level verdicts on ' . $total . ' ' . ($total === 1 ? 'profession' : 'professions');
-$pageDesc      = SITE_TAG . ' Not a listicle: every job is split into its real tasks, each task judged separately, with a prompt you can use today.';
+// CATEGORIES sirasini koru, bos olanlari at
+$catStats = array_filter(array_merge(array_fill_keys(array_keys(CATEGORIES), null), $catStats));
 
 $newestReview = '';
 foreach ($jobs as $j) {
@@ -32,18 +28,20 @@ foreach ($jobs as $j) {
         $newestReview = $ym;
     }
 }
-$reviewedLabel = pretty_month($newestReview);
 
-// Ana sayfanin alintilanabilir tarihli ozeti — cevap motorlari icin.
+$pageTitle = 'Will AI replace your job? — task-level verdicts on ' . $total . ' ' . ($total === 1 ? 'profession' : 'professions');
+$pageDesc  = SITE_TAG . ' Not a listicle: every job is split into its real tasks, each task judged separately, with a prompt you can use today.';
+
 $homeAnswer = sprintf(
     'As of %s, willaistealit.com publishes task-level AI verdicts for %d %s: %d judged safe, %d shrinking and %d on the menu. Each profession is split into its real tasks and every task is judged separately, because jobs are not replaced by AI — tasks are.',
-    $reviewedLabel ?: 'August 2026',
+    pretty_month($newestReview) ?: 'August 2026',
     $total,
     $total === 1 ? 'profession' : 'professions',
     $counts['safe'],
     $counts['shrinking'],
     $counts['on-the-menu']
 );
+
 $pageCanonical = SITE_URL;
 $pageOg        = SITE_URL . '/og/home.png';
 $pageJsonLd = [
@@ -85,67 +83,133 @@ $pageJsonLd = [
 require __DIR__ . '/inc/header.php';
 ?>
 
-<section class="hero">
-  <div class="wrap">
-    <h1>Will AI steal it?</h1>
-    <p>Every job here is broken into its actual tasks, and each task gets its own verdict. Then you get the prompt that puts the machine to work for you instead.</p>
+<div class="wrap wrap-wide">
 
-    <p class="answer"><?= h($homeAnswer) ?></p>
+  <section class="index-head">
+    <h1>Will AI steal it?</h1>
+    <p class="index-lede">Every job split into its real tasks, each task judged on its own. Find yours.</p>
 
     <div class="search-wrap">
       <label class="skip" for="q">Search jobs</label>
+      <?php /* Ipucu native placeholder degil, kendi katmanimiz: imleci metnin
+               tam ucuna koyabilmek icin. JS kapaliyken de okunur kaliyor. */ ?>
       <input id="q" type="search" autocomplete="off" spellcheck="false"
-             placeholder="Search a job — accountant, translator, plumber&hellip;">
+             aria-describedby="q-hint">
+      <span class="q-hint" id="q-hint" aria-hidden="true">
+        <span class="q-lead">Search a job — </span><span class="q-word">accountant</span><span class="q-caret"></span>
+      </span>
     </div>
+  </section>
 
-    <div class="stats">
-      <?php foreach (VERDICTS as $key => $meta): ?>
-        <span class="stat v-<?= h($key) ?>"><b><?= (int)$counts[$key] ?></b> <?= h($meta['label']) ?></span>
+  <?php /* Manzara: tek satirlik yigilmis cubuk. Renk tek basina anlam tasimiyor —
+           her segmentin altinda sayisi ve adi yazili. */ ?>
+  <section class="landscape" aria-labelledby="landscape-h">
+    <h2 class="skip" id="landscape-h">Verdict distribution</h2>
+    <div class="bar" role="img" aria-label="<?= h(sprintf('%d shrinking, %d on the menu, %d safe, of %d professions', $counts['shrinking'], $counts['on-the-menu'], $counts['safe'], $total)) ?>">
+      <?php foreach (['shrinking', 'on-the-menu', 'safe'] as $key): ?>
+        <?php if ($counts[$key] === 0) { continue; } ?>
+        <span class="bar-seg v-<?= h($key) ?>" style="flex: <?= (int)$counts[$key] ?>"
+              title="<?= h($counts[$key] . ' ' . VERDICTS[$key]['label']) ?>"></span>
       <?php endforeach; ?>
-      <span class="stat" style="--v: var(--ink-3)"><b><?= $total ?></b> total</span>
+    </div>
+    <ul class="legend">
+      <?php foreach (['shrinking', 'on-the-menu', 'safe'] as $key): ?>
+        <li class="v-<?= h($key) ?>"><b><?= (int)$counts[$key] ?></b> <?= h(mb_strtolower(VERDICTS[$key]['label'])) ?></li>
+      <?php endforeach; ?>
+      <li class="legend-total"><b><?= $total ?></b> total</li>
+      <li class="legend-link"><a href="/landscape">See the timeline &rarr;</a></li>
+    </ul>
+  </section>
+
+  <div class="index-body">
+
+    <?php /* Fasetli filtre rafi. Sayilar JS ile canli guncelleniyor:
+             bir fasetin sayilari, kendisi disindaki tum filtrelere gore hesaplaniyor. */ ?>
+    <aside class="facets" aria-label="Filters">
+      <div class="facet-group">
+        <h2 class="facet-title">Verdict</h2>
+        <button class="facet" type="button" data-filter="all" aria-pressed="true">
+          <span class="facet-name">All</span>
+          <span class="facet-n" data-count-verdict="all"><?= $total ?></span>
+        </button>
+        <?php foreach (VERDICTS as $key => $meta): ?>
+          <button class="facet v-<?= h($key) ?>" type="button" data-filter="<?= h($key) ?>" aria-pressed="false">
+            <span class="facet-dot"></span>
+            <span class="facet-name"><?= h(mb_strtolower($meta['label'])) ?></span>
+            <span class="facet-n" data-count-verdict="<?= h($key) ?>"><?= (int)$counts[$key] ?></span>
+          </button>
+        <?php endforeach; ?>
+      </div>
+
+      <div class="facet-group">
+        <h2 class="facet-title">Category</h2>
+        <button class="facet" type="button" data-cat="all" aria-pressed="true">
+          <span class="facet-name">All categories</span>
+          <span class="facet-n" data-count-cat="all"><?= $total ?></span>
+        </button>
+        <?php foreach ($catStats as $key => $stat): ?>
+          <button class="facet facet-cat" type="button" data-cat="<?= h((string)$key) ?>" aria-pressed="false">
+            <span class="facet-name"><?= h(category_label((string)$key)) ?></span>
+            <span class="facet-n" data-count-cat="<?= h((string)$key) ?>"><?= (int)$stat['n'] ?></span>
+            <span class="facet-bar" aria-hidden="true">
+              <?php foreach (['shrinking', 'on-the-menu', 'safe'] as $vk): ?>
+                <?php if (empty($stat['v'][$vk])) { continue; } ?>
+                <span class="v-<?= h($vk) ?>" style="flex: <?= (int)$stat['v'][$vk] ?>"></span>
+              <?php endforeach; ?>
+            </span>
+          </button>
+        <?php endforeach; ?>
+      </div>
+
+      <button class="facet-reset" type="button" id="reset" hidden>Clear filters</button>
+    </aside>
+
+    <div class="index-main">
+      <table class="index-table" id="index-table">
+        <thead>
+          <tr>
+            <th scope="col"><button type="button" class="sort" data-sort="name" aria-pressed="true">Job</button></th>
+            <th scope="col"><button type="button" class="sort" data-sort="verdict" aria-pressed="false">Verdict</button></th>
+            <th scope="col" class="col-until"><button type="button" class="sort" data-sort="until" aria-pressed="false">Until</button></th>
+            <th scope="col" class="col-survives">What survives</th>
+          </tr>
+        </thead>
+        <tbody>
+          <?php foreach ($jobs as $slug => $job): ?>
+            <?php
+            $v    = verdict_meta($job['verdict'] ?? '');
+            $name = (string)($job['title'] ?? $slug);
+            $tags = (array)($job['resistanceTags'] ?? []);
+            ?>
+            <tr class="row v-<?= h((string)($job['verdict'] ?? 'shrinking')) ?>"
+                data-name="<?= h(mb_strtolower($name)) ?>"
+                data-search="<?= h(mb_strtolower($name . ' ' . (string)($job['titleTr'] ?? '') . ' ' . (string)($job['oneLiner'] ?? '') . ' ' . implode(' ', $tags) . ' ' . category_label($job['category'] ?? ''))) ?>"
+                data-verdict="<?= h((string)($job['verdict'] ?? '')) ?>"
+                data-verdict-rank="<?= (int)array_search($job['verdict'] ?? '', ['safe', 'shrinking', 'on-the-menu'], true) ?>"
+                data-until="<?= h((string)($job['safeUntil'] ?? '9999')) ?>"
+                data-cat="<?= h((string)($job['category'] ?? '')) ?>">
+              <th scope="row" class="cell-job">
+                <a href="/<?= h((string)$slug) ?>"><?= h($name) ?></a>
+                <span class="cell-one"><?= h((string)($job['oneLiner'] ?? '')) ?></span>
+              </th>
+              <td class="cell-verdict"><span class="dot"></span><?= h(mb_strtolower($v['label'])) ?></td>
+              <td class="cell-until"><?= !empty($job['safeUntil']) ? '~' . h((string)$job['safeUntil']) : '<span class="nil">no horizon</span>' ?></td>
+              <td class="cell-survives"><?= h(implode(', ', array_slice($tags, 0, 2))) ?></td>
+            </tr>
+          <?php endforeach; ?>
+        </tbody>
+      </table>
+
+      <p class="empty" id="empty">No job by that name yet.<?php if (has_github()): ?> <a href="<?= h(github_url('/blob/main/CONTRIBUTING.md')) ?>" rel="noopener" target="_blank">Add it</a> — it is one JSON file.<?php endif; ?></p>
+
+      <?php if ($total === 0): ?>
+        <p class="prose">No entries yet. Drop a JSON file into <code>data/jobs/</code> and run <code>php tools/build-index.php</code>.</p>
+      <?php endif; ?>
     </div>
   </div>
-</section>
 
-<div class="wrap">
-  <div class="filters" role="group" aria-label="Filter by verdict">
-    <button class="chip" type="button" data-filter="all" aria-pressed="true">Everything</button>
-    <?php foreach (VERDICTS as $key => $meta): ?>
-      <button class="chip" type="button" data-filter="<?= h($key) ?>" aria-pressed="false"><?= h($meta['dot'] . ' ' . $meta['label']) ?></button>
-    <?php endforeach; ?>
-  </div>
+  <p class="index-answer"><?= h($homeAnswer) ?></p>
 
-  <p class="empty" id="empty">No job by that name yet. <a href="https://github.com/" rel="noopener" target="_blank">Add it</a> — it is one JSON file.</p>
-
-  <div id="results">
-    <?php foreach ($byCategory as $cat => $catJobs): ?>
-      <section class="cat-block" data-category="<?= h((string)$cat) ?>">
-        <div class="cat-head">
-          <h2><?= h(category_label((string)$cat)) ?></h2>
-          <span class="cat-count"><?= count($catJobs) ?></span>
-        </div>
-        <div class="job-grid">
-          <?php foreach ($catJobs as $slug => $job): ?>
-            <?php $v = verdict_meta($job['verdict'] ?? ''); ?>
-            <a class="job-card v-<?= h((string)($job['verdict'] ?? 'shrinking')) ?>"
-               href="/<?= h((string)$slug) ?>"
-               data-slug="<?= h((string)$slug) ?>"
-               data-verdict="<?= h((string)($job['verdict'] ?? '')) ?>"
-               data-name="<?= h(mb_strtolower((string)($job['title'] ?? '') . ' ' . (string)($job['titleTr'] ?? ''))) ?>"
-               data-search="<?= h(mb_strtolower((string)($job['title'] ?? '') . ' ' . (string)($job['titleTr'] ?? '') . ' ' . (string)($job['oneLiner'] ?? '') . ' ' . category_label((string)($job['category'] ?? '')))) ?>">
-              <h3><?= h((string)($job['title'] ?? $slug)) ?></h3>
-              <span class="jc-verdict"><?= h($v['label']) ?><?= !empty($job['safeUntil']) ? ' &middot; ~' . h((string)$job['safeUntil']) : '' ?></span>
-              <p><?= h((string)($job['oneLiner'] ?? '')) ?></p>
-            </a>
-          <?php endforeach; ?>
-        </div>
-      </section>
-    <?php endforeach; ?>
-  </div>
-
-  <?php if ($total === 0): ?>
-    <p class="prose">No entries yet. Drop a JSON file into <code>data/jobs/</code> and run <code>php tools/build-index.php</code>.</p>
-  <?php endif; ?>
 </div>
 
 <script src="<?= h(asset('/assets/search.js')) ?>" defer></script>

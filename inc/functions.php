@@ -62,6 +62,35 @@ function load_index(): array
     return is_array($data) ? $data : [];
 }
 
+/** GitHub linki tanimli mi — degilse ilgili bloklar hic basilmaz. */
+function has_github(): bool
+{
+    return GITHUB_URL !== '';
+}
+
+function github_url(string $path = ''): string
+{
+    return rtrim(GITHUB_URL, '/') . $path;
+}
+
+function has_contact(): bool
+{
+    return CONTACT_EMAIL !== '';
+}
+
+/**
+ * tools/ script'lerinin web'den calisma izni.
+ * Anahtar degistirilmemisse hicbir key kabul edilmez — deploy'da unutulan
+ * varsayilan anahtar acik kapi birakmasin.
+ */
+function build_key_ok(?string $given): bool
+{
+    if (BUILD_KEY === '' || BUILD_KEY === 'change-me-before-deploy') {
+        return false;
+    }
+    return is_string($given) && hash_equals(BUILD_KEY, $given);
+}
+
 function verdict_meta(?string $verdict): array
 {
     return VERDICTS[$verdict] ?? VERDICTS['shrinking'];
@@ -112,20 +141,34 @@ function serve_page_cache(string $slug): bool
     if (!is_file($cached) || !is_file($source)) {
         return false;
     }
-    // Sablon, kendi verisi ya da entry kumesi degistiyse cache gecersiz.
+    // Sablon, ayar, kendi verisi ya da entry kumesi degistiyse cache gecersiz.
     // (JOBS_DIR zamani: related-jobs blogu diger entry'lere bagli.)
-    $newest = max(
-        filemtime($source),
-        filemtime(JOBS_DIR),
-        filemtime(ROOT . '/job.php'),
-        filemtime(ROOT . '/inc/header.php'),
-        filemtime(__FILE__)
-    );
-    if (filemtime($cached) < $newest) {
+    $newest = max(filemtime($source), filemtime(JOBS_DIR), template_mtime());
+    // <= bilerek: filemtime saniye hassasiyetinde. Ayni saniye icinde yazilan
+    // cache ile degisen kaynagi ayirt edemiyoruz, o yuzden supheliyi at.
+    if (filemtime($cached) <= $newest) {
         return false;
     }
     readfile($cached);
     return true;
+}
+
+/**
+ * Sablon tarafinin en son degisme zamani: job.php + inc/*.php.
+ * config.php de buna dahil — GITHUB_URL gibi ayarlar sayfa ciktisini degistiriyor,
+ * bunu unutmak "degisiklik neden gorunmuyor" hatasina yol aciyor.
+ */
+function template_mtime(): int
+{
+    static $t = null;
+    if ($t !== null) {
+        return $t;
+    }
+    $times = [filemtime(ROOT . '/job.php')];
+    foreach (glob(ROOT . '/inc/*.php') ?: [] as $f) {
+        $times[] = filemtime($f);
+    }
+    return $t = max($times);
 }
 
 function write_page_cache(string $slug, string $html): void
@@ -370,6 +413,36 @@ function related_jobs(array $job, int $limit = 4): array
         $out[$slug] = $all[$slug];
     }
     return $out;
+}
+
+/**
+ * Kanit durumu uyarisi. /methodology'de "kaynagi olmayan entry community draft
+ * olarak isaretlenir" sozu verildi — bu onu tutuyor.
+ * Kaynak SAYISI tek basina yetmiyordu: tek zayif kaynakli entry etiketsiz kaliyordu.
+ * @return array{level:string,label:string,text:string}|null
+ */
+function evidence_note(array $job): ?array
+{
+    $sources  = (array)($job['sources'] ?? []);
+    $strength = (string)($job['evidenceStrength'] ?? '');
+
+    if (count($sources) === 0 || $strength === 'none') {
+        return [
+            'level' => 'draft',
+            'label' => 'Community draft',
+            'text'  => 'No evidence attached to this entry yet. The argument may still hold, but nobody has backed it with a source. Attaching one is the single most useful contribution you can make.',
+        ];
+    }
+
+    if ($strength === 'thin') {
+        return [
+            'level' => 'thin',
+            'label' => 'Thin evidence',
+            'text'  => 'This verdict rests on limited published evidence. It is an argument we will defend, but it deserves more sources than it has — if you know of better data, open a PR.',
+        ];
+    }
+
+    return null;
 }
 
 /** Verdict degisiklikleri — /changelog ve tazelik sinyali icin. Yeniden eskiye. */
