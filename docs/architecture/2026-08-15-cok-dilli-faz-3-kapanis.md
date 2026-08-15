@@ -161,3 +161,61 @@ Faz 3 tamamlanmış sayılır. Faz 4'ün **ilk işi**, kuyruktaki TR ve ES edito
 anahtarlarını (methodology + llms) doldurmak ve validator blocker'ını yeşile
 çevirmektir. Bir dil, kuyruğu sıfırlanmadan `activeLangs`'e eklenmez — mekanizma
 tam olarak bunu engellemek için var.
+
+---
+
+## Kapanış — 15 Ağustos 2026
+
+Faz 3 **teknik olarak tamamlandı** ve onaylandı. Altı görev de bitti.
+
+| Commit | İş |
+|---|---|
+| `7638fa7` | `refactor: extract the llms.txt source into locale keys (English only)` |
+| `33a1a45` | `test: add ordered headings to the golden semantic extractor` |
+| `1c5f48d` | `test: recapture golden semantics after widening the field set` |
+| `c79ae8c` | `test: prove the golden comparator flags a corrupted h2` |
+
+Kapanış durumu:
+
+```
+909 test gecti, 0 kaldi           golden 15/15 semantik · 10/15 byte
+validator: Hata yok               cache-check: cikis 0
+doctor: kritik hata yok           self-test: 5/5, cikis 0
+smoke: Matris temiz               git status: bos
+activeLangs: ['en']               /tr/* ve /es/* 404
+bekleyen editoryal: tr 69 · es 69  (methodology 43 + llms 26)
+```
+
+`llms.txt` byte-identical döndü: locale'e çıkarma üretim çıktısını değiştirmedi.
+
+### Bilinen ve kabul edilmiş fark
+
+Beş entry sayfası (`cashier`, `accountant`, `nurse`, `translator`,
+`administrative-assistant`) golden byte katmanında farklı, semantik katmanda aynı.
+
+- **Fark nedir:** `job.php`'nin "disagree" bloğunda satır sonu + girinti, satır içi
+  boşluğa dönüştü. Beş dosyada da **birebir aynı** kayma. HTML'de anlamsız: tarayıcı
+  için, çıkarıcı için ve arama motoru için özdeş.
+- **Nereden geldi:** Faz 3F şablon yerelleştirmesi. Faz 3 kapanış görevleriyle
+  ilgisi yok — Görev 1 öncesi ve sonrası aynı beş dosya.
+- **Karar:** düzeltilmeyecek. 15/15 byte hedefi uğruna üretim çıktısını değiştirmek
+  değer katmıyor; risk, kazancından büyük.
+- **Regresyon ölçütü:** `./tools/golden.sh --check --semantic` → **15/15, çıkış 0**.
+  Byte katmanı bilgilendiricidir, kapı değildir. Byte katmanı kapı olarak
+  kullanılacaksa (3D/3E'de olduğu gibi, metin taşırken) bu beş dosya için
+  farkın **büyümediği** kontrol edilir; sıfırlanması beklenmez.
+
+Bir sonraki gövde değişikliğinde golden yeniden yakalanırsa bu fark kalıcı olarak
+byte referansına girer. O an gelene kadar referans, 3F öncesi çıktıyı tutuyor.
+
+### Sıradaki sıra
+
+1. ~~Faz 3 kapanış notu~~ — bu bölüm.
+2. **Faz 4 planı.**
+3. TR için 69 editoryal anahtarın gerçek çevirisi ve incelemesi.
+4. TR aktivasyonu, ardından SEO / arama / OG / sitemap kontrolleri.
+5. ES için aynı süreç.
+
+TR ve ES **birlikte beklemez**. Önce TR eksiksiz açılır; ES sonrasında bağımsız
+açılabilir. `activeLangs`, bir dilin çevirileri ve lansman kontrolleri bitene kadar
+`['en']` kalır.

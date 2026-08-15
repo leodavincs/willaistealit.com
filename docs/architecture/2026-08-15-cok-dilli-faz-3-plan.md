@@ -979,19 +979,19 @@ adımdan sonra semantik kontrol; bir dosya kırmızı verirse yalnızca o geri a
 
 ### Görev 3G — Faz 3 kapanışı
 
-- [ ] `php tests/run.php` → `0 kaldi`, **uyarı 0**
-- [ ] `php tools/validate.php` → `Hata yok`
-- [ ] `php tools/build-index.php` → 17 entry
-- [ ] `php tools/doctor.php` → kritik hata yok
-- [ ] `./tools/golden.sh --check --semantic` → 15/15, çıkış 0
-- [ ] `./tools/golden.php --self-test` → dört içerik türünde de kırmızı verebiliyor
-- [ ] `./tools/golden.sh --cache-check` → çıkış 0
-- [ ] `./tools/smoke.sh` → `Matris temiz.`
-- [ ] `git status --short` → boş
-- [ ] `activeLangs` hâlâ `['en']`, `/tr/*` 404
-- [ ] `inc/config.php`'de dile bağlı metin kalmadı:
+- [x] `php tests/run.php` → `0 kaldi`, **uyarı 0**
+- [x] `php tools/validate.php` → `Hata yok`
+- [x] `php tools/build-index.php` → 17 entry
+- [x] `php tools/doctor.php` → kritik hata yok
+- [x] `./tools/golden.sh --check --semantic` → 15/15, çıkış 0
+- [x] `./tools/golden.php --self-test` → dört içerik türünde de kırmızı verebiliyor
+- [x] `./tools/golden.sh --cache-check` → çıkış 0
+- [x] `./tools/smoke.sh` → `Matris temiz.`
+- [x] `git status --short` → boş
+- [x] `activeLangs` hâlâ `['en']`, `/tr/*` 404
+- [x] `inc/config.php`'de dile bağlı metin kalmadı:
       `grep -nE "'(label|blurb)' =>" inc/config.php` → çıktı yok
-- [ ] Üç dilde de tam kapsam: `CATEGORY_KEYS` ve `RESISTANCE_KEYS`'in her anahtarı
+- [x] Üç dilde de tam kapsam: `CATEGORY_KEYS` ve `RESISTANCE_KEYS`'in her anahtarı
       üç tabloda da var (test döngüsü zaten kanıtlıyor)
 
 ---
