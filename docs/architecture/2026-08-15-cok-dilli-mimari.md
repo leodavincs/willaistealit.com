@@ -9,7 +9,7 @@
 Site tek dilde (İngilizce) kurulmuş ve dil, mimarinin her katmanına gömülü:
 
 - **URL'de:** `^([a-z0-9-]+)/?$` tek seviyeli; dil prefix'i kavramı yok.
-- **Veride:** `data/jobs/<slug>.json` düz dosya. Tek `titleTr` alanı 15 entry'nin
+- **Veride:** `data/jobs/<slug>.json` düz dosya. Tek `titleTr` alanı entry'lerin
   hepsinde var ama yalnızca başlık ve arama için kullanılıyor — dil karmaşası yaratıyor,
   Türkçe içerik varmış izlenimi veriyor, oysa yok.
 - **Kodda:** `VERDICTS`, `CATEGORIES`, `RESISTANCE_TAGS` etiketleri `inc/config.php`
@@ -121,7 +121,7 @@ Yönlendirme zinciri yasak: her giriş en fazla **bir** 301 ile kanonik biçime 
 
 ### 1.5 Yönlendirme tablosu
 
-`tools/build-index.php` `cache/routes.json` üretir — 15 entry'nin hepsini açmadan
+`tools/build-index.php` `cache/routes.json` üretir — entry'lerin hepsini açmadan
 tek dosya okumasıyla çözümleme:
 
 ```json
@@ -640,7 +640,7 @@ Mevcut `filemtime($cached) <= $newest` ("şüpheliyi at") davranışı korunur.
 
 **Barındırma:** Hostinger Premium (`hostinger_premium_v3`), PHP 8.3.31.
 `gd`, `imagick`, `mbstring`, `intl` açık. Depolama üç dil için fazlasıyla yeterli:
-mevcut repo 2.6 MB, 15 entry toplam 76 KB; üç dilde ~230 KB JSON ve ~6 MB sayfa+OG
+mevcut repo 2.6 MB, 17 entry toplam ~86 KB; üç dilde ~260 KB JSON ve ~7 MB sayfa+OG
 cache'i bekleniyor. Gerçek kısıtlar depolama değil, **inode sayısı** ve **40 PHP
 worker**'dır; ikisi de rahat. Aynı hesapta duran Matomo, siteden önce sıkışacak taraftır.
 
@@ -711,7 +711,7 @@ php tools/migrate-jobs.php --verify           # semantik eşitlik raporu
   alan alan karşılaştırır; fark varsa listeler.
 - `titleTr` yalnızca `tr.json`'a `title` **tohumu** olarak geçer. `oneLiner`,
   `summary`, görev notları ve `adaptPrompt` boş kalır — yani TR entry'si o haliyle
-  **yayınlanmamış** sayılır. 15 Türkçe başlık, 15 Türkçe entry'ye benzemez ve şema
+  **yayınlanmamış** sayılır. Bir avuç Türkçe başlık, o kadar Türkçe entry'ye benzemez ve şema
   bu yanılsamayı üretmez.
 - Geçiş bitince `load_job()`'ın eski düz dosya okuma yolu **tamamen kaldırılır**.
   İki formatın aynı anda belirsiz biçimde okunduğu bir ara durum bırakılmaz.
@@ -806,7 +806,7 @@ Her fazın sonunda site çalışır ve doğrulanabilir durumdadır.
 | **1** | Front controller, `url_for()`/`alternates_for()`, normalizasyon + 301'ler, `routes.json`. Hâlâ tek dil | `smoke.php` matrisi (TR/ES satırları hariç); `.htaccess`/`router.php` ikiliği bitti |
 | **2** | Veri şeması + migrate (dry-run → verify → apply); eski okuma yolu kaldırılır. Hâlâ tek dil | `--verify` temiz, sayfa çıktıları değişmemiş, `validate.php` temiz |
 | **3** | Locale sistemi; EN metinleri `data/locale/en.php` + `inc/lang/En.php`'ye çıkar | §12.2 iki katmanlı regresyon |
-| **4** | TR açılışı: 15 çeviri entry, dil seçici, hreflang, sitemap, OG, arama, unavailable sayfası | `smoke.php` tam matris, hreflang karşılıklılığı, fold fixture'ları |
+| **4** | TR açılışı: aktif EN kataloğunun tamamının çevirisi, dil seçici, hreflang, sitemap, OG, arama, unavailable sayfası | `smoke.php` tam matris, hreflang karşılıklılığı, fold fixture'ları |
 | **5** | ES açılışı | Aynı kontrol listesi |
 | **6** | Kapanış: validator üç dilde, mobil + dark mode + erişilebilirlik, cache davranışı, Search Console'a sitemap | Kontrol listesi |
 
@@ -833,7 +833,7 @@ Faz 1–3 **davranış değiştirmez**; üçü de "çıktı aynı kalmalı" test
 **Kısmi lansman kabul edilir ve tercih edilir.** Sıra:
 
 1. EN mimari geçişi (Faz 1–3) — dil sayısı değişmez, davranış değişmez
-2. 15 meslek tamamlanınca **TR lansmanı**
+2. Aktif EN kataloğunun tamamı çevrilince **TR lansmanı**
 3. ES içerikleri tamamlanınca **ES lansmanı**
 
 TR hazırken ES'yi beklemek gereksiz; mimari yayınlanmamış dili zaten sitemap,
@@ -841,8 +841,11 @@ hreflang ve indeks dışında tutuyor (§5.1, §5.2, §5.4).
 
 Kurallar:
 
-- Bir dil; **ana sayfası + sabit sayfaları + mevcut 15 mesleğin tamamı** hazır
-  olmadan aktif dil ilan edilmez.
+- Bir dil; **ana sayfası + sabit sayfaları + o an İngilizce yayında olan mesleklerin
+  tamamı** hazır olmadan aktif dil ilan edilmez. Kural sabit bir sayıya bağlanmaz:
+  katalog büyüdükçe sayı bayatlar, ölçüt bayatlamaz. Kapı, `entry_langs()`'in
+  hesabıdır — İngilizce yayında olup hedef dilde olmayan **tek bir** entry varsa
+  dil açılmaz.
 - Hazır olmayan dil header'da aktif seçenek gibi gösterilmez — tercihen hiç
   gösterilmez, ya da pasif "yakında" görünür.
 - Hazır olmayan dilin ana sayfası (`/es/`) **indekslenebilir boş sayfa üretmez**.

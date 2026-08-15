@@ -84,9 +84,19 @@ whitespace farkı bilinen ve kabul edilmiş farktır (Faz 3 kapanış notu). Reg
 
 # Bölüm 4A — Dil-farkında altyapı
 
-`activeLangs` bu bölümün tamamında `['en']`. TR URL'leri kapalı olduğu için altyapı
-canlı siteyi etkilemeden kurulur ve test edilir. Bölümün sonunda TR sayfaları
-**üretilebilir** ama **servis edilmez**.
+`activeLangs` bu bölümün tamamında `['en']`. TR URL'leri kapalı; bölümün sonunda TR
+sayfaları **üretilebilir** ama **servis edilmez**.
+
+**"4A canlı siteyi etkilemez" demek yanlış olur — doğrusu şu:** 4A, İngilizce
+sayfanın **görünür yüzünü** değiştirmez, ama makine-okur katmanı bilinçli olarak
+değiştirir: sitemap (`lastmod` + alternates), JSON-LD (`inLanguage`), arama
+öznitelikleri (`data-search` / `data-name`), `<head>`'deki hreflang ve `og:locale`.
+Commit haritasındaki "EN çıktısı değişir" sütunu bunu satır satır gösteriyor.
+
+**Dil seçici bu kuralın istisnası değildir, kapsamıdır:** 4A6 seçiciyi kurar ama
+`activeLangs` tek dilse **hiç render etmez**. Kullanıcı, TR aktive edilene kadar
+header'da "Türkçe — yakında" görmez. Seçici, aktivasyon commit'iyle (4C1) görünür
+hale gelir; ayrı bir sürüm bayrağı yoktur, tek eksen `activeLangs`'tir.
 
 ---
 
@@ -227,14 +237,22 @@ düzeltmek tarihi oynatıyor. Spec bunu açıkça yasaklıyor: *"Build, cache te
 Sabit sayfaların anlamlı içerik tarihi. Şablon düzenlemesi bu dosyayı değiştirmez;
 metin değişikliği değiştirir. Elle güncellenir.
 
+**Dil bazlıdır.** Tek bir tarih, EN ve TR metinlerinin aynı gün incelendiğini
+varsayar — TR çevirisi haftalar sonra yazılacağı için bu yalan olur.
+
 ```json
 {
-    "methodology": "2026-08-15",
-    "landscape":   "2026-08-15",
-    "changelog":   "2026-08-15",
-    "sponsor":     "2026-08-15"
+    "en": { "methodology": "", "landscape": "", "changelog": "", "sponsor": "" },
+    "tr": { "methodology": "", "landscape": "", "changelog": "", "sponsor": "" },
+    "es": { "methodology": "", "landscape": "", "changelog": "", "sponsor": "" }
 }
 ```
+
+**Tarihler bu planın yazıldığı gün otomatik doldurulmaz.** Her değer, o sayfanın
+o dildeki metninin **gerçekten editoryal incelemeden geçtiği** tarihtir ve elle
+yazılır. Bilinmiyorsa **boş bırakılır**: sitemap boş `lastmod` basmaz, satırı
+`lastmod`'suz yayınlar. Uydurulmuş bir tarih, `lastmod`'un hiç olmamasından kötüdür.
+TR satırları 4B2'de, o dilin metni yazılırken doldurulur.
 
 - [ ] **Adım 2: `entry_lastmod()` testini yaz**
 
@@ -292,23 +310,26 @@ dışarıda bırakır, ekstra kontrol gerekmez:
 
 ```php
 foreach ($u['alternates'] as $code => $href) {
-    if ($code === 'x-default') {
-        continue;                       // sitemap x-default TASIMAZ (spec 5.2)
-    }
     echo '    <xhtml:link rel="alternate" hreflang="' . h($code) . '" href="' . h($href) . "\"/>\n";
 }
 ```
 
+**`x-default` sitemap'te de basılır.** HTML `<head>`'i ile sitemap **aynı**
+alternate kümesini taşımak zorundadır; iki yerde farklı küme yayınlamak Google'a
+çelişkili sinyal verir ve karşılıklılık kontrolünü anlamsızlaştırır. `alternates_for()`
+tek kaynak olduğu için bu zaten bedavaya gelir — kümeyi burada **filtrelemeyin**.
+
 URL listesi artık dil başına kurulur: `activeLangs`'in her dili × (ana sayfa +
 sabit sayfalar + o dilde **yayınlanmış** entry'ler). `filemtime()` çağrılarının
-tamamı `data/page-reviewed.json` okumasıyla değişir; entry satırları
-`entry_lastmod()` kullanır.
+tamamı `data/page-reviewed.json[<dil>][<anahtar>]` okumasıyla değişir; entry
+satırları `entry_lastmod()` kullanır. Tarih boşsa o satır `<lastmod>` **taşımaz**.
 
 - [ ] **Adım 7: validator kuralı**
 
-`tools/validate.php`: `PAGE_SLUGS[DEFAULT_LANG]`'in her anahtarı için
-`data/page-reviewed.json`'da tarih olmalı; yoksa **uyarı** (hata değil — sitemap
-tarihsiz satırla da geçerli XML üretir).
+`tools/validate.php`: `activeLangs`'in her dili × `PAGE_SLUGS[<dil>]`'in her
+anahtarı için `data/page-reviewed.json`'da **`YYYY-MM-DD` biçiminde** tarih olmalı;
+yoksa veya boşsa **uyarı** (hata değil — sitemap tarihsiz satırla da geçerli XML
+üretir). Biçimi bozuk bir tarih ise **hata**.
 
 - [ ] **Adım 8: golden protokolü**
 
@@ -412,7 +433,7 @@ yazmak ileride sessiz ayrışma üretir (spec 6.1).
 {
     "map": { "İ": "i", "I": "i", "ı": "i", "ş": "s", "Ş": "s", "ğ": "g", "Ğ": "g",
              "ü": "u", "Ü": "u", "ö": "o", "Ö": "o", "ç": "c", "Ç": "c",
-             "á": "a", "é": "e", "í": "i", "ó": "o", "ú": "u", "ñ": "n", "ü": "u",
+             "á": "a", "é": "e", "í": "i", "ó": "o", "ú": "u", "ñ": "n",
              "Á": "a", "É": "e", "Í": "i", "Ó": "o", "Ú": "u", "Ñ": "n" },
     "fixtures": {
         "Yazılım Geliştirici": "yazilim gelistirici",
@@ -427,6 +448,22 @@ yazmak ileride sessiz ayrışma üretir (spec 6.1).
 ```
 
 Fixture'lar spec §6.2'den birebir alındı; **değiştirilmez**.
+
+`ü` ve `Ü` Türkçe satırında zaten var — İspanyolca satırında **tekrar edilmez**.
+JSON'da mükerrer anahtar sessizce sonuncuyu kazandırır; aynı değere eşlense bile
+haritayı okuyan insan iki farklı kural sanır. Anahtarlar tekildir:
+
+```bash
+python3 -c "
+import json,collections
+raw = open('data/search-fold.json', encoding='utf-8').read()
+json.loads(raw, object_pairs_hook=lambda p: (_ for _ in ()).throw(
+    ValueError('mukerrer anahtar: ' + str([k for k,c in collections.Counter(
+        k for k,_ in p).items() if c > 1])) ) if len(set(k for k,_ in p)) != len(p) else dict(p))
+print('anahtarlar tekil')"
+```
+
+Bu kontrol 4A8'de `validate.php`'ye taşınır.
 
 - [ ] **Adım 2: Testi yaz (önce kırmızı)**
 
@@ -456,9 +493,18 @@ intl_available(null);
 
 - [ ] **Adım 4: `inc/search.php`**
 
-Sıra spec §6.1'den: NFD → birleşen işaretleri at → Türkçe `ı`/`İ` haritası →
-küçük harf → noktalama/boşluk normalize. Türkçe adım 2'den **sonra** değil, harita
-üzerinden **açıkça** uygulanır; NFD `ı`'yı çözmez.
+**Sıra: harita → NFD → birleşen işaretleri at → küçük harf → noktalama/boşluk.**
+
+Spec §6.1 adımları NFD'den başlatarak sayar ve Türkçe dönüşümü üçüncü sıraya koyar;
+uygulamada harita **başa** alınır. Sebebi spec'in kendi uyarısıdır ("2. adım bunları
+çözmez"), sadece bir adım daha ileri götürülmüştür:
+
+- `İ` NFD'de `I` + U+0307'ye ayrışır; mark atılınca `I` kalır, `mb_strtolower('I')`
+  ise Türkçede `ı` değil `i` verir — **tesadüfen doğru**, ama tesadüfe dayanır.
+- `ı` (noktasız i) NFD'de **hiç ayrışmaz**; onu yalnızca harita çözer.
+
+Haritayı öne almak iki durumu da tek ve **açık** bir adımda kapatır. Belge ile kod
+aynı sırayı tarif eder; aşağıdaki numaralar bu sıradır.
 
 ```php
 <?php
@@ -480,13 +526,13 @@ function search_fold_map(): array
 function search_fold(string $s): string
 {
     $map = search_fold_map();
-    $s   = strtr($s, $map);                       // 3. Turkce once: NFD 'i'yi cozmez
+    $s   = strtr($s, $map);                       // 1. harita: 'i' ve 'I' NFD ile cozulmez
     if (intl_available() && class_exists('Normalizer')) {
-        $s = (string)Normalizer::normalize($s, Normalizer::FORM_D);   // 1. NFD
+        $s = (string)Normalizer::normalize($s, Normalizer::FORM_D);   // 2. NFD
     }
-    $s = (string)preg_replace('/\p{Mn}+/u', '', $s);                   // 2. birlesen isaretler
+    $s = (string)preg_replace('/\p{Mn}+/u', '', $s);                   // 3. birlesen isaretler
     $s = mb_strtolower($s, 'UTF-8');                                   // 4. kucuk harf
-    $s = (string)preg_replace('/[^\p{L}\p{N}]+/u', ' ', $s);           // 5. noktalama
+    $s = (string)preg_replace('/[^\p{L}\p{N}]+/u', ' ', $s);           // 5. noktalama/bosluk
     return trim((string)preg_replace('/\s+/u', ' ', $s));
 }
 ```
@@ -667,9 +713,26 @@ git commit -m "feat: build one search index per active language"
 ### Görev 4A6 — Dil seçici
 
 Spec 1.6: **otomatik yönlendirme yok.** Seçici, bulunulan sayfanın karşı dildeki
-**eşdeğerine** götürür — ana sayfaya düşürmez. Yayınlanmamış dil "yakında" olarak
-pasif görünür. Öneri şeridi v1'de **yapılmaz** (spec "gösterilebilir" diyor, zorunlu
-kılmıyor; JS + çerez maliyeti lansmanı geciktirir).
+**eşdeğerine** götürür — ana sayfaya düşürmez. Öneri şeridi v1'de **yapılmaz**
+(spec "gösterilebilir" diyor, zorunlu kılmıyor; JS + çerez maliyeti lansmanı
+geciktirir).
+
+**Aktif olmayan dil header'da hiç görünmez.** Spec §15 "tercihen hiç gösterilmez,
+ya da pasif 'yakında' görünür" diyor ve ilk seçenek burada bilinçli olarak alınıyor:
+4A ile 4C arasında haftalar var, ve o haftalarda canlı İngilizce sayfada "Türkçe —
+yakında" yazması **verilmemiş bir söz** olur. Kural tek satırda yaşar:
+
+```php
+$switchLangs = (array)($routes['activeLangs'] ?? [DEFAULT_LANG]);
+```
+
+`activeLangs` tek dilse seçici **hiç render edilmez** — `<nav>` bile basılmaz.
+TR, aktivasyon commit'iyle (4C1) görünür hale gelir; ayrı bir sürüm bayrağı yoktur,
+tek eksen `activeLangs`'tir.
+
+`nav.soon` anahtarı yine de yazılır, ama başka bir iş için: bir dil **aktifken**
+o dilde henüz yayınlanmamış bir entry'nin sayfasında (spec 5.4) pasif görünür.
+Aktif olmayan dil için kullanılmaz.
 
 **Dosyalar**
 - Değiştir: `inc/header.php`, `assets/style.css`
@@ -691,8 +754,10 @@ kılmıyor; JS + çerez maliyeti lansmanı geciktirir).
 kendi URL'ini kurmaz.
 
 ```php
+<?php /* Tek aktif dil varsa secici HIC basilmaz — verilmemis soz verilmez. */ ?>
+<?php if (count($switchLangs) > 1 && ($pageAlternates ?? []) !== []): ?>
 <nav class="lang-switch" aria-label="<?= h($L->t('nav.language')) ?>">
-  <?php foreach (LANGS as $code): ?>
+  <?php foreach ($switchLangs as $code): ?>
     <?php $href = $pageAlternates[$code] ?? null; ?>
     <?php if ($code === $lang): ?>
       <span class="lang-cur" aria-current="true"><?= h($L->t('lang.' . $code)) ?></span>
@@ -703,17 +768,17 @@ kendi URL'ini kurmaz.
     <?php endif; ?>
   <?php endforeach; ?>
 </nav>
+<?php endif; ?>
 ```
+
+Döngü `LANGS` üzerinde değil **`$switchLangs`** üzerinde dönüyor: aktif olmayan
+bir dil listeye hiç girmez, dolayısıyla `lang-soon` dalına da düşemez.
 
 - [ ] **Adım 3: `$pageAlternates` olmayan sayfalar**
 
-`404.php` ve `unavailable.php` alternates kurmaz → seçicide **hiçbir dil aktif
-bağlantı almaz**. `unavailable.php` zaten yayınlanan dillere kendi bağlantısını
-basıyor (spec 5.4); seçici orada gizlenir:
-
-```php
-<?php if (($pageAlternates ?? []) !== []): ?> ... <?php endif; ?>
-```
+`404.php` ve `unavailable.php` alternates kurmaz → koşuldaki ikinci şart
+(`($pageAlternates ?? []) !== []`) seçiciyi orada da kapatır. `unavailable.php`
+yayınlanan dillere kendi bağlantısını basar (4A11).
 
 - [ ] **Adım 4: CSS** — `assets/style.css`'e `.lang-switch` kuralları; `.lang-soon`
       soluk ve tıklanamaz (`pointer-events: none` değil, zaten `<span>`).
@@ -723,9 +788,23 @@ basıyor (spec 5.4); seçici orada gizlenir:
 
 - [ ] **Adım 6: golden protokolü**
 
-**Beklenen golden farkı:** her HTML sayfasında `links` **değişmez** (seçici tek
-aktif dilde yalnızca `<span>` basar, `<a href>` basmaz). `h2`/`h3` değişmez.
-Bir `links` farkı çıkarsa seçici yayınlanmamış dile bağlantı veriyor demektir — dur.
+**Beklenen golden farkı: YOK — hiçbir dosya değişmemeli.** `activeLangs` tek dil
+olduğu için seçici hiç basılmaz; `links`, `h2`/`h3` ve byte katmanı dahil her şey
+aynı kalır. **Herhangi bir fark çıkarsa koşul yanlış yazılmış demektir — dur.**
+Bu, "4A canlı görünümü değiştirmez" iddiasının tek gerçek kanıtıdır.
+
+- [ ] **Adım 6b: seçici gerçekten çalışıyor mu — önizleme tablosuyla**
+
+Seçici canlıda basılmadığı için ayrıca kanıtlanır (mekanizma: 4B4 Adım 2):
+
+```bash
+php -r 'require "inc/routes_cache.php"; $r = build_routes(); $r["activeLangs"] = ["en","tr"];
+        file_put_contents("/tmp/routes-preview.json", json_encode($r));'
+WAISI_ROUTES_FILE=/tmp/routes-preview.json php -S localhost:8000 router.php &
+curl -s localhost:8000/cashier | grep -c 'lang-switch'      # 1
+curl -s localhost:8000/cashier | grep -c 'href="/tr/'       # 1 (esdegere gider, ana sayfaya DEGIL)
+curl -s localhost:8000/unknown | grep -c 'lang-switch'      # 0
+```
 
 - [ ] **Adım 7: Commit**
 
@@ -750,18 +829,39 @@ Bugün bu bağımlılık yok — `inc/functions.php:169` bunu Faz 3'te not düş
 
 - [ ] **Adım 1: `build-index.php` sürüm dosyası yazsın**
 
+Hash **tek bir fonksiyonda** yaşar. `build-index.php` ve fallback yolu aynı
+fonksiyonu çağırır — iki ayrı yerde hesaplanırsa sessizce ayrışır ve cache yanlış
+tazelenir. `inc/functions.php`:
+
 ```php
-$hash = hash_init('sha256');
-foreach (glob(JOBS_DIR . '/*/common.json') ?: [] as $p) {
-    hash_update($hash, (string)file_get_contents($p));
-}
-foreach ((array)($routes['activeLangs'] ?? [DEFAULT_LANG]) as $lang) {
-    foreach (glob(JOBS_DIR . '/*/' . $lang . '.json') ?: [] as $p) {
-        hash_update($hash, (string)file_get_contents($p));
+/**
+ * Icerik evreninin hash'i. Dosya ADLARI da hash'e girer: yeni bir entry eklemek
+ * mevcut dosyalarin icerigini degistirmez ama related_jobs() blogunu degistirir.
+ * @param string[] $langs Hangi dillerin dil dosyalari sayilacak
+ */
+function content_hash(array $langs): string
+{
+    $files = glob(JOBS_DIR . '/*/common.json') ?: [];
+    foreach ($langs as $lang) {
+        $files = array_merge($files, glob(JOBS_DIR . '/*/' . $lang . '.json') ?: []);
     }
+    sort($files);                                  // glob sirasi platforma bagli
+    $h = hash_init('sha256');
+    foreach ($files as $f) {
+        hash_update($h, $f . "\0");               // ad
+        hash_update($h, (string)file_get_contents($f));   // icerik
+        hash_update($h, "\0");
+    }
+    return hash_final($h);
 }
+```
+
+`tools/build-index.php` bunu yazar:
+
+```php
 atomic_write(CACHE_DIR . '/content-version.json', (string)json_encode(
-    ['version' => hash_final($hash), 'generated' => gmdate('c')],
+    ['version'   => content_hash((array)($routes['activeLangs'] ?? [DEFAULT_LANG])),
+     'generated' => gmdate('c')],
     JSON_UNESCAPED_SLASHES
 ));
 ```
@@ -781,11 +881,11 @@ function content_version(): string
     if (is_array($d) && !empty($d['version'])) {
         return (string)$d['version'];
     }
-    $newest = 0;
-    foreach (glob(JOBS_DIR . '/*/*.json') ?: [] as $p) {
-        $newest = max($newest, (int)filemtime($p));
-    }
-    return 'mtime-' . $newest;
+    // Fallback de HASH'tir, mtime DEGIL: mtime yeni dosya eklenmesini ve
+    // korunmus zaman damgasiyla gelen icerik degisimini kacirir (rsync -t, git
+    // checkout, deploy araci). Pahali ama DOGRU; surum dosyasi varken zaten
+    // calismaz.
+    return content_hash((array)(load_routes()['activeLangs'] ?? [DEFAULT_LANG]));
 }
 ```
 
@@ -797,14 +897,25 @@ dosya içeriği değiştiğinde değişmez → sessiz bayat cache).
 - [ ] **Adım 3: test**
 
 ```php
-// Surum dosyasi yoksa cokme yok, mtime fallback'i devreye girer (spec 8.2).
-$vf = CACHE_DIR . '/content-version.json';
-$bak = is_file($vf) ? (string)file_get_contents($vf) : null;
+// Surum dosyasi yoksa/bozuksa cokme yok; fallback AYNI hash'i uretir (spec 8.2).
+$vf   = CACHE_DIR . '/content-version.json';
+$bak  = is_file($vf) ? (string)file_get_contents($vf) : null;
+$want = content_hash(['en']);
+
 @unlink($vf);
-t_eq(true, str_starts_with(content_version(), 'mtime-'), 'surum dosyasi yoksa fallback');
+t_eq($want, content_version(), 'surum dosyasi yoksa fallback AYNI hash');
 file_put_contents($vf, '{bozuk');
-t_eq(true, str_starts_with(content_version(), 'mtime-'), 'bozuk surum dosyasi fallback');
+t_eq($want, content_version(), 'bozuk surum dosyasi fallback');
+file_put_contents($vf, (string)json_encode(['version' => 'x', 'generated' => '']));
+t_eq('x', content_version(), 'saglam surum dosyasi okunur');
 if ($bak !== null) { file_put_contents($vf, $bak); } else { @unlink($vf); }
+
+// Yeni dosya eklemek hash'i DEGISTIRMELI — mtime tabanli bir hesap bunu kacirirdi.
+$probe = JOBS_DIR . '/__probe/common.json';
+@mkdir(dirname($probe), 0775, true);
+file_put_contents($probe, '{"id":"__probe"}');
+t_eq(false, $want === content_hash(['en']), 'yeni dosya hash i degistirir');
+unlink($probe); rmdir(dirname($probe));
 ```
 
 - [ ] **Adım 4: `php tests/run.php`** → geçer.
@@ -881,8 +992,12 @@ Sayfadaki not için locale anahtarı (editoryal **değil**):
 - [ ] **Adım 5: ortam kuralları**
 
 - `search_fold()` fixture'ları PHP tarafında (4A4'te yazıldı) + `node tools/fold-check.js`
-- Yayınlanan her dil kombinasyonu için **hreflang karşılıklılığı**: A dilinde
-  basılan her alternate, hedef dilde geri bağlantı vermeli
+- Yayınlanan her dil kombinasyonu için **hreflang karşılıklılığı**. Kontrol,
+  kümeyi kendisiyle karşılaştırarak yapılamaz — hiçbir zaman kırmızı vermez.
+  Her alternate URL `resolve_path()` ile **çözülür**, üç şey ayrı ayrı aranır:
+  (1) URL kanonik mi (301 değil), (2) `hreflang` kodu hedef sayfanın gerçek dili mi,
+  (3) hedef sayfanın kendi kümesinde kaynağın URL'i var mı. Tam betik 4C2 Adım 2'de;
+  validator aynı betiği canlı `routes.json` yerine `build_routes()` çıktısıyla koşar.
 
 - [ ] **Adım 6: kuralları kırık fixture'la kanıtla**
 
@@ -912,9 +1027,19 @@ git commit -m "feat: enforce the multilingual validator rules"
 ### Görev 4A9 — Smoke matrisi: TR satırları
 
 Spec §12.1'in tam matrisi. `activeLangs` hâlâ `['en']` olduğu için TR satırları
-**geçici bir routes tablosu enjekte edilerek** koşulur — canlı yapılandırma
-değişmez. `load_routes(?string $file)` test için dosya enjeksiyonunu zaten
-destekliyor (`inc/routes_cache.php:201`).
+**bellekte kurulmuş bir routes dizisiyle** koşulur; `resolve_path()` saf bir
+fonksiyondur ve tabloyu parametre alır, dosyaya hiç dokunmaz.
+
+`smoke.sh`'in HTTP satırları için 4B4 Adım 2'deki `WAISI_ROUTES_FILE` override'ı
+kullanılır — **canlı `cache/routes.json` hiçbir aşamada değiştirilmez.** Bu görev
+override'ı `smoke.sh`'e bağlar:
+
+```bash
+# tools/smoke.sh — TR satirlari yalnizca onizleme tablosuyla kosulur
+if [ -n "$WAISI_ROUTES_FILE" ]; then run_tr_matrix; else echo "  atlandi TR satirlari (WAISI_ROUTES_FILE yok)"; fi
+```
+
+Atlanan satır **sessiz kalmaz**: `smoke.sh` neyi koşmadığını yazar.
 
 **Dosyalar**
 - Değiştir: `tools/smoke.sh`, `tests/routing.test.php`
@@ -1104,11 +1229,23 @@ Bu bölümün işi kod değil, **yazı**. Spec §14: *"İş yükünün ağırlı
 içerikte."* Takvimi bu bölüm belirler.
 
 > **Kapsam uyarısı — planlanandan büyük.** Bekleyen kuyruk 69 editoryal anahtar
-> olarak konuşuldu, ama TR lansmanı için gereken bundan fazlası: **17 entry'nin
-> 15'inin TR çevirisi yok** (`cashier` ve `administrative-assistant` hazır).
-> Lansman kuralı (spec §15) yarım katalog lansmanına izin vermiyor: *"Bir dil;
-> ana sayfası + sabit sayfaları + mevcut mesleklerin tamamı hazır olmadan aktif
-> dil ilan edilmez."* Yani 4B = 69 anahtar **+ 15 entry** + 4 sabit sayfa slug'ı.
+> olarak konuşuldu, ama TR lansmanı için gereken bundan fazlası: bugün itibarıyla
+> **17 entry'nin 15'inde TR çevirisi yok** (`cashier` ve `administrative-assistant`
+> hazır). Lansman kuralı (spec §15) yarım katalog lansmanına izin vermiyor.
+> Yani 4B = 69 anahtar **+ eksik entry'lerin tamamı** + 4 sabit sayfa slug'ı.
+>
+> **Ölçüt sayı değil, hesaptır.** "15 entry" bu planın yazıldığı günün fotoğrafı;
+> katalog Faz 4 sürerken büyürse sayı bayatlar, ölçüt bayatlamaz:
+>
+> ```bash
+> php -r 'require "inc/functions.php"; $eksik = [];
+>   foreach (array_keys(load_all_jobs("en")) as $id)
+>     if (!in_array("tr", entry_langs($id), true)) $eksik[] = $id;
+>   echo $eksik ? count($eksik) . " EKSIK: " . implode(", ", $eksik) . "\n" : "TR katalogu tam\n";
+>   exit($eksik ? 1 : 0);'
+> ```
+>
+> Bu komut 4C1'in kapısıdır. Çıkışı 0 değilse dil açılmaz.
 
 ---
 
@@ -1174,7 +1311,10 @@ php -r 'require "inc/locale.php"; foreach (locale_pending("tr") as $k)
       iddia eden, savunulabilir, sünnetsiz. "Belki", "olabilir", "bazı durumlarda"
       İngilizcede yoksa Türkçede de olmaz.
 
-- [ ] **Adım 3: terminoloji sözlüğünü sabitle — çeviriden ÖNCE**
+- [ ] **Adım 3: terminoloji sözlüğünü sabitle — çeviriden ÖNCE, ama 4A'dan önce değil**
+
+Sözlük 4A başlamadan yazılmak zorunda değildir; **bu görevin hemen öncesinde**
+sabitlenmesi yeterlidir. Erken sabitlenirse 4A boyunca kullanılmadan bekler.
 
 `docs/memory/decisions/` altına bir karar notu **önerilir** (otomatik yazılmaz):
 
@@ -1240,8 +1380,8 @@ git commit -m "content: translate the editorial locale keys into Turkish"
 Hazır olanlar: `cashier`, `administrative-assistant`. `data/pending-tr-titles.json`
 başlıkları zaten taşıyor — çeviri oradan başlar, sıfırdan değil.
 
-**Bu görev entry başına tekrarlanır. Her entry kendi commit'ini alır** — 15 entry
-tek commit'te gitmez; biri geri alınabilmelidir.
+**Bu görev entry başına tekrarlanır. Her entry kendi commit'ini alır** — eksik
+entry'ler tek commit'te gitmez; biri geri alınabilmelidir.
 
 Her `tr.json` için, `data/jobs/cashier/tr.json` şablon alınır ve şu alanlar yazılır:
 
@@ -1291,12 +1431,14 @@ git commit -m "content: add the Turkish entry for <id>"
 - [ ] **Adım 4 (15'i bitince): kapsam kontrolü**
 
 ```bash
-ls data/jobs/*/tr.json | wc -l          # 17 olmali
-php -r 'require "inc/functions.php";
+php -r 'require "inc/functions.php"; $eksik = [];
   foreach (array_keys(load_all_jobs("en")) as $id)
-    if (!in_array("tr", entry_langs($id), true)) echo "EKSIK: $id\n";'
+    if (!in_array("tr", entry_langs($id), true)) $eksik[] = $id;
+  echo $eksik ? count($eksik) . " EKSIK: " . implode(", ", $eksik) . "\n" : "TR katalogu tam\n";
+  exit($eksik ? 1 : 0);'
 ```
-Çıktısı boş olmalı.
+`TR katalogu tam`, çıkış 0. Sayı sayılmaz — `entry_langs()` hesabı sorulur, çünkü
+Faz 4 sürerken yeni bir İngilizce entry eklenmiş olabilir.
 
 ---
 
@@ -1309,28 +1451,68 @@ Faz 3'te dolduruldu. Bu görev **doğrulama** görevidir, yazma değil.
 - [ ] **Adım 1: tam kapsam kanıtı** — 4B2 Adım 8'deki `LOCALE_STRICT` taraması
       tekrar koşulur; hiçbir anahtar eksik olmamalı.
 
-- [ ] **Adım 2: TR sayfalarını gözle gör** (hâlâ `activeLangs: ['en']` — geçici
-      yerel override ile):
+- [ ] **Adım 2: önizleme mekanizmasını kur** (4A9'da da kullanılır)
+
+**Canlı `cache/routes.json` geçici olarak değiştirilmez.** "Sonra geri alırım"
+kabul edilemez: iş yarıda kesilirse, terminal kapanırsa veya `build-index.php`
+çalıştırılmadan deploy edilirse TR **açık kalır** — yani aktivasyon kapısı (4C1)
+kazara atlanmış olur. Kapının tek anlamı, atlanamaz olmasıdır.
+
+Yerine açık bir override: `load_routes()` `null` çağrıldığında ortam değişkenine
+bakar. `inc/routes_cache.php`:
+
+```php
+/** Onizleme tablosu — YALNIZCA CLI/dev. Canli hostta ortam degiskeni yok sayilir. */
+function routes_override_file(): ?string
+{
+    if (is_live_host()) {
+        return null;                       // uretimde ASLA
+    }
+    $f = getenv('WAISI_ROUTES_FILE');
+    return ($f !== false && $f !== '' && is_file($f)) ? $f : null;
+}
+```
+
+`load_routes(?string $file = null)` içinde, `$file === null` iken
+`$file = routes_override_file()`.
+
+- [ ] **Adım 3: önizleme tablosunu üret ve gez**
 
 ```bash
 php -r '
-  require "inc/functions.php";
-  $r = load_routes(); $r["activeLangs"] = ["en","tr"];
-  file_put_contents("cache/routes.json", json_encode($r));
-  echo "TR gecici olarak acildi — 4C oncesi GERI ALINACAK\n";'
-php -S localhost:8000 router.php &
+  require "inc/routes_cache.php";
+  $r = build_routes(); $r["activeLangs"] = ["en","tr"];
+  file_put_contents("/tmp/routes-preview.json", json_encode($r));
+  echo "onizleme tablosu -> /tmp/routes-preview.json (canli cache DOKUNULMADI)\n";'
+
+WAISI_ROUTES_FILE=/tmp/routes-preview.json php -S localhost:8000 router.php &
 # /tr/ · /tr/metodoloji · /tr/kasiyer · /tr/degisiklikler gezilir
-php tools/build-index.php     # GERI AL: activeLangs yeniden ['en'] olur
 ```
 
-Son satır **atlanmaz**. `build-index.php` tabloyu kaynaktan yeniden üretir ve
-`activeLangs`'i `['en']`'e döndürür (`inc/routes_cache.php:181`).
+Sunucu kapanınca override biter. Geri alınacak bir şey yok — canlı `routes.json`'a
+hiç yazılmadı. Kanıtla:
 
-- [ ] **Adım 3: gözle bakılacaklar** — başlıklarda kırık karakter yok, tarih
+```bash
+php -r 'require "inc/routes_cache.php"; echo implode(",", load_routes()["activeLangs"]), "\n";'   # en
+git status --short cache 2>/dev/null                                                                # bos
+```
+
+- [ ] **Adım 4: override'ın üretime sızmadığını kanıtla**
+
+`tests/routes_cache.test.php`'ye:
+
+```php
+putenv('WAISI_ROUTES_FILE=/tmp/routes-preview.json');
+t_eq(null, is_live_host() ? routes_override_file() : '/tmp/routes-preview.json',
+     'canli hostta override yok sayilir');
+putenv('WAISI_ROUTES_FILE');
+```
+
+- [ ] **Adım 5: gözle bakılacaklar** — başlıklarda kırık karakter yok, tarih
       biçimi Türkçe ("Ağustos 2026"), liste bağı doğru ("A, B ve C"), `İ`/`ı`
       doğru, mobilde tablo taşmıyor, dark mode kontrastı yeterli.
 
-- [ ] **Adım 4: bulunan her hata kendi commit'ini alır.**
+- [ ] **Adım 6: bulunan her hata kendi commit'ini alır.**
 
 ---
 
@@ -1346,7 +1528,10 @@ Aktivasyon **tek satırdır** ve o satır ancak kapının sekiz kontrolü de ye�
 
 ```bash
 php -r 'require "inc/locale.php"; printf("tr bekleyen: %d\n", count(locale_pending("tr")));'   # 0
-ls data/jobs/*/tr.json | wc -l                                                                 # 17
+php -r 'require "inc/functions.php"; $e = [];                                                  # TR katalogu tam
+  foreach (array_keys(load_all_jobs("en")) as $id)
+    if (!in_array("tr", entry_langs($id), true)) $e[] = $id;
+  echo $e ? count($e) . " EKSIK\n" : "TR katalogu tam\n"; exit($e ? 1 : 0);'
 php -r 'require "inc/routes_cache.php"; print_r(PAGE_SLUGS["tr"]);'                            # 4 slug
 php tests/run.php                                                                              # 0 kaldi
 php tools/validate.php                                                                         # Hata yok
@@ -1390,29 +1575,68 @@ git commit -m "feat: activate Turkish"
 
 - [ ] **Adım 2: hreflang karşılıklılığı**
 
+Karşılıklılık, "A dilinin kümesinde B var mı" ile **kanıtlanmaz** — o, kümenin
+kendisini kendisiyle karşılaştırmaktır ve hiçbir zaman kırmızı vermez. Kanıt için
+her alternate URL'i **gerçekten çözülür**, hedef sayfanın kendi kümesi kurulur ve
+kaynağın URL'i o kümede **aranır**:
+
 ```bash
 php -r '
 require "inc/functions.php";
+require "inc/routing.php";
 $routes = load_routes(); $bad = 0;
-foreach (array_keys($routes["published"]) as $id) {
-    $alts = alternates_for("job", $id, $routes);
+
+$check = static function (string $type, string $key) use ($routes, &$bad): void {
+    $alts = alternates_for($type, $key, $routes);
     foreach ($alts as $code => $href) {
-        if ($code === "x-default") continue;
-        $back = alternates_for("job", $id, $routes);
-        if (!isset($back[$code])) { echo "KARSILIKSIZ: $id / $code\n"; $bad++; }
+        if ($code === "x-default") { continue; }        // x-default geri baglanti beklemez
+
+        // 1. Alternate URL GERCEKTEN cozulsun: hangi dil, hangi hedef?
+        $path = parse_url($href, PHP_URL_PATH) ?: "/";
+        $r    = resolve_path($path, $routes);
+        if (($r["type"] ?? "") === "redirect") {
+            echo "KANONIK DEGIL: $key / $code -> $href (301 $r[location])\n"; $bad++; continue;
+        }
+        if (!in_array($r["type"] ?? "", ["job", "home", "page"], true)) {
+            echo "COZULMEDI: $key / $code -> $href ($r[type])\n"; $bad++; continue;
+        }
+        if (($r["lang"] ?? "") !== $code) {
+            echo "DIL UYUSMUYOR: $href hreflang=$code ama sayfa " . ($r["lang"] ?? "?") . "\n"; $bad++; continue;
+        }
+
+        // 2. HEDEF sayfanin kendi kumesi kurulsun ve KAYNAK orada aransin.
+        $targetKey  = $r["type"] === "job" ? (string)$r["id"] : ($r["type"] === "page" ? (string)$r["key"] : "");
+        $targetAlts = alternates_for($r["type"], $targetKey, $routes);
+        foreach ($alts as $srcCode => $srcHref) {
+            if ($srcCode === "x-default") { continue; }
+            if (($targetAlts[$srcCode] ?? null) !== $srcHref) {
+                echo "KARSILIKSIZ: $href kumesinde $srcCode=$srcHref yok\n"; $bad++;
+            }
+        }
     }
-}
-echo $bad === 0 ? "hreflang karsilikli\n" : "$bad karsiliksiz\n";'
+};
+
+foreach (array_keys($routes["published"]) as $id) { $check("job", $id); }
+foreach (array_keys(PAGE_SLUGS[DEFAULT_LANG]) as $k) { $check("page", $k); }
+$check("home", "");
+
+echo $bad === 0 ? "hreflang karsilikli\n" : "$bad karsiliksiz\n";
+exit($bad === 0 ? 0 : 1);'
 ```
+
+Üç şeyi birden kanıtlar: URL **kanonik** (301 değil), `hreflang` kodu hedef sayfanın
+**gerçek dili**, ve hedef sayfa kaynağa **geri bağlanıyor**. Bu betik 4A8 Adım 5'te
+`tools/validate.php`'ye taşınır; buradaki tek fark, orada canlı `routes.json` yerine
+`build_routes()` çıktısıyla çalışmasıdır.
 
 - [ ] **Adım 3: sitemap**
 
 ```bash
 curl -s localhost:8000/sitemap.xml > /tmp/sm.xml
 xmllint --noout /tmp/sm.xml && echo "XML gecerli"
-grep -c "<url>" /tmp/sm.xml            # (17 entry + 5 sayfa) x 2 dil = 44
+grep -c "<url>" /tmp/sm.xml            # (yayinlanan entry + 5 sayfa) x 2 dil
 grep -c 'hreflang="tr"' /tmp/sm.xml    # 0 DEGIL
-grep -c "x-default" /tmp/sm.xml        # 0 (sitemap x-default tasimaz)
+grep -c "x-default" /tmp/sm.xml        # 0 DEGIL — HTML ile ayni kume
 ```
 
 - [ ] **Adım 4: OG kartları**
@@ -1485,7 +1709,12 @@ git status --short                    # bos
 
 - [ ] **Adım 3: Search Console'a sitemap** — spec Faz 6'ya koyuyor, ama TR
       lansmanında yapılması gereken tek dış adım budur ve unutulursa dil aylarca
-      indekslenmez. **Lansman anında yapılır, Faz 6'ya bırakılmaz.**
+      indekslenmez. Checklist'te **lansman anında** durur, Faz 6'ya bırakılmaz.
+
+      **Dış işlemdir: ayrıca ve açıkça kullanıcı onayıyla yapılır.** Sitemap'i
+      Search Console'a göndermek siteyi dışarıya yayınlar; bu planın onayı o
+      işlemin onayı sayılmaz. Adım, "kullanıcıya sor → onay gelirse gönder"
+      biçiminde işletilir.
 
 ---
 
@@ -1507,7 +1736,7 @@ git status --short                    # bos
 | — | **⏸ KAPI — 4A biter, sonuç sunulur** | | |
 | 12 | `feat: add the Turkish slugs for the static pages` | 4B1 | hayır |
 | 13 | `content: translate the editorial locale keys into Turkish` | 4B2 | hayır |
-| 14–28 | `content: add the Turkish entry for <id>` × 15 | 4B3 | hayır |
+| 14–28 | `content: add the Turkish entry for <id>` × eksik entry sayısı (bugün 15) | 4B3 | hayır |
 | — | **⏸ KAPI — içerik biter, sonuç sunulur** | | |
 | 29 | `feat: activate Turkish` | 4C1 | hayır (TR **açılır**) |
 | 30 | `test: extend the golden targets to Turkish` | 4C2 | hayır |
@@ -1517,10 +1746,10 @@ git status --short                    # bos
 
 ## Riskler
 
-1. **İçerik iş yükü kodun kat kat üzerinde.** 15 entry × (`summary` + 4–8 görev
+1. **İçerik iş yükü kodun kat kat üzerinde.** Eksik entry'ler (bugün 15) × (`summary` + 4–8 görev
    notu + `whatSurvives` + ~1.500 karakterlik `adaptPrompt`). 4A bir günlük iş,
    4B haftalık. Takvim buna göre kurulur; 4A bitti diye lansman yakın sanılmaz.
-2. **Terminoloji kayması.** 69 anahtar ve 15 entry farklı zamanlarda yazılırsa
+2. **Terminoloji kayması.** 69 anahtar ve onlarca entry farklı zamanlarda yazılırsa
    "verdict" üç ayrı kelimeye dönüşür. 4B2 Adım 3'teki sözlük bu yüzden
    **çeviriden önce** sabitlenir.
 3. **Font glifleri.** `doctor.php` TR+ES kapsamını zaten `ok` veriyor — ama OG
@@ -1532,7 +1761,11 @@ git status --short                    # bos
 5. **`aka` yönlendirmeye sızarsa** kullanıcı yanlış mesleğe gider. 4A8 Adım 1
    `routes.json` çıktısını bu yüzden ayrıca denetler.
 6. **Yarım lansman baskısı.** "12 entry hazır, açalım" spec §15'e aykırıdır ve
-   hreflang karşılıklılığını kırar. Kapı 4C1'dedir ve gevşetilmez.
+   hreflang karşılıklılığını kırar. Kapı 4C1'dedir, sabit sayıya değil
+   `entry_langs()` hesabına bağlıdır, ve gevşetilmez.
+7. **Katalog Faz 4 sürerken büyüyebilir.** Yeni bir İngilizce entry eklenirse TR
+   kuyruğu da büyür. Bu bir kaza değil, normal işleyiş — bu yüzden hiçbir kabul
+   kriteri sabit sayı saymaz.
 
 ---
 
