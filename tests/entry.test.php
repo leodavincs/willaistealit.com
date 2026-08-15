@@ -138,8 +138,9 @@ file_put_contents($root . '/' . $id . '/tr.json', (string)json_encode($local));
 t_eq(true, in_array($root . '/' . $id . '/en.json',
      entry_dependency_files($id, 'tr', $root), true), 'inheritedSources bagimliligi');
 
-/* tr.json'i orijinal haline dondur — sonraki testler global kapsam bekliyor */
-copy(ROOT . '/data/i18n/cashier/tr.json', $root . '/' . $id . '/tr.json');
+/* tr.json'i orijinal haline dondur — sonraki testler global kapsam bekliyor.
+   Kaynak MIGRE EDILMIS agac; staging klasoru artik yok. */
+copy(JOBS_DIR . '/' . $id . '/tr.json', $root . '/' . $id . '/tr.json');
 
 // --- Cache bagimliliklari: TR, en.json'a BAGLI (spec 8.1) ---
 $deps = entry_dependency_files($id, 'tr', $root);
