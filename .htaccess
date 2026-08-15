@@ -4,6 +4,12 @@ DirectoryIndex index.php
 <IfModule mod_rewrite.c>
     RewriteEngine On
 
+    # www -> apex, tek kanonik host. Ayni site iki adreste yayinlanirsa
+    # Google ikisini ayri sayfa gorur; canonical bunu genelde toparlar ama
+    # 301 kesin cozum. HTTPS'i Hostinger zaten yonlendiriyor.
+    RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+    RewriteRule ^ https://%1%{REQUEST_URI} [L,R=301]
+
     # OG kartlari: /og/accountant.png -> og.php?slug=accountant
     RewriteRule ^og/([a-z0-9-]+)\.png$ og.php?slug=$1 [L,QSA]
 
