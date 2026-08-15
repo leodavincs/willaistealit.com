@@ -109,6 +109,10 @@ function golden_extract_html(array $res): array
         $tasks[] = golden_norm_ws($name) . ' [' . golden_norm_ws($tp[1][$i] ?? '') . ']';
     }
 
+    // SIRA anlamlidir: baslik sirasi degisirse sayfa yapisi degismistir.
+    preg_match_all('#<h2[^>]*>(.*?)</h2>#s', $b, $h2);
+    preg_match_all('#<h3[^>]*>(.*?)</h3>#s', $b, $h3);
+
     preg_match_all('#\shref="([^"]*)"#', $b, $hrefs);
     $links = array_values(array_unique($hrefs[1]));
     sort($links);
@@ -122,6 +126,8 @@ function golden_extract_html(array $res): array
         'canonical'    => $one('#<link rel="canonical" href="([^"]*)"#i'),
         'robots'       => $one('#<meta name="robots" content="([^"]*)"#i'),
         'h1'           => $one('#<h1[^>]*>(.*?)</h1>#s'),
+        'h2'           => array_map('golden_norm_ws', $h2[1]),
+        'h3'           => array_map('golden_norm_ws', $h3[1]),
         'verdictLabel' => $one('#<span class="badge badge-lg">(.*?)</span>#s'),
         'taskCount'    => count($tasks),
         'tasks'        => $tasks,
