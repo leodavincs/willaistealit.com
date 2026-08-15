@@ -1,0 +1,141 @@
+{
+    "status": 200,
+    "contentType": "text/html",
+    "htmlLang": "en",
+    "title": "Will AI replace accountants? — 🟡 SHRINKING",
+    "description": "The data entry is already gone. The signature and the trust are not.",
+    "canonical": "https://willaistealit.com/accountant",
+    "robots": null,
+    "h1": "Will AI replace Accountants?",
+    "verdictLabel": "SHRINKING",
+    "taskCount": 6,
+    "tasks": [
+        "Data entry &amp; bookkeeping [gone]",
+        "Reconciliation &amp; month-end close [going]",
+        "Tax filing &amp; compliance prep [going]",
+        "Advisory on cash flow, structure and planning [safe]",
+        "Audit judgment &amp; materiality calls [safe]",
+        "Legal sign-off &amp; representation [safe]"
+    ],
+    "jsonLd": [
+        {
+            "@context": "https://schema.org",
+            "@graph": [
+                {
+                    "@type": "Article",
+                    "about": {
+                        "@type": "Occupation",
+                        "description": "The data entry is already gone. The signature and the trust are not.",
+                        "name": "Accountant",
+                        "occupationalCategory": "Finance & Accounting",
+                        "skills": "legal liability, trust relationship, human judgment"
+                    },
+                    "dateModified": "2026-08-01",
+                    "description": "As of August 2026, the accountant role is shrinking rather than disappearing, with the core narrowing through roughly 2031. AI has already absorbed data entry & bookkeeping. What resists is advisory on cash flow, structure and planning, audit judgment & materiality calls and legal sign-off & representation. The structural reason is legal liability, trust relationship and human judgment.",
+                    "headline": "Will AI replace accountants? — 🟡 SHRINKING",
+                    "image": "https://willaistealit.com/og/accountant.png",
+                    "isPartOf": {
+                        "@type": "WebSite",
+                        "name": "Will AI Steal It?",
+                        "url": "https://willaistealit.com"
+                    },
+                    "publisher": {
+                        "@type": "Organization",
+                        "name": "Will AI Steal It?",
+                        "url": "https://willaistealit.com"
+                    },
+                    "url": "https://willaistealit.com/accountant"
+                },
+                {
+                    "@type": "FAQPage",
+                    "mainEntity": [
+                        {
+                            "@type": "Question",
+                            "acceptedAnswer": {
+                                "@type": "Answer",
+                                "text": "As of August 2026, the accountant role is shrinking rather than disappearing, with the core narrowing through roughly 2031. AI has already absorbed data entry & bookkeeping. What resists is advisory on cash flow, structure and planning, audit judgment & materiality calls and legal sign-off & representation. The structural reason is legal liability, trust relationship and human judgment."
+                            },
+                            "name": "Will AI replace accountants?"
+                        },
+                        {
+                            "@type": "Question",
+                            "acceptedAnswer": {
+                                "@type": "Answer",
+                                "text": "Our estimate is roughly 2031. That is the year by which the core tasks of this job are expected to be routinely machine-done in ordinary practice — after capability arrives, after employers adopt it, and after regulators allow it. It is not the year the job title disappears. Current verdict: SHRINKING."
+                            },
+                            "name": "How long is accountant work safe from AI?"
+                        },
+                        {
+                            "@type": "Question",
+                            "acceptedAnswer": {
+                                "@type": "Answer",
+                                "text": "Data entry & bookkeeping (gone), reconciliation & month-end close (going) and tax filing & compliance prep (going). Each is judged separately rather than rolling the whole job into one answer."
+                            },
+                            "name": "Which accountant tasks is AI already doing?"
+                        },
+                        {
+                            "@type": "Question",
+                            "acceptedAnswer": {
+                                "@type": "Answer",
+                                "text": "Judgment you can be sued for, and a relationship the client will not re-shop every year."
+                            },
+                            "name": "What part of being an accountant is safe from AI?"
+                        },
+                        {
+                            "@type": "Question",
+                            "acceptedAnswer": {
+                                "@type": "Answer",
+                                "text": "Use it on the tasks already marked gone or going, and keep the judgment. There is a copy-ready prompt written for this specific job at https://willaistealit.com/accountant."
+                            },
+                            "name": "How should an accountant use AI instead of competing with it?"
+                        }
+                    ]
+                },
+                {
+                    "@type": "BreadcrumbList",
+                    "itemListElement": [
+                        {
+                            "@type": "ListItem",
+                            "item": "https://willaistealit.com",
+                            "name": "All jobs",
+                            "position": 1
+                        },
+                        {
+                            "@type": "ListItem",
+                            "item": "https://willaistealit.com/?q=Finance%20%26%20Accounting",
+                            "name": "Finance & Accounting",
+                            "position": 2
+                        },
+                        {
+                            "@type": "ListItem",
+                            "item": "https://willaistealit.com/accountant",
+                            "name": "Accountant",
+                            "position": 3
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "links": [
+        "#main",
+        "/",
+        "/administrative-assistant",
+        "/assets/favicon.svg",
+        "/assets/style.css?v=1786790317",
+        "/changelog",
+        "/data-analyst",
+        "/graphic-designer",
+        "/landscape",
+        "/lawyer",
+        "/methodology",
+        "/sponsor",
+        "https://github.com/leodavincs/willaistealit.com",
+        "https://github.com/leodavincs/willaistealit.com/blob/main/data/jobs/accountant/en.json",
+        "https://willaistealit.com/accountant",
+        "https://willaistealit.com/og/accountant.png",
+        "https://www.bls.gov/ooh/business-and-financial/accountants-and-auditors.htm",
+        "https://www.imf.org/en/Publications/fandd/issues/2024/06/AI-will-transform-the-global-economy-Georgieva",
+        "https://x.com/intent/tweet?text=ACCOUNTANT%3A%20%F0%9F%9F%A1%20SHRINKING%20%E2%80%94%20safe%20until%20~2031%0A%0AThe%20data%20entry%20is%20already%20gone.%20The%20signature%20and%20the%20trust%20are%20not.%0A%0Ahttps%3A%2F%2Fwillaistealit.com%2Faccountant"
+    ]
+}

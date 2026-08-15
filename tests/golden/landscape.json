@@ -1,0 +1,57 @@
+{
+    "status": 200,
+    "contentType": "text/html",
+    "htmlLang": "en",
+    "title": "When will AI take my job? — the timeline",
+    "description": "Every profession on willaistealit.com plotted against the year its core tasks are expected to be machine-done. 15 horizons, from 2028 onward.",
+    "canonical": "https://willaistealit.com/landscape",
+    "robots": null,
+    "h1": "When the core goes",
+    "verdictLabel": null,
+    "taskCount": 0,
+    "tasks": [],
+    "jsonLd": [
+        {
+            "@context": "https://schema.org",
+            "@type": "Dataset",
+            "creator": {
+                "@type": "Organization",
+                "name": "Will AI Steal It?",
+                "url": "https://willaistealit.com"
+            },
+            "description": "As of August 2026, 15 of the 17 professions on willaistealit.com carry a time horizon — the year by which their core tasks are expected to be routinely machine-done. Those horizons run from 2028 to 2035, and 2030 is the most crowded year with 4 professions. The remaining 2 are judged safe and carry no horizon at all.",
+            "name": "AI job replacement timeline",
+            "url": "https://willaistealit.com/landscape",
+            "variableMeasured": "Year by which a profession's core tasks are expected to be routinely machine-done"
+        }
+    ],
+    "links": [
+        "#main",
+        "/",
+        "/accountant",
+        "/administrative-assistant",
+        "/assets/favicon.svg",
+        "/assets/style.css?v=1786790317",
+        "/cashier",
+        "/changelog",
+        "/copywriter",
+        "/customer-support",
+        "/data-analyst",
+        "/graphic-designer",
+        "/landscape",
+        "/lawyer",
+        "/marketer",
+        "/methodology",
+        "/nurse",
+        "/photographer",
+        "/recruiter",
+        "/software-developer",
+        "/sponsor",
+        "/teacher",
+        "/translator",
+        "/truck-driver",
+        "/video-editor",
+        "https://github.com/leodavincs/willaistealit.com",
+        "https://willaistealit.com/landscape"
+    ]
+}

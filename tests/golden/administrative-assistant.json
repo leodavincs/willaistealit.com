@@ -1,0 +1,145 @@
+{
+    "status": 200,
+    "contentType": "text/html",
+    "htmlLang": "en",
+    "title": "Will AI replace administrative assistants? — 🟡 SHRINKING",
+    "description": "The documents, the diary and the filing now run themselves. Deciding who reaches the person you work for does not.",
+    "canonical": "https://willaistealit.com/administrative-assistant",
+    "robots": null,
+    "h1": "Will AI replace Administrative Assistants?",
+    "verdictLabel": "SHRINKING",
+    "taskCount": 6,
+    "tasks": [
+        "Meeting notes and routine correspondence [gone]",
+        "Data entry, filing and records maintenance [gone]",
+        "Diary management and scheduling [going]",
+        "Travel, expenses and procurement admin [going]",
+        "Gatekeeping a principal&#039;s time [safe]",
+        "Running the office and the room [safe]"
+    ],
+    "jsonLd": [
+        {
+            "@context": "https://schema.org",
+            "@graph": [
+                {
+                    "@type": "Article",
+                    "about": {
+                        "@type": "Occupation",
+                        "description": "The documents, the diary and the filing now run themselves. Deciding who reaches the person you work for does not.",
+                        "name": "Administrative Assistant",
+                        "occupationalCategory": "Operations & Admin",
+                        "skills": "trust relationship, human judgment, physical presence"
+                    },
+                    "dateModified": "2026-08-01",
+                    "description": "As of August 2026, the administrative assistant role is shrinking rather than disappearing, with the core narrowing through roughly 2029. AI has already absorbed meeting notes and routine correspondence and data entry, filing and records maintenance. What resists is gatekeeping a principal's time and running the office and the room. The structural reason is trust relationship, human judgment and physical presence.",
+                    "headline": "Will AI replace administrative assistants? — 🟡 SHRINKING",
+                    "image": "https://willaistealit.com/og/administrative-assistant.png",
+                    "isPartOf": {
+                        "@type": "WebSite",
+                        "name": "Will AI Steal It?",
+                        "url": "https://willaistealit.com"
+                    },
+                    "publisher": {
+                        "@type": "Organization",
+                        "name": "Will AI Steal It?",
+                        "url": "https://willaistealit.com"
+                    },
+                    "url": "https://willaistealit.com/administrative-assistant"
+                },
+                {
+                    "@type": "FAQPage",
+                    "mainEntity": [
+                        {
+                            "@type": "Question",
+                            "acceptedAnswer": {
+                                "@type": "Answer",
+                                "text": "As of August 2026, the administrative assistant role is shrinking rather than disappearing, with the core narrowing through roughly 2029. AI has already absorbed meeting notes and routine correspondence and data entry, filing and records maintenance. What resists is gatekeeping a principal's time and running the office and the room. The structural reason is trust relationship, human judgment and physical presence."
+                            },
+                            "name": "Will AI replace administrative assistants?"
+                        },
+                        {
+                            "@type": "Question",
+                            "acceptedAnswer": {
+                                "@type": "Answer",
+                                "text": "Our estimate is roughly 2029. That is the year by which the core tasks of this job are expected to be routinely machine-done in ordinary practice — after capability arrives, after employers adopt it, and after regulators allow it. It is not the year the job title disappears. Current verdict: SHRINKING."
+                            },
+                            "name": "How long is administrative assistant work safe from AI?"
+                        },
+                        {
+                            "@type": "Question",
+                            "acceptedAnswer": {
+                                "@type": "Answer",
+                                "text": "Meeting notes and routine correspondence (gone), data entry, filing and records maintenance (gone), diary management and scheduling (going) and travel, expenses and procurement admin (going). Each is judged separately rather than rolling the whole job into one answer."
+                            },
+                            "name": "Which administrative assistant tasks is AI already doing?"
+                        },
+                        {
+                            "@type": "Question",
+                            "acceptedAnswer": {
+                                "@type": "Answer",
+                                "text": "Judgment about who gets the hour, discretion about what stays quiet, and a person in the building when the room has to be set."
+                            },
+                            "name": "What part of being an administrative assistant is safe from AI?"
+                        },
+                        {
+                            "@type": "Question",
+                            "acceptedAnswer": {
+                                "@type": "Answer",
+                                "text": "Use it on the tasks already marked gone or going, and keep the judgment. There is a copy-ready prompt written for this specific job at https://willaistealit.com/administrative-assistant."
+                            },
+                            "name": "How should an administrative assistant use AI instead of competing with it?"
+                        }
+                    ]
+                },
+                {
+                    "@type": "BreadcrumbList",
+                    "itemListElement": [
+                        {
+                            "@type": "ListItem",
+                            "item": "https://willaistealit.com",
+                            "name": "All jobs",
+                            "position": 1
+                        },
+                        {
+                            "@type": "ListItem",
+                            "item": "https://willaistealit.com/?q=Operations%20%26%20Admin",
+                            "name": "Operations & Admin",
+                            "position": 2
+                        },
+                        {
+                            "@type": "ListItem",
+                            "item": "https://willaistealit.com/administrative-assistant",
+                            "name": "Administrative Assistant",
+                            "position": 3
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "links": [
+        "#main",
+        "/",
+        "/accountant",
+        "/assets/favicon.svg",
+        "/assets/style.css?v=1786790317",
+        "/changelog",
+        "/data-analyst",
+        "/graphic-designer",
+        "/landscape",
+        "/methodology",
+        "/recruiter",
+        "/sponsor",
+        "https://bfi.uchicago.edu/wp-content/uploads/2025/04/BFI_WP_2025-56.pdf",
+        "https://github.com/leodavincs/willaistealit.com",
+        "https://github.com/leodavincs/willaistealit.com/blob/main/data/jobs/administrative-assistant/en.json",
+        "https://willaistealit.com/administrative-assistant",
+        "https://willaistealit.com/og/administrative-assistant.png",
+        "https://www.bls.gov/ooh/office-and-administrative-support/secretaries-and-administrative-assistants.htm",
+        "https://www.bls.gov/opub/mlr/2026/article/industry-and-occupational-employment-projections-overview.htm",
+        "https://www.ilo.org/publications/generative-ai-and-jobs-refined-global-index-occupational-exposure",
+        "https://www.oecd.org/en/publications/the-oecd-ai-exposure-measure_f3da0f0a-en.html",
+        "https://www.onetonline.org/link/summary/43-6014.00",
+        "https://x.com/intent/tweet?text=ADMINISTRATIVE%20ASSISTANT%3A%20%F0%9F%9F%A1%20SHRINKING%20%E2%80%94%20safe%20until%20~2029%0A%0AThe%20documents%2C%20the%20diary%20and%20the%20filing%20now%20run%20themselves.%20Deciding%20who%20reaches%20the%20person%20you%20work%20for%20does%20not.%0A%0Ahttps%3A%2F%2Fwillaistealit.com%2Fadministrative-assistant"
+    ]
+}

@@ -1,0 +1,26 @@
+{
+    "status": 404,
+    "contentType": "text/html",
+    "htmlLang": "en",
+    "title": "Not found — Will AI Steal It?",
+    "description": "No verdict at this address yet.",
+    "canonical": "https://willaistealit.com/",
+    "robots": null,
+    "h1": "404",
+    "verdictLabel": null,
+    "taskCount": 0,
+    "tasks": [],
+    "jsonLd": [],
+    "links": [
+        "#main",
+        "/",
+        "/assets/favicon.svg",
+        "/assets/style.css?v=1786790317",
+        "/changelog",
+        "/landscape",
+        "/methodology",
+        "/sponsor",
+        "https://github.com/leodavincs/willaistealit.com",
+        "https://willaistealit.com/"
+    ]
+}

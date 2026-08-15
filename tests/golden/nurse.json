@@ -1,0 +1,135 @@
+{
+    "status": 200,
+    "contentType": "text/html",
+    "htmlLang": "en",
+    "title": "Will AI replace nurses? — 🟢 SAFE",
+    "description": "Everything a machine could take was paperwork, and there was a mountain of it. The rest is a body in a room.",
+    "canonical": "https://willaistealit.com/nurse",
+    "robots": null,
+    "h1": "Will AI replace Nurses?",
+    "verdictLabel": "SAFE",
+    "taskCount": 8,
+    "tasks": [
+        "Charting &amp; clinical documentation [going]",
+        "Handover &amp; shift summaries [going]",
+        "Care plan drafting &amp; coding [going]",
+        "Monitoring &amp; early warning [going]",
+        "Physical care &amp; clinical procedures [safe]",
+        "Clinical judgment at the bedside [safe]",
+        "Patient &amp; family emotional care [safe]",
+        "Accountability for care delivered [safe]"
+    ],
+    "jsonLd": [
+        {
+            "@context": "https://schema.org",
+            "@graph": [
+                {
+                    "@type": "Article",
+                    "about": {
+                        "@type": "Occupation",
+                        "description": "Everything a machine could take was paperwork, and there was a mountain of it. The rest is a body in a room.",
+                        "name": "Nurse",
+                        "occupationalCategory": "Health & Care",
+                        "skills": "physical presence, emotional labor, regulated"
+                    },
+                    "dateModified": "2026-08-01",
+                    "description": "As of August 2026, Nurse is not being replaced by AI. What resists is physical care & clinical procedures, clinical judgment at the bedside and patient & family emotional care. The structural reason is physical presence, emotional labor and regulated.",
+                    "headline": "Will AI replace nurses? — 🟢 SAFE",
+                    "image": "https://willaistealit.com/og/nurse.png",
+                    "isPartOf": {
+                        "@type": "WebSite",
+                        "name": "Will AI Steal It?",
+                        "url": "https://willaistealit.com"
+                    },
+                    "publisher": {
+                        "@type": "Organization",
+                        "name": "Will AI Steal It?",
+                        "url": "https://willaistealit.com"
+                    },
+                    "url": "https://willaistealit.com/nurse"
+                },
+                {
+                    "@type": "FAQPage",
+                    "mainEntity": [
+                        {
+                            "@type": "Question",
+                            "acceptedAnswer": {
+                                "@type": "Answer",
+                                "text": "As of August 2026, Nurse is not being replaced by AI. What resists is physical care & clinical procedures, clinical judgment at the bedside and patient & family emotional care. The structural reason is physical presence, emotional labor and regulated."
+                            },
+                            "name": "Will AI replace nurses?"
+                        },
+                        {
+                            "@type": "Question",
+                            "acceptedAnswer": {
+                                "@type": "Answer",
+                                "text": "Charting & clinical documentation (going), handover & shift summaries (going), care plan drafting & coding (going) and monitoring & early warning (going). Each is judged separately rather than rolling the whole job into one answer."
+                            },
+                            "name": "Which nurse tasks is AI already doing?"
+                        },
+                        {
+                            "@type": "Question",
+                            "acceptedAnswer": {
+                                "@type": "Answer",
+                                "text": "Hands on a patient, judgment at the bedside, and a registration that a person is answerable for."
+                            },
+                            "name": "What part of being a nurse is safe from AI?"
+                        },
+                        {
+                            "@type": "Question",
+                            "acceptedAnswer": {
+                                "@type": "Answer",
+                                "text": "Use it on the tasks already marked gone or going, and keep the judgment. There is a copy-ready prompt written for this specific job at https://willaistealit.com/nurse."
+                            },
+                            "name": "How should a nurse use AI instead of competing with it?"
+                        }
+                    ]
+                },
+                {
+                    "@type": "BreadcrumbList",
+                    "itemListElement": [
+                        {
+                            "@type": "ListItem",
+                            "item": "https://willaistealit.com",
+                            "name": "All jobs",
+                            "position": 1
+                        },
+                        {
+                            "@type": "ListItem",
+                            "item": "https://willaistealit.com/?q=Health%20%26%20Care",
+                            "name": "Health & Care",
+                            "position": 2
+                        },
+                        {
+                            "@type": "ListItem",
+                            "item": "https://willaistealit.com/nurse",
+                            "name": "Nurse",
+                            "position": 3
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "links": [
+        "#main",
+        "/",
+        "/administrative-assistant",
+        "/assets/favicon.svg",
+        "/assets/style.css?v=1786790317",
+        "/cashier",
+        "/changelog",
+        "/customer-support",
+        "/landscape",
+        "/methodology",
+        "/sponsor",
+        "/teacher",
+        "https://github.com/leodavincs/willaistealit.com",
+        "https://github.com/leodavincs/willaistealit.com/blob/main/data/jobs/nurse/en.json",
+        "https://willaistealit.com/nurse",
+        "https://willaistealit.com/og/nurse.png",
+        "https://www.bls.gov/ooh/healthcare/registered-nurses.htm",
+        "https://www.who.int/publications/i/item/9789240003279",
+        "https://x.com/intent/tweet?text=NURSE%3A%20%F0%9F%9F%A2%20SAFE%0A%0AEverything%20a%20machine%20could%20take%20was%20paperwork%2C%20and%20there%20was%20a%20mountain%20of%20it.%20The%20rest%20is%20a%20body%20in%20a%20room.%0A%0Ahttps%3A%2F%2Fwillaistealit.com%2Fnurse"
+    ]
+}

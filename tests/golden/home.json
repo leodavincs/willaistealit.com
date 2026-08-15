@@ -1,0 +1,90 @@
+{
+    "status": 200,
+    "contentType": "text/html",
+    "htmlLang": "en",
+    "title": "Will AI replace your job? — task-level verdicts on 17 professions",
+    "description": "Task-level verdicts on which jobs AI actually takes. Not a listicle: every job is split into its real tasks, each task judged separately, with a prompt you can use today.",
+    "canonical": "https://willaistealit.com/",
+    "robots": null,
+    "h1": "Will AI steal it?",
+    "verdictLabel": null,
+    "taskCount": 0,
+    "tasks": [],
+    "jsonLd": [
+        {
+            "@context": "https://schema.org",
+            "@graph": [
+                {
+                    "@type": "WebSite",
+                    "description": "Task-level verdicts on which jobs AI actually takes.",
+                    "name": "Will AI Steal It?",
+                    "potentialAction": {
+                        "@type": "SearchAction",
+                        "query-input": "required name=search_term_string",
+                        "target": "https://willaistealit.com/?q={search_term_string}"
+                    },
+                    "url": "https://willaistealit.com"
+                },
+                {
+                    "@type": "FAQPage",
+                    "mainEntity": [
+                        {
+                            "@type": "Question",
+                            "acceptedAnswer": {
+                                "@type": "Answer",
+                                "text": "As of August 2026, willaistealit.com publishes task-level AI verdicts for 17 professions: 2 judged safe, 11 shrinking and 4 on the menu. Each profession is split into its real tasks and every task is judged separately, because jobs are not replaced by AI — tasks are."
+                            },
+                            "name": "Which jobs will AI replace?"
+                        },
+                        {
+                            "@type": "Question",
+                            "acceptedAnswer": {
+                                "@type": "Answer",
+                                "text": "Each profession is split into 4-8 concrete tasks. Every task is judged separately as gone, going or safe, and each surviving task must name a structural reason it resists — legal liability, physical presence, regulation, trust, human judgment, creative taste, accountability or emotional labour. Only then is a headline verdict given, and it never stands alone. Full rules: https://willaistealit.com/methodology"
+                            },
+                            "name": "How are these AI job verdicts decided?"
+                        },
+                        {
+                            "@type": "Question",
+                            "acceptedAnswer": {
+                                "@type": "Answer",
+                                "text": "It is the year by which the core tasks of a job are expected to be routinely machine-done in ordinary practice, accounting for capability arriving, organisations adopting it and regulators allowing it. It is not the year the job title disappears."
+                            },
+                            "name": "What does \"safe until\" mean on this site?"
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "links": [
+        "#main",
+        "/",
+        "/accountant",
+        "/administrative-assistant",
+        "/assets/favicon.svg",
+        "/assets/style.css?v=1786790317",
+        "/cashier",
+        "/changelog",
+        "/copywriter",
+        "/customer-support",
+        "/data-analyst",
+        "/graphic-designer",
+        "/landscape",
+        "/lawyer",
+        "/marketer",
+        "/methodology",
+        "/nurse",
+        "/photographer",
+        "/recruiter",
+        "/software-developer",
+        "/sponsor",
+        "/teacher",
+        "/translator",
+        "/truck-driver",
+        "/video-editor",
+        "https://github.com/leodavincs/willaistealit.com",
+        "https://github.com/leodavincs/willaistealit.com/blob/main/CONTRIBUTING.md",
+        "https://willaistealit.com/"
+    ]
+}

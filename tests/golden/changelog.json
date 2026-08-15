@@ -1,0 +1,156 @@
+{
+    "status": 200,
+    "contentType": "text/html",
+    "htmlLang": "en",
+    "title": "Verdict changelog — Will AI Steal It?",
+    "description": "Every verdict change on willaistealit.com, dated, with the reason it moved. A site that quietly rewrites its own predictions is not worth reading.",
+    "canonical": "https://willaistealit.com/changelog",
+    "robots": null,
+    "h1": "Verdict changelog",
+    "verdictLabel": null,
+    "taskCount": 0,
+    "tasks": [],
+    "jsonLd": [
+        {
+            "@context": "https://schema.org",
+            "@type": "ItemList",
+            "description": "Every verdict change on willaistealit.com, dated, with the reason it moved. A site that quietly rewrites its own predictions is not worth reading.",
+            "itemListElement": [
+                {
+                    "@type": "ListItem",
+                    "item": "https://willaistealit.com/cashier",
+                    "name": "Cashier: new → on-the-menu",
+                    "position": 1
+                },
+                {
+                    "@type": "ListItem",
+                    "item": "https://willaistealit.com/administrative-assistant",
+                    "name": "Administrative Assistant: new → shrinking",
+                    "position": 2
+                },
+                {
+                    "@type": "ListItem",
+                    "item": "https://willaistealit.com/accountant",
+                    "name": "Accountant: new → shrinking",
+                    "position": 3
+                },
+                {
+                    "@type": "ListItem",
+                    "item": "https://willaistealit.com/copywriter",
+                    "name": "Copywriter: new → on-the-menu",
+                    "position": 4
+                },
+                {
+                    "@type": "ListItem",
+                    "item": "https://willaistealit.com/customer-support",
+                    "name": "Customer Support Agent: new → on-the-menu",
+                    "position": 5
+                },
+                {
+                    "@type": "ListItem",
+                    "item": "https://willaistealit.com/data-analyst",
+                    "name": "Data Analyst: new → shrinking",
+                    "position": 6
+                },
+                {
+                    "@type": "ListItem",
+                    "item": "https://willaistealit.com/graphic-designer",
+                    "name": "Graphic Designer: new → shrinking",
+                    "position": 7
+                },
+                {
+                    "@type": "ListItem",
+                    "item": "https://willaistealit.com/lawyer",
+                    "name": "Lawyer: new → shrinking",
+                    "position": 8
+                },
+                {
+                    "@type": "ListItem",
+                    "item": "https://willaistealit.com/marketer",
+                    "name": "Marketer: new → shrinking",
+                    "position": 9
+                },
+                {
+                    "@type": "ListItem",
+                    "item": "https://willaistealit.com/nurse",
+                    "name": "Nurse: new → safe",
+                    "position": 10
+                },
+                {
+                    "@type": "ListItem",
+                    "item": "https://willaistealit.com/photographer",
+                    "name": "Photographer: new → shrinking",
+                    "position": 11
+                },
+                {
+                    "@type": "ListItem",
+                    "item": "https://willaistealit.com/recruiter",
+                    "name": "Recruiter: new → shrinking",
+                    "position": 12
+                },
+                {
+                    "@type": "ListItem",
+                    "item": "https://willaistealit.com/software-developer",
+                    "name": "Software Developer: new → shrinking",
+                    "position": 13
+                },
+                {
+                    "@type": "ListItem",
+                    "item": "https://willaistealit.com/teacher",
+                    "name": "Teacher: new → safe",
+                    "position": 14
+                },
+                {
+                    "@type": "ListItem",
+                    "item": "https://willaistealit.com/translator",
+                    "name": "Translator: new → on-the-menu",
+                    "position": 15
+                },
+                {
+                    "@type": "ListItem",
+                    "item": "https://willaistealit.com/truck-driver",
+                    "name": "Truck Driver: new → shrinking",
+                    "position": 16
+                },
+                {
+                    "@type": "ListItem",
+                    "item": "https://willaistealit.com/video-editor",
+                    "name": "Video Editor: new → shrinking",
+                    "position": 17
+                }
+            ],
+            "name": "Verdict changelog",
+            "numberOfItems": 17,
+            "url": "https://willaistealit.com/changelog"
+        }
+    ],
+    "links": [
+        "#main",
+        "/",
+        "/accountant",
+        "/administrative-assistant",
+        "/assets/favicon.svg",
+        "/assets/style.css?v=1786790317",
+        "/cashier",
+        "/changelog",
+        "/copywriter",
+        "/customer-support",
+        "/data-analyst",
+        "/graphic-designer",
+        "/landscape",
+        "/lawyer",
+        "/marketer",
+        "/methodology",
+        "/nurse",
+        "/photographer",
+        "/recruiter",
+        "/software-developer",
+        "/sponsor",
+        "/teacher",
+        "/translator",
+        "/truck-driver",
+        "/video-editor",
+        "https://github.com/leodavincs/willaistealit.com",
+        "https://willaistealit.com/changelog"
+    ]
+}

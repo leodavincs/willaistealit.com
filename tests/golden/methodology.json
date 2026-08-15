@@ -1,0 +1,26 @@
+{
+    "status": 200,
+    "contentType": "text/html",
+    "htmlLang": "en",
+    "title": "How we decide — Will AI Steal It?",
+    "description": "The rules behind every verdict on willaistealit.com: task-level analysis, resistance tags, and what would make us change our mind.",
+    "canonical": "https://willaistealit.com/methodology",
+    "robots": null,
+    "h1": "How we decide",
+    "verdictLabel": null,
+    "taskCount": 0,
+    "tasks": [],
+    "jsonLd": [],
+    "links": [
+        "#main",
+        "/",
+        "/assets/favicon.svg",
+        "/assets/style.css?v=1786790317",
+        "/changelog",
+        "/landscape",
+        "/methodology",
+        "/sponsor",
+        "https://github.com/leodavincs/willaistealit.com",
+        "https://willaistealit.com/methodology"
+    ]
+}

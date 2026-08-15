@@ -1,0 +1,145 @@
+{
+    "status": 200,
+    "contentType": "text/html",
+    "htmlLang": "en",
+    "title": "Will AI replace cashiers? — 🔴 ON THE MENU",
+    "description": "Scanning the shopping stopped being a job somebody does. Standing between the shelf and the door still is.",
+    "canonical": "https://willaistealit.com/cashier",
+    "robots": null,
+    "h1": "Will AI replace Cashiers?",
+    "verdictLabel": "ON THE MENU",
+    "taskCount": 6,
+    "tasks": [
+        "Scanning items and taking payment [gone]",
+        "Cash handling and end-of-shift reconciliation [going]",
+        "Returns, refunds and price disputes [going]",
+        "Age-restricted sales and loss prevention [safe]",
+        "Supervising self-checkout [safe]",
+        "Shop-floor service between transactions [safe]"
+    ],
+    "jsonLd": [
+        {
+            "@context": "https://schema.org",
+            "@graph": [
+                {
+                    "@type": "Article",
+                    "about": {
+                        "@type": "Occupation",
+                        "description": "Scanning the shopping stopped being a job somebody does. Standing between the shelf and the door still is.",
+                        "name": "Cashier",
+                        "occupationalCategory": "Sales & Service",
+                        "skills": "physical presence, regulated, physical context"
+                    },
+                    "dateModified": "2026-08-01",
+                    "description": "As of August 2026, cashier work is on the menu: the core tasks are going and what is left will not support as many people, with the shift expected to land by around 2032. The mechanism is not generative AI. Scanning and payment were handed to the customer through self-service checkouts, contactless cards and online shopping, and US employment is projected to fall 9.9 per cent — 313,600 posts — by 2034, the largest numeric decline of any occupation. What resists is age-restricted sales the law requires a person to approve, supervising the self-checkout lanes, and service on the shop floor. The structural reason is physical presence, regulation and being in the room.",
+                    "headline": "Will AI replace cashiers? — 🔴 ON THE MENU",
+                    "image": "https://willaistealit.com/og/cashier.png",
+                    "isPartOf": {
+                        "@type": "WebSite",
+                        "name": "Will AI Steal It?",
+                        "url": "https://willaistealit.com"
+                    },
+                    "publisher": {
+                        "@type": "Organization",
+                        "name": "Will AI Steal It?",
+                        "url": "https://willaistealit.com"
+                    },
+                    "url": "https://willaistealit.com/cashier"
+                },
+                {
+                    "@type": "FAQPage",
+                    "mainEntity": [
+                        {
+                            "@type": "Question",
+                            "acceptedAnswer": {
+                                "@type": "Answer",
+                                "text": "As of August 2026, cashier work is on the menu: the core tasks are going and what is left will not support as many people, with the shift expected to land by around 2032. The mechanism is not generative AI. Scanning and payment were handed to the customer through self-service checkouts, contactless cards and online shopping, and US employment is projected to fall 9.9 per cent — 313,600 posts — by 2034, the largest numeric decline of any occupation. What resists is age-restricted sales the law requires a person to approve, supervising the self-checkout lanes, and service on the shop floor. The structural reason is physical presence, regulation and being in the room."
+                            },
+                            "name": "Will AI replace cashiers?"
+                        },
+                        {
+                            "@type": "Question",
+                            "acceptedAnswer": {
+                                "@type": "Answer",
+                                "text": "Our estimate is roughly 2032. That is the year by which the core tasks of this job are expected to be routinely machine-done in ordinary practice — after capability arrives, after employers adopt it, and after regulators allow it. It is not the year the job title disappears. Current verdict: ON THE MENU."
+                            },
+                            "name": "How long is cashier work safe from AI?"
+                        },
+                        {
+                            "@type": "Question",
+                            "acceptedAnswer": {
+                                "@type": "Answer",
+                                "text": "Scanning items and taking payment (gone), cash handling and end-of-shift reconciliation (going) and returns, refunds and price disputes (going). Each is judged separately rather than rolling the whole job into one answer."
+                            },
+                            "name": "Which cashier tasks is AI already doing?"
+                        },
+                        {
+                            "@type": "Question",
+                            "acceptedAnswer": {
+                                "@type": "Answer",
+                                "text": "The lanes a machine cannot run alone, the sale the law will not let it approve, and a pair of hands on the shop floor."
+                            },
+                            "name": "What part of being a cashier is safe from AI?"
+                        },
+                        {
+                            "@type": "Question",
+                            "acceptedAnswer": {
+                                "@type": "Answer",
+                                "text": "Use it on the tasks already marked gone or going, and keep the judgment. There is a copy-ready prompt written for this specific job at https://willaistealit.com/cashier."
+                            },
+                            "name": "How should a cashier use AI instead of competing with it?"
+                        }
+                    ]
+                },
+                {
+                    "@type": "BreadcrumbList",
+                    "itemListElement": [
+                        {
+                            "@type": "ListItem",
+                            "item": "https://willaistealit.com",
+                            "name": "All jobs",
+                            "position": 1
+                        },
+                        {
+                            "@type": "ListItem",
+                            "item": "https://willaistealit.com/?q=Sales%20%26%20Service",
+                            "name": "Sales & Service",
+                            "position": 2
+                        },
+                        {
+                            "@type": "ListItem",
+                            "item": "https://willaistealit.com/cashier",
+                            "name": "Cashier",
+                            "position": 3
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "links": [
+        "#main",
+        "/",
+        "/assets/favicon.svg",
+        "/assets/style.css?v=1786790317",
+        "/changelog",
+        "/customer-support",
+        "/landscape",
+        "/marketer",
+        "/methodology",
+        "/nurse",
+        "/sponsor",
+        "/truck-driver",
+        "https://github.com/leodavincs/willaistealit.com",
+        "https://github.com/leodavincs/willaistealit.com/blob/main/data/jobs/cashier/en.json",
+        "https://willaistealit.com/cashier",
+        "https://willaistealit.com/og/cashier.png",
+        "https://www.bls.gov/emp/tables/occupations-largest-job-declines.htm",
+        "https://www.bls.gov/ooh/sales/cashiers.htm",
+        "https://www.ilo.org/resource/article/how-might-generative-ai-impact-different-occupations",
+        "https://www.oecd.org/en/publications/the-oecd-ai-exposure-measure_f3da0f0a-en.html",
+        "https://www.onetonline.org/link/summary/41-2011.00",
+        "https://www.weforum.org/stories/2025/01/future-of-jobs-report-2025-the-fastest-growing-and-declining-jobs/",
+        "https://x.com/intent/tweet?text=CASHIER%3A%20%F0%9F%94%B4%20ON%20THE%20MENU%20%E2%80%94%20safe%20until%20~2032%0A%0AScanning%20the%20shopping%20stopped%20being%20a%20job%20somebody%20does.%20Standing%20between%20the%20shelf%20and%20the%20door%20still%20is.%0A%0Ahttps%3A%2F%2Fwillaistealit.com%2Fcashier"
+    ]
+}
