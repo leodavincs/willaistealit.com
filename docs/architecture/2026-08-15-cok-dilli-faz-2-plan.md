@@ -9,8 +9,9 @@ commit'te kaldırmak — **sitenin İngilizce çıktısını değiştirmeden**.
 
 **Mimari:** Yeni yükleyici `common.json + <kaynak dil>.json + <istenen dil>.json` üçlüsünü
 birleştirip **bugünkü şablonların beklediği düz diziyi** üretir. Böylece `job.php`,
-`index.php`, `sitemap.php`, `og.php` ve `related_jobs()` Faz 2'de hiç değişmez; yalnızca
-dosya yolunu elle kuran yerler güncellenir. Locale sistemi ve TR/ES yayını Faz 3–4'tür.
+`index.php`, `sitemap.php`, `og.php` ve `related_jobs()` Faz 2'de **yerelleştirilmez** —
+içerik üretimleri aynı kalır; yalnızca dosya yolunu elle kuran ve cache anahtarı üreten
+yerler teknik olarak uyarlanır. Locale sistemi ve TR/ES yayını Faz 3–4'tür.
 
 **Teknoloji:** PHP 8.3, bağımlılık yok, build adımı yok. Testler `tests/run.php`.
 
@@ -226,8 +227,14 @@ function entry_read(string $file): ?array
     return is_array($data) ? $data : null;
 }
 
-/** Bir dil dosyasi tek basina yayinlanabilir mi (zorunlu duzyazi tam mi). */
-function entry_lang_publishable(?array $doc): bool
+/**
+ * Bir dil dosyasi tek basina yayinlanabilir mi.
+ * Ust duzey duzyazinin varligi YETMEZ: gorev metinleri devralinmaz (spec 3.2),
+ * bu yuzden siradaki HER gorev icin bu dilde name ve note bulunmali.
+ * Kontrol burada olmak zorunda — route cache validator kosmadan da uretilebiliyor,
+ * yani eksik gorev metni tasiyan bir dil aksi halde "published" sayilabilirdi.
+ */
+function entry_lang_publishable(?array $doc, ?array $common = null): bool
 {
     if ($doc === null) {
         return false;
@@ -237,15 +244,34 @@ function entry_lang_publishable(?array $doc): bool
             return false;
         }
     }
+    // Sira dil dosyasinda ezilebilir; localTasks da gecerli bir kaynaktir (spec 2.3).
+    $order = (array)($doc['taskOrder'] ?? $common['taskOrder'] ?? []);
+    if ($order === []) {
+        return false;
+    }
+    foreach ($order as $tid) {
+        $tid = (string)$tid;
+        $task = $doc['tasks'][$tid] ?? $doc['localTasks'][$tid] ?? null;
+        if (!is_array($task)
+            || (string)($task['name'] ?? '') === ''
+            || (string)($task['note'] ?? '') === '') {
+            return false;
+        }
+    }
     return true;
 }
 
 /** @return string[] Bu entry'nin yayinlanmis dilleri, LANGS sirasinda. */
 function entry_langs(string $id, ?string $root = null): array
 {
+    $dir    = entry_dir($id, $root);
+    $common = entry_read($dir . '/common.json');
+    if ($common === null) {
+        return [];
+    }
     $out = [];
     foreach (LANGS as $lang) {
-        if (entry_lang_publishable(entry_read(entry_dir($id, $root) . '/' . $lang . '.json'))) {
+        if (entry_lang_publishable(entry_read($dir . '/' . $lang . '.json'), $common)) {
             $out[] = $lang;
         }
     }
@@ -282,7 +308,7 @@ function load_entry(string $id, string $lang = DEFAULT_LANG, ?string $root = nul
     $dir    = entry_dir($id, $root);
     $common = entry_read($dir . '/common.json');
     $doc    = entry_read($dir . '/' . $lang . '.json');
-    if ($common === null || !entry_lang_publishable($doc)) {
+    if ($common === null || !entry_lang_publishable($doc, $common)) {
         return null;
     }
 
@@ -371,8 +397,11 @@ function load_entry(string $id, string $lang = DEFAULT_LANG, ?string $root = nul
 
 > **Dikkat — `note` devralınmaz.** `note` düzyazıdır (spec §3.2). Kaynak dilin notu
 > yalnızca istenen dil kaynak dilin kendisiyse kullanılır; aksi halde yerel dosya
-> kendi notunu taşımak zorundadır. `entry_lang_publishable()` `tasks`'ın varlığını
-> kontrol eder, tam kapsamı `validate.php` denetler (Görev 2D).
+> kendi notunu taşımak zorundadır. Tam kapsam kontrolü **`entry_lang_publishable()`
+> içindedir** — `validate.php`'ye bırakılmaz, çünkü route cache validator koşmadan da
+> üretilebiliyor ve yarım bir dil "published" görünürdü. Doğrulanan veri: mevcut 17
+> entry'nin 122 görevinin tamamında `name` ve `note` var, iki i18n dili de tam —
+> kural hiçbir entry'yi yayınlanamaz hale getirmiyor.
 
 **Testler** gerçek fixture'ları kullanır. `administrative-assistant` ve `cashier`
 üç dilde de içerik taşıyan **ilk gerçek fixture'lardır**; test bunları geçici bir ağaca
@@ -460,12 +489,42 @@ t_eq(null, load_entry($id, 'de', $root),          'bilinmeyen dil');
 t_eq(null, load_entry('hayali', 'en', $root),     'olmayan entry');
 t_eq(null, load_entry('../etc', 'en', $root),     'path traversal reddedilir');
 
-// Zorunlu duzyazi eksikse o dil yayinlanmamis sayilir.
+// Zorunlu ust duzey duzyazi eksikse o dil yayinlanmamis sayilir.
 $half = json_decode((string)file_get_contents($root . '/' . $id . '/es.json'), true);
+$orig = $half;
 unset($half['summary']);
 file_put_contents($root . '/' . $id . '/es.json', (string)json_encode($half));
 t_eq(null,          load_entry($id, 'es', $root), 'eksik duzyazi -> yayinlanmamis');
 t_eq(['en', 'tr'],  entry_langs($id, $root),      'eksik dil listeden duser');
+
+// GOREV METNI eksikse de yayinlanmamis sayilir — ust duzey alanlar tam olsa bile.
+$half = $orig;
+unset($half['tasks']['floor-service']['note']);
+file_put_contents($root . '/' . $id . '/es.json', (string)json_encode($half));
+t_eq(null,         load_entry($id, 'es', $root), 'eksik gorev notu -> yayinlanmamis');
+t_eq(['en', 'tr'], entry_langs($id, $root),      'eksik gorev notu dili listeden dusurur');
+
+$half = $orig;
+$half['tasks']['floor-service']['name'] = '';
+file_put_contents($root . '/' . $id . '/es.json', (string)json_encode($half));
+t_eq(null, load_entry($id, 'es', $root), 'bos gorev adi -> yayinlanmamis');
+
+// Bir gorev tamamen eksikse de.
+$half = $orig;
+unset($half['tasks']['age-restricted']);
+file_put_contents($root . '/' . $id . '/es.json', (string)json_encode($half));
+t_eq(null, load_entry($id, 'es', $root), 'eksik gorev -> yayinlanmamis');
+
+// localTasks siradaki gorevi karsilayabilir.
+$half = $orig;
+$half['taskOrder']  = ['scan-payment', 'local-x'];
+$half['localTasks'] = ['local-x' => ['name' => 'Tarea local', 'note' => 'Nota local.',
+                                     'verdict' => 'safe', 'tags' => ['regulated']]];
+file_put_contents($root . '/' . $id . '/es.json', (string)json_encode($half));
+t_eq(['en', 'tr', 'es'], entry_langs($id, $root), 'localTasks siradaki gorevi karsilar');
+t_eq(2, count(load_entry($id, 'es', $root)['tasks']), 'ezilmis taskOrder uygulanir');
+
+file_put_contents($root . '/' . $id . '/es.json', (string)json_encode($orig));
 
 // --- Yerel kapsam: sahiplik, inheritedSources, taskOrder ezme, localTasks ---
 $local = json_decode((string)file_get_contents($root . '/' . $id . '/tr.json'), true);
@@ -534,7 +593,7 @@ Beklenen: `Failed to open stream: .../inc/entry.php`
 - [ ] **Adım 4: Testlerin geçtiğini doğrula**
 
 Run: `php tests/run.php`
-Beklenen: bu görevin eklediği **41 assert** geçer, toplamda **`0 kaldi`**.
+Beklenen: bu görevin eklediği **48 assert** geçer, toplamda **`0 kaldi`**.
 
 - [ ] **Adım 5: Sitenin dokunulmadığını doğrula**
 
@@ -891,7 +950,7 @@ doğru" sorusunu belirsiz bırakır. Spec §10 bunu açıkça yasaklıyor.
 | `og.php` | 26 | `$sourceFile` → `entry_dependency_files()` maksimumu |
 | `job.php` | 286 | GitHub düzenleme linki → `data/jobs/<id>/en.json` |
 | `tools/validate.php` | 27, 143 | Dizin tarama + dil başına kurallar |
-| `tools/sync-evidence.php` | 39+ | `evidenceStrength`'i `<id>/en.json`'a yazar |
+| `tools/sync-evidence.php` | 39+ | `evidenceStrength`'i `<id>/en.json`'a yazar; **`--dry-run` ve `--root=` eklenir** |
 | `tools/build-index.php` | — | `titleTr` alanı düşer, `aka` gelir |
 | `inc/routes_cache.php` | — | `published` → `entry_langs()` |
 | `index.php` | 206 | Boş durum metni: `data/jobs/<slug>/` |
@@ -1043,8 +1102,32 @@ Mevcut kuralların hepsi korunur, üstüne (spec §7):
 
 - [ ] **Adım 5: Kalan çağrı yerlerini güncelle**
 
-`sitemap.php:21`, `og.php:26`, `job.php:286`, `tools/sync-evidence.php`,
+`sitemap.php:21`, `og.php:26`, `job.php:286`, `job.php:318`,
 `tools/build-index.php`, `inc/routes_cache.php`, `index.php:206` — envanter tablosuna göre.
+
+**`tools/sync-evidence.php`** ayrıca iki bayrak kazanır:
+
+```php
+$dryRun = in_array('--dry-run', $argv, true);
+$root   = JOBS_DIR;
+foreach ($argv as $a) {
+    if (str_starts_with($a, '--root=')) {
+        $root = substr($a, 7);
+    }
+}
+// dosya listesi: glob($root . '/*/en.json')
+// yazma noktasi:
+if ($dryRun) {
+    echo "  (dry-run) $id: evidenceStrength -> $strength\n";
+} else {
+    atomic_write($file, $json);
+}
+```
+
+Gerekçe: bu araç **içerik yazar**. 17/17 eşitlik kapısından sonra canlı `en.json`
+dosyalarını değiştirirse migration commit'ine sessizce içerik değişikliği karışır.
+Kapıda yalnızca `--dry-run --root=<gecici agac>` biçiminde koşar; canlı çalıştırma
+migration commit'inden **sonra**, ayrı bir işin konusudur.
 
 - [ ] **Adım 6: Düz dosyaları kaldır**
 
@@ -1099,8 +1182,9 @@ kill $SRV
 # 7. TR hala servis edilmiyor (activeLangs=['en'])
 ./tools/smoke.sh | grep -E "^/(tr/|og/tr/)"            # hepsi 404 satiri
 
-# 8. sync-evidence yalnizca en.json'a dokunuyor
-php tools/sync-evidence.php && git diff --name-only    # yalnizca data/jobs/*/en.json
+# 8. sync-evidence yalnizca en.json'a dokunuyor — CANLI AGACA YAZMADAN sinanir
+php tools/sync-evidence.php --dry-run --root="$MIGRATION_OUT/jobs"
+git status --short    # BOS: kapi hicbir icerik degisikligi uretmedi
 
 # 9. Migration ciktisi ve raporlar stage listesine GIRMIYOR
 git status --short | grep -E "migration|jobs2|\.tmp" && echo "HATA: sizinti" || echo "sizinti yok"
@@ -1134,7 +1218,7 @@ git add data/jobs data/pending-tr-titles.json \
         inc/functions.php inc/entry.php inc/routes_cache.php \
         job.php index.php og.php sitemap.php \
         tools/validate.php tools/sync-evidence.php tools/build-index.php \
-        tests/
+        tests/entry.test.php tests/routes_cache.test.php tests/security.test.php
 
 # Stage listesi beklenenle birebir mi — commit'ten ONCE gozle karsilastir
 git diff --cached --name-status
@@ -1358,7 +1442,11 @@ php -r 'require "inc/entry.php"; echo implode(",", entry_langs("cashier")), "\n"
 - **`activeLangs` `['en']` kalır.** TR/ES diske iner, hiçbir URL'e servis edilmez.
 - `inc/config.php`'deki `VERDICTS`/`CATEGORIES` İngilizce etiketleriyle durur — **Faz 3**.
 - `geo_answer()`, `faq_pairs()`, `pretty_month()` İngilizce cümle üretmeye devam eder — **Faz 3**.
-- `job.php`, `index.php`, `inc/header.php` şablonları — **Faz 3**.
+- `job.php`, `index.php`, `inc/header.php` şablonları **yerelleştirilmez** — dile göre
+  metin üretmezler, İngilizce çıktı verirler; yerelleştirme **Faz 3**'ün işi.
+  (Teknik uyarlama görürler: `job.php` cache çağrısına dili ekler ve GitHub düzenleme
+  linkini dizine çevirir, `index.php` boş durum metnini günceller — içerik üretimleri
+  değişmez.)
 - `sitemap.php`'nin `xhtml:link` alternatifleri, dil seçici, dile özgü OG — **Faz 4**.
 - Arama harf katlaması (`search-fold.json`) — **Faz 4**.
 
