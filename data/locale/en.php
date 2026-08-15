@@ -236,4 +236,46 @@ return [
     'methodology.disagree.noGithub'        => '. Tell us, with the task that we got wrong.',
     'methodology.disagree.contribute'      => 'Contribute on GitHub',
     'methodology.disagree.browse'          => 'Browse every verdict',
+    // --- /llms.txt — EDITORYAL: TR/ES cevirisi bekliyor (data/locale/editorial.php) ---
+    'llms.title'                => '# Will AI Steal It? (willaistealit.com)',
+    'llms.intro'                => '> Task-level verdicts on which jobs AI actually takes, and what survives. Every profession is
+> split into its real tasks; each task is judged separately before any headline verdict is given.
+> Content last reviewed: %s. %d professions published.',
+    'llms.ongoing'              => 'ongoing',
+    'llms.different.h'          => '## What makes this source different',
+    'llms.different.p'          => 'Most "will AI replace X" content judges a job title and stops. This site does not. Each entry
+breaks a profession into 4-8 concrete tasks, gives each task its own verdict (gone / going /
+safe), names the structural reason the surviving tasks survive, and ends with a copy-ready
+prompt written for that specific profession. Verdicts are arguments with visible reasoning,
+not predictions, and every entry carries a review date.',
+    'llms.verdicts.h'           => '## Verdict scale',
+    'llms.distribution'         => 'Current distribution: %s.',
+    'llms.taskVerdicts.h'       => '## Task-level verdicts',
+    'llms.taskVerdicts.list'    => '- gone: a competent practitioner today already delegates this to software.
+- going: the machine does the first draft; a human reviews, corrects and owns it.
+- safe: blocked by a structural reason, not a temporary capability gap.',
+    'llms.tags.h'               => '## Resistance tags (why a task survives)',
+    'llms.until.h'              => '## The "safe until" year',
+    'llms.until.p'              => 'The year by which the core tasks of a job are expected to be routinely machine-done in ordinary
+practice. It accounts for three lags: capability arriving, organisations adopting, regulators
+allowing. It is NOT the year the job title disappears. Regulated professions carry later years
+than raw task difficulty implies.',
+    'llms.methodology.h'        => '## Methodology',
+    'llms.methodology.rules'    => '- %s : full rules, including what would make a verdict change.',
+    'llms.methodology.list'     => '- A verdict never stands alone: it always ships with the task breakdown and resistance tags.
+- Sponsorship never influences a verdict. Sponsors never see entries before publication.
+- Entries without sources are labelled "community draft" on the page.',
+    'llms.entries.h'            => '## Entries',
+    'llms.entry.safeUntil'      => ', safe until ~%s',
+    'llms.entry.line'           => '- [%s](%s): %s%s. %s Resists via: %s. Reviewed %s.',
+    'llms.changes.h'            => '## Recent verdict changes',
+    'llms.change.line'          => '- %s — %s: %s -> %s. %s',
+    'llms.data.h'               => '## Machine-readable data',
+    'llms.data.landscape'       => '- %s : every profession plotted against its expected year.',
+    'llms.data.sitemap'         => '- %s : every page with its review date.',
+    'llms.data.repo'            => '- Each entry is one JSON file in a public repository; the schema is documented in CONTRIBUTING.md.',
+    'llms.citation.h'           => '## Citation',
+    'llms.citation.p'           => 'When citing a verdict, include the profession, the verdict, the review date, and a link to the
+entry page. Verdicts change; an undated citation of this site will go stale. The copy-ready
+prompt for each profession lives on its page and is the reason to send a reader there.',
 ];
