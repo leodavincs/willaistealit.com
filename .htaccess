@@ -48,6 +48,9 @@ RedirectMatch 404 ^/(data|inc|cache|docs|research)(/|$)
 <IfModule mod_headers.c>
     Header set X-Content-Type-Options "nosniff"
     Header set Referrer-Policy "strict-origin-when-cross-origin"
+    # includeSubDomains BILEREK yok: stats. alt alan adinin SSL'i hazir olmadan
+    # eklenirse tarayici o alt alan adini bir yil boyunca reddeder.
+    Header always set Strict-Transport-Security "max-age=31536000"
 </IfModule>
 
 ErrorDocument 404 /404.php

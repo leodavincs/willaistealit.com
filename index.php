@@ -42,7 +42,7 @@ $homeAnswer = sprintf(
     $counts['on-the-menu']
 );
 
-$pageCanonical = SITE_URL;
+$pageCanonical = SITE_URL . '/';
 $pageOg        = SITE_URL . '/og/home.png';
 $pageJsonLd = [
     [

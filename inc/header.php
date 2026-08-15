@@ -9,7 +9,7 @@ require_once __DIR__ . '/functions.php';
 $pageTitle     = $pageTitle     ?? SITE_NAME;
 $pageDesc      = $pageDesc      ?? SITE_TAG;
 $pageOg        = $pageOg        ?? SITE_URL . '/og/home.png';
-$pageCanonical = $pageCanonical ?? SITE_URL;
+$pageCanonical = $pageCanonical ?? SITE_URL . '/';
 ?>
 <!doctype html>
 <html lang="en">
