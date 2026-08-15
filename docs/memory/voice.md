@@ -174,3 +174,7 @@ Türkçe karşılık varsa doldurulur.
 
 Bu klasördeki hafıza dosyaları Türkçe yazılır; alıntılanan entry metni İngilizce
 orijinaliyle bırakılır.
+
+---
+
+İlgili: [[docs/memory/README|Hafıza sistemi]] · [[verdict-rubric]]

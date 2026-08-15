@@ -8,9 +8,13 @@ kararlarının gerekçesi.
 
 | Dosya | Ne zaman okunur | Değişim hızı |
 |-------|-----------------|--------------|
-| `voice.md` | Her içerik yazımında, tamamı | Yavaş |
-| `verdict-rubric.md` | Her verdict kararında, tamamı | Yavaş |
+| [[voice]] | Her içerik yazımında, tamamı | Yavaş |
+| [[verdict-rubric]] | Her verdict kararında, tamamı | Yavaş |
 | `decisions/` | "Bunu neden böyle yapmıştık?" sorusunda, `grep` ile | Sürekli büyür |
+
+Kayıtlı kararlar: [[2026-08-15-acik-kaynak-gizlilik-siniri]] ·
+[[2026-08-15-hafiza-repo-icinde]] · [[2026-08-15-stack-php-json]] ·
+[[2026-08-15-hosting-hostinger]] · [[2026-08-15-konumlandirma-adaptasyon]]
 
 ## Sınır: CONTRIBUTING.md
 

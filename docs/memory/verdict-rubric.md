@@ -167,3 +167,7 @@ size. A time horizon applies."* Mevcut 15 verdict doğru; kusurlu olan tanım me
 Aynı durum "tek bir `gone` task varsa `safe` olamaz" eşiği için de geçerli: 15/15 veriyle
 doğrulanıyor ama yayınlanmamış. Bir katkıcı bilemez. `CONTRIBUTING.md` veya
 `/methodology`'ye taşınmalı.
+
+---
+
+İlgili: [[docs/memory/README|Hafıza sistemi]] · [[voice]]

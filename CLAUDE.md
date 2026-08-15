@@ -22,6 +22,8 @@ katkıcıya yöneliktir ve alan tanımlarını içerir; `/methodology` verdict t
 açık olarak yayınlar. Çakışma olursa yayınlanmış olan doğrudur. Sistemin tamamı:
 `docs/memory/README.md`.
 
+Giriş noktası: [[docs/memory/README|docs/memory/README.md]]
+
 Hafızaya yazarken: satırı öner, kullanıcı onaylasın. Otomatik yazma yok.
 `docs/memory/decisions/` append-only — not silinmez, `status: superseded` işaretlenir.
 
