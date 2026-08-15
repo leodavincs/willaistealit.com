@@ -2323,7 +2323,8 @@ git commit -m "refactor: route all requests through the front controller"
 git rev-parse HEAD    # ---> BU HASH'I KAYDET, rollback icin gerekli
 ```
 
-Hash buraya yazılır: `WIRING_COMMIT = ________________`
+Hash: `WIRING_COMMIT = 2f2b4c8b902556600b0f380360058fa2cc8b7d60`
+(kaydedildi 15 Ağustos 2026 — `git revert` ve `git restore --source=` bu hash'e dayanır)
 
 **Risk**
 **Planın en yüksek riskli adımı.** `.htaccess` hatası tüm siteyi 500'e düşürür ve
