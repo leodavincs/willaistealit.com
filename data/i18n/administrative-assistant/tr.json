@@ -1,0 +1,52 @@
+{
+    "assessmentScope": "global",
+    "assessmentSourceLocale": "en",
+    "translationReviewed": "2026-08-15",
+    "slug": "idari-asistan",
+    "formerSlugs": [],
+    "title": "İdari Asistan",
+    "aka": [
+        "Yönetici Asistanı",
+        "Ofis Sorumlusu",
+        "Sekreter",
+        "Büro Memuru",
+        "Ofis Koordinatörü"
+    ],
+    "oneLiner": "Yazışma, dosya ve takvim artık kendi kendini çeviriyor. Patronuna kimin ulaşacağına karar veren kişi çevirmiyor.",
+    "summary": "Bu hiçbir zaman tek bir iş olmadı: evrak üretimi, kayıt, takvim lojistiği ve yoğun bir insanla ondan bir şey isteyen herkesin arasında duran kapı — ve baştan beri yalnızca sonuncusu kıttı. Toplantı notu artık görüşmenin içinde yazılıyor, belge taramadan kayda kendi geçiyor, bir zamanlar mektup dikte eden yönetici şimdi prompt yazıyor. ABD istatistik kurumu nedeni alışılmadık bir açıklıkla söylüyor: tıbbi olmayan sekreter ve idari asistanlarda talebin sınırlanmasını doğrudan yapay zekâ benimsemesine bağlıyor. Manşet yine de yatay, çünkü sağlık idaresinde kazanılan 35.300 kadro, yönetici, hukuk ve genel asistanlıkta kaybedilen 47.700'ü örtüyor. Yatay olması güvenli olması demek değil. Yılda açılan 358.300 pozisyonun büyük kısmı yeni koltuk değil, ayrılanların yerine dolan pozisyonlar; üstelik bir asistan artık kendi yazısını kendi yazan birkaç yöneticiye birden bakıyor. Eskiden dosyalama işinde kendini kanıtlayıp o güvenilen koltuğa oturanlar, çıktıkları basamağı kaybetti.",
+    "tasks": {
+        "notes-correspondence": {
+            "name": "Toplantı notu ve rutin yazışma",
+            "note": "Transkript ve özet artık toplantının içinde çıkıyor, rutin yazının ilk hâli bedava. İnsan neyin gönderileceğine karar veriyor; bu saatler değil dakikalar sürüyor."
+        },
+        "records-filing": {
+            "name": "Veri girişi, dosyalama ve kayıt tutma",
+            "note": "Tarama ve otomatik alan çıkarımı kâğıdı klavye olmadan sisteme taşıyor. Geriye çıkarımın yanlış okuduğu kaydı düzeltmek kalıyor."
+        },
+        "diary-scheduling": {
+            "name": "Takvim ve randevu yönetimi",
+            "note": "Uygunluk, davet ve çakışma çözümü kurumlar arasında yazılımda hallediliyor. Talepleri sıraya dizen hâlâ insan; sıralamak yerleştirmekle aynı şey değil."
+        },
+        "travel-expenses": {
+            "name": "Seyahat, masraf ve satın alma işleri",
+            "note": "Rezervasyon sistemleri politikayı kendisi uyguluyor, istisnayı kimse okumadan işaretliyor. Sabahın altısında iptal olan uçuşu ve faturayı düzgün kesmeyen tedarikçiyi insan çözüyor."
+        },
+        "gatekeeping": {
+            "name": "Yöneticinin zamanını korumak",
+            "note": "Yazılım gelen kutusunu sıralar ama yanlış kişiyi içeri almanın bedelini taşıyamaz. Değer, eşit derecede acil iki talepten hangisinin bu insan için gerçekten önemli olduğunu bilmekte."
+        },
+        "office-room": {
+            "name": "Ofisi ve odayı ayakta tutmak",
+            "note": "Toplantı odası, kartlar, ikram, yazıcı, bir saat erken gelen ziyaretçi. Binada biri yoksa bunların hiçbiri olmuyor."
+        }
+    },
+    "whatSurvives": "Saati kimin alacağına dair yargı, neyin sessiz kalacağına dair ketumluk ve oda kurulacağı zaman binada olan bir insan.",
+    "adaptPrompt": "Sen benim ofis yönetim asistanımsın. Bir veya birkaç yöneticinin idari işini ben yürütüyorum; sen evrak yükünü sıkıştırıyorsun ki ben erişim ve yargı gerektiren kısma vakit ayırabileyim.\n\nSana vereceklerim: yöneticimin görevi ve bu çeyrekteki öncelikleri, sabit takvimi, gelen e-posta veya mesaj yığını, varsa toplantı dökümü.\n\nHer seferinde şu dördünü istiyorum:\n1. Ayıklama listesi. Gelen her konu şu dört kovadan birine: yöneticimin kendisi görmeli, ben halledebilirim, haftalık toplantıya kalabilir, reddedilecek. Her biri için savunabileceğim tek cümlelik gerekçe.\n2. \"Ben halledebilirim\" kovasındakiler için taslak cevaplar; yöneticimin üslubuyla, asıl talep veya cevap ilk iki satırda.\n3. Karar listesi: yöneticimin kendi vermesi gereken her şey, seçenekleri ve son tarihi olan kapalı uçlu soru hâlinde. Bunları sen cevaplama.\n4. Toplantı dökümünden: sahibi ve tarihi olan aksiyonlar, yöneticimin sesli olarak verdiği sözler ve önceki bir taahhütle çelişen her ifade.\n\nKurallar: hiçbir toplantıyı kabul etme, reddetme veya kaydırma; yöneticim adına hiçbir şey taahhüt etme — sen taslağı yazarsın, göndermeye ben karar veririm. İsim, tarih, rakam veya unvan uydurma; eksikse EKSİK yaz ve dur, tahmin yürütme. Bir niyet çıkarımı yapıyorsan dayandığın satırı aynen alıntıla. Ücret, hukuki risk, personel meselesi veya işten ayrılma içeren her konu doğrudan karar listesine gider ve taslak yazılmaz.",
+    "adaptTools": [
+        "Claude",
+        "Microsoft 365 Copilot",
+        "Google Workspace",
+        "Notion",
+        "Zoom veya Teams toplantı özeti"
+    ]
+}

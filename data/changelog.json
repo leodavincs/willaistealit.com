@@ -3,6 +3,22 @@
     "entries": [
         {
             "date": "2026-08-15",
+            "slug": "cashier",
+            "title": "Cashier",
+            "from": null,
+            "to": "on-the-menu",
+            "why": "First published. Scanning and payment went to the customer, not to a model: 313,600 US posts down by 2034, the largest numeric decline of any occupation, and one attendant now covers six lanes."
+        },
+        {
+            "date": "2026-08-15",
+            "slug": "administrative-assistant",
+            "title": "Administrative Assistant",
+            "from": null,
+            "to": "shrinking",
+            "why": "First published. Notes, records and filing have already gone; the gatekeeping and the room have not. Flat headline employment hides 47,700 posts lost outside medical offices."
+        },
+        {
+            "date": "2026-08-15",
             "slug": "accountant",
             "title": "Accountant",
             "from": null,

@@ -1,0 +1,75 @@
+{
+    "slug": "administrative-assistant",
+    "title": "Administrative Assistant",
+    "titleTr": "İdari Asistan",
+    "category": "ops",
+    "verdict": "shrinking",
+    "safeUntil": "2029",
+    "oneLiner": "The documents, the diary and the filing now run themselves. Deciding who reaches the person you work for does not.",
+    "summary": "It was never one job: document production, records, diary logistics, and a gatekeeper standing between a busy person and everyone who wants their attention — and only the last part was ever scarce. Meeting notes now write themselves inside the call, records enter themselves from the scan, and the manager who once dictated a letter types the prompt instead. The statisticians are unusually direct about the cause: the BLS names AI adoption as the reason demand is limited for non-medical secretaries and administrative assistants. The headline is still flat, because 35,300 posts gained in medical offices cover 47,700 lost across executive, legal and general assistants. Flat is not safe. The 358,300 openings a year are mostly replacements for people leaving rather than new seats, and one assistant now covers several managers who do their own typing. Whoever used to earn the trusted seat by first proving themselves on the filing has lost the rung they climbed.",
+    "tasks": [
+        {
+            "name": "Meeting notes and routine correspondence",
+            "verdict": "gone",
+            "note": "Transcription and summary happen inside the call, and the first draft of a routine letter costs nothing. A person still decides what gets sent, which is minutes of work rather than hours."
+        },
+        {
+            "name": "Data entry, filing and records maintenance",
+            "verdict": "gone",
+            "note": "Scanning and field extraction move the paper into the system without a keyboard in between. What is left is correcting the records the extractor read wrong."
+        },
+        {
+            "name": "Diary management and scheduling",
+            "verdict": "going",
+            "note": "Availability, booking links and conflict resolution are settled by software across organisations. A person still ranks the requests, and ranking is not the same as slotting."
+        },
+        {
+            "name": "Travel, expenses and procurement admin",
+            "verdict": "going",
+            "note": "Booking tools enforce the policy and flag the exception before anyone reads it. The human handles the cancelled flight at 6am and the supplier who will not invoice properly."
+        },
+        {
+            "name": "Gatekeeping a principal's time",
+            "verdict": "safe",
+            "tags": [
+                "trust-relationship",
+                "human-judgment"
+            ],
+            "note": "Software can rank an inbox but cannot carry the cost of letting the wrong person through. The value is knowing which of two equally urgent requests actually matters to this person."
+        },
+        {
+            "name": "Running the office and the room",
+            "verdict": "safe",
+            "tags": [
+                "physical-presence",
+                "physical-context"
+            ],
+            "note": "Rooms, passes, catering, the printer, the visitor who arrived an hour early. None of it happens unless somebody is in the building."
+        }
+    ],
+    "resistanceTags": [
+        "trust-relationship",
+        "human-judgment",
+        "physical-presence"
+    ],
+    "whatSurvives": "Judgment about who gets the hour, discretion about what stays quiet, and a person in the building when the room has to be set.",
+    "adaptPrompt": "You are my chief of staff assistant. I run the administration for one or more executives, and you are compressing the paperwork so that my time goes to access and judgment.\n\nI will give you: my principal's role and priorities for this quarter, their standing commitments, a batch of inbound emails or messages, and any meeting transcript or notes.\n\nEvery time, give me back four things:\n1. A triage list. Every inbound item sorted into: needs my principal personally, I can handle it, it can wait for the weekly, decline. For each one, a single sentence of reasoning I could defend if challenged.\n2. Draft replies for everything in the \"I can handle it\" bucket, in my principal's register, with the specific ask or answer in the first two lines.\n3. A decision list: everything that requires my principal's own call, phrased as a closed question with the options and the deadline. Do not answer these yourself.\n4. From any transcript: the actions with an owner and a date, the commitments my principal made out loud, and anything said that contradicts an earlier commitment.\n\nRules: never accept, decline or move a meeting, and never commit my principal to anything — you draft, I send. Never invent a name, date, figure or job title; if it is missing, mark it MISSING and stop rather than guessing. Quote the exact line you are working from whenever you infer intent. Anything involving pay, legal exposure, a personnel matter or a departure goes straight to the decision list and gets no draft.",
+    "adaptTools": [
+        "Claude",
+        "Microsoft 365 Copilot",
+        "Google Workspace",
+        "Notion",
+        "SAP Concur or TravelPerk"
+    ],
+    "sources": [
+        "https://www.bls.gov/ooh/office-and-administrative-support/secretaries-and-administrative-assistants.htm",
+        "https://www.bls.gov/opub/mlr/2026/article/industry-and-occupational-employment-projections-overview.htm",
+        "https://www.ilo.org/publications/generative-ai-and-jobs-refined-global-index-occupational-exposure",
+        "https://www.oecd.org/en/publications/the-oecd-ai-exposure-measure_f3da0f0a-en.html",
+        "https://www.onetonline.org/link/summary/43-6014.00",
+        "https://bfi.uchicago.edu/wp-content/uploads/2025/04/BFI_WP_2025-56.pdf"
+    ],
+    "lastReviewed": "2026-08",
+    "evidenceStrength": "strong",
+    "reviewed": true
+}
