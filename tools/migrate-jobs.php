@@ -191,8 +191,11 @@ function migrate_en(string $id, array $flat, array $common): array
     return $en;
 }
 
-/** --out hedefi guvenli mi. Genis silme hedefleri ve canli agac reddedilir. */
-function migrate_target_ok(string $out, string &$why): bool
+/**
+ * --out hedefi guvenli mi. Genis silme hedefleri ve canli agac reddedilir.
+ * $allowNonEmpty: --verify dolu dizin BEKLER, uretim modu bos dizin ister.
+ */
+function migrate_target_ok(string $out, string &$why, bool $allowNonEmpty = false): bool
 {
     $real = realpath($out) ?: $out;
     $repo = realpath(ROOT) ?: ROOT;
@@ -209,8 +212,8 @@ function migrate_target_ok(string $out, string &$why): bool
         $why = 'repo kokunun icinde olamaz (git add kazasi riski)';
         return false;
     }
-    if (is_dir($real) && (glob($real . '/*') ?: []) !== []) {
-        $why = 'hedef dizin bos degil';
+    if (!$allowNonEmpty && is_dir($real) && (glob($real . '/*') ?: []) !== []) {
+        $why = 'hedef dizin bos degil (uretim modu bos dizin ister)';
         return false;
     }
     return true;
@@ -243,7 +246,7 @@ foreach ($argv as $a) {
 
 if ($out !== null) {
     $why = '';
-    if (!migrate_target_ok($out, $why)) {
+    if (!migrate_target_ok($out, $why, $verify)) {
         fwrite(STDERR, "HATA: --out kabul edilmedi — $why\n");
         exit(1);
     }
