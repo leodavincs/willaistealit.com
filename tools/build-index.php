@@ -50,6 +50,24 @@ if ($ok === false) {
     exit($cli ? 1 : 0);
 }
 
+require_once __DIR__ . '/../inc/routes_cache.php';
+$conflicts = null;
+$routes    = build_routes($conflicts);
+if ($conflicts !== []) {
+    echo "HATA: slug cakismasi\n";
+    foreach ($conflicts as $c) {
+        echo "  x $c\n";
+    }
+    exit($cli ? 1 : 0);
+}
+$routesOk = atomic_write(
+    ROUTES_FILE,
+    (string)json_encode($routes, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)
+);
+echo $routesOk
+    ? "route tablosu -> cache/routes.json\n"
+    : "UYARI: routes.json yazilamadi (istek aninda uretilecek)\n";
+
 $cleared = clear_cache();
 
 echo count($index) . " entry indexlendi -> cache/index.json\n";

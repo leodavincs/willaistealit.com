@@ -1,6 +1,9 @@
 cache/og/*
 cache/pages/*
 cache/index.json
+cache/routes.json
+cache/index-*.json
+cache/content-version.json
 !cache/og/.gitkeep
 !cache/pages/.gitkeep
 .DS_Store

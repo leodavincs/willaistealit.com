@@ -31,6 +31,7 @@ const CACHE_DIR   = ROOT . '/cache';
 const OG_DIR      = CACHE_DIR . '/og';
 const PAGES_DIR   = CACHE_DIR . '/pages';
 const INDEX_FILE  = CACHE_DIR . '/index.json';
+const ROUTES_FILE = CACHE_DIR . '/routes.json';
 const FONT_BOLD   = ROOT . '/fonts/Fraunces.ttf';
 const FONT_REG    = ROOT . '/fonts/Newsreader.ttf';
 
