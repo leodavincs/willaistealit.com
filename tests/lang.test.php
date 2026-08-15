@@ -231,3 +231,56 @@ t_eq(['en'], $R3['activeLangs'], 'Faz 3B: activeLangs hala yalnizca en');
 foreach (['/tr/', '/tr/kasiyer', '/es/', '/es/cajero', '/og/tr/kasiyer.png'] as $path) {
     t_eq('notfound', resolve_path($path, $R3)['type'], "TR/ES yolu hala 404: $path");
 }
+
+// ═══════════ URL uretimi: KIMLIK + DIL, url_for uzerinden (Faz 3E) ═══════════
+$routes = load_routes();
+
+t_eq('https://willaistealit.com/cashier',
+     url_for('en', 'job', 'cashier', $routes), 'EN kanonik URL prefix siz');
+t_eq('https://willaistealit.com/tr/kasiyer',
+     url_for('tr', 'job', 'cashier', $routes), 'TR kanonik URL');
+t_eq('https://willaistealit.com/es/cajero',
+     url_for('es', 'job', 'cashier', $routes), 'ES kanonik URL');
+
+// job_url()/og_url() KIMLIK alir, yerel slug degil
+t_eq('https://willaistealit.com/cashier',            job_url('cashier'),       'job_url EN');
+t_eq('https://willaistealit.com/tr/kasiyer',         job_url('cashier', 'tr'), 'job_url TR');
+t_eq('https://willaistealit.com/es/cajero',          job_url('cashier', 'es'), 'job_url ES');
+t_eq('https://willaistealit.com/og/cashier.png',     og_url('cashier'),        'og_url EN');
+t_eq('https://willaistealit.com/og/tr/kasiyer.png',  og_url('cashier', 'tr'),  'og_url TR');
+t_eq('https://willaistealit.com/og/es/cajero.png',   og_url('cashier', 'es'),  'og_url ES');
+
+// entry_id(): yukleyici 'id' veriyor, eski cagrilar 'slug' gecebilir
+t_eq('cashier', entry_id(load_entry('cashier', 'tr')), 'entry_id yerel slug DEGIL kimlik doner');
+t_eq('cashier', entry_id(['slug' => 'cashier']),       'entry_id eski sekli de kabul eder');
+
+// share_text: URL disaridan gecer ve DILIN kanonik adresini tasir
+$enShare = share_text(load_entry('cashier', 'en'), 'en');
+t_eq(true,  str_contains($enShare, 'https://willaistealit.com/cashier'), 'EN paylasim URL i');
+
+$trShare = share_text(load_entry('cashier', 'tr'), 'tr');
+t_eq(true,  str_contains($trShare, 'https://willaistealit.com/tr/kasiyer'), 'TR paylasim URL i');
+// Yerel slug prefix'siz KOKE yazilmamali — planin ilk surumundeki hatayi yakalar
+t_eq(false, str_contains($trShare, 'willaistealit.com/kasiyer'), 'TR yerel slug koke yazilmaz');
+
+$esShare = share_text(load_entry('cashier', 'es'), 'es');
+t_eq(true,  str_contains($esShare, 'https://willaistealit.com/es/cajero'), 'ES paylasim URL i');
+t_eq(false, str_contains($esShare, 'willaistealit.com/cajero'), 'ES yerel slug koke yazilmaz');
+
+// faq_pairs: URL DISARIDAN gecirilir (L1) — Lang URL uretmez
+$enFaq = faq_pairs(load_entry('cashier', 'en'), 'en');
+$trFaq = faq_pairs(load_entry('cashier', 'tr'), 'tr');
+t_eq(true, str_contains(end($enFaq)['a'], 'https://willaistealit.com/cashier'),    'EN FAQ URL i');
+t_eq(true, str_contains(end($trFaq)['a'], 'https://willaistealit.com/tr/kasiyer'), 'TR FAQ URL i');
+
+// Ince kabuklar Lang ile AYNI sonucu vermeli
+$job = load_entry('accountant', 'en');
+$L   = lang_for('en');
+t_eq($L->geoAnswer($job),    geo_answer($job),    'geo_answer kabugu');
+t_eq($L->evidenceNote($job), evidence_note($job), 'evidence_note kabugu');
+t_eq($L->month('2026-08'),   pretty_month('2026-08'), 'pretty_month kabugu');
+t_eq($L->listPhrase(['a','b']), list_phrase(['a','b']), 'list_phrase kabugu');
+t_eq($L->withArticle('accountant'), with_article('accountant'), 'with_article kabugu');
+t_eq($L->lowerFirst('Data entry'),  lower_first('Data entry'),  'lower_first kabugu');
+t_eq($L->faqPairs($job, job_url('accountant')), faq_pairs($job), 'faq_pairs kabugu');
+t_eq($L->shareText($job, job_url('accountant')), share_text($job), 'share_text kabugu');

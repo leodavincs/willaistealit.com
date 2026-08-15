@@ -4,6 +4,8 @@ declare(strict_types=1);
 require_once __DIR__ . '/config.php';
 require_once __DIR__ . '/entry.php';
 require_once __DIR__ . '/locale.php';
+require_once __DIR__ . '/urls.php';         // url_for
+require_once __DIR__ . '/routes_cache.php'; // load_routes
 
 /** Slug'i dogrula: sadece [a-z0-9-], path traversal'a kapali. */
 function valid_slug(?string $slug): bool
@@ -120,26 +122,31 @@ function tag_definition(string $tag, string $lang = DEFAULT_LANG): string
     return lang_for($lang)->tagDefinition($tag);
 }
 
-function job_url(string $slug): string
+/**
+ * Entry'nin kanonik adresi. KIMLIK alir, yerel slug DEGIL: TR'de $job['slug']
+ * 'kasiyer' olur ve prefix'siz koke yazilirsa /kasiyer gibi YANLIS bir adres cikar.
+ * Tek dogru kaynak url_for().
+ */
+function job_url(string $id, string $lang = DEFAULT_LANG): string
 {
-    return SITE_URL . '/' . $slug;
+    return url_for($lang, 'job', $id, load_routes());
 }
 
-function og_url(string $slug): string
+function og_url(string $id, string $lang = DEFAULT_LANG): string
 {
-    return SITE_URL . '/og/' . $slug . '.png';
+    return url_for($lang, 'og', $id, load_routes());
 }
 
-/** X paylasim metni — paylasim kartinin yanindaki butona gider. */
-function share_text(array $job): string
+/** Entry'nin kimligi — yukleyici 'id' veriyor, eski cagrilar 'slug' gecebilir. */
+function entry_id(array $job): string
 {
-    $v = verdict_meta($job['verdict'] ?? '');
-    $t = $job['title'] ?? $job['slug'];
-    $line = $v['dot'] . ' ' . $v['label'];
-    if (!empty($job['safeUntil'])) {
-        $line .= ' — safe until ~' . $job['safeUntil'];
-    }
-    return sprintf("%s: %s\n\n%s\n\n%s", strtoupper($t), $line, (string)($job['oneLiner'] ?? ''), job_url($job['slug']));
+    return (string)($job['id'] ?? $job['slug'] ?? '');
+}
+
+/** X paylasim metni. URL burada uretilir, Lang'a PARAMETRE olarak gecer (L1). */
+function share_text(array $job, string $lang = DEFAULT_LANG): string
+{
+    return lang_for($lang)->shareText($job, job_url(entry_id($job), $lang));
 }
 
 /**
@@ -266,165 +273,42 @@ function verdict_counts(array $jobs): array
 // ---------- SEO / GEO yardimcilari ----------
 
 /** "2026-08" -> "August 2026". Bozuk girdide bos doner. */
-function pretty_month(?string $ym): string
+function pretty_month(?string $ym, string $lang = DEFAULT_LANG): string
 {
-    if (!is_string($ym) || preg_match('/^(\d{4})-(\d{2})$/', $ym, $m) !== 1) {
-        return '';
-    }
-    $months = [1 => 'January', 'February', 'March', 'April', 'May', 'June',
-               'July', 'August', 'September', 'October', 'November', 'December'];
-    $i = (int)$m[2];
-    return isset($months[$i]) ? $months[$i] . ' ' . $m[1] : '';
+    return lang_for($lang)->month((string)$ym);
 }
 
 /**
  * GEO paragrafi: baglamsiz alintilandiginda bile ayakta duran, tarihli tek paragraf.
- * Cevap motorlari cevabi bu cumlelerden kuruyor — bu yuzden her sey icinde:
- * tarih, meslek, verdict, ne gitti, ne kaldi, kaynak.
- * Entry kendi metnini `geoAnswer` ile ezebilir.
+ * Cumle kurulumu dile gore degistigi icin govde Lang sinifinda yasar.
  */
-function geo_answer(array $job): string
+function geo_answer(array $job, string $lang = DEFAULT_LANG): string
 {
-    if (!empty($job['geoAnswer'])) {
-        return (string)$job['geoAnswer'];
-    }
-
-    $title = (string)($job['title'] ?? $job['slug'] ?? 'this job');
-    $lower = mb_strtolower($title);
-    $date  = pretty_month((string)($job['lastReviewed'] ?? '')) ?: 'August 2026';
-    $v     = (string)($job['verdict'] ?? 'shrinking');
-
-    // Gorevleri durumuna gore ayir
-    $gone = $safe = [];
-    foreach (($job['tasks'] ?? []) as $task) {
-        $name = lower_first((string)($task['name'] ?? ''));
-        if ($name === '') {
-            continue;
-        }
-        if (($task['verdict'] ?? '') === 'gone') {
-            $gone[] = $name;
-        } elseif (($task['verdict'] ?? '') === 'safe') {
-            $safe[] = $name;
-        }
-    }
-
-    $verdictSentence = match ($v) {
-        'safe'        => sprintf('%s is not being replaced by AI.', $title),
-        'on-the-menu' => sprintf('the core tasks of %s work are becoming machine-doable%s.', $lower,
-                                 !empty($job['safeUntil']) ? ', with the shift expected to land by around ' . (string)$job['safeUntil'] : ''),
-        default       => sprintf('the %s role is shrinking rather than disappearing%s.', $lower,
-                                 !empty($job['safeUntil']) ? ', with the core narrowing through roughly ' . (string)$job['safeUntil'] : ''),
-    };
-
-    $out = sprintf('As of %s, %s', $date, $verdictSentence);
-
-    if ($gone) {
-        $out .= sprintf(' AI has already absorbed %s.', list_phrase(array_slice($gone, 0, 3)));
-    }
-    if ($safe) {
-        $out .= sprintf(' What resists is %s.', list_phrase(array_slice($safe, 0, 3)));
-    }
-    if (!empty($job['resistanceTags'])) {
-        $out .= sprintf(' The structural reason is %s.', list_phrase(array_map(
-            static fn ($t) => str_replace('-', ' ', (string)$t),
-            array_slice((array)$job['resistanceTags'], 0, 3)
-        )));
-    }
-
-    return $out;
+    return lang_for($lang)->geoAnswer($job);
 }
 
-/**
- * Cumle icine gomulecek basligi kucultur — ama ilk kelime kisaltmaysa dokunmaz
- * ("CV screening" -> "CV screening", "Data entry" -> "data entry").
- */
-function lower_first(string $text): string
+function lower_first(string $text, string $lang = DEFAULT_LANG): string
 {
-    $text  = trim($text);
-    $first = (string)(preg_split('/\s+/u', $text)[0] ?? '');
-    if ($first !== '' && mb_strtoupper($first) === $first && mb_strlen($first) > 1) {
-        return $text;
-    }
-    return mb_strtolower(mb_substr($text, 0, 1)) . mb_substr($text, 1);
+    return lang_for($lang)->lowerFirst($text);
 }
 
-/** "accountant" -> "an accountant". Sesli harfle baslayanlar icin "an". */
-function with_article(string $word): string
+function with_article(string $word, string $lang = DEFAULT_LANG): string
 {
-    $first = mb_strtolower(mb_substr(trim($word), 0, 1));
-    return (in_array($first, ['a', 'e', 'i', 'o', 'u'], true) ? 'an ' : 'a ') . $word;
+    return lang_for($lang)->withArticle($word);
 }
 
-/** ["a","b","c"] -> "a, b and c" */
-function list_phrase(array $items): string
+function list_phrase(array $items, string $lang = DEFAULT_LANG): string
 {
-    $items = array_values(array_filter($items));
-    $n = count($items);
-    if ($n === 0) {
-        return '';
-    }
-    if ($n === 1) {
-        return $items[0];
-    }
-    $last = array_pop($items);
-    return implode(', ', $items) . ' and ' . $last;
+    return lang_for($lang)->listPhrase($items);
 }
 
 /**
  * FAQPage markup'i icin soru-cevap ciftleri.
- * Sorular insanlarin cevap motoruna yazdigi haliyle yazilir.
+ * URL DISARIDAN gecer — Lang URL uretmez (L1).
  */
-function faq_pairs(array $job): array
+function faq_pairs(array $job, string $lang = DEFAULT_LANG): array
 {
-    $title = (string)($job['title'] ?? $job['slug'] ?? '');
-    $lower = mb_strtolower($title);
-    $v     = verdict_meta($job['verdict'] ?? '');
-    $pairs = [];
-
-    $pairs[] = [
-        'q' => sprintf('Will AI replace %ss?', $lower),
-        'a' => geo_answer($job),
-    ];
-
-    if (!empty($job['safeUntil'])) {
-        $pairs[] = [
-            'q' => sprintf('How long is %s work safe from AI?', $lower),
-            'a' => sprintf(
-                'Our estimate is roughly %s. That is the year by which the core tasks of this job are expected to be routinely machine-done in ordinary practice — after capability arrives, after employers adopt it, and after regulators allow it. It is not the year the job title disappears. Current verdict: %s.',
-                (string)$job['safeUntil'],
-                $v['label']
-            ),
-        ];
-    }
-
-    $goneTasks = [];
-    foreach (($job['tasks'] ?? []) as $task) {
-        if (in_array($task['verdict'] ?? '', ['gone', 'going'], true) && !empty($task['name'])) {
-            $goneTasks[] = lower_first((string)$task['name']) . ' (' . (string)$task['verdict'] . ')';
-        }
-    }
-    if ($goneTasks) {
-        $pairs[] = [
-            'q' => sprintf('Which %s tasks is AI already doing?', $lower),
-            'a' => sprintf('%s. Each is judged separately rather than rolling the whole job into one answer.', ucfirst(list_phrase($goneTasks))),
-        ];
-    }
-
-    if (!empty($job['whatSurvives'])) {
-        $pairs[] = [
-            'q' => sprintf('What part of being %s is safe from AI?', with_article($lower)),
-            'a' => (string)$job['whatSurvives'],
-        ];
-    }
-
-    if (!empty($job['adaptPrompt'])) {
-        $pairs[] = [
-            'q' => sprintf('How should %s use AI instead of competing with it?', with_article($lower)),
-            'a' => sprintf('Use it on the tasks already marked gone or going, and keep the judgment. There is a copy-ready prompt written for this specific job at %s.', job_url((string)$job['slug'])),
-        ];
-    }
-
-    return $pairs;
+    return lang_for($lang)->faqPairs($job, job_url(entry_id($job), $lang));
 }
 
 /**
@@ -468,31 +352,11 @@ function related_jobs(array $job, int $limit = 4): array
 /**
  * Kanit durumu uyarisi. /methodology'de "kaynagi olmayan entry community draft
  * olarak isaretlenir" sozu verildi — bu onu tutuyor.
- * Kaynak SAYISI tek basina yetmiyordu: tek zayif kaynakli entry etiketsiz kaliyordu.
  * @return array{level:string,label:string,text:string}|null
  */
-function evidence_note(array $job): ?array
+function evidence_note(array $job, string $lang = DEFAULT_LANG): ?array
 {
-    $sources  = (array)($job['sources'] ?? []);
-    $strength = (string)($job['evidenceStrength'] ?? '');
-
-    if (count($sources) === 0 || $strength === 'none') {
-        return [
-            'level' => 'draft',
-            'label' => 'Community draft',
-            'text'  => 'No evidence attached to this entry yet. The argument may still hold, but nobody has backed it with a source. Attaching one is the single most useful contribution you can make.',
-        ];
-    }
-
-    if ($strength === 'thin') {
-        return [
-            'level' => 'thin',
-            'label' => 'Thin evidence',
-            'text'  => 'This verdict rests on limited published evidence. It is an argument we will defend, but it deserves more sources than it has — if you know of better data, open a PR.',
-        ];
-    }
-
-    return null;
+    return lang_for($lang)->evidenceNote($job);
 }
 
 /** Verdict degisiklikleri — /changelog ve tazelik sinyali icin. Yeniden eskiye. */
