@@ -66,6 +66,7 @@ $pageJsonLd    = [
     'url'         => $pageCanonical,
     'creator'     => ['@type' => 'Organization', 'name' => SITE_NAME, 'url' => SITE_URL],
     'variableMeasured' => 'Year by which a profession\'s core tasks are expected to be routinely machine-done',
+    'license'     => 'https://creativecommons.org/licenses/by/4.0/',
 ];
 
 require __DIR__ . '/inc/header.php';
