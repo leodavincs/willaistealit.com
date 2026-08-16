@@ -170,14 +170,38 @@ Mevcut 15 entry'de **hiç görülmeyen** şeyler. Ortak özellikleri: hepsi okuy
 - Amerikan imlası
 - Mesleği övmek veya teselli etmek. Entry eli dolu bırakır; bunu `adaptPrompt` ile yapar.
 
-## Türkçe / İngilizce sınırı
+## Çok dilli içerik
 
-Entry içeriğinin tamamı İngilizce yazılır — `titleTr` tek istisna ve yalnızca doğal bir
-Türkçe karşılık varsa doldurulur.
+**Bu bölüm 16 Ağustos 2026'da yeniden yazıldı.** Eski hali "entry içeriğinin tamamı
+İngilizce yazılır — `titleTr` tek istisna" diyordu; `titleTr` Faz 2'de öldürüldü ve
+Faz 4'ten itibaren entry'ler yayınlanan her dilde ayrıca yazılıyor.
 
-Bu klasördeki hafıza dosyaları Türkçe yazılır; alıntılanan entry metni İngilizce
-orijinaliyle bırakılır.
+**Yukarıdaki ses kurallarının tamamı her dilde geçerlidir.** Ritim (uzun cümleden sonra
+kısa), `oneLiner`'ın iki cümlelik karşıtlığı, `summary`'nin üç hamlesi, `whatSurvives`'ın
+isim öbeği olması, task `note`'unun iki cümlesi ve yasaklı kalıplar listesi — hepsi
+Türkçe entry için de bağlayıcıdır. Alıntılar İngilizce orijinalinden verildi, çünkü
+kurallar oradan ölçüldü; kuralın kendisi dile bağlı değil.
+
+**Çeviri değil, yeniden yazım.** Bir TR entry, EN entry'nin cümle cümle karşılığı
+değildir. Yargı devralınır (bkz. [[2026-08-15-ceviri-kapsami-global-assessment]]),
+düzyazı yeniden yazılır: Türkçenin kendi ritmi, kendi karşıtlık kalıbı, kendi sahnesi.
+İngilizce cümle yapısını Türkçeye zorlamak momentumu öldürür — ve momentum bu dosyanın
+tek kuralı.
+
+**Dile özgü iki not:**
+
+- **İmla kuralı dile göre değişir.** İngilizce entry'lerde İngiliz İngilizcesi
+  (`practise`, `licence`, `colour`) zorunlu; Türkçe entry'lerde TDK imlası ve tam
+  diakritik (`İ`, `ı`, `ş`, `ğ`, `ü`, `ö`, `ç`) zorunlu. ASCII'ye düşürülmüş Türkçe
+  kabul edilmez — tek istisna slug'lar, çünkü `valid_slug()` yalnızca `[a-z0-9-]`
+  kabul eder.
+- **Terminoloji sözlüğü bağlayıcıdır.** Terim seçimi entry başına yeniden yapılmaz:
+  [[2026-08-16-tr-terminoloji-sozlugu]].
+
+Bu klasördeki hafıza dosyaları Türkçe yazılır; alıntılanan entry metni her zaman
+orijinal dilinde bırakılır.
 
 ---
 
-İlgili: [[docs/memory/README|Hafıza sistemi]] · [[verdict-rubric]]
+İlgili: [[docs/memory/README|Hafıza sistemi]] · [[verdict-rubric]] ·
+[[2026-08-16-tr-terminoloji-sozlugu]]
