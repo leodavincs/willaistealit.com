@@ -1,0 +1,60 @@
+{
+    "assessmentScope": "global",
+    "assessmentSourceLocale": "en",
+    "translationReviewed": "2026-08-16",
+    "slug": "hemsire",
+    "formerSlugs": [],
+    "title": "Hemşire",
+    "aka": [
+        "Sağlık Memuru",
+        "Hemşire Yardımcısı",
+        "Servis Hemşiresi",
+        "Yoğun Bakım Hemşiresi",
+        "Sorumlu Hemşire"
+    ],
+    "oneLiner": "Makinenin alabileceği her şey kâğıt işiydi, ve bir dağ kadar vardı. Geri kalanı bir odadaki bedendi.",
+    "summary": "Hemşirelik aynı anda üç duvarın arkasında duruyor — fiziksel olarak orada olmak zorundasınız, ruhsatlı olmak zorundasınız, ve hastanın bakımından birinin hukuken sorumlu olması gerekiyor. Ayrıca küresel bir açık var; yani ekonomik baskı hemşireyi değiştirmeye değil, elde tutmaya doğru çalışıyor. Yapay zekânın gerçekten değiştirdiği şey, her vardiyanın büyük bölümünü yiyen ve insanları meslekten çıkaran belgeleme yükü. Kayıt tutmak, teslim notları, bakım planı taslağı ve kodlama gerçek saatler ve hastaya geri dönebilir. Dürüst uyarı şu: tarih, kazanılan saatlerin hasta başına daha fazla zamana değil, daha fazla hastaya dönüştüğünü söylüyor. Bu bir teknoloji kararı değil, kadro kararı.",
+    "tasks": {
+        "charting-clinical-documentation": {
+            "name": "Kayıt tutma ve klinik belgeleme",
+            "note": "Ortam dinleyen sistemler notu görüşmeden çıkarıyor. İşteki en büyük zaman kaybı, ve otomatikleştirilmesi en kolay olanı."
+        },
+        "handover-shift-summaries": {
+            "name": "Teslim ve vardiya özeti",
+            "note": "Kayıttan üretiliyor. Hemşire doğruluyor — yanlış bir teslim insan öldürür, o yüzden doğrulama adımı isteğe bağlı değil."
+        },
+        "care-plan-drafting": {
+            "name": "Bakım planı taslağı ve kodlama",
+            "note": "Standart planlar değerlendirme verisinden çıkarılıyor; hemşire bunu karşısındaki gerçek hastaya uyarlıyor."
+        },
+        "monitoring-early-warning": {
+            "name": "İzleme ve erken uyarı",
+            "note": "Yaşamsal bulgulardan kötüleşme tespiti, aralıklı insan gözleminden gerçekten daha iyi. Bu destekliyor; müdahale eden insanın yerine geçmiyor."
+        },
+        "physical-care-clinical": {
+            "name": "Fiziksel bakım ve klinik işlemler",
+            "note": "Damar yolu açmak, yara bakımı, ilaç uygulamak, korkmuş bir hastayı çevirmek. Eller, bir odada, bir bedenin üzerinde."
+        },
+        "clinical-judgment-bedside": {
+            "name": "Hasta başında klinik yargı",
+            "note": "'Bu hastada bir şey ters' — renkten, solunumdan, ruh hâlinden ve kokudan kurulan bir değerlendirme, çoğu zaman rakamlar oynamadan önce."
+        },
+        "patient-family-emotional": {
+            "name": "Hasta ve yakınlarına duygusal bakım",
+            "note": "Korkmuş insanlar, kötü haber, ölmekte olan hastalar. Bu hemşireliğe eklenmiş yumuşak bir uzantı değil; işin büyük bir parçası."
+        },
+        "accountability-care-delivered": {
+            "name": "Verilen bakımın sorumluluğu",
+            "note": "Kayıtlı bir meslek mensubu her karardan düzenleyiciye karşı sorumludur. O kayıt bir yazılıma verilemez."
+        }
+    },
+    "whatSurvives": "Hastanın üzerindeki eller, hasta başındaki yargı, ve bir insanın hesabını verdiği bir tescil.",
+    "adaptPrompt": "Klinik belgeleme ve çalışma yardımcımsın. Asla klinik karar vermiyorsun ve asla protokolün yerine geçmiyorsun — hasta kaydına dokunmadan önce her şeyi yerel politikaya karşı ben doğruluyorum.\n\nBelgeleme için:\n1. Bir görüşmeyi dikte ettiğimde bunu standart not formatımıza göre yapılandır. Yalnızca söylediklerimi kullan. Format için gereken bir şey eksikse bunu boşluk olarak listele — asla bir yaşamsal bulgu, doz ya da gözlem çıkarımı yapma.\n2. Teslimi SBAR düzeninde yaz: durum, geçmiş, değerlendirme, öneri. Değerlendirmeyi fiilen gözlenenle sınırlı tut.\n3. Diktemde kendi içinde çelişen ne varsa işaretle ki kayda girmeden önce düzeltebileyim.\n\nÖğrenme ve hazırlık için:\n4. Gördüğüm tablonun altındaki patofizyolojiyi anlat, meslekten olmayan birine değil, diplomalı bir hemşireye anlatır gibi.\n5. Uzmanlık alanımdaki ilaçlardan beni sına: etki mekanizması, kontrendikasyonlar, etkileşimler ve neyi izleyeceğim. Yanıldığımda söyle ve nedenini yaz.\n6. Kötüleşen hasta için yükseltme kriterlerini adım adım anlat ve yapacağım bildirimi prova ettir.\n\nMutlak kurallar: asla doz önerme, asla tedavi teklif etme, asla bir sonucu tanı olarak yorumlama. Bunu istersem reddet ve protokole ya da hekime başvurmamı söyle. Senin işin bana zamanımı geri vermek, hemşirelik yapmak değil.",
+    "adaptTools": [
+        "Claude",
+        "Abridge",
+        "Nuance DAX",
+        "e-Nabız",
+        "UpToDate"
+    ]
+}
