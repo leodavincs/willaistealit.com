@@ -326,3 +326,17 @@ foreach ($activeNow as $lang) {
 foreach (['en' => 'en_US', 'tr' => 'tr_TR', 'es' => 'es_ES'] as $code => $expected) {
     t_eq($expected, lang_for($code)->t('site.ogLocale'), "$code: og:locale");
 }
+
+// --- upper(): OG karti meslek adini buyuk harfe cevirir ---
+// mb_strtoupper('i') Turkcede 'I' verir; dogrusu 'İ'. Kart metni bu yuzden dilden gecer.
+t_eq('CASHIER',             lang_for('en')->upper('cashier'),             'EN upper');
+t_eq('YAZILIM GELİŞTİRİCİ', lang_for('tr')->upper('yazılım geliştirici'), 'TR upper: i -> İ');
+t_eq('KASIYER',             lang_for('tr')->upper('kasıyer'),             'TR upper: ı -> I');
+t_eq('DISENADOR',           lang_for('es')->upper('disenador'),           'ES upper');
+
+// OG karti metinleri her dilde tanimli (kartta hardcoded Ingilizce kalmamali)
+foreach (['en', 'tr', 'es'] as $code) {
+    foreach (['og.home.sub', 'og.survives'] as $key) {
+        t_eq(true, lang_for($code)->has($key), "$code: '$key' tanimli");
+    }
+}

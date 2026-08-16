@@ -130,3 +130,13 @@ $open = [
 foreach ($open as $p) {
     t_eq(false, path_is_forbidden($p), "acik: $p");
 }
+
+// --- OG cozumlemesi sayfa cozumlemesiyle ayni kapidan gecer ---
+t_eq('og',       resolve_og('en', 'accountant', $R)['type'], 'EN OG acik');
+t_eq('og',       resolve_og('tr', 'yazilim-gelistirici', $R)['type'], 'TR yayinliysa OG acik');
+t_eq('notfound', resolve_og('es', 'yazilim-gelistirici', $R)['type'], 'aktif olmayan dilde OG 404');
+t_eq('notfound', resolve_og('tr', 'accountant', $R)['type'], 'o dilde yayinlanmamis entry OG 404');
+t_eq('en',       resolve_og('en', 'home', $R)['lang'],       'ana sayfa karti EN kalir');
+// Eski EN yolu korunur: /og/<slug>.png dil klasoru ISTEMEZ (spec 5.6)
+t_eq('/og/accountant.png',             og_path('en', 'accountant'), 'EN OG yolu prefix siz');
+t_eq('/og/tr/yazilim-gelistirici.png', og_path('tr', 'yazilim-gelistirici'), 'TR OG yolu');

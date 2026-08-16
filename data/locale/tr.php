@@ -9,6 +9,10 @@ declare(strict_types=1);
 return [
     'site.tagline' => 'Yapay zekânın hangi mesleklerin hangi görevlerini aldığına dair görev seviyesinde yargılar.',
     'site.ogLocale' => 'tr_TR',
+    // --- OG karti ---
+    // Dogrudan BUYUK harfle yaziliyor: mb_strtoupper'a birakilirsa Turkce 'i' bozulur.
+    'og.home.sub'   => 'Yapay zekânın hangi mesleklerin hangi görevlerini aldığına — ve geriye ne kaldığına dair görev seviyesinde yargılar.',
+    'og.survives'   => 'NE KALIYOR',
 
     // --- verdict ---
     'verdict.safe.label'        => 'GÜVENDE',

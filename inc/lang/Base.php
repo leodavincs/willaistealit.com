@@ -33,6 +33,15 @@ abstract class Lang
         return $args === [] ? $s : vsprintf($s, $args);
     }
 
+    /**
+     * Buyuk harf. Turkce disinda mb_strtoupper yeterli; Tr bunu EZER cunku
+     * mb_strtoupper('i') 'I' verir ve Turkcede dogrusu 'İ'dir.
+     */
+    public function upper(string $s): string
+    {
+        return mb_strtoupper($s, 'UTF-8');
+    }
+
     public function verdictLabel(string $key): string
     {
         return $this->t("verdict.$key.label");

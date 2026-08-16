@@ -12,6 +12,9 @@ return [
     // --- site ---
     'site.tagline'                     => 'Task-level verdicts on which jobs AI actually takes.',
     'site.ogLocale'                    => 'en_US',
+    // --- OG karti (1200x630 PNG; metin GD ile ciziliyor, HTML degil) ---
+    'og.home.sub'                      => 'Task-level verdicts on which jobs AI actually takes — and what survives.',
+    'og.survives'                      => 'WHAT SURVIVES',
 
     // --- verdict etiketleri ve aciklamalari (inc/config.php dan tasindi) ---
     'verdict.safe.label'               => 'SAFE',

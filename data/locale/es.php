@@ -9,6 +9,9 @@ declare(strict_types=1);
 return [
     'site.tagline' => 'Veredictos por tarea sobre qué trabajos se lleva realmente la IA.',
     'site.ogLocale' => 'es_ES',
+    // --- Tarjeta OG ---
+    'og.home.sub'   => 'Veredictos por tarea sobre qué trabajos se lleva realmente la IA — y qué resiste.',
+    'og.survives'   => 'LO QUE RESISTE',
 
     // --- veredictos ---
     'verdict.safe.label'        => 'A SALVO',

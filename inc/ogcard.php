@@ -63,15 +63,28 @@ function og_ready(): bool
 }
 
 /**
+ * Kartin cache yolu. Dil KLASOR olarak tasinir: /og/cashier.png ile
+ * /og/tr/kasiyer.png ayni dosyaya yazamaz. EN de alt klasor kullanir —
+ * uretilen PNG icerigi degismedigi icin md5 korunur, yalnizca yol degisir.
+ */
+function og_cache_file(string $lang, string $slug): string
+{
+    return OG_DIR . '/' . $lang . '/' . $slug . '.png';
+}
+
+/**
  * Karti ciz. $job null ise ana sayfa karti uretir.
+ * Kartta hicbir metin hardcoded degildir: hepsi $lang tablosundan gelir. Ingilizce
+ * degerler birebir korundugu icin EN kartlarinin md5'i degismez (spec 5.6).
  * @return \GdImage
  */
-function og_render(?array $job, string $slug)
+function og_render(?array $job, string $slug, string $lang = DEFAULT_LANG)
 {
+    $L   = lang_for($lang);
     $img = imagecreatetruecolor(OG_W, OG_H);
     imageantialias($img, true);
 
-    $rgb = $job !== null ? verdict_meta($job['verdict'] ?? '')['rgb'] : [242, 243, 245];
+    $rgb = $job !== null ? verdict_meta($job['verdict'] ?? '', $lang)['rgb'] : [242, 243, 245];
 
     // Kagit zemin — site ile ayni palet
     $bg     = imagecolorallocate($img, 246, 243, 238);
@@ -97,11 +110,11 @@ function og_render(?array $job, string $slug)
 
     if ($job === null) {
         $y = 250;
-        foreach (og_wrap('Will AI steal it?', FONT_BOLD, 88, OG_W - PAD * 2, 2) as $l) {
+        foreach (og_wrap($L->t('home.h1'), FONT_BOLD, 88, OG_W - PAD * 2, 2) as $l) {
             og_text($img, 88, PAD, $y, $ink, FONT_BOLD, $l);
             $y += 100;
         }
-        foreach (og_wrap('Task-level verdicts on which jobs AI actually takes — and what survives.', FONT_REG, 30, OG_W - PAD * 2, 2) as $l) {
+        foreach (og_wrap($L->t('og.home.sub'), FONT_REG, 30, OG_W - PAD * 2, 2) as $l) {
             og_text($img, 30, PAD, $y + 10, $ink2, FONT_REG, $l);
             $y += 46;
         }
@@ -110,8 +123,9 @@ function og_render(?array $job, string $slug)
         return $img;
     }
 
-    $v     = verdict_meta($job['verdict'] ?? '');
-    $title = mb_strtoupper((string)($job['title'] ?? $slug));
+    $v     = verdict_meta($job['verdict'] ?? '', $lang);
+    // Dile duyarli buyuk harf: Turkcede mb_strtoupper 'i' harfini bozar.
+    $title = $L->upper((string)($job['title'] ?? $slug));
 
     // Meslek adi: harf araligi acilmis kucuk baslik (sigmiyorsa normal)
     $spaced = implode(' ', preg_split('//u', $title, -1, PREG_SPLIT_NO_EMPTY) ?: []);
@@ -132,14 +146,14 @@ function og_render(?array $job, string $slug)
 
     $y = 330;
     if (!empty($job['safeUntil'])) {
-        og_text($img, 32, PAD, $y, $ink2, FONT_REG, 'safe until ~' . (string)$job['safeUntil']);
+        og_text($img, 32, PAD, $y, $ink2, FONT_REG, $L->t('job.share.until', (string)$job['safeUntil']));
         $y += 26;
     }
 
     $survives = !empty($job['resistanceTags'])
         ? implode(', ', array_slice((array)$job['resistanceTags'], 0, 3))
         : (string)($job['oneLiner'] ?? '');
-    og_text($img, 22, PAD, $y + 62, $ink3, FONT_BOLD, 'WHAT SURVIVES');
+    og_text($img, 22, PAD, $y + 62, $ink3, FONT_BOLD, $L->t('og.survives'));
     $ly = $y + 106;
     foreach (og_wrap($survives, FONT_REG, 30, OG_W - PAD * 2, 2) as $l) {
         og_text($img, 30, PAD, $ly, $ink, FONT_REG, $l);
@@ -147,7 +161,7 @@ function og_render(?array $job, string $slug)
     }
 
     imagefilledrectangle($img, PAD, OG_H - 118, OG_W - PAD, OG_H - 117, $line);
-    og_text($img, 24, PAD, OG_H - 70, $ink3, FONT_REG, 'willaistealit.com/' . $slug);
+    og_text($img, 24, PAD, OG_H - 70, $ink3, FONT_REG, 'willaistealit.com' . lang_prefix($lang) . $slug);
     imagefilledellipse($img, OG_W - PAD - 14, OG_H - 78, 22, 22, $vcolor);
 
     return $img;

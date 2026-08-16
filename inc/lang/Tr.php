@@ -16,7 +16,7 @@ final class Tr extends Lang
     }
 
     /** Turkceye ozgu buyultme: i -> I degil, i -> İ ve ı -> I. */
-    private function upper(string $s): string
+    public function upper(string $s): string
     {
         return mb_strtoupper(strtr($s, ['i' => 'İ', 'ı' => 'I']), 'UTF-8');
     }

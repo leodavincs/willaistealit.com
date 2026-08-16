@@ -22,16 +22,29 @@ if (!og_ready()) {
     exit($cli ? 1 : 0);
 }
 
-if (!is_dir(OG_DIR)) {
-    @mkdir(OG_DIR, 0775, true);
-}
+$routes = load_routes();
+$active = (array)($routes['activeLangs'] ?? [DEFAULT_LANG]);
 
 $n = 0;
-foreach (['home' => null] + load_all_jobs() as $slug => $job) {
-    $img = og_render($job, (string)$slug);
-    if (@imagepng($img, OG_DIR . '/' . $slug . '.png', 6)) {
-        $n++;
+foreach ($active as $lang) {
+    // Ana sayfa karti yalnizca Ingilizce yayinlanir (resolve_og, spec 5.6).
+    $targets = $lang === DEFAULT_LANG ? ['home' => ''] : [];
+    foreach ((array)($routes['published'] ?? []) as $id => $langs) {
+        if (in_array($lang, (array)$langs, true)) {
+            $targets[(string)($routes['ids'][$id][$lang] ?? $id)] = (string)$id;
+        }
+    }
+
+    foreach ($targets as $slug => $id) {
+        $file = og_cache_file($lang, (string)$slug);
+        if (!is_dir(dirname($file))) {
+            @mkdir(dirname($file), 0775, true);
+        }
+        $img = og_render($id === '' ? null : load_job($id, $lang), (string)$slug, $lang);
+        if (@imagepng($img, $file, 6)) {
+            $n++;
+        }
     }
 }
 
-echo "$n OG karti uretildi -> cache/og/\n";
+echo "$n OG karti uretildi -> cache/og/<dil>/\n";
