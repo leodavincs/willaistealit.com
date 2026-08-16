@@ -8,7 +8,7 @@ require_once __DIR__ . '/functions.php';
 /** @var string|null $pageCanonical */
 $lang          = $lang          ?? DEFAULT_LANG;
 $L             = lang_for($lang);
-$routes        = load_routes();
+$routes        = $routes        ?? load_routes();
 $pageTitle     = $pageTitle     ?? SITE_NAME;
 $pageDesc      = $pageDesc      ?? $L->t('site.tagline');
 $pageOg        = $pageOg        ?? SITE_URL . '/og/home.png';
@@ -101,6 +101,27 @@ if (!empty($pageJsonLd)) {
       <a href="<?= h(path_for($lang, 'page', 'changelog', $routes)) ?>"><?= h($L->t('nav.changelog')) ?></a>
       <a href="<?= h(path_for($lang, 'page', 'sponsor', $routes)) ?>"><?= h($L->t('nav.sponsor')) ?></a>
       <?php if (has_github()): ?><a href="<?= h(github_url()) ?>" rel="noopener" target="_blank"><?= h($L->t('nav.github')) ?></a><?php endif; ?>
+      <?php
+      // Secici YALNIZCA activeLangs uzerinde doner: aktif olmayan bir dil listeye
+      // hic girmez, dolayisiyla "yakinda" dalina da dusemez. Tek aktif dil varsa
+      // <nav> bile basilmaz — verilmemis soz verilmez (spec 15).
+      // $pageAlternates bos olan sayfalarda (404, unavailable) da basilmaz.
+      $switchLangs = (array)($routes['activeLangs'] ?? [DEFAULT_LANG]);
+      ?>
+      <?php if (count($switchLangs) > 1 && ($pageAlternates ?? []) !== []): ?>
+      <nav class="lang-switch" aria-label="<?= h($L->t('nav.language')) ?>">
+        <?php foreach ($switchLangs as $code): ?>
+          <?php $href = $pageAlternates[$code] ?? null; ?>
+          <?php if ($code === $lang): ?>
+            <span class="lang-cur" aria-current="true"><?= h($L->t('lang.' . $code)) ?></span>
+          <?php elseif ($href !== null): ?>
+            <a href="<?= h($href) ?>" hreflang="<?= h($code) ?>"><?= h($L->t('lang.' . $code)) ?></a>
+          <?php else: ?>
+            <span class="lang-soon"><?= h($L->t('lang.' . $code)) ?> <small><?= h($L->t('nav.soon')) ?></small></span>
+          <?php endif; ?>
+        <?php endforeach; ?>
+      </nav>
+      <?php endif; ?>
       <button class="theme-btn" type="button" id="theme-toggle" aria-label="<?= h($L->t('nav.theme.aria')) ?>" title="<?= h($L->t('nav.theme.title')) ?>">
         <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true">
           <circle cx="12" cy="12" r="4"/>

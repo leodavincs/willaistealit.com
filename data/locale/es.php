@@ -95,6 +95,12 @@ return [
     'nav.changelog'          => 'Cambios',
     'nav.sponsor'            => 'Patrocinio',
     'nav.github'             => 'GitHub',
+    'nav.language'           => 'Idioma',
+    'nav.soon'               => 'pronto',
+    // Los nombres de idioma van en su propio idioma — igual en las tres tablas.
+    'lang.en'                => 'English',
+    'lang.tr'                => 'Türkçe',
+    'lang.es'                => 'Español',
     'nav.theme.aria'         => 'Cambiar entre tema claro y oscuro',
     'nav.theme.title'        => 'Claro / oscuro',
     'foot.lead'              => 'Cada veredicto aquí es un argumento, no una profecía.',

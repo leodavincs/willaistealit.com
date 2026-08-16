@@ -175,6 +175,19 @@ h1, h2, h3 {
 .nav a { color: var(--ink-2); }
 .nav a:hover { color: var(--ink); }
 
+/* dil secici — yalnizca birden fazla dil AKTIFSE basilir (inc/header.php) */
+.lang-switch {
+  display: inline-flex; align-items: baseline; gap: 10px;
+  font-size: 15.5px; white-space: nowrap;
+}
+.lang-switch a { color: var(--ink-2); }
+.lang-switch a:hover { color: var(--ink); }
+.lang-cur { color: var(--ink); font-weight: 600; }
+/* Pasif "yakinda": tiklanabilir DEGIL (zaten <span>), ama okunabilir kalmali —
+   rengi --ink-3 degil --ink-2, cunku --ink-3 iki temada da 4.5:1'in altinda. */
+.lang-soon { color: var(--ink-2); font-style: italic; }
+.lang-soon small { font-size: 0.82em; font-style: normal; opacity: 0.85; }
+
 /* tema dugmesi */
 .theme-btn {
   display: inline-flex; align-items: center; justify-content: center;
@@ -547,6 +560,8 @@ section.block { padding: 52px 0 0; }
   .share-grid { grid-template-columns: 1fr; }
   .moat-item, .meta-cell, .log-item { grid-template-columns: 1fr; gap: 4px; }
   .nav { gap: 14px; font-size: 15.5px; }
+  /* 360px'de secici header'i tasirmamali: dil adlari kisalmaz, aralik kisalir. */
+  .lang-switch { gap: 8px; font-size: 14.5px; }
   .hero { padding: 52px 0 28px; }
   .job-card { grid-template-columns: 1fr; }
   .job-card .jc-verdict { justify-self: start; }

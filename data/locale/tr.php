@@ -95,6 +95,12 @@ return [
     'nav.changelog'          => 'Değişiklikler',
     'nav.sponsor'            => 'Sponsorluk',
     'nav.github'             => 'GitHub',
+    'nav.language'           => 'Dil',
+    'nav.soon'               => 'yakında',
+    // Dil adlari kendi dilinde — uc tabloda da AYNI.
+    'lang.en'                => 'English',
+    'lang.tr'                => 'Türkçe',
+    'lang.es'                => 'Español',
     'nav.theme.aria'         => 'Açık ve koyu tema arasında geçiş yap',
     'nav.theme.title'        => 'Açık / koyu',
     'foot.lead'              => 'Buradaki her yargı bir argümandır, kehanet değil.',

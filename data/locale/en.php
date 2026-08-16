@@ -99,6 +99,13 @@ return [
     'nav.changelog'          => 'Changelog',
     'nav.sponsor'            => 'Sponsor',
     'nav.github'             => 'GitHub',
+    'nav.language'           => 'Language',
+    'nav.soon'               => 'soon',
+    // Dil adlari HER UC TABLODA da kendi dilinde yazilir: secicide okuyan kisi
+    // bilmedigi dilin adini kendi dilinde degil, O dilde gorur.
+    'lang.en'                => 'English',
+    'lang.tr'                => 'Türkçe',
+    'lang.es'                => 'Español',
     'nav.theme.aria'         => 'Switch between light and dark',
     'nav.theme.title'        => 'Light / dark',
     'foot.lead'              => 'Every verdict here is an argument, not a prophecy.',
