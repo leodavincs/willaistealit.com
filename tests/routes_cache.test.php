@@ -55,7 +55,16 @@ t_eq([],     $conflicts,                                         'mevcut veride 
 t_eq(['en'], $routes['activeLangs'],                             'Faz 1 de yalnizca EN aktif');
 t_eq('accountant', $routes['slugs']['en']['accountant'] ?? null, 'accountant tabloda');
 t_eq('accountant', $routes['ids']['accountant']['en'] ?? null,   'id -> EN slug');
-t_eq(['en'], $routes['published']['accountant'] ?? null,         'EN de yayinli');
+// published, entry'nin GERCEK dil dosyalarindan hesaplanir — sabit bir liste
+// degil. 4B3 boyunca her entry TR aliyor, o yuzden kume esitligi olarak yazildi.
+t_eq(entry_langs('accountant'), $routes['published']['accountant'] ?? null,
+     'accountant published = entry_langs');
+t_eq(true, in_array('en', (array)($routes['published']['accountant'] ?? []), true),
+     'kaynak dil her zaman yayinli');
+// published TUM entry'ler icin dil dosyalariyla tutarli olmali.
+foreach (array_keys((array)$routes['published']) as $pubId) {
+    t_eq(entry_langs((string)$pubId), $routes['published'][$pubId], "published tutarli: $pubId");
+}
 t_eq('methodology', $routes['pages']['en']['methodology'] ?? null, 'sabit sayfa tabloda');
 
 // --- load_routes: bozuk cache -> kaynaktan uretir, COKMEZ (spec 1.5) ---

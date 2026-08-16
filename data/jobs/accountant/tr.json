@@ -1,0 +1,52 @@
+{
+    "assessmentScope": "global",
+    "assessmentSourceLocale": "en",
+    "translationReviewed": "2026-08-16",
+    "slug": "muhasebeci",
+    "formerSlugs": [],
+    "title": "Muhasebeci",
+    "aka": [
+        "Muhasebe Elemanı",
+        "Ön Muhasebeci",
+        "Mali Müşavir",
+        "Muhasebe Uzmanı",
+        "SMMM"
+    ],
+    "oneLiner": "Veri girişi çoktan gitti. İmza ile güven gitmedi.",
+    "summary": "Defter tutma ilk düşen parçaydı ve sessizce düştü — banka entegrasyonu ile fiş okuma, kimse buna yapay zekâ demeden hasarın çoğunu vermişti. Geriye, müşterilerin farkında olmadan asıl parasını ödediği kısım kaldı: rakamları okuyan, ne yapılacağını söyleyen ve beyannamenin altına adını yazan kişi. Muhasebe kaybolmuyor. Sıkışıyor. Veri işlemeye saat üzerinden fatura kesen bürolar o geliri kaybediyor; yargı satanlar büyümeye devam ediyor.",
+    "tasks": {
+        "data-entry-bookkeeping": {
+            "name": "Veri girişi ve defter tutma",
+            "note": "Banka entegrasyonu, fiş okuma ve otomatik sınıflandırma işlem kodlamasının büyük bölümünü üstlendi. Bu işin üzerine kurulmuş çırak kadrosu şimdiden inceliyor."
+        },
+        "reconciliation-month-end": {
+            "name": "Mutabakat ve ay sonu kapanışı",
+            "note": "Eşleştirme ve istisna işaretleme büyük ölçüde otomatik. İstisnaları hâlâ bir insan çözüyor, ama bini değil onu."
+        },
+        "tax-filing-compliance": {
+            "name": "Beyanname ve uyum hazırlığı",
+            "note": "Beyannamenin taslağını yazılım çıkarıyor; muhasebeci alınan pozisyonları ve sınır vakaları gözden geçiriyor. Hazırlık saatleri çöküyor, inceleme saatleri duruyor."
+        },
+        "advisory-cash-flow": {
+            "name": "Nakit akışı, yapı ve planlama danışmanlığı",
+            "note": "Müşteri, işini tanıyan bir insanın belirli bir karar için argüman kurmasını istiyor — genel bir soruya modelin verdiği ortalama cevabı değil."
+        },
+        "audit-judgment-materiality": {
+            "name": "Denetim yargısı ve önemlilik kararları",
+            "note": "Yapay zekâ, hiçbir ekibin yetişemeyeceği ölçekte anormallik çıkarabiliyor. Hangisinin önemli olduğuna karar vermek ve o kararı savunmak insanda kalıyor."
+        },
+        "legal-sign-off": {
+            "name": "Yasal imza ve temsil",
+            "note": "Beyannameyi ruhsatlı bir insan imzalamak ve vergi idaresinin karşısına çıkmak zorunda. Hiçbir model o sorumluluğu taşıyamaz."
+        }
+    },
+    "whatSurvives": "Hakkında dava açılabilecek bir yargı, ve müşterinin her yıl yeniden pazarlığa açmayacağı bir ilişki.",
+    "adaptPrompt": "Muhasebe yardımcımsın. Ben sahada çalışan bir muhasebeciyim; sen hazırlık işimi hızlandırıyorsun, yargımın yerine geçmiyorsun.\n\nSana vereceğim bağlam: müşterinin sektörü, şirket tipi, bağlı olduğu mevzuat, dönem ve ham veri (mizan, defter dökümü ya da banka hareketleri).\n\nHer seferinde şunları istiyorum:\n1. Anormallikleri işaretle: önceki dönemlerin kalıbını bozan hareketler, yanlış sınıflandırmalar, mükerrer kayıtlar, alışılmadık bir karşı taraf ya da yuvarlak tutar taşıyan her şey. Bunları adetle değil, önemlilikle sırala.\n2. Çalışma kâğıtlarının taslağını çıkar: mutabakat özeti, önceki döneme göre sapma yorumu ve müşteriye sormam gereken kısa bir soru listesi.\n3. Pozisyonları görünür kıl: vergisel ya da muhasebesel tercih içeren her konuda seçenekleri, her birinin gerekçesini ve hangisinin denetim riski taşıdığını yaz. Benim yerime asla seçme.\n4. Müşteriye gidecek notu sade bir dille yaz, en fazla altı cümle, ve ondan istediğim kararı söyleyerek bitir.\n\nKurallar: hangi satırlardan akıl yürüttüğünü tek tek göster. Bir rakam eksik ya da belirsizse bunu söyle ve dur — tahmin etme. Hiçbir hukuki ya da vergisel sonucu kesinleşmiş gibi yazma; benim gözden geçirip imzalayacağım bir pozisyon olarak kur. Türkiye mevzuatına özgü bir hüküm iddia ediyorsan hangi tebliğ ya da kanun maddesine dayandığını yaz; emin değilsen bilmediğini söyle.",
+    "adaptTools": [
+        "Claude",
+        "Excel Copilot",
+        "Logo / Mikro / Luca",
+        "e-Defter ve e-Fatura entegratörleri",
+        "Dext / Hubdoc"
+    ]
+}
