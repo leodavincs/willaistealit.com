@@ -63,7 +63,9 @@ Meslek seviyesinde `GÜVENDE` kalır, çünkü orada özne gerçekten bir insan�
 |---|---|
 | SAFE | **GÜVENDE** |
 | SHRINKING | **DARALIYOR** |
-| ON THE MENU | **MENÜDE** |
+| ON THE MENU | **SIRADA** |
+
+`ON THE MENU` 16 Ağustos 2026'da `MENÜDE`'den `SIRADA`'ya çevrildi. Gerekçe aşağıda.
 
 ## Neden bu sözlük şimdi
 
@@ -87,6 +89,19 @@ gerekçe olduğunu ima eder ve sitenin varlık sebebiyle örtüşür.
 çağrışımı taşıyor. Entry burada bir argümandır, bir kayıt değil.
 
 **`task safe` → "güvende".** Ret sebebi yukarıda: eksen kırılması ve özne uyumsuzluğu.
+
+**`ON THE MENU` → "MENÜDE".** İlk çeviri buydu ve yanlıştı. "On the menu" İngilizcede
+bir **tehdit mecazıdır**: yenecekler listesindesin, sıra sende. Türkçede "menüde"
+restoran menüsü ya da arayüz menüsü çağrıştırır ve nötr, hatta olumlu okunur —
+"menüde var" = sunuluyor, seçilebilir.
+
+Asıl kırılma ölçekteydi. Bu, üç kademenin **en tehlikelisi** (GÜVENDE → DARALIYOR →
+?), ama "MENÜDE" tırmanışı hissettirmiyordu; `DARALIYOR`'dan daha hafif duruyordu.
+Yani etiket, ölçeğin yönünü tersine çeviriyordu.
+
+`SIRADA` tehdidi ve zaman sırası fikrini birlikte taşıyor, tek kelime, OG kartında
+ve tabloda çalışıyor. Ders: **kelime doğru olabilir ama mecaz kayıp olabilir** —
+çeviride kontrol edilecek şey kelime değil, okurun ne hissettiği.
 
 ## İlgili
 
