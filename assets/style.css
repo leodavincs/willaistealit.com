@@ -158,6 +158,10 @@ h1, h2, h3 {
   background: var(--bg);
   position: sticky; top: 0; z-index: 20;
 }
+/* Header seridi ic genisligi ANA ICERIKLE hizalanir. Dar (--wrap) birakilinca
+   iki sey birden bozuluyordu: header icerikten 160px iceride duruyordu, ve TR
+   gibi uzun etiketli dillerde nav sigmayip "Zaman Cizelgesi" iki satira kiriliyordu. */
+.site-head .wrap { max-width: var(--wrap-wide); }
 .head-inner {
   display: flex; align-items: center; justify-content: space-between;
   gap: 16px; height: 62px;
@@ -172,7 +176,10 @@ h1, h2, h3 {
 .brand-q  { color: color-mix(in srgb, var(--menu) 58%, var(--ink-3)); }
 
 .nav { display: flex; align-items: center; gap: 22px; font-size: 16.5px; }
-.nav a { color: var(--ink-2); }
+/* Nav etiketi kendi icinde SATIRA KIRILMAZ: flex sigmayinca en uzun ogeyi
+   sikistirip metni sardiriyordu. Dar ekranda satir kirilmasi .nav'in kendi
+   flex-wrap'inde olur, kelimenin ortasinda degil. */
+.nav a { color: var(--ink-2); white-space: nowrap; }
 .nav a:hover { color: var(--ink); }
 
 /* dil secici — yalnizca birden fazla dil AKTIFSE basilir (inc/header.php).
