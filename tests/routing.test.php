@@ -141,3 +141,30 @@ t_eq('en',       resolve_og('en', 'home', $R)['lang'],       'ana sayfa karti EN
 // Eski EN yolu korunur: /og/<slug>.png dil klasoru ISTEMEZ (spec 5.6)
 t_eq('/og/accountant.png',             og_path('en', 'accountant'), 'EN OG yolu prefix siz');
 t_eq('/og/tr/yazilim-gelistirici.png', og_path('tr', 'yazilim-gelistirici'), 'TR OG yolu');
+
+// --- Onizleme tablosu override'i (spec 12.1) ---
+// TR satirlari canli cache/routes.json DEGISTIRILMEDEN kosulabilsin diye.
+// Uretimde ASLA devreye girmez: is_live_host() true ise ortam degiskeni yok sayilir.
+$prevFile = sys_get_temp_dir() . '/waisi-routes-preview-test.json';
+file_put_contents($prevFile, (string)json_encode($R));
+$hostBak = $_SERVER['HTTP_HOST'] ?? null;
+
+unset($_SERVER['HTTP_HOST']);                       // CLI / yerel: override acik
+putenv('WAISI_ROUTES_FILE=' . $prevFile);
+t_eq($prevFile, routes_file(), 'yerelde override okunur');
+
+$_SERVER['HTTP_HOST'] = (string)parse_url(SITE_URL, PHP_URL_HOST);
+t_eq(ROUTES_FILE, routes_file(), 'CANLI hostta override YOK SAYILIR');
+
+unset($_SERVER['HTTP_HOST']);
+putenv('WAISI_ROUTES_FILE=' . $prevFile . '-yok');
+t_eq(ROUTES_FILE, routes_file(), 'olmayan override dosyasi yok sayilir');
+
+putenv('WAISI_ROUTES_FILE');
+t_eq(ROUTES_FILE, routes_file(), 'override yokken canli tablo');
+
+@unlink($prevFile);
+if ($hostBak !== null) { $_SERVER['HTTP_HOST'] = $hostBak; } else { unset($_SERVER['HTTP_HOST']); }
+
+// --- Matris tamamlayicilari ---
+t_eq(['type' => 'notfound', 'lang' => 'en'], $r('/es'), '/es (prefix siz) aktif degil');

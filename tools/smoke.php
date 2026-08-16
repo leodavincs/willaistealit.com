@@ -88,6 +88,9 @@ $matrix = [
     ['/inc/config.php',            404, null,          null,  null],
     ['/cache/index.json',          404, null,          null,  null],
     ['/cache/index-en.json',       404, null,          null,  null],
+    ['/cache/index-tr.json',       404, null,          null,  null],
+    ['/data/jobs/accountant/tr.json', 404, null,       null,  null],
+    ['/cache/content-version.json', 404, null,         null,  null],
     ['/research/sources.json',     404, null,          null,  null],
     ['/tests/run.php',             404, null,          null,  null],
     ['/.git/config',               404, null,          null,  null],
@@ -96,6 +99,28 @@ $matrix = [
     ['/assets/style.css',          200, null,          null,  null],
     ['/.well-known/smoke-probe.txt', 200, null,        null,  null],
 ];
+
+// TR satirlari canli tabloyla kosulamaz: activeLangs ['en'] oldugu icin /tr/* 404
+// doner. WAISI_ROUTES_FILE ile onizleme tablosu verildiginde bu satirlar eklenir.
+// Canli cache/routes.json HICBIR asamada degistirilmez.
+$preview = (string)(getenv('WAISI_ROUTES_FILE') ?: '');
+$trRows  = [
+    ['/tr',                        301, '/tr/',                  null,  null],
+    ['/tr/',                       200, null,                    'tr',  'https://willaistealit.com/tr/'],
+    ['/tr/kasiyer',                200, null,                    'tr',  'https://willaistealit.com/tr/kasiyer'],
+    ['/tr/kasiyer/',               301, '/tr/kasiyer',           null,  null],
+    ['/tr/cashier',                301, '/tr/kasiyer',           null,  null],
+    ['/tr/unknown',                404, null,                    null,  null],
+    ['/tr/nurse',                  404, null,                    null,  null],   // TR'de yayinlanmamis
+    ['/og/tr/kasiyer.png',         200, null,                    null,  null],
+];
+if ($preview !== '' && is_file($preview)) {
+    $matrix = array_merge($matrix, $trRows);
+    echo "onizleme tablosu: $preview (" . count($trRows) . " TR satiri eklendi)\n";
+} else {
+    // Atlanan satir SESSIZ kalmaz.
+    echo "ATLANDI: " . count($trRows) . " TR satiri — WAISI_ROUTES_FILE verilmedi\n";
+}
 
 /** 404 govdesi hassas icerik sizdirmamali. */
 $leaks = ['adaptPrompt', 'BUILD_KEY', 'config.local', '<?php', 'resistanceTags'];

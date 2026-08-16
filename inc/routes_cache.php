@@ -198,9 +198,26 @@ function routes_cache_reset(): void
  * Yazamamak hata degildir — istek bellekteki tabloyla tamamlanir.
  * @param string|null $file Test icin enjekte edilebilir; null ise ROUTES_FILE.
  */
+/**
+ * Hangi route tablosu okunacak. WAISI_ROUTES_FILE, TR satirlarini canli
+ * cache/routes.json'a DOKUNMADAN kosabilmek icin var (spec 12.1).
+ *
+ * Uretimde ASLA devreye girmez: canli hostta ortam degiskeni yok sayilir.
+ * Boylece is yarida kesilse bile TR acik kalamaz — aktivasyon kapisi (4C1)
+ * kazara atlanamaz.
+ */
+function routes_file(): string
+{
+    $override = (string)(getenv('WAISI_ROUTES_FILE') ?: '');
+    if ($override !== '' && !is_live_host() && is_file($override)) {
+        return $override;
+    }
+    return ROUTES_FILE;
+}
+
 function load_routes(?string $file = null): array
 {
-    $file = $file ?? ROUTES_FILE;
+    $file = $file ?? routes_file();
     if (isset($GLOBALS['__routes'][$file]) && is_array($GLOBALS['__routes'][$file])) {
         return $GLOBALS['__routes'][$file];
     }
