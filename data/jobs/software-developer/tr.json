@@ -1,0 +1,56 @@
+{
+    "assessmentScope": "global",
+    "assessmentSourceLocale": "en",
+    "translationReviewed": "2026-08-16",
+    "slug": "yazilim-gelistirici",
+    "formerSlugs": [],
+    "title": "Yazılım Geliştirici",
+    "aka": [
+        "Yazılımcı",
+        "Yazılım Mühendisi",
+        "Backend Geliştirici",
+        "Frontend Geliştirici",
+        "Full Stack Geliştirici"
+    ],
+    "oneLiner": "Kod yazmak zor kısım olmaktan çıktı. Ne yapılacağını bilmek zaten hiç kolay değildi.",
+    "summary": "Geliştiricileri otomatikleştiren şeyi geliştiriciler kurdu, ve bunu hevesle yaptılar; çünkü tuşlara basmak zaten keyifli kısım değildi. Çöken şey işin ortası: kalıp kod, yapıştırma kod, başka bir yerde zaten yazdığınız şeyin ikinci uygulaması. Çökmeyen şey neyin var olması gerektiğine karar vermek, bir sistemi yıllar süren değişim boyunca kafanızda tutmak, ve gece üçte aranan kişi olmak. Rahatsız edici kısım dağılımda. İş alttan sıkışıyor. Üç ajanı yöneten bir kıdemli hiç olmadığı kadar üretken; kıdemini o kalıp kodu yazarak kazanan genç ise merdiveni kaybetti.",
+    "tasks": {
+        "boilerplate-scaffolding-crud": {
+            "name": "Kalıp kod, iskelet ve CRUD",
+            "note": "Artık kimseye bir REST ucu ya da ayar formu elle yazdığı için para ödenmiyor. Bu iş yaz-ve-incele hâline geldi."
+        },
+        "feature-implementation-from": {
+            "name": "Net bir spesifikasyondan özellik geliştirme",
+            "note": "İlk turu model yazıyor, giderek ikinciyi de. Geliştiricinin zamanı kesin tarif etmeye ve sert incelemeye kayıyor."
+        },
+        "test-writing-documentation": {
+            "name": "Test yazımı ve dokümantasyon",
+            "note": "İyi ve ucuz üretiliyor. Neyin teste değdiğine — ve geçen bir test setinin gerçekte neyi kanıtladığına — karar vermek modelden gelmiyor."
+        },
+        "debugging-production-systems": {
+            "name": "Canlı sistemlerde hata ayıklama",
+            "note": "Gerçek olaylarda bağlam eksik, loglar yanıltıcı ve bildirimler güvenilmezdir. Birinin kimsenin tam belgelemediği bir sistem hakkında teori kurması ve doğruyu bulana kadar herkesin gözü önünde yanılması gerekiyor."
+        },
+        "architecture-technical-judgment": {
+            "name": "Mimari ve teknik yargı",
+            "note": "Neyin yapılmayacağını, hangi kısıtın kabul edileceğini ve şirketin beş yıl sonra hâlâ yaşayacağı kararı seçmek. Modeller talebi optimize eder; talebe itiraz etmez."
+        },
+        "translating-fuzzy-business": {
+            "name": "Bulanık iş ihtiyaçlarını sisteme çevirmek",
+            "note": "Verilen gereksinim neredeyse hiçbir zaman kastedilen gereksinim değildir. Gerçeğini çıkarmak, ne istediğine karar vermemiş insanlarla tartışmayı gerektiriyor."
+        },
+        "ownership-when-it": {
+            "name": "Bozulduğunda sorumluluk",
+            "note": "Birisi dağıtımı onaylıyor ve kesintinin hesabını veriyor. O imza yer değiştirmedi, değiştirmeyecek."
+        }
+    },
+    "whatSurvives": "Ne yapılacağına karar vermek ve bozulduğunda olanın sahibi olmak — zaten hiçbir zaman tuşlara basmak olmayan kısımlar.",
+    "adaptPrompt": "Kıdemli mühendis eşimsin. Ben yönlendiriyorum, sen üretiyorsun; yayına giden her şeyin sahibi benim.\n\nKod yazmadan önce:\n1. Gereksinimi anladığın hâliyle tekrar yaz, söylemediğimi düşündüğün şeyler dahil.\n2. Yapmak üzere olduğun varsayımları say. Bunlardan biri taşıyıcıysa ve doğrulanmamışsa tahmin etme, bana sor.\n3. Elde olan iki üç yaklaşımı, aralarındaki gerçek ödünleşimle adlandır — ders kitabı listesi değil, bu kod tabanı için önemli olanı.\n\nKod yazarken:\n- Sana verdiğim dosyalardaki mevcut kurallara uy, kendin farklı yapacak olsan bile. İtirazını tek satırda not et; ona göre davranma.\n- Hata yollarını açıkça ele al. Hiçbir şeyi sessizce yutma.\n- Uygulamanın göremediğin bir şeye dokunduğu her yeri işaret et ve neyi kontrol etmem gerektiğini söyle.\n\nYazdıktan sonra:\n- Neyi test ETMEDİĞİNİ ve geçen bir test setinin yakalayamayacağı neyin canlıda bozulabileceğini say.\n- Birleştirmeden önce elle doğrulamam gereken en küçük şeyi öner.\n\nKurallar: çalıştırmadığın bir şeyin çalıştığını iddia etme — neyi nasıl doğruladığını söyle. Bir API, sürüm ya da davranış hakkında tahmin yürütüyorsan o cümlede 'tahmin ediyorum' yaz. Kendinden emin bir uydurma yerine dürüst bir boşluğu tercih ederim.",
+    "adaptTools": [
+        "Claude Code",
+        "Cursor",
+        "GitHub Copilot",
+        "Codex",
+        "JetBrains AI"
+    ]
+}
