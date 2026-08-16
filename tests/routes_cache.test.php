@@ -83,3 +83,46 @@ $rm = static function (string $dir) use (&$rm): void {
 };
 $rm($tmpDir);
 routes_cache_reset();
+
+// --- TR sabit sayfa slug'lari (4B1) ---
+// Slug'lar ASCII ve katlanmis olmali: valid_slug() yalnizca [a-z0-9-] kabul eder,
+// 'zaman-çizelgesi' REDDEDILIR.
+foreach (['methodology', 'landscape', 'changelog', 'sponsor'] as $pgKey) {
+    t_eq(true, isset(PAGE_SLUGS['tr'][$pgKey]), "tr sayfa slug'i tanimli: $pgKey");
+    $pgSlug = (string)(PAGE_SLUGS['tr'][$pgKey] ?? '');
+    t_eq(true, valid_slug($pgSlug), "tr sayfa slug'i gecerli: $pgSlug");
+    t_eq($pgSlug, strtolower($pgSlug), "tr sayfa slug'i kucuk harf: $pgSlug");
+    // Ters esleme: slug -> anahtar
+    t_eq($pgKey, (string)(build_routes()['pages']['tr'][$pgSlug] ?? ''), "tr slug -> anahtar: $pgSlug");
+}
+
+// TR slug'lari EN slug'lariyla ayni olmamali — ayni olsaydi ceviri yapilmamis demektir.
+foreach (['methodology', 'landscape', 'changelog', 'sponsor'] as $pgKey) {
+    t_eq(false, PAGE_SLUGS['tr'][$pgKey] === PAGE_SLUGS['en'][$pgKey],
+         "tr slug EN'den farkli: $pgKey");
+}
+
+// Sayfa slug'i hicbir dilde meslek slug'iyla cakismamali.
+$pgConflicts = null;
+build_routes($pgConflicts);
+t_eq([], (array)$pgConflicts, 'TR sayfa slug lari hicbir entry ile cakismiyor');
+
+// --- Capraz dil yonlendirmesi: /tr/methodology -> 301 /tr/metodoloji ---
+$pgR = build_routes();
+$pgR['activeLangs'] = ['en', 'tr'];
+t_eq(['type' => 'redirect', 'status' => 301, 'location' => '/tr/metodoloji'],
+     resolve_path('/tr/methodology', $pgR), 'EN sayfa slug u TR canonical e 301');
+t_eq(['type' => 'page', 'lang' => 'tr', 'key' => 'methodology'],
+     resolve_path('/tr/metodoloji', $pgR), 'TR sabit sayfa cozulur');
+t_eq(['type' => 'page', 'lang' => 'tr', 'key' => 'landscape'],
+     resolve_path('/tr/zaman-cizelgesi', $pgR), 'TR zaman cizelgesi');
+t_eq(['type' => 'page', 'lang' => 'tr', 'key' => 'changelog'],
+     resolve_path('/tr/degisiklikler', $pgR), 'TR degisiklikler');
+t_eq(['type' => 'page', 'lang' => 'tr', 'key' => 'sponsor'],
+     resolve_path('/tr/sponsorluk', $pgR), 'TR sponsorluk');
+// TR slug'i EN tarafinda kaybolmaz: bilinen slug kendi dilinin canonical'ina
+// TEK adimda yonlendirilir (spec 1.3/1.4) — meslek slug'lariyla ayni kural.
+t_eq(['type' => 'redirect', 'status' => 301, 'location' => '/methodology'],
+     resolve_path('/metodoloji', $pgR), 'TR sayfa slug u EN canonical e 301');
+t_eq(['type' => 'redirect', 'status' => 301, 'location' => '/tr/zaman-cizelgesi'],
+     resolve_path('/tr/landscape', $pgR), 'EN sayfa slug u TR canonical e 301');

@@ -14,7 +14,10 @@ require_once __DIR__ . '/routing.php';
 const PAGE_SLUGS = [
     'en' => ['methodology' => 'methodology', 'landscape' => 'landscape',
              'changelog'   => 'changelog',   'sponsor'   => 'sponsor'],
-    'tr' => [],
+    // ASCII ve katlanmis: valid_slug() yalnizca [a-z0-9-] kabul eder, yani
+    // 'zaman-çizelgesi' REDDEDILIR. Slug adres, gorunen baslik degil.
+    'tr' => ['methodology' => 'metodoloji',    'landscape' => 'zaman-cizelgesi',
+             'changelog'   => 'degisiklikler', 'sponsor'   => 'sponsorluk'],
     'es' => [],
 ];
 
