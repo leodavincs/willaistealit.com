@@ -1,0 +1,60 @@
+{
+    "assessmentScope": "global",
+    "assessmentSourceLocale": "en",
+    "translationReviewed": "2026-08-16",
+    "slug": "video-editoru",
+    "formerSlugs": [],
+    "title": "Video Editörü",
+    "aka": [
+        "Kurgucu",
+        "Post Prodüksiyon Uzmanı",
+        "Montajcı",
+        "Video Kurgu Operatörü",
+        "İçerik Editörü"
+    ],
+    "oneLiner": "Kurgunun sıkıcı yarısı gitti. Ritim ve nerede keseceğini bilmek gitmedi.",
+    "summary": "Kurgu yıllardır içeriden sessizce otomatikleşiyor, ve editörlerin çoğu buna sevindi: deşifre, senkron, kaba kurgu, altyazı, renk eşleme, sessizlik temizleme. Bu, işin karşılığı ödenmiyormuş gibi hissettiren yarısıydı. Açıkta olan kısım hacim katmanı — sosyal medya klipleri, konuşan kafa kurguları, podcast parçalama — ki araçlar artık hiç editör olmadan kabul edilebilir bir kurgu çıkarıyor. Duran şey anlatı kurgusu: değerin, izleyicinin ne hissedeceğine ve ne zaman hissedeceğine karar vermek olduğu yer. Bir kurgu, dikkat üzerine alınmış kararlar dizisidir, ve modellerin hâlâ bir izleyici modeli yok. Üretilmiş görüntü tabloyu daha da karıştırıyor, ama bu editörün neyle çalıştığını değiştiriyor; birine ihtiyaç olup olmadığını değil.",
+    "tasks": {
+        "transcription-sync-logging": {
+            "name": "Deşifre, senkron, kayıt",
+            "note": "Otomatik ve elle yapılandan daha iyi. Bu işi kimse aramıyor."
+        },
+        "rough-assembly-from": {
+            "name": "Senaryodan kaba kurgu",
+            "note": "Metin tabanlı kurgu araçları ilk kurguyu deşifreden saniyeler içinde diziyor."
+        },
+        "captions-reframing-format": {
+            "name": "Altyazı, yeniden çerçeveleme, format sürümleri",
+            "note": "En boy oranları arasında tek tıkla. Bu özellikle birlikte bütün bir serbest çalışan katmanı yok oldu."
+        },
+        "social-short-form": {
+            "name": "Sosyal medya ve kısa form kliplemesi",
+            "note": "Anları yapay zekâ seçiyor ve kesiyor. Bariz anları seçiyor — çoğu müşteriye bu yetiyor, ve problem de bu."
+        },
+        "colour-sound-cleanup": {
+            "name": "Renk ve ses temizliği",
+            "note": "Otomatik eşleme ve onarım teknik tabanı karşılıyor. Bir renkçinin bakışı ise ayakta kalan bir zevk kararı."
+        },
+        "narrative-pacing-decisions": {
+            "name": "Anlatı ve tempo kararları",
+            "note": "Bir planı bilerek iki saniye fazla tutmak. Kurgu, zaman içinde dikkatin yönetilmesidir ve bir izleyici modeli gerektirir."
+        },
+        "story-structure-from": {
+            "name": "Ham malzemeden hikâye kurmak",
+            "note": "Kırk saatlik belgesel görüntüsünün içindeki filmi bulmak. Malzeme kendi hikâyesini ilan etmiyor."
+        },
+        "director-client-collaboration": {
+            "name": "Yönetmen ve müşteriyle çalışmak",
+            "note": "'Bir tuhaf olmuş'u altı somut değişikliğe çevirmek, ve inandığın kurguyu savunmak."
+        }
+    },
+    "whatSurvives": "İzleyicinin ne hissedeceğine ve tam olarak ne zaman hissedeceğine karar vermek — her kesme, dikkat üzerine bir iddiadır.",
+    "adaptPrompt": "Kurgu yardımcımsın. Yapıyı ve seçenekleri sen üstleniyorsun; kesmeyi ben yapıyorum.\n\nSana vereceklerim: deşifre ya da çekim kaydı, hedef süre, platform, hedef kitle, ve parçanın onlara ne yaptırması ya da ne hissettirmesi gerektiği.\n\nİstediklerim:\n1. Yapısal tur: malzemedeki en güçlü açılış anını (zaman koduyla), doğal perde kırılmalarını ve ölü ağırlık olan her bölümü işaretle. Ölü ağırlık konusunda acımasız ol — çekime duyduğum bağlılık düşmanım.\n2. Aynı malzeme için üç farklı yapı — kronolojik, tematik, ve en dramatik noktadan açılan. Her birinin ne kazandırdığını ve ne kaybettirdiğini söyle.\n3. Mevcut sıralamamda sıkılaştırma turu: hangi bölümler ağır ilerliyor, enerji nerede düşüyor, ve izleyiciden akılda tutması istenen ama tutamayacağı şey ne.\n4. B-roll ve tamamlayıcı çekim notları: dış sesteki her iddia için ekranda ne olmalı ve neden.\n5. Bu parçada izleyicinin ayrılmaya karar verdiği üç an, ve her birinin hemen öncesinde ne olması gerektiği.\n\nKurallar: her şeyi zaman koduyla ver ki uygulayabileyim. 'Hareketli müzik ekle' türü dolgu önerme — değişikliğin üretmesini istediğin mekanizmayı adlandır. Malzeme istediğim süreyi taşımıyorsa bunu söyle.",
+    "adaptTools": [
+        "Claude",
+        "Descript",
+        "Adobe Premiere AI",
+        "DaVinci Resolve",
+        "CapCut"
+    ]
+}
