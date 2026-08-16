@@ -559,9 +559,16 @@ section.block { padding: 52px 0 0; }
   body { font-size: 18px; }
   .share-grid { grid-template-columns: 1fr; }
   .moat-item, .meta-cell, .log-item { grid-template-columns: 1fr; gap: 4px; }
-  .nav { gap: 14px; font-size: 15.5px; }
-  /* 360px'de secici header'i tasirmamali: dil adlari kisalmaz, aralik kisalir. */
+  /* Header dar ekranda SARAR. Yatay kaydirma degil, satir kirilmasi: overflow-x
+     ile gizlemek menuyu ekranin disinda birakirdi. Sabit 62px yukseklik burada
+     birakiliyor, cunku iki satira cikinca icerigi kirpiyordu. */
+  .head-inner { flex-wrap: wrap; height: auto; padding: 9px 0; row-gap: 6px; }
+  .nav { flex-wrap: wrap; gap: 14px; row-gap: 2px; font-size: 15.5px; }
+  /* Dokunma hedefi: 15.5px metin tek basina ~20px yuksekligindeydi. */
+  .nav a { padding: 5px 0; }
+  /* Dil adlari KISALMAZ (spec: dil kendi adiyla yazilir); aralik kisalir. */
   .lang-switch { gap: 8px; font-size: 14.5px; }
+  .lang-switch a { padding: 5px 0; }
   .hero { padding: 52px 0 28px; }
   .job-card { grid-template-columns: 1fr; }
   .job-card .jc-verdict { justify-self: start; }
