@@ -17,7 +17,7 @@
     "tasks": {
         "data-entry-bookkeeping": {
             "name": "Veri girişi ve defter tutma",
-            "note": "Banka entegrasyonu, fiş okuma ve otomatik sınıflandırma işlem kodlamasının büyük bölümünü üstlendi. Bu işin üzerine kurulmuş çırak kadrosu şimdiden inceliyor."
+            "note": "Banka entegrasyonu, fiş okuma ve otomatik sınıflandırma işlem kodlamasının büyük bölümünü üstlendi. Bu işin üzerine kurulmuş başlangıç seviyesi kadrolar şimdiden eriyor."
         },
         "reconciliation-month-end": {
             "name": "Mutabakat ve ay sonu kapanışı",
@@ -40,7 +40,7 @@
             "note": "Beyannameyi ruhsatlı bir insan imzalamak ve vergi idaresinin karşısına çıkmak zorunda. Hiçbir model o sorumluluğu taşıyamaz."
         }
     },
-    "whatSurvives": "Hakkında dava açılabilecek bir yargı, ve müşterinin her yıl yeniden pazarlığa açmayacağı bir ilişki.",
+    "whatSurvives": "Hakkında dava açılabilecek bir yargı, ve müşterinin her yıl başka bir sağlayıcı aramayacağı bir ilişki.",
     "adaptPrompt": "Muhasebe yardımcımsın. Ben sahada çalışan bir muhasebeciyim; sen hazırlık işimi hızlandırıyorsun, yargımın yerine geçmiyorsun.\n\nSana vereceğim bağlam: müşterinin sektörü, şirket tipi, bağlı olduğu mevzuat, dönem ve ham veri (mizan, defter dökümü ya da banka hareketleri).\n\nHer seferinde şunları istiyorum:\n1. Anormallikleri işaretle: önceki dönemlerin kalıbını bozan hareketler, yanlış sınıflandırmalar, mükerrer kayıtlar, alışılmadık bir karşı taraf ya da yuvarlak tutar taşıyan her şey. Bunları adetle değil, önemlilikle sırala.\n2. Çalışma kâğıtlarının taslağını çıkar: mutabakat özeti, önceki döneme göre sapma yorumu ve müşteriye sormam gereken kısa bir soru listesi.\n3. Pozisyonları görünür kıl: vergisel ya da muhasebesel tercih içeren her konuda seçenekleri, her birinin gerekçesini ve hangisinin denetim riski taşıdığını yaz. Benim yerime asla seçme.\n4. Müşteriye gidecek notu sade bir dille yaz, en fazla altı cümle, ve ondan istediğim kararı söyleyerek bitir.\n\nKurallar: hangi satırlardan akıl yürüttüğünü tek tek göster. Bir rakam eksik ya da belirsizse bunu söyle ve dur — tahmin etme. Hiçbir hukuki ya da vergisel sonucu kesinleşmiş gibi yazma; benim gözden geçirip imzalayacağım bir pozisyon olarak kur. Türkiye mevzuatına özgü bir hüküm iddia ediyorsan hangi tebliğ ya da kanun maddesine dayandığını yaz; emin değilsen bilmediğini söyle.",
     "adaptTools": [
         "Claude",

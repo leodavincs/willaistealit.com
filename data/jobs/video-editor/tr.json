@@ -12,7 +12,7 @@
         "Video Kurgu Operatörü",
         "İçerik Editörü"
     ],
-    "oneLiner": "Kurgunun sıkıcı yarısı gitti. Ritim ve nerede keseceğini bilmek gitmedi.",
+    "oneLiner": "Kurgunun sıkıcı yarısı gitti. Ritim ve doğru anda kesmeyi bilmek gitmedi.",
     "summary": "Kurgu yıllardır içeriden sessizce otomatikleşiyor, ve editörlerin çoğu buna sevindi: deşifre, senkron, kaba kurgu, altyazı, renk eşleme, sessizlik temizleme. Bu, işin karşılığı ödenmiyormuş gibi hissettiren yarısıydı. Açıkta olan kısım hacim katmanı — sosyal medya klipleri, konuşan kafa kurguları, podcast parçalama — ki araçlar artık hiç editör olmadan kabul edilebilir bir kurgu çıkarıyor. Duran şey anlatı kurgusu: değerin, izleyicinin ne hissedeceğine ve ne zaman hissedeceğine karar vermek olduğu yer. Bir kurgu, dikkat üzerine alınmış kararlar dizisidir, ve modellerin hâlâ bir izleyici modeli yok. Üretilmiş görüntü tabloyu daha da karıştırıyor, ama bu editörün neyle çalıştığını değiştiriyor; birine ihtiyaç olup olmadığını değil.",
     "tasks": {
         "transcription-sync-logging": {

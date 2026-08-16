@@ -12,8 +12,8 @@
         "Özel Ders Öğretmeni",
         "Eğitmen"
     ],
-    "oneLiner": "Yapay zekâ olağanüstü bir özel ders hocası ve umutsuz bir öğretmen. Farkı yaratan sınıfın kendisi.",
-    "summary": "Öğretmenlik, sınıf dışındakilerin sürekli kaçırdığı bir sebeple ayakta kalıyor: bilgi aktarmak zaten işin zor kısmı değildi. Orada olmayı seçmemiş otuz insanı yönetmek, yemek yemeyi bırakmış çocuğu fark etmek, otoriteyi taşımak ve sıkılmış bir on dört yaşındakini umursatmak — iş bu, ve neredeyse tamamı duygusal ve fiziksel varlık. Yapay zekânın gerçekten değiştirdiği şey etraftaki iş yükü. Ders planı, seviyelendirme, ödev okuma ve veli yazışması geri gelebilecek saatler. Öğretmenliğin daraldığı yer kenarlar: yetişkin beceri eğitimi, sınav hazırlığı ve dil dersi, gece ikide ayda birkaç euroya ulaşılabilen bir şeye alan kaybediyor.",
+    "oneLiner": "Yapay zekâ olağanüstü bir özel ders hocası ve berbat bir öğretmen. Farkı yaratan sınıfın kendisi.",
+    "summary": "Öğretmenlik, sınıf dışındakilerin sürekli kaçırdığı bir sebeple ayakta kalıyor: bilgi aktarmak zaten işin zor kısmı değildi. Orada olmayı seçmemiş otuz insanı yönetmek, yemek yemeyi bırakmış çocuğu fark etmek, otoriteyi taşımak ve sıkılmış on dört yaşındaki bir öğrencinin konuyu önemsemesini sağlamak — iş bu, ve neredeyse tamamı duygusal ve fiziksel varlık. Yapay zekânın gerçekten değiştirdiği şey etraftaki iş yükü. Ders planı, seviyelendirme, ödev okuma ve veli yazışması geri gelebilecek saatler. Öğretmenliğin daraldığı yer kenarlar: yetişkin beceri eğitimi, sınav hazırlığı ve dil dersi, gece ikide ayda birkaç euroya ulaşılabilen bir şeye alan kaybediyor.",
     "tasks": {
         "lesson-planning-materials": {
             "name": "Ders planı ve materyal",

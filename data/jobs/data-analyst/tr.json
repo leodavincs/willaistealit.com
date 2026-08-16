@@ -25,7 +25,7 @@
         },
         "data-cleaning-transformation": {
             "name": "Veri temizleme ve dönüştürme",
-            "note": "Büyük ölçüde otomatik, ve güvenilir biçimde öyle — ta ki model, önemli olan anormalliği neşeyle temizleyene kadar."
+            "note": "Büyük ölçüde otomatik, ve güvenilir biçimde öyle — ta ki model, önemli olan anormalliği gönül rahatlığıyla temizleyene kadar."
         },
         "standard-reporting-commentary": {
             "name": "Standart raporlama ve yorum",

@@ -12,7 +12,7 @@
         "Portre Fotoğrafçısı",
         "Stüdyo Fotoğrafçısı"
     ],
-    "oneLiner": "Üretilen görseller stok pazarını öldürdü. Düğününüze gelemiyorlar.",
+    "oneLiner": "Üretilen görseller stok fotoğraf pazarını öldürdü. Düğününüze gelemiyorlar.",
     "summary": "Fotoğrafçılık tek bir çizgide temiz biçimde ikiye ayrılıyor: görüntünün gerçekten olmuş bir şeye ait olmak zorunda olup olmaması. Hayalî tarafta ne varsa — stok, katalog ürün çekimi, konsept görsel, jenerik yaşam tarzı — çöktü, çünkü müşteri artık resmi ısmarlamak yerine tarif edebiliyor. Gerçek tarafta ne varsa duruyor, hem de sağlam duruyor. Bir düğün bir kez oldu. Bir bebek iki hafta boyunca bu boyutta. Bir basın fotoğrafı üretilmişse değersizdir. Düzenleme ve rötuş saatleri de kayboluyor; bu da birçok fotoğrafçıyı iki çekim arasında ayakta tutan post prodüksiyon gelirini sessizce siliyor.",
     "tasks": {
         "stock-concept-imagery": {
