@@ -81,3 +81,33 @@ t_eq(false, str_contains($uHtml, 'http-equiv="refresh"'),         'unavailable: 
 putenv('WAISI_ROUTES_FILE');
 unset($GLOBALS['__routes']);
 @unlink($uPrev);
+
+// --- Entry sayfasi istek dilinde YUKLENMELI (spec 1.7) ---
+// job.php entry'yi dilsiz yuklerse sayfa TR adresinde Ingilizce icerik gosterir:
+// baslik, verdict etiketi ve "ilgili isler" blogu hep EN kalir.
+$jPrev = sys_get_temp_dir() . '/waisi-routes-jobtpl.json';
+$jR    = build_routes();
+$jR['activeLangs'] = ['en', 'tr'];
+file_put_contents($jPrev, (string)json_encode($jR));
+putenv('WAISI_ROUTES_FILE=' . $jPrev);
+unset($GLOBALS['__routes']);
+
+$jHtml = (static function (): string {
+    $_GET = ['slug' => 'accountant', 'lang' => 'tr'];
+    ob_start();
+    require __DIR__ . '/../job.php';
+    return (string)ob_get_clean();
+})();
+
+t_eq(true,  str_contains($jHtml, 'Muhasebeci'),   'entry sayfasi TR basligi gosterir');
+t_eq(false, str_contains($jHtml, 'SHRINKING'),    'verdict etiketi Ingilizce kalmaz');
+t_eq(true,  str_contains($jHtml, 'DARALIYOR'),    'verdict etiketi TR');
+// oneLiner TR olmali — EN metni sayfada hic gecmemeli
+t_eq(false, str_contains($jHtml, 'The data entry is already gone'), 'EN oneLiner sizmaz');
+t_eq(true,  str_contains($jHtml, 'Veri girişi çoktan gitti'),       'TR oneLiner basilir');
+// "Ilgili isler" blogu da TR olmali
+t_eq(false, str_contains($jHtml, 'Will AI replace software developers'), 'ilgili isler EN kalmaz');
+
+putenv('WAISI_ROUTES_FILE');
+unset($GLOBALS['__routes']);
+@unlink($jPrev);

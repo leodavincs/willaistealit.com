@@ -17,14 +17,16 @@ if (serve_page_cache($slug, $lang)) {
     exit;
 }
 
-$job = load_job($slug);
+// Entry ISTEK DILINDE yuklenir. Dilsiz yuklenirse TR adresi Ingilizce icerik
+// gosterir: baslik, ozet ve gorev metinleri hep EN kalir.
+$job = load_job($slug, $lang);
 if ($job === null) {
     http_response_code(404);
     require __DIR__ . '/404.php';
     exit;
 }
 
-$v        = verdict_meta($job['verdict'] ?? '');
+$v        = verdict_meta($job['verdict'] ?? '', $lang);
 $vClass   = 'v-' . ($job['verdict'] ?? 'shrinking');
 $title    = (string)($job['title'] ?? $slug);
 $oneLiner = (string)($job['oneLiner'] ?? '');
@@ -35,7 +37,7 @@ $routes   = load_routes();
 $geoAnswer = geo_answer($job, $lang);
 $reviewed  = pretty_month((string)($job['lastReviewed'] ?? ''), $lang);
 $faq       = faq_pairs($job, $lang);
-$related   = related_jobs($job);
+$related   = related_jobs($job, $lang);
 
 // Baslikta "replace" — arama hacmi orada. "Steal" markanin kendisinde kaliyor.
 $pageTitle      = $L->t('job.pageTitle', mb_strtolower($title), $v['dot'], $v['label']);

@@ -389,9 +389,11 @@ function faq_pairs(array $job, string $lang = DEFAULT_LANG): array
  * Ilgili meslekler: once ayni kategori, sonra ortak direnc tag'i.
  * Ic linkleme hem SEO hem de okuyucunun "peki ya benimki" refleksi icin.
  */
-function related_jobs(array $job, int $limit = 4): array
+function related_jobs(array $job, string $lang = DEFAULT_LANG, int $limit = 4): array
 {
-    $all  = load_all_jobs();
+    // Kart metinleri (baslik, oneLiner) o dilden gelmeli; skorlama alanlari
+    // (kategori, etiket, verdict) devralindigi icin dilden bagimsizdir.
+    $all  = load_all_jobs($lang);
     $self = (string)($job['slug'] ?? '');
     $tags = (array)($job['resistanceTags'] ?? []);
     $cat  = (string)($job['category'] ?? '');
