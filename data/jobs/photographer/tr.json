@@ -1,0 +1,60 @@
+{
+    "assessmentScope": "global",
+    "assessmentSourceLocale": "en",
+    "translationReviewed": "2026-08-16",
+    "slug": "fotografci",
+    "formerSlugs": [],
+    "title": "Fotoğrafçı",
+    "aka": [
+        "Düğün Fotoğrafçısı",
+        "Foto Muhabiri",
+        "Ürün Fotoğrafçısı",
+        "Portre Fotoğrafçısı",
+        "Stüdyo Fotoğrafçısı"
+    ],
+    "oneLiner": "Üretilen görseller stok pazarını öldürdü. Düğününüze gelemiyorlar.",
+    "summary": "Fotoğrafçılık tek bir çizgide temiz biçimde ikiye ayrılıyor: görüntünün gerçekten olmuş bir şeye ait olmak zorunda olup olmaması. Hayalî tarafta ne varsa — stok, katalog ürün çekimi, konsept görsel, jenerik yaşam tarzı — çöktü, çünkü müşteri artık resmi ısmarlamak yerine tarif edebiliyor. Gerçek tarafta ne varsa duruyor, hem de sağlam duruyor. Bir düğün bir kez oldu. Bir bebek iki hafta boyunca bu boyutta. Bir basın fotoğrafı üretilmişse değersizdir. Düzenleme ve rötuş saatleri de kayboluyor; bu da birçok fotoğrafçıyı iki çekim arasında ayakta tutan post prodüksiyon gelirini sessizce siliyor.",
+    "tasks": {
+        "stock-concept-imagery": {
+            "name": "Stok ve konsept görsel",
+            "note": "Talep anında, lisanssız, her üslupta üretiliyor. Bu pazar daralmadı; buharlaştı."
+        },
+        "standard-product-photography": {
+            "name": "Standart ürün fotoğrafçılığı",
+            "note": "Yapay zekâ tek bir referanstan ambalaj görselini üretiyor ya da ağır biçimde zenginleştiriyor. Üst segment ve dokusu önemli ürünler hâlâ çekiliyor."
+        },
+        "retouching-culling": {
+            "name": "Rötuş ve kare ayıklama",
+            "note": "Otomatik seçim, maskeleme, cilt işi ve gökyüzü değiştirme. Ciddi bir post prodüksiyon gelir kalemiydi, gitti."
+        },
+        "basic-editorial-illustration": {
+            "name": "Temel editoryal görsel",
+            "note": "Yayınlar eşlik eden görseli lisanslamak yerine üretiyor — görüntünün gerçek bir şeyi belgelemesi gerektiği durumlar hariç."
+        },
+        "weddings-ceremonies-live": {
+            "name": "Düğün, tören ve canlı etkinlik",
+            "note": "Bir kez oldu, orada olmak zorundaydınız, ve müşteri yılının en önemli gününde odada güvendiği bir insanı satın alıyor."
+        },
+        "photojournalism-documentary": {
+            "name": "Foto muhabirliği ve belgesel",
+            "note": "Değerin tamamı 'bu gerçekten oldu' iddiası. Üretilmiş görseller, hesap verebilir bir insan tanığı daha az değil daha değerli kılıyor."
+        },
+        "portraiture-real-people": {
+            "name": "Gerçek insanlarla portre",
+            "note": "Gerçek bir insanı rahatlatıp kendisi gibi görünmesini sağlamak, bir odada yapılan kişilerarası bir iş."
+        },
+        "directing-real-shoot": {
+            "name": "Gerçek bir çekimi yönetmek",
+            "note": "Işık, mekân, ekip, hava ve sabah dokuzda fikrini değiştiren müşteri. Canlı koşullar altında lojistik ve zevk."
+        }
+    },
+    "whatSurvives": "Gerçekten olmuş şeylerin görüntüleri, ve müşterinin orada olmasına güvendiği kişinin çektiği kareler.",
+    "adaptPrompt": "Fotoğraf işi yardımcımsın. İşin etrafındaki kelimeleri ve planlamayı sen üstleniyorsun; çekim bana ait.\n\nMüşteri işi için:\n1. Bir müşteri görüşmesini çekim listesine çevir: olmazsa olmazlar, olsa iyi olurlar, ve kimse söylemezse sonradan üzülecekleri kareler.\n2. Saatli bir akış planı kur; tarih ve mekân için saat saat ışık durumu, ve hava için yedek plan.\n3. Müşteriye gidecek soru formunu yaz — gerçekte ne istediklerini açığa çıkaran, ve önceden sorulmazsa etkinlikte ters giden aile ve ilişki ayrıntılarını içeren.\n\nAsıl para kaybettiğim yer olan iş tarafı için:\n4. Gözden geçirmem üzere sözleşme ve şartname taslağı: teslimat, süre, kullanım hakları, iptal, hava koşulu maddesi. Avukata göstermem gereken her şeyi işaretle.\n5. Takip yazışmalarını yaz: talep cevabı, rezervasyon onayı, çekim öncesi hazırlık, galeri teslimi, yorum talebi.\n6. Fiyat analizi: maliyetlerim, düzenleme dahil saatlerim ve hedef gelirim verildiğinde günlük ücretimin ne olması gerektiğini ve mevcut fiyatlandırmamın nerede para kaybettirdiğini söyle.\n\nKurallar: çekmediğim bir şeyi çekmişim gibi gösteren metin yazma, ve üretilmiş görselleri fotoğraf diye sunmayı asla önerme — bu risk bu işte varoluşsaldır. Müşteri yazışması yazarken sıcak ve kısa tut; kimse kendi düğünü hakkında beş paragraflık e-posta okumaz.",
+    "adaptTools": [
+        "Claude",
+        "Lightroom AI",
+        "Aftershoot",
+        "Photoshop Generative Fill",
+        "Google E-Tablolar"
+    ]
+}
