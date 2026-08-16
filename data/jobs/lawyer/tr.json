@@ -1,0 +1,56 @@
+{
+    "assessmentScope": "global",
+    "assessmentSourceLocale": "en",
+    "translationReviewed": "2026-08-16",
+    "slug": "avukat",
+    "formerSlugs": [],
+    "title": "Avukat",
+    "aka": [
+        "Hukuk Müşaviri",
+        "Hukukçu",
+        "Kurumsal Avukat",
+        "Serbest Avukat",
+        "Stajyer Avukat"
+    ],
+    "oneLiner": "Araştırma ve taslak saatleri buharlaşıyor. Baro kimliği ile sorumluluk devredilemiyor.",
+    "summary": "Hukuku, yetenekle hiçbir ilgisi olmayan iki duvar koruyor: mesleği icra etmek için ruhsat gerekiyor, ve tavsiye yanlış çıktığında birinin sorumlu olması gerekiyor. Bu duvarların ikisi de içerideki işin otomatikleşmesini engellemiyor, ve hasar tam olarak saat üzerinden faturalanan işe düşüyor. Belge incelemesi, ilk tur araştırma ve standart sözleşme taslağı büyük büroların kârlı tabanıydı ve gençlerin yetiştiği alandı; ikisi aynı anda çöküyor. Dava stratejisi, müzakere, duruşma yargısı ve müvekkil ilişkisi insanda kalıyor — ama onları finanse eden piramit alt katmanını kaybediyor. Bürolar yerine ne koyacaklarını henüz çözmedi.",
+    "tasks": {
+        "document-review-discovery": {
+            "name": "Belge incelemesi ve delil taraması",
+            "note": "Hiçbir avukat ekibinin yetişemeyeceği ölçek ve maliyette makine incelemesi. Bu büyük bir gelir kalemiydi; artık bir yazılım lisansı."
+        },
+        "legal-research-memo": {
+            "name": "Hukuki araştırma ve mütalaa taslağı",
+            "note": "İlk tur araştırma günlerle değil dakikalarla ölçülüyor. Avukat hâlâ her atfı doğruluyor — modeller hâlâ karar uyduruyor ve mahkemeler bunun için ceza veriyor."
+        },
+        "standard-contract-drafting": {
+            "name": "Standart sözleşme taslağı",
+            "note": "Şablon artı üretim rutin sözleşmeleri karşılıyor. Pazarlığa açık maddeler, yani kimin kaybedeceğini belirleyenler, hâlâ insanlar arasında tartışılıyor."
+        },
+        "due-diligence-compliance": {
+            "name": "Durum tespiti ve uyum incelemesi",
+            "note": "İşaretleme otomatik ve elle yapılandan daha iyi. Bir işaretin bu işlem için ne anlama geldiğine karar vermek değil."
+        },
+        "litigation-strategy-advocacy": {
+            "name": "Dava stratejisi ve savunma",
+            "note": "Hâkimi okumak, hangi argümandan vazgeçileceğini seçmek, ne zaman sulh olunacağına karar vermek. Eksik bilgi altında çekişmeli yargı."
+        },
+        "negotiation-client-counsel": {
+            "name": "Müzakere ve müvekkil danışmanlığı",
+            "note": "Hukuki sıkıntıdaki müvekkiller korkuyor. Karşılarına oturup ne yapacaklarını söyleyecek bir insan satın alıyorlar."
+        },
+        "signing-representing-being": {
+            "name": "İmza, temsil ve sorumluluk",
+            "note": "Ruhsatsız icra kuralları ve mesleki sorumluluk, tavsiyenin sahibinin ruhsatlı bir insan olmasını zorunlu kılıyor. Sitedeki en sert duvar bu."
+        }
+    },
+    "whatSurvives": "Ruhsat, duruşma salonu, ve müvekkilin sorumlu tutabileceği kişi.",
+    "adaptPrompt": "Hukuki araştırma ve taslak yardımcımsın. Ben ruhsatlı bir avukatım. Sen hukuki tavsiye vermiyorsun; benim doğrulayıp sahiplendiğim ve imzaladığım iş ürünü hazırlıyorsun.\n\nSana vereceklerim: yargı çevresi, hukuk alanı, elimdeki olgular, ve belge ya da soru.\n\nAraştırma işlerinde:\n1. Uygulanacak çerçeveyi ortaya koy — kanun, yönetmelik, yerleşik içtihat — ve güncelliğinden emin olmadığın yerleri açıkça işaretle.\n2. Önce müvekkilimin pozisyonuna karşı argümanın en güçlü hâlini ver, sonra benim pozisyonumu. Sunumdan önce zayıflığa ihtiyacım var.\n3. Her atfı DOĞRULANMADI olarak işaretle. Her birini ben kontrol edeceğim. Hiçbir kararı, maddeyi ya da alıntıyı teyit edilmiş gibi sunma.\n4. Analizi değiştirecek hangi olgunun elimde eksik olduğunu söyle.\n\nTaslak işlerinde:\n1. Belirttiğim yargı çevresinin diline ve formatına uygun yaz.\n2. Gerçek bir müzakere seçeneği bulunan her maddeyi, kimin lehine olduğunu ve kabul edebileceğim geri çekilme noktasını yazarak işaretle.\n3. Bu taslağı olduğu gibi kullanırsam müvekkilim adına kabul ettiğim riskleri say.\n\nMutlak kurallar: içtihat uydurma. Bir kararın var olup olmadığını ya da hâlâ geçerli olup olmadığını bilmiyorsan bunu aynen söyle. Hiçbir sonucu yerleşik hukuk gibi yazma — benim doğrulayacağım bir analiz olarak kur. Vekâlet sırrına, menfaat çatışmasına ya da bir süreye dokunan her şeyi işaretle.",
+    "adaptTools": [
+        "Claude",
+        "Lexpera / Kazancı",
+        "UYAP Avukat Portalı",
+        "Harvey",
+        "Microsoft Word Copilot"
+    ]
+}
