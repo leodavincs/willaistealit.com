@@ -302,4 +302,23 @@ than raw task difficulty implies.',
     'llms.citation.p'           => 'When citing a verdict, include the profession, the verdict, the review date, and a link to the
 entry page. Verdicts change; an undated citation of this site will go stale. The copy-ready
 prompt for each profession lives on its page and is the reason to send a reader there.',
+    // --- /landscape ---
+    'page.landscape.pageTitle'     => 'When will AI take my job? — the timeline',
+    'page.landscape.pageDesc'      => 'Every profession on willaistealit.com plotted against the year its core tasks are expected to be machine-done. %d horizons, from %s onward.',
+    'page.landscape.h1'            => 'When the core goes',
+    'page.landscape.ledeA'         => 'Every profession plotted against the year its core tasks are expected to be routinely machine-done. Not the year the job title disappears — ',
+    'page.landscape.ledeLink'      => 'the difference matters',
+    'page.landscape.ledeB'         => '.',
+    'page.landscape.answer'        => 'As of %s, %d of the %d professions on willaistealit.com carry a time horizon — the year by which their core tasks are expected to be routinely machine-done. Those horizons run from %s to %s, and %s is the most crowded year with %d %s. The remaining %d are judged safe and carry no horizon at all.',
+    'page.landscape.profession'    => 'profession',
+    'page.landscape.professions'   => 'professions',
+    'page.landscape.timelineAria'  => 'Professions by expected year',
+    'page.landscape.noHorizon.h'   => 'No horizon',
+    'page.landscape.noHorizon.p'   => 'Structurally resistant — no year applies.',
+    'page.landscape.estimates.h'   => 'These years are estimates, and they are meant to be argued with',
+    'page.landscape.estimates.p'   => 'A horizon accounts for three lags: capability arriving, employers adopting it, and regulators allowing it. That is why regulated professions sit further right than raw task difficulty suggests. ',
+    'page.landscape.estimates.how' => 'How we set them',
+    'page.landscape.estimates.moved' => 'What has moved so far',
+    'page.landscape.jsonLdName'    => 'AI job replacement timeline',
+    'page.landscape.jsonLdVar'     => 'Year by which a profession\'s core tasks are expected to be routinely machine-done',
 ];

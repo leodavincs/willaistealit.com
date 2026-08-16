@@ -321,4 +321,23 @@ zorluğunun ima ettiğinden daha geç yıllar taşır.',
     'llms.citation.p'           => 'Bir yargıya atıf verirken mesleği, yargıyı, inceleme tarihini ve entry sayfasının bağlantısını ekleyin.
 Yargılar değişir; bu sitenin tarihsiz bir atfı bayatlayacaktır. Her mesleğin kopyalanmaya hazır prompt\'u
 kendi sayfasında durur ve okuru oraya göndermenin sebebi odur.',
+    // --- /landscape (zaman cizelgesi) ---
+    'page.landscape.pageTitle'     => 'Yapay zekâ işimi ne zaman alacak? — zaman çizelgesi',
+    'page.landscape.pageDesc'      => 'willaistealit.com üzerindeki her meslek, çekirdek görevlerinin makineyle yapılır hâle gelmesi beklenen yıla göre yerleştirildi. %d ufuk, %s yılından itibaren.',
+    'page.landscape.h1'            => 'Çekirdek gittiğinde',
+    'page.landscape.ledeA'         => 'Her meslek, çekirdek görevlerinin rutin olarak makineyle yapılır hâle gelmesi beklenen yıla göre yerleştirildi. Meslek adının ortadan kalkacağı yıl değil — ',
+    'page.landscape.ledeLink'      => 'aradaki fark önemli',
+    'page.landscape.ledeB'         => '.',
+    'page.landscape.answer'        => '%1$s itibarıyla willaistealit.com üzerindeki %3$d meslekten %2$d tanesi bir zaman ufku taşıyor: çekirdek görevlerinin rutin olarak makineyle yapılır hâle gelmesi beklenen yıl. Bu ufuklar %4$s ile %5$s arasında; en kalabalık yıl %6$s, %7$d %8$s ile. Kalan %9$d meslek güvende sayılıyor ve hiç ufuk taşımıyor.',
+    'page.landscape.profession'    => 'meslek',
+    'page.landscape.professions'   => 'meslek',
+    'page.landscape.timelineAria'  => 'Beklenen yıla göre meslekler',
+    'page.landscape.noHorizon.h'   => 'Ufuk yok',
+    'page.landscape.noHorizon.p'   => 'Yapısal olarak dirençli — hiçbir yıl geçerli değil.',
+    'page.landscape.estimates.h'   => 'Bu yıllar birer tahmin, ve tartışılmak için yazıldı',
+    'page.landscape.estimates.p'   => 'Bir ufuk üç gecikmeyi hesaba katar: yeteneğin gelmesi, işverenlerin benimsemesi ve düzenleyicilerin izin vermesi. Düzenlemeye tabi mesleklerin, ham görev zorluğunun işaret ettiğinden daha sağda durmasının sebebi bu. ',
+    'page.landscape.estimates.how' => 'Nasıl belirliyoruz',
+    'page.landscape.estimates.moved' => 'Şimdiye kadar ne değişti',
+    'page.landscape.jsonLdName'    => 'Yapay zekâ meslek devralma zaman çizelgesi',
+    'page.landscape.jsonLdVar'     => 'Bir mesleğin çekirdek görevlerinin rutin olarak makineyle yapılır hâle gelmesinin beklendiği yıl',
 ];

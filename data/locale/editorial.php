@@ -14,5 +14,8 @@
 declare(strict_types=1);
 
 return [
-    'namespaces' => ['methodology.', 'llms.'],
+    // page.landscape. ve page.sponsor. Faz 4B'de eklendi: bu iki sayfa Faz 3'te
+    // hic yerellestirilmemisti, metinleri PHP'ye gomuluydu. Icerikleri yayin
+    // kalitesinde editoryal metin — makine cevirisiyle doldurulmaz.
+    'namespaces' => ['methodology.', 'llms.', 'page.landscape.', 'page.sponsor.'],
 ];

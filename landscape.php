@@ -3,7 +3,10 @@ declare(strict_types=1);
 
 require_once __DIR__ . '/inc/functions.php';
 
-$jobs = load_all_jobs();
+$lang   = $lang ?? request_lang();
+$L      = lang_for($lang);
+$routes = load_routes();
+$jobs   = load_all_jobs($lang);
 
 // Yila gore grupla. safeUntil'i olmayanlar (safe verdict) ayri bir blokta.
 $byYear    = [];
@@ -41,33 +44,35 @@ foreach ($jobs as $j) {
 }
 
 $horizonCount = count($jobs) - count($noHorizon);
-$answer = sprintf(
-    'As of %s, %d of the %d professions on willaistealit.com carry a time horizon — the year by which their core tasks are expected to be routinely machine-done. Those horizons run from %s to %s, and %s is the most crowded year with %d %s. The remaining %d are judged safe and carry no horizon at all.',
-    pretty_month($newestReview) ?: 'August 2026',
+// Yer tutucu SIRASI dile gore degisebilir: TR karsiligi konumlu (%1$s) yazildi.
+$answer = $L->t(
+    'page.landscape.answer',
+    pretty_month($newestReview, $lang) ?: $L->t('geo.fallbackDate'),
     $horizonCount,
     count($jobs),
     $byYear ? (string)array_key_first($byYear) : '—',
     $byYear ? (string)array_key_last($byYear) : '—',
     $busiest !== '' ? $busiest : '—',
     $peak,
-    $peak === 1 ? 'profession' : 'professions',
+    $L->t($peak === 1 ? 'page.landscape.profession' : 'page.landscape.professions'),
     count($noHorizon)
 );
 
-$pageTitle      = 'When will AI take my job? — the timeline';
-$pageDesc       = 'Every profession on willaistealit.com plotted against the year its core tasks are expected to be machine-done. ' . $horizonCount . ' horizons, from ' . ($byYear ? (string)array_key_first($byYear) : '') . ' onward.';
-$pageCanonical  = SITE_URL . '/landscape';
-$pageAlternates = alternates_for('page', 'landscape', load_routes());
+$pageTitle      = $L->t('page.landscape.pageTitle');
+$pageDesc       = $L->t('page.landscape.pageDesc', $horizonCount,
+                        $byYear ? (string)array_key_first($byYear) : '');
+$pageCanonical  = url_for($lang, 'page', 'landscape', $routes);
+$pageAlternates = alternates_for('page', 'landscape', $routes);
 $pageOg         = SITE_URL . '/og/home.png';
 $pageJsonLd     = [
     '@context'    => 'https://schema.org',
     '@type'       => 'Dataset',
-    'inLanguage'  => $lang ?? request_lang(),
-    'name'        => 'AI job replacement timeline',
+    'inLanguage'  => $lang,
+    'name'        => $L->t('page.landscape.jsonLdName'),
     'description' => $answer,
     'url'         => $pageCanonical,
     'creator'     => ['@type' => 'Organization', 'name' => SITE_NAME, 'url' => SITE_URL],
-    'variableMeasured' => 'Year by which a profession\'s core tasks are expected to be routinely machine-done',
+    'variableMeasured' => $L->t('page.landscape.jsonLdVar'),
     'license'     => 'https://creativecommons.org/licenses/by/4.0/',
 ];
 
@@ -77,14 +82,14 @@ require __DIR__ . '/inc/header.php';
 <div class="wrap wrap-wide">
 
   <header class="page-head">
-    <h1>When the core goes</h1>
-    <p class="lede">Every profession plotted against the year its core tasks are expected to be routinely machine-done. Not the year the job title disappears — <a href="/methodology">the difference matters</a>.</p>
+    <h1><?= h($L->t('page.landscape.h1')) ?></h1>
+    <p class="lede"><?= h($L->t('page.landscape.ledeA')) ?><a href="<?= h(path_for($lang, 'page', 'methodology', $routes)) ?>"><?= h($L->t('page.landscape.ledeLink')) ?></a><?= h($L->t('page.landscape.ledeB')) ?></p>
   </header>
 
   <p class="answer" style="max-width:44em"><?= h($answer) ?></p>
 
   <?php if ($byYear): ?>
-    <section class="timeline" aria-label="Professions by expected year">
+    <section class="timeline" aria-label="<?= h($L->t('page.landscape.timelineAria')) ?>">
       <?php foreach ($byYear as $year => $group): ?>
         <?php
         $n = count($group);
@@ -99,7 +104,7 @@ require __DIR__ . '/inc/header.php';
           <div class="tl-year"><?= h((string)$year) ?></div>
           <div class="tl-plot">
             <div class="tl-bar" style="width: <?= (int)round($n / max($peak, 1) * 100) ?>%"
-                 title="<?= h($n . ' ' . ($n === 1 ? 'profession' : 'professions')) ?>">
+                 title="<?= h($n . ' ' . $L->t($n === 1 ? 'page.landscape.profession' : 'page.landscape.professions')) ?>">
               <?php foreach (['on-the-menu', 'shrinking', 'safe'] as $k): ?>
                 <?php if (empty($split[$k])) { continue; } ?>
                 <span class="tl-seg v-<?= h($k) ?>" style="flex: <?= (int)$split[$k] ?>"></span>
@@ -108,7 +113,7 @@ require __DIR__ . '/inc/header.php';
             <ul class="tl-jobs">
               <?php foreach ($group as $slug => $job): ?>
                 <li class="v-<?= h((string)($job['verdict'] ?? 'shrinking')) ?>">
-                  <a href="/<?= h((string)$slug) ?>"><?= h((string)($job['title'] ?? $slug)) ?></a>
+                  <a href="<?= h(path_for($lang, 'job', (string)$slug, $routes)) ?>"><?= h((string)($job['title'] ?? $slug)) ?></a>
                 </li>
               <?php endforeach; ?>
             </ul>
@@ -122,13 +127,13 @@ require __DIR__ . '/inc/header.php';
   <?php if ($noHorizon): ?>
     <section class="block">
       <div class="block-head">
-        <h2 class="block-title">No horizon</h2>
-        <p class="block-note">Structurally resistant — no year applies.</p>
+        <h2 class="block-title"><?= h($L->t('page.landscape.noHorizon.h')) ?></h2>
+        <p class="block-note"><?= h($L->t('page.landscape.noHorizon.p')) ?></p>
       </div>
       <ul class="tl-jobs tl-safe">
         <?php foreach ($noHorizon as $slug => $job): ?>
           <li class="v-<?= h((string)($job['verdict'] ?? 'safe')) ?>">
-            <a href="/<?= h((string)$slug) ?>"><?= h((string)($job['title'] ?? $slug)) ?></a>
+            <a href="<?= h(path_for($lang, 'job', (string)$slug, $routes)) ?>"><?= h((string)($job['title'] ?? $slug)) ?></a>
           </li>
         <?php endforeach; ?>
       </ul>
@@ -136,8 +141,8 @@ require __DIR__ . '/inc/header.php';
   <?php endif; ?>
 
   <div class="disagree" style="margin-top:44px">
-    <h2>These years are estimates, and they are meant to be argued with</h2>
-    <p>A horizon accounts for three lags: capability arriving, employers adopting it, and regulators allowing it. That is why regulated professions sit further right than raw task difficulty suggests. <a href="/methodology">How we set them</a> &middot; <a href="/changelog">What has moved so far</a></p>
+    <h2><?= h($L->t('page.landscape.estimates.h')) ?></h2>
+    <p><?= h($L->t('page.landscape.estimates.p')) ?><a href="<?= h(path_for($lang, 'page', 'methodology', $routes)) ?>"><?= h($L->t('page.landscape.estimates.how')) ?></a> &middot; <a href="<?= h(path_for($lang, 'page', 'changelog', $routes)) ?>"><?= h($L->t('page.landscape.estimates.moved')) ?></a></p>
   </div>
 
 </div>
