@@ -40,13 +40,27 @@ function load_all_jobs(string $lang = DEFAULT_LANG): array
     return $jobs;
 }
 
-/** Arama index'i: yoksa bos dizi (build-index calistirilmamis). */
-function load_index(): array
+/**
+ * Dil basina arama indeksinin yolu. Dosya yolu KULLANICI GIRDISINDEN kurulamaz:
+ * bilinmeyen bir kod varsayilan dile duser, boylece '../' hicbir zaman yola girmez.
+ */
+function index_file(string $lang = DEFAULT_LANG): string
 {
-    if (!is_file(INDEX_FILE)) {
+    $lang = in_array($lang, LANGS, true) ? $lang : DEFAULT_LANG;
+    return CACHE_DIR . '/index-' . $lang . '.json';
+}
+
+/**
+ * Indeks eksik, bos ya da bozuksa BOS DIZI doner ve sayfa normal acilir —
+ * arama sunucuda basilan tam liste uzerinde calismaya devam eder (spec 6.3).
+ */
+function load_index(string $lang = DEFAULT_LANG): array
+{
+    $file = index_file($lang);
+    if (!is_file($file)) {
         return [];
     }
-    $data = json_decode((string)file_get_contents(INDEX_FILE), true);
+    $data = json_decode((string)file_get_contents($file), true);
     return is_array($data) ? $data : [];
 }
 

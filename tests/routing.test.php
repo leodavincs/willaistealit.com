@@ -100,6 +100,7 @@ $forbidden = [
     '/inc/ttf.php',
     '/cache/routes.json',
     '/cache/index.json',
+    '/cache/index-en.json',
     '/cache/pages/en/accountant.html',
     '/docs/architecture/2026-08-15-cok-dilli-mimari.md',
     '/research/sources.json',

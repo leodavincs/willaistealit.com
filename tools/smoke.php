@@ -87,6 +87,7 @@ $matrix = [
     ['/data/jobs/accountant.json', 404, null,          null,  null],
     ['/inc/config.php',            404, null,          null,  null],
     ['/cache/index.json',          404, null,          null,  null],
+    ['/cache/index-en.json',       404, null,          null,  null],
     ['/research/sources.json',     404, null,          null,  null],
     ['/tests/run.php',             404, null,          null,  null],
     ['/.git/config',               404, null,          null,  null],
