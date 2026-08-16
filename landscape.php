@@ -62,6 +62,7 @@ $pageOg         = SITE_URL . '/og/home.png';
 $pageJsonLd     = [
     '@context'    => 'https://schema.org',
     '@type'       => 'Dataset',
+    'inLanguage'  => $lang ?? request_lang(),
     'name'        => 'AI job replacement timeline',
     'description' => $answer,
     'url'         => $pageCanonical,

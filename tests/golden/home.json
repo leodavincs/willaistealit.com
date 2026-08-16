@@ -23,6 +23,7 @@
                 {
                     "@type": "WebSite",
                     "description": "Task-level verdicts on which jobs AI actually takes.",
+                    "inLanguage": "en",
                     "name": "Will AI Steal It?",
                     "potentialAction": {
                         "@type": "SearchAction",
@@ -33,6 +34,7 @@
                 },
                 {
                     "@type": "FAQPage",
+                    "inLanguage": "en",
                     "mainEntity": [
                         {
                             "@type": "Question",

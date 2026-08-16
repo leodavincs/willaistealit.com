@@ -52,6 +52,7 @@
                     "description": "As of August 2026, the administrative assistant role is shrinking rather than disappearing, with the core narrowing through roughly 2029. AI has already absorbed meeting notes and routine correspondence and data entry, filing and records maintenance. What resists is gatekeeping a principal's time and running the office and the room. The structural reason is trust relationship, human judgment and physical presence.",
                     "headline": "Will AI replace administrative assistants? — 🟡 SHRINKING",
                     "image": "https://willaistealit.com/og/administrative-assistant.png",
+                    "inLanguage": "en",
                     "isPartOf": {
                         "@type": "WebSite",
                         "name": "Will AI Steal It?",
@@ -66,6 +67,7 @@
                 },
                 {
                     "@type": "FAQPage",
+                    "inLanguage": "en",
                     "mainEntity": [
                         {
                             "@type": "Question",

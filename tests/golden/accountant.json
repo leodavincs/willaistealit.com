@@ -52,6 +52,7 @@
                     "description": "As of August 2026, the accountant role is shrinking rather than disappearing, with the core narrowing through roughly 2031. AI has already absorbed data entry & bookkeeping. What resists is advisory on cash flow, structure and planning, audit judgment & materiality calls and legal sign-off & representation. The structural reason is legal liability, trust relationship and human judgment.",
                     "headline": "Will AI replace accountants? — 🟡 SHRINKING",
                     "image": "https://willaistealit.com/og/accountant.png",
+                    "inLanguage": "en",
                     "isPartOf": {
                         "@type": "WebSite",
                         "name": "Will AI Steal It?",
@@ -66,6 +67,7 @@
                 },
                 {
                     "@type": "FAQPage",
+                    "inLanguage": "en",
                     "mainEntity": [
                         {
                             "@type": "Question",

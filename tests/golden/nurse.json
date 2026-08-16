@@ -54,6 +54,7 @@
                     "description": "As of August 2026, Nurse is not being replaced by AI. What resists is physical care & clinical procedures, clinical judgment at the bedside and patient & family emotional care. The structural reason is physical presence, emotional labor and regulated.",
                     "headline": "Will AI replace nurses? — 🟢 SAFE",
                     "image": "https://willaistealit.com/og/nurse.png",
+                    "inLanguage": "en",
                     "isPartOf": {
                         "@type": "WebSite",
                         "name": "Will AI Steal It?",
@@ -68,6 +69,7 @@
                 },
                 {
                     "@type": "FAQPage",
+                    "inLanguage": "en",
                     "mainEntity": [
                         {
                             "@type": "Question",

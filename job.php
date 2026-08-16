@@ -53,6 +53,9 @@ $pageJsonLd = [
     [
         '@context'     => 'https://schema.org',
         '@type'        => 'Article',
+        // inLanguage YALNIZCA CreativeWork turevlerine yazilir. BreadcrumbList ve
+        // Occupation schema.org'da Intangible altindadir — oraya yazmak gecersiz.
+        'inLanguage'   => $lang,
         'headline'     => $pageTitle,
         'description'  => $geoAnswer,
         'url'          => $pageCanonical,
@@ -74,6 +77,7 @@ $pageJsonLd = [
     [
         '@context'   => 'https://schema.org',
         '@type'      => 'FAQPage',
+        'inLanguage' => $lang,
         'mainEntity' => array_map(static fn (array $p): array => [
             '@type'          => 'Question',
             'name'           => $p['q'],
@@ -85,7 +89,7 @@ $pageJsonLd = [
         '@type'           => 'BreadcrumbList',
         'itemListElement' => [
             ['@type' => 'ListItem', 'position' => 1, 'name' => $L->t('job.allJobs'), 'item' => $homeUrl],
-            ['@type' => 'ListItem', 'position' => 2, 'name' => category_label($job['category'] ?? '', $lang), 'item' => $homeUrl . '/?q=' . rawurlencode(category_label($job['category'] ?? ''))],
+            ['@type' => 'ListItem', 'position' => 2, 'name' => category_label($job['category'] ?? '', $lang), 'item' => $homeUrl . '/?q=' . rawurlencode(category_label($job['category'] ?? '', $lang))],
             ['@type' => 'ListItem', 'position' => 3, 'name' => $title, 'item' => $pageCanonical],
         ],
     ],

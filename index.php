@@ -53,6 +53,7 @@ $pageJsonLd     = [
     [
         '@context'        => 'https://schema.org',
         '@type'           => 'WebSite',
+        'inLanguage'      => $lang,
         'name'            => SITE_NAME,
         'url'             => SITE_URL,
         'description'     => $L->t('site.tagline'),
@@ -65,6 +66,7 @@ $pageJsonLd     = [
     [
         '@context'   => 'https://schema.org',
         '@type'      => 'FAQPage',
+        'inLanguage' => $lang,
         'mainEntity' => [
             [
                 '@type'          => 'Question',

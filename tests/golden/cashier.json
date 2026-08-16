@@ -52,6 +52,7 @@
                     "description": "As of August 2026, cashier work is on the menu: the core tasks are going and what is left will not support as many people, with the shift expected to land by around 2032. The mechanism is not generative AI. Scanning and payment were handed to the customer through self-service checkouts, contactless cards and online shopping, and US employment is projected to fall 9.9 per cent — 313,600 posts — by 2034, the largest numeric decline of any occupation. What resists is age-restricted sales the law requires a person to approve, supervising the self-checkout lanes, and service on the shop floor. The structural reason is physical presence, regulation and being in the room.",
                     "headline": "Will AI replace cashiers? — 🔴 ON THE MENU",
                     "image": "https://willaistealit.com/og/cashier.png",
+                    "inLanguage": "en",
                     "isPartOf": {
                         "@type": "WebSite",
                         "name": "Will AI Steal It?",
@@ -66,6 +67,7 @@
                 },
                 {
                     "@type": "FAQPage",
+                    "inLanguage": "en",
                     "mainEntity": [
                         {
                             "@type": "Question",
