@@ -7,6 +7,7 @@
 declare(strict_types=1);
 require_once __DIR__ . '/inc/functions.php';
 
+$lang          = $lang ?? request_lang();
 $L             = lang_for($lang);
 $pageTitle     = $L->t('page.unavailable.title') . ' — ' . SITE_NAME;
 $pageDesc      = $L->t('page.unavailable.desc');

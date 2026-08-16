@@ -6,7 +6,7 @@ require_once __DIR__ . '/functions.php';
 /** @var string $pageDesc */
 /** @var string|null $pageOg */
 /** @var string|null $pageCanonical */
-$lang          = $lang          ?? DEFAULT_LANG;
+$lang          = $lang          ?? request_lang();
 $L             = lang_for($lang);
 $routes        = $routes        ?? load_routes();
 $pageTitle     = $pageTitle     ?? SITE_NAME;

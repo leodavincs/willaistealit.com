@@ -8,6 +8,17 @@ require_once __DIR__ . '/urls.php';         // url_for
 require_once __DIR__ . '/routes_cache.php'; // load_routes
 require_once __DIR__ . '/search.php';       // search_fold
 
+/**
+ * Istegin dili. route.php dili $_GET['lang'] ile geciriyor; sablon onu okumazsa
+ * sayfa sessizce Ingilizce render eder. Bilinmeyen kod varsayilana duser —
+ * $_GET dogrudan sablona giremez.
+ */
+function request_lang(): string
+{
+    $l = (string)($_GET['lang'] ?? DEFAULT_LANG);
+    return in_array($l, LANGS, true) ? $l : DEFAULT_LANG;
+}
+
 /** Slug'i dogrula: sadece [a-z0-9-], path traversal'a kapali. */
 function valid_slug(?string $slug): bool
 {

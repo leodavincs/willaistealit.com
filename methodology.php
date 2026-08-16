@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 require_once __DIR__ . '/inc/functions.php';
 
-$lang          = $lang ?? DEFAULT_LANG;
+$lang          = $lang ?? request_lang();
 $L             = lang_for($lang);
 $routes        = load_routes();
 $pageTitle      = $L->t('methodology.pageTitle') . ' — ' . SITE_NAME;

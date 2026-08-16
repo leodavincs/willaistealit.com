@@ -6,7 +6,7 @@ require_once __DIR__ . '/inc/functions.php';
 $log  = load_changelog();
 $jobs = load_all_jobs();
 
-$lang          = $lang ?? DEFAULT_LANG;
+$lang          = $lang ?? request_lang();
 $L             = lang_for($lang);
 $routes        = load_routes();
 $pageTitle      = $L->t('page.changelog.title') . ' — ' . SITE_NAME;
