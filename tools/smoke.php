@@ -82,7 +82,6 @@ $matrix = [
     ['/llms.txt',                  200, null,          null,  null],
     ['/og/accountant.png',         200, null,          null,  null],
     ['/og/home.png',               200, null,          null,  null],
-    ['/og/tr/accountant.png',      404, null,          null,  null],
     // Guvenlik (spec 1.8)
     ['/data/jobs/accountant.json', 404, null,          null,  null],
     ['/inc/config.php',            404, null,          null,  null],
@@ -111,15 +110,33 @@ $trRows  = [
     ['/tr/kasiyer/',               301, '/tr/kasiyer',           null,  null],
     ['/tr/cashier',                301, '/tr/kasiyer',           null,  null],
     ['/tr/unknown',                404, null,                    null,  null],
-    ['/tr/nurse',                  404, null,                    null,  null],   // TR'de yayinlanmamis
+    ['/tr/nurse',                  301, '/tr/hemsire',           null,  null],   // artik TR'de yayinli
     ['/og/tr/kasiyer.png',         200, null,                    null,  null],
+    ['/og/tr/accountant.png',      301, '/og/tr/muhasebeci.png', null,  null],
+    // Dort TR sabit sayfasinin hepsi acik ve KENDI dilinde olmali.
+    ['/tr/metodoloji',             200, null,                    'tr',  'https://willaistealit.com/tr/metodoloji'],
+    ['/tr/zaman-cizelgesi',        200, null,                    'tr',  'https://willaistealit.com/tr/zaman-cizelgesi'],
+    ['/tr/degisiklikler',          200, null,                    'tr',  'https://willaistealit.com/tr/degisiklikler'],
+    ['/tr/sponsorluk',             200, null,                    'tr',  'https://willaistealit.com/tr/sponsorluk'],
+    ['/tr/methodology',            301, '/tr/metodoloji',        null,  null],
+];
+// TR KAPALIYKEN gecerli satirlar: onizleme tablosu varken bunlar dogal olarak
+// celisir (TR acik oldugu icin 301/200 donerler), o yuzden ayri tutuluyor.
+$trClosedRows = [
+    ['/tr/',                       404, null,                    null,  null],
+    ['/tr/kasiyer',                404, null,                    null,  null],
+    ['/tr/metodoloji',             404, null,                    null,  null],
+    ['/og/tr/accountant.png',      404, null,                    null,  null],
 ];
 if ($preview !== '' && is_file($preview)) {
     $matrix = array_merge($matrix, $trRows);
-    echo "onizleme tablosu: $preview (" . count($trRows) . " TR satiri eklendi)\n";
+    echo "onizleme tablosu: $preview (" . count($trRows) . " TR satiri eklendi, "
+       . count($trClosedRows) . " kapalilik satiri atlandi)\n";
 } else {
+    $matrix = array_merge($matrix, $trClosedRows);
     // Atlanan satir SESSIZ kalmaz.
-    echo "ATLANDI: " . count($trRows) . " TR satiri — WAISI_ROUTES_FILE verilmedi\n";
+    echo "ATLANDI: " . count($trRows) . " TR satiri — WAISI_ROUTES_FILE verilmedi ("
+       . count($trClosedRows) . " kapalilik satiri kosuldu)\n";
 }
 
 /** 404 govdesi hassas icerik sizdirmamali. */
