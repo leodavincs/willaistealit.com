@@ -1,0 +1,60 @@
+{
+    "assessmentScope": "global",
+    "assessmentSourceLocale": "en",
+    "translationReviewed": "2026-08-16",
+    "slug": "ise-alim-uzmani",
+    "formerSlugs": [],
+    "title": "İşe Alım Uzmanı",
+    "aka": [
+        "İK Uzmanı",
+        "Yetenek Kazanımı Uzmanı",
+        "Danışman",
+        "İnsan Kaynakları Sorumlusu",
+        "Teknik İşe Alım Uzmanı"
+    ],
+    "oneLiner": "Artık iki taraf da yapay zekâ kullanıyor, o yüzden hacim değersiz. Belirli bir kişiyi ikna etmek değersiz değil.",
+    "summary": "İşe alım, kazanamayacağı bir silahlanma yarışına girdi: adaylar ölçekte başvuru üretiyor, işverenler ölçekte eliyor, ve sonuç aynı anda iki tarafta da daha fazla gürültü. Aday bulma, ön eleme ve randevu — ajans işe alımının mekanik çekirdeği — büyük ölçüde otomatik, ve özgeçmiş hacmi üzerine kurulmuş işlemsel ajans modeli ciddi baskı altında. Ayakta kalan şey, belirli bir insanı bir hayat kararı vermeye ikna etmeyi gerektiren her şey: mutlu bir kıdemli mühendisi telefona çıkmaya razı etmek, bir adayı karşı teklif sürecinde yönetmek, ve bir yöneticiye beklentilerinin gerçekçi olmadığını söylemek. Düzenleme ikinci bir duvar ekliyor. Otomatik işe alım kararları artan hukuki denetimle karşılaşıyor, ve çoğu ülke kayıtta bir insan karar verici istiyor.",
+    "tasks": {
+        "cv-screening-ranking": {
+            "name": "Özgeçmiş eleme ve sıralama",
+            "note": "Her ölçekte otomatik. Artık iki taraf da model kullanıyor; sinyalin on yıl öncesinden kötü olmasının sebebi bu."
+        },
+        "sourcing-outreach-drafting": {
+            "name": "Aday bulma ve ilk mesaj yazımı",
+            "note": "Aday tespiti ve kişiselleştirilmiş görünen mesajlar üretiliyor. Dönüş oranları da buna göre düştü."
+        },
+        "scheduling-coordination": {
+            "name": "Randevu ve koordinasyon",
+            "note": "Tümüyle otomatik. Genç işe alım koordinatörü kadrosunun büyük bölümü buydu."
+        },
+        "initial-screening-calls": {
+            "name": "İlk eleme görüşmeleri",
+            "note": "Yapay zekânın yürüttüğü ilk tur görüşmeler yüksek hacimli işverenlerde çalışıyor. Adaylar bundan hoşlanmıyor, şirketler yine de yapıyor."
+        },
+        "persuading-passive-candidates": {
+            "name": "Pasif adayları ikna etmek",
+            "note": "İşe alınmaya değer insanlar başvurmuyor. Memnun bir kıdemliye iş değişikliğini düşündürmek aylar içinde kurulan bir ilişki."
+        },
+        "assessing-motivation-fit": {
+            "name": "Motivasyon ve uyum değerlendirmesi",
+            "note": "Birinin gerçekte neden ayrıldığı, ve on sekiz ay sonra hâlâ orada olup olmayacağı. Adaylar bunu özgeçmişe yazmıyor, bir bota da söylemiyor."
+        },
+        "closing-offers-counter": {
+            "name": "Teklifi kapatmak ve karşı teklifler",
+            "note": "İşe alımların fiilen kaybedildiği aşama. Tedirgin bir adayı yılının en büyük kararında biri konuşturarak geçiriyor."
+        },
+        "hiring-decisions-compliance": {
+            "name": "İşe alım kararları ve uyum",
+            "note": "Ayrımcılık hukuku ve yapay zekâ ile işe alım düzenlemesi, gerekçesi belgelenmiş, hesap verebilir bir insan karar verici istiyor."
+        }
+    },
+    "whatSurvives": "Belirli bir insanı hayatını değiştirmeye ikna etmek, ve o kararın hesabını verebilmek.",
+    "adaptPrompt": "İşe alım yardımcımsın. Süreç yükünü sen alıyorsun; bir insan hakkındaki her yargı bende kalıyor.\n\nRol tanımı için — her şeyden önce bunu yap:\n1. Bana verilen iş ilanını al ve gerçekte ne istediğini söyle. Gerçek gereklilikleri dilek listesi dolgusundan ayır, ve iyi adayları sebepsiz eleyecek her maddeyi işaretle.\n2. Bu rolün pazarda neyle yarıştığını söyle: bu profili başka kim işe alıyor, ve bizde olmayan ne sunuyorlar.\n\nAday bulma ve ilk temas için:\n3. Aramayı kur: unvanlar, komşu unvanlar, doğru ortamı olan şirketler, ve birinin değişime açık olabileceğini düşündüren sinyaller.\n4. İlk mesajı, adayın işine dair somut bir şeyle başlayacak şekilde yaz. Sana onun hakkında somut bir şey vermediysem git bul dememi söyle — jenerik kişiselleştirme, hiç kişiselleştirmemekten kötüdür.\n\nSüreç için:\n5. Görüş değil kanıt yoklayan mülakat soruları yaz: ne yaptı, neye karar verdi, ne ters gitti. Gerçek cevabı ezberlenmişten ayıran takip sorusunu da ekle.\n6. Her mülakattan sonra notlarımı kriterlere karşı kanıt olarak yapılandır, ve nerede kanıttan değil izlenimden akıl yürüttüğümü söyle.\n7. Aday yazışmalarını yaz, ret mesajları dahil — somut, hızlı ve insani. Reddedilen adaylar gelecek yılın işe alımlarıdır.\n\nKurallar: adayları asla puanlama ya da sıralama, isimden, fotoğraftan, okuldan, yaştan veya adresten asla çıkarım yapma, ve korunan bir özelliğe dokunan hiçbir şey yazma. Bunu istersem reddet. İşe alım kararı benim ve onu savunabilmem gerekiyor.",
+    "adaptTools": [
+        "Claude",
+        "LinkedIn Recruiter",
+        "Kariyer.net",
+        "Ashby",
+        "Google E-Tablolar"
+    ]
+}
