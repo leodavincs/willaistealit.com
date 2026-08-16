@@ -54,11 +54,12 @@ $answer = sprintf(
     count($noHorizon)
 );
 
-$pageTitle     = 'When will AI take my job? — the timeline';
-$pageDesc      = 'Every profession on willaistealit.com plotted against the year its core tasks are expected to be machine-done. ' . $horizonCount . ' horizons, from ' . ($byYear ? (string)array_key_first($byYear) : '') . ' onward.';
-$pageCanonical = SITE_URL . '/landscape';
-$pageOg        = SITE_URL . '/og/home.png';
-$pageJsonLd    = [
+$pageTitle      = 'When will AI take my job? — the timeline';
+$pageDesc       = 'Every profession on willaistealit.com plotted against the year its core tasks are expected to be machine-done. ' . $horizonCount . ' horizons, from ' . ($byYear ? (string)array_key_first($byYear) : '') . ' onward.';
+$pageCanonical  = SITE_URL . '/landscape';
+$pageAlternates = alternates_for('page', 'landscape', load_routes());
+$pageOg         = SITE_URL . '/og/home.png';
+$pageJsonLd     = [
     '@context'    => 'https://schema.org',
     '@type'       => 'Dataset',
     'name'        => 'AI job replacement timeline',

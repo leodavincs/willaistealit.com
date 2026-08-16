@@ -11,6 +11,7 @@ declare(strict_types=1);
 return [
     // --- site ---
     'site.tagline'                     => 'Task-level verdicts on which jobs AI actually takes.',
+    'site.ogLocale'                    => 'en_US',
 
     // --- verdict etiketleri ve aciklamalari (inc/config.php dan tasindi) ---
     'verdict.safe.label'               => 'SAFE',

@@ -38,11 +38,12 @@ $faq       = faq_pairs($job, $lang);
 $related   = related_jobs($job);
 
 // Baslikta "replace" — arama hacmi orada. "Steal" markanin kendisinde kaliyor.
-$pageTitle     = $L->t('job.pageTitle', mb_strtolower($title), $v['dot'], $v['label']);
-$pageDesc      = $oneLiner !== '' ? $oneLiner : $v['blurb'];
-$pageCanonical = job_url($slug, $lang);
-$pageOg        = og_url($slug, $lang);
-$modified      = ($job['lastReviewed'] ?? '') !== '' ? (string)$job['lastReviewed'] . '-01' : null;
+$pageTitle      = $L->t('job.pageTitle', mb_strtolower($title), $v['dot'], $v['label']);
+$pageDesc       = $oneLiner !== '' ? $oneLiner : $v['blurb'];
+$pageCanonical  = job_url($slug, $lang);
+$pageAlternates = alternates_for('job', $slug, $routes);
+$pageOg         = og_url($slug, $lang);
+$modified       = ($job['lastReviewed'] ?? '') !== '' ? (string)$job['lastReviewed'] . '-01' : null;
 
 // Breadcrumb ogesi kaynak kimligidir; kok adres mevcut ciktida egik cizgisiz
 // yaziliyor. rtrim ile tek kaynagi (url_for) koruyup bicimi ayni tutuyoruz.

@@ -38,3 +38,8 @@ t_eq(['en' => 'https://willaistealit.com/methodology',
       'tr' => 'https://willaistealit.com/tr/metodoloji',
       'x-default' => 'https://willaistealit.com/methodology'],
      alternates_for('page', 'methodology', $U), 'sabit sayfa alternates');
+
+// Ana sayfa da hreflang kumesi tasir: 'home' tipi job/page filtrelerine takilmaz.
+t_eq(['en' => 'https://willaistealit.com/', 'tr' => 'https://willaistealit.com/tr/',
+      'x-default' => 'https://willaistealit.com/'],
+     alternates_for('home', '', $U), 'ana sayfa alternates');

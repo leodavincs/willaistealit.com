@@ -15,7 +15,7 @@ $pageOg        = $pageOg        ?? SITE_URL . '/og/home.png';
 $pageCanonical = $pageCanonical ?? SITE_URL . '/';
 ?>
 <!doctype html>
-<html lang="en">
+<html lang="<?= h($lang) ?>">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -26,7 +26,12 @@ $pageCanonical = $pageCanonical ?? SITE_URL . '/';
 <?php /* $pageCanonical === false: var olmayan URL kendini canonical gosteremez (spec 5.4). */ ?>
 <?php if ($pageCanonical !== false): ?><link rel="canonical" href="<?= h($pageCanonical) ?>">
 <?php endif; ?>
+<?php /* hreflang YALNIZCA yayinlanan dillerden kurulur; 404/unavailable hic kurmaz (spec 5.4). */ ?>
+<?php foreach (($pageAlternates ?? []) as $code => $href): ?>
+<link rel="alternate" hreflang="<?= h($code) ?>" href="<?= h($href) ?>">
+<?php endforeach; ?>
 <meta property="og:type" content="website">
+<meta property="og:locale" content="<?= h($L->t('site.ogLocale')) ?>">
 <meta property="og:site_name" content="<?= h(SITE_NAME) ?>">
 <meta property="og:title" content="<?= h($pageTitle) ?>">
 <meta property="og:description" content="<?= h($pageDesc) ?>">

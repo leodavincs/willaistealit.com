@@ -46,9 +46,10 @@ $homeAnswer = $L->t(
     $counts['on-the-menu']
 );
 
-$pageCanonical = url_for($lang, 'home', '', $routes);
-$pageOg        = SITE_URL . '/og/home.png';
-$pageJsonLd = [
+$pageCanonical  = url_for($lang, 'home', '', $routes);
+$pageAlternates = alternates_for('home', '', $routes);
+$pageOg         = SITE_URL . '/og/home.png';
+$pageJsonLd     = [
     [
         '@context'        => 'https://schema.org',
         '@type'           => 'WebSite',

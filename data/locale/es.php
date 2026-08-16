@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 return [
     'site.tagline' => 'Veredictos por tarea sobre qué trabajos se lleva realmente la IA.',
+    'site.ogLocale' => 'es_ES',
 
     // --- veredictos ---
     'verdict.safe.label'        => 'A SALVO',

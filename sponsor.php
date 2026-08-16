@@ -33,10 +33,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-$pageTitle     = 'Sponsor — ' . SITE_NAME;
-$pageDesc      = 'Fixed-price placements on willaistealit.com. No subscriptions, no verdict influence, ever.';
-$pageCanonical = SITE_URL . '/sponsor';
-$pageOg        = SITE_URL . '/og/home.png';
+$pageTitle      = 'Sponsor — ' . SITE_NAME;
+$pageDesc       = 'Fixed-price placements on willaistealit.com. No subscriptions, no verdict influence, ever.';
+$pageCanonical  = SITE_URL . '/sponsor';
+$pageAlternates = alternates_for('page', 'sponsor', load_routes());
+$pageOg         = SITE_URL . '/og/home.png';
 
 $jobs = load_all_jobs();
 

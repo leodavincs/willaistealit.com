@@ -321,3 +321,8 @@ $activeNow = load_routes()['activeLangs'] ?? [];
 foreach ($activeNow as $lang) {
     t_eq([], locale_pending($lang), "aktif dil '$lang' bekleyen editoryal anahtar tasiyamaz");
 }
+
+// og:locale her dilde tanimli olmali — header bunu meta olarak basiyor (spec 5.2)
+foreach (['en' => 'en_US', 'tr' => 'tr_TR', 'es' => 'es_ES'] as $code => $expected) {
+    t_eq($expected, lang_for($code)->t('site.ogLocale'), "$code: og:locale");
+}

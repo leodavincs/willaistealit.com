@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 return [
     'site.tagline' => 'Yapay zekânın hangi mesleklerin hangi görevlerini aldığına dair görev seviyesinde yargılar.',
+    'site.ogLocale' => 'tr_TR',
 
     // --- verdict ---
     'verdict.safe.label'        => 'GÜVENDE',

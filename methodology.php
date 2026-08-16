@@ -6,10 +6,11 @@ require_once __DIR__ . '/inc/functions.php';
 $lang          = $lang ?? DEFAULT_LANG;
 $L             = lang_for($lang);
 $routes        = load_routes();
-$pageTitle     = $L->t('methodology.pageTitle') . ' — ' . SITE_NAME;
-$pageDesc      = $L->t('methodology.pageDesc');
-$pageCanonical = url_for($lang, 'page', 'methodology', $routes);
-$pageOg        = SITE_URL . '/og/home.png';
+$pageTitle      = $L->t('methodology.pageTitle') . ' — ' . SITE_NAME;
+$pageDesc       = $L->t('methodology.pageDesc');
+$pageCanonical  = url_for($lang, 'page', 'methodology', $routes);
+$pageAlternates = alternates_for('page', 'methodology', $routes);
+$pageOg         = SITE_URL . '/og/home.png';
 
 require __DIR__ . '/inc/header.php';
 ?>
