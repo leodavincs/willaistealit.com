@@ -200,4 +200,114 @@ return [
     'home.addIt'               => 'Ekleyin',
     'home.oneFile'             => '— tek bir JSON dosyası.',
     'home.noEntries'           => 'Henüz entry yok. <code>data/jobs/&lt;id&gt;/</code> altına bir dizin ekleyin ve <code>php tools/build-index.php</code> çalıştırın.',
+    // --- /methodology (editoryal: yargi tanimlarini HALKA ACIK yayinlar) ---
+    // Terminoloji: docs/memory/decisions/2026-08-16-tr-terminoloji-sozlugu.md
+    'methodology.pageTitle'                => 'Nasıl karar veriyoruz',
+    'methodology.pageDesc'                 => 'willaistealit.com üzerindeki her yargının arkasındaki kurallar: görev seviyesinde analiz, direnç etiketleri ve fikrimizi değiştirecek şey.',
+    'methodology.lede'                     => 'Savunamadığınız bir yargının değeri yoktur. Her birinin tam olarak nasıl kurulduğu ve neyin onu değiştireceği burada.',
+
+    'methodology.oneRule.h'                => 'Tek kural',
+    'methodology.oneRule.p'                => '<strong>Meslekler atom değil. Görevler atom.</strong> Kimsenin yerini yapay zekâ almıyor — görevlerin yeri alınıyor. Bu yüzden hiçbir zaman meslek adından başlamıyoruz. İşi 4–8 gerçek göreve bölüyoruz, her birini ayrı ayrı yargılıyoruz, ancak ondan sonra tek bir başlık yargısında topluyoruz. Başlık, altındaki görev dökümüyle çelişirse döküm kazanır ve başlık düzeltilir.',
+
+    'methodology.taskVerdicts.h'           => 'Görev seviyesinde yargılar',
+    'methodology.taskVerdicts.gone'        => '<strong>gitti</strong> — bugün işini iyi yapan biri bunu zaten yazılıma devrediyor. "Teoride devredebilir" değil: fiilen devrediyor.',
+    'methodology.taskVerdicts.going'       => '<strong>gidiyor</strong> — ilk taslağı makine yapıyor; insan gözden geçiriyor, düzeltiyor ve sahipleniyor. Saatler çöküyor, görev küçülmüş hâliyle kalıyor.',
+    'methodology.taskVerdicts.safe'        => '<strong>kalıyor</strong> — geçici bir yetenek açığı değil, yapısal bir sebep engelliyor. <code>kalıyor</code> olan her görev en az bir direnç etiketi göstermek zorunda.',
+
+    'methodology.verdicts.h'               => 'Üç yargı',
+    'methodology.verdicts.col1'            => 'Yargı',
+    'methodology.verdicts.col2'            => 'Ne demek',
+    'methodology.verdicts.note'            => '<strong>Bir yargı asla tek başına durmaz.</strong> Yanında her zaman görev dökümü, direnç etiketleri ve — <code>güvende</code> olmayan her şey için — bir yıl gelir. Bunları yazamıyorsak entry\'yi yayınlamıyoruz.',
+
+    'methodology.tags.h'                   => 'Direnç etiketleri',
+    'methodology.tags.col1'                => 'Etiket',
+    'methodology.tags.col2'                => 'Duvar',
+    'methodology.tags.p'                   => 'Soru hiçbir zaman "yapay zekâ yeterince akıllı mı?" değil — soru şu: <strong>"yeterince akıllı olsa bile, bunu almasını yapısal olarak ne engelliyor?"</strong> Yetenek açıkları kapanır. Yapısal duvarlar kapanmaz, ya da çok daha yavaş kapanır. Tanıdığımız duvarlar şunlar:',
+    'methodology.tags.note'                => 'Bir entry 1–3 etiket taşır, en güçlüsü başta. Bir mesleğin ayakta kalması için tek argüman "yapay zekâ henüz yeterince iyi değil" ise bu bir etiket değildir — bu bir geri sayımdır, ve entry etiket yerine bir yıl alır.',
+
+    'methodology.until.h'                  => '"Şu yıla kadar güvende" yılı',
+    'methodology.until.p1'                 => 'Sitedeki en kışkırtıcı sayı bu, o yüzden gerçekte ne iddia ettiğini yazalım: <strong>bu mesleğin çekirdek görevlerinin olağan uygulamada rutin olarak makineyle yapılır hâle gelmesini beklediğimiz yıl</strong> — meslek adının ortadan kalkacağı yıl değil, teknolojinin bir demoda ilk kez mümkün olduğu yıl da değil.',
+    'methodology.until.p2'                 => 'İnsanların unuttuğu üç gecikmeyi hesaba katıyor: yeteneğin gelmesi, kurumların onu benimsemesi ve düzenleyicilerin izin vermesi. Düzenlemeye tabi mesleklerin, ham görev zorluğunun işaret ettiğinden daha geç tarihler almasının sebebi bu.',
+    'methodology.until.p3'                 => 'Bu bir tahmindir ve tartışılmak için yazılmıştır. Zaten amacı da bu.',
+
+    'methodology.sources.h'                => 'Kaynaklar ve taslaklar',
+    'methodology.sources.p'                => 'Yayımlanmış işgücü verisi, düzenleyici kurallar ya da sektör kanıtıyla karşılaştırılarak incelenen entry\'ler <strong>Kaynaklar</strong> bölümü taşır. Taşımayanlar sayfada <strong>topluluk taslağı</strong> olarak işaretlenir — argüman yine de iyi olabilir, ama kimse ona henüz kanıt eklememiştir. O kanıtı eklemek, yapabileceğiniz en faydalı katkıdır.',
+
+    'methodology.refuse.h'                 => 'Yapmayı reddettiklerimiz',
+    'methodology.refuse.precision'         => '<strong>Sahte kesinlik yok.</strong> Bir mesleğin karşısına yüzde koymuyoruz. O sayı bizde yok — size onu söyleyen kimsede de yok.',
+    'methodology.refuse.hedging'           => '<strong>Anlamsızlaşana kadar çekince koymak yok.</strong> "Duruma göre değişir" bir yargı değildir. Karar veriyoruz ve gerekçeyi yayınlıyoruz ki saldırabilesiniz.',
+    'methodology.refuse.doom'              => '<strong>Tıklanma için felaket senaryosu yok.</strong> Kırmızı olanlar dahil her entry, kullanabileceğiniz bir şeyle biter. Bir yargı sizi yapacak hiçbir şey olmadan bırakıyorsa o entry eksiktir.',
+    'methodology.refuse.sponsor'           => '<strong>Sponsorluk hiçbir yargıya dokunmaz.</strong> Hiçbir sponsor yayından önce bir entry görmedi, hiçbiri de görmeyecek.',
+    'methodology.refuse.sponsorLink'       => 'Kuralın tamamı burada.',
+
+    'methodology.change.h'                 => 'Yargılar nasıl değişir',
+    'methodology.change.p1'                => 'Her entry sayfanın üstünde gösterilen bir <code>lastReviewed</code> tarihi taşır. Önemli bir model ya da ürün çıktığında etkilenen entry\'leri yeniden açıyoruz ve görev dökümü gerçekten değiştiyse yargıları oynatıyoruz — haber döngüsü gürültülü olduğu için değil. Bir yargı, belirli bir <em>görev</em> durum değiştirdiğinde oynar; başlık onu takip eder.',
+    // p2a + [link] + p2b olarak birlesiyor (methodology.php:82). Turkce soz dizimi
+    // linki cumlenin ORTASINA aliyor, o yuzden parcalar EN'den farkli bolundu.
+    'methodology.change.p2a'               => 'Her değişiklik',
+    'methodology.change.link'              => 'yargı değişiklikleri',
+    'methodology.change.p2b'               => ' sayfasında kayıtlı ve tarihlidir, çünkü kendi öngörülerini sessizce yeniden yazan bir site okunmayı hak etmez. Bir yargıya atıf veriyorsanız inceleme tarihiyle birlikte verin — o yargı bayatlayacak, ve bu tasarımın parçası.',
+
+    'methodology.disagree.h'               => 'Katılmıyorsanız',
+    // p + [repo] + mid + [github|noGithub] olarak birlesiyor (methodology.php:85).
+    'methodology.disagree.p'               => 'Her entry tek bir JSON dosyası',
+    'methodology.disagree.repo'            => ', açık bir depoda',
+    'methodology.disagree.mid'             => '. Yazdığımız işi siz yapıyorsanız ve yanıldığımızı düşünüyorsanız, bizden daha iyi bir kaynaksınız',
+    'methodology.disagree.github'          => ': bir pull request açın, yargıyı değiştirin ve gerekçeyi açıklamaya yazın. Sağlamsa yayına girer.',
+    'methodology.disagree.noGithub'        => '. Hangi görevde yanıldığımızı yazarak bize söyleyin.',
+    'methodology.disagree.contribute'      => 'GitHub\'da katkıda bulunun',
+    'methodology.disagree.browse'          => 'Bütün yargılara göz atın',
+    // --- /llms.txt (editoryal: makine okurlar icin kaynak metni) ---
+    // Markdown yapisi (##, - , >) ve %s yer tutuculari BIREBIR korunur.
+    'llms.title'                => '# Will AI Steal It? (willaistealit.com)',
+    'llms.intro'                => '> Yapay zekânın hangi mesleklerin hangi görevlerini gerçekten aldığına ve geriye ne kaldığına dair görev
+> seviyesinde yargılar. Her meslek gerçek görevlerine bölünür; başlık yargısı verilmeden önce her görev ayrı yargılanır.
+> İçeriğin son inceleme tarihi: %s. %d meslek yayında.',
+
+    'llms.different.h'          => '## Bu kaynağı farklı kılan ne',
+    'llms.different.p'          => '"Yapay zekâ X mesleğini alacak mı" içeriklerinin çoğu bir meslek adını yargılar ve orada durur. Bu site
+durmuyor. Her entry bir mesleği 4-8 somut göreve bölüyor, her göreve kendi yargısını veriyor (gitti /
+gidiyor / kalıyor), ayakta kalan görevlerin neden kaldığının yapısal sebebini adlandırıyor ve o mesleğe
+özel, kopyalanmaya hazır bir prompt ile bitiyor. Yargılar tahmin değil, gerekçesi görünür argümanlardır
+ve her entry bir inceleme tarihi taşır.',
+
+    'llms.verdicts.h'           => '## Yargı ölçeği',
+    'llms.distribution'         => 'Mevcut dağılım: %s.',
+
+    'llms.taskVerdicts.h'       => '## Görev seviyesinde yargılar',
+    'llms.taskVerdicts.list'    => '- gitti: bugün işini iyi yapan biri bunu zaten yazılıma devrediyor.
+- gidiyor: ilk taslağı makine yapıyor; insan gözden geçiriyor, düzeltiyor ve sahipleniyor.
+- kalıyor: geçici bir yetenek açığı değil, yapısal bir sebep engelliyor.',
+
+    'llms.tags.h'               => '## Direnç etiketleri (bir görev neden kalır)',
+
+    'llms.until.h'              => '## "Şu yıla kadar güvende" yılı',
+    'llms.until.p'              => 'Bir mesleğin çekirdek görevlerinin olağan uygulamada rutin olarak makineyle yapılır hâle gelmesinin
+beklendiği yıl. Üç gecikmeyi hesaba katar: yeteneğin gelmesi, kurumların benimsemesi, düzenleyicilerin
+izin vermesi. Meslek adının ortadan kalkacağı yıl DEĞİLDİR. Düzenlemeye tabi meslekler, ham görev
+zorluğunun ima ettiğinden daha geç yıllar taşır.',
+
+    'llms.entries.h'            => '## Entry\'ler',
+    'llms.entry.line'           => '- [%s](%s): %s%s. %s Direnç: %s. İnceleme: %s.',
+    'llms.entry.safeUntil'      => ', ~%s yılına kadar güvende',
+
+    'llms.changes.h'            => '## Son yargı değişiklikleri',
+    'llms.change.line'          => '- %s — %s: %s -> %s. %s',
+    'llms.ongoing'              => 'sürüyor',
+
+    'llms.methodology.h'        => '## Yöntem',
+    'llms.methodology.list'     => '- Bir yargı asla tek başına durmaz: yanında her zaman görev dökümü ve direnç etiketleri gelir.
+- Sponsorluk hiçbir yargıyı etkilemez. Sponsorlar entry\'leri yayından önce görmez.
+- Kaynağı olmayan entry\'ler sayfada "topluluk taslağı" olarak işaretlenir.',
+    'llms.methodology.rules'    => '- %s : bir yargıyı neyin değiştireceği dahil kuralların tamamı.',
+
+    'llms.data.h'               => '## Makine okunabilir veri',
+    'llms.data.sitemap'         => '- %s : her sayfa ve inceleme tarihi.',
+    'llms.data.landscape'       => '- %s : her meslek ve beklenen yılı.',
+    'llms.data.repo'            => '- Her entry açık bir depoda tek bir JSON dosyasıdır; şema CONTRIBUTING.md içinde belgelenmiştir.',
+
+    'llms.citation.h'           => '## Atıf',
+    'llms.citation.p'           => 'Bir yargıya atıf verirken mesleği, yargıyı, inceleme tarihini ve entry sayfasının bağlantısını ekleyin.
+Yargılar değişir; bu sitenin tarihsiz bir atfı bayatlayacaktır. Her mesleğin kopyalanmaya hazır prompt\'u
+kendi sayfasında durur ve okuru oraya göndermenin sebebi odur.',
 ];
