@@ -257,6 +257,24 @@ foreach (LANGS as $lang) {
     }
 }
 
+// --- Sabit sayfa inceleme tarihleri (spec 5.2) ---
+// Sitemap lastmod'u data/page-reviewed.json'dan gelir. Eksik tarih UYARI: sitemap
+// o satiri lastmod'suz basar ve gecerli XML uretir. Bicimi bozuk tarih HATA:
+// sessizce yanlis bir lastmod yayinlamak, hic yayinlamamaktan kotudur.
+foreach ($active as $lang) {
+    foreach (array_keys(PAGE_SLUGS[$lang] ?? []) as $key) {
+        $d = page_reviewed((string)$lang, (string)$key);
+        if ($d === '') {
+            $warnings[] = "page-reviewed/$lang: '$key' icin inceleme tarihi yok — "
+                        . "sitemap o satiri lastmod'suz yayinlar";
+            continue;
+        }
+        if (preg_match('/^\d{4}-\d{2}-\d{2}$/', $d) !== 1) {
+            $errors[] = "page-reviewed/$lang: '$key' tarihi YYYY-MM-DD degil: '$d'";
+        }
+    }
+}
+
 // --- changelog tutarliligi ---
 $log = load_changelog();
 foreach ($log as $i => $e) {

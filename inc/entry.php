@@ -199,3 +199,49 @@ function load_entry(string $id, string $lang = DEFAULT_LANG, ?string $root = nul
 
     return $out;
 }
+
+/**
+ * Sayfanin gercekten anlamli icerik degisikligi gordugu tarih (spec 5.2).
+ * Dosya mtime'i BILEREK kullanilmaz: build ve sablon duzenlemesi lastmod'u
+ * oynatirsa sitemap yalan soyler.
+ *
+ * assessmentReviewed veride YYYY-MM tasinir, translationReviewed YYYY-MM-DD.
+ * Ikisi de ayin ilkine acilarak karsilastirilir; sozlesme her zaman YYYY-MM-DD.
+ * Bicimi tanimayan deger tarih sayilmaz — uydurulmus tarih, tarihsizlikten kotudur.
+ */
+function entry_lastmod_from(array $job): string
+{
+    $dates = [];
+    foreach ([$job['assessmentReviewed'] ?? '', $job['translationReviewed'] ?? ''] as $raw) {
+        $d = (string)$raw;
+        if (preg_match('/^\d{4}-\d{2}$/', $d) === 1) {
+            $d .= '-01';
+        }
+        if (preg_match('/^\d{4}-\d{2}-\d{2}$/', $d) === 1) {
+            $dates[] = $d;
+        }
+    }
+    return $dates === [] ? '' : max($dates);
+}
+
+function entry_lastmod(string $id, string $lang): string
+{
+    $job = load_entry($id, $lang);
+    return $job === null ? '' : entry_lastmod_from($job);
+}
+
+/**
+ * Sabit sayfalarin editoryal inceleme tarihi (data/page-reviewed.json).
+ * lastmod ailesi burada yasiyor: entry'ler entry_lastmod(), sabit sayfalar bu.
+ * Bilinmeyen tarih BOS doner ve sitemap o satiri lastmod'suz yayinlar —
+ * uydurulmus bir tarih, lastmod'un hic olmamasindan kotudur (spec 5.2).
+ */
+function page_reviewed(string $lang, string $key): string
+{
+    static $table = null;
+    if ($table === null) {
+        $raw   = @file_get_contents(ROOT . '/data/page-reviewed.json');
+        $table = $raw === false ? [] : (array)json_decode($raw, true);
+    }
+    return (string)($table[$lang][$key] ?? '');
+}

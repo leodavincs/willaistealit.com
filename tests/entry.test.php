@@ -153,3 +153,24 @@ $rm = static function (string $d) use (&$rm): void {
     @rmdir($d);
 };
 $rm($root);
+
+// --- lastmod: dosya zamani DEGIL, icerik tarihi (spec 5.2) ---
+// lastmod = max(assessmentReviewed, translationReviewed), her zaman YYYY-MM-DD.
+t_eq('2026-08-01', entry_lastmod_from(['assessmentReviewed' => '2026-07-01',
+                                       'translationReviewed' => '2026-08-01']), 'ceviri daha yeni');
+t_eq('2026-09-01', entry_lastmod_from(['assessmentReviewed' => '2026-09-01',
+                                       'translationReviewed' => '2026-08-01']), 'degerlendirme daha yeni');
+t_eq('2026-09-01', entry_lastmod_from(['assessmentReviewed' => '2026-09-01']), 'ceviri tarihi yok');
+t_eq('',           entry_lastmod_from([]), 'ikisi de yok');
+
+// assessmentReviewed veride YYYY-MM tasiniyor; sozlesme YYYY-MM-DD, ayin ilki alinir.
+t_eq('2026-08-01', entry_lastmod_from(['assessmentReviewed' => '2026-08']), 'YYYY-MM ayin ilkine acilir');
+t_eq('2026-08-15', entry_lastmod_from(['assessmentReviewed' => '2026-08',
+                                       'translationReviewed' => '2026-08-15']), 'ayni ay: ceviri gunu kazanir');
+t_eq('2026-09-01', entry_lastmod_from(['assessmentReviewed' => '2026-09',
+                                       'translationReviewed' => '2026-08-15']), 'sonraki ay degerlendirmeyi gecemez');
+t_eq('',           entry_lastmod_from(['assessmentReviewed' => 'bozuk']), 'bicimi bozuk tarih sayilmaz');
+
+// entry_lastmod(): gercek katalogdan okur, bilinmeyen kimlikte bos doner
+t_eq('2026-08-01', entry_lastmod('cashier', 'en'), 'cashier EN lastmod');
+t_eq('',           entry_lastmod('yok-boyle-bir-meslek', 'en'), 'bilinmeyen entry');
