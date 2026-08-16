@@ -10,10 +10,10 @@
 
 ## Durum (16 Ağustos 2026)
 
-Son commit: `01a09f9`. Çalışma alanı temiz, `main` origin'den ileride, **push yok**.
+Son commit: `9591693`. Çalışma alanı temiz, `main` origin'den ileride, **push yok**.
 
 ```
-1141 test geçti, 0 kaldı         golden 19/19 semantik · 19/19 byte-identical
+1144 test geçti, 0 kaldı         golden 19/19 semantik · 19/19 byte-identical
 validator: Hata yok (9 uyarı)    cache-check: çıkış 0
 smoke: Matris temiz              self-test: 4 içerik türünde kırmızı verebiliyor
 fold-check: çıkış 0              doctor: kritik hata yok, 1 uyarı
@@ -44,9 +44,19 @@ burada baştan yerelleştirildi.
 | — | `56b5b05` | `test: cover the Turkish static pages in the smoke matrix` |
 | 4C1 | `4a50b42` | `feat: activate Turkish` |
 | 4C2 | `01a09f9` | `test: extend the golden targets to Turkish` |
-| 4C3 | (bu belge) | `docs: close out phase 4` |
+| 4C3 | `cc33425` | `docs: close out phase 4` |
 
-Faz 4 toplamı: **45 commit**.
+**Lansman öncesi cila** (kapanış notundan sonra, hâlâ Faz 4 kapsamında):
+
+| Hash | Mesaj |
+|---|---|
+| `b909df8` | `feat: show short language codes in the switcher` |
+| `8f3388c` | `fix: align the header with the page content and stop nav labels wrapping` |
+| `764737a` | `content: rename the Turkish on-the-menu verdict to SIRADA` |
+| `7e060d5` | `docs: record the SIRADA verdict rename` |
+| `9591693` | `content: refine Turkish idioms and meaning` |
+
+Faz 4 toplamı: **50 commit**.
 
 ## 4B/4C'de bulunan ve düzeltilen altı hata
 
@@ -60,6 +70,50 @@ Hepsi TR açılmadan önce yakalandı; hiçbiri yayına çıkmadı.
 | `ae04c5a` | `mb_strtolower('İdari Asistan')` → `i̇dari asistan`; birleşen nokta sayfa başlığında görünüyordu |
 | `17c848d` | `/tr/degisiklikler` kendini `willaistealit.com/changelog` olarak canonical gösteriyordu |
 | `952435b` | (4A9'da) `route.php` dili geçiriyordu ama dört şablon onu hiç okumuyordu |
+
+## Lansman öncesi Türkçe bağlam taraması
+
+Aktivasyondan sonra, yayına gitmeden önce TR metninin tamamı **anlam ve mecaz
+açısından** tarandı: 305 locale anahtarı (EN/TR yan yana), 17 entry'nin `oneLiner`,
+`whatSurvives` ve `summary` alanları, ve ~120 görev notu. Tarama İngilizce
+deyim/mecaz kalıpları üzerinden filtreleyerek yapıldı.
+
+Taramayı tetikleyen şey `ON THE MENU` bulgusuydu: kelime doğru çevrilmişti
+(`MENÜDE`) ama mecaz kaybolmuştu — İngilizcede bir tehdit ("sıradaki lokma
+sensin"), Türkçede nötr bir restoran/arayüz çağrışımı. Üstelik üç kademenin en
+tehlikelisi olmasına rağmen `DARALIYOR`'dan hafif duruyordu, yani ölçeğin yönünü
+tersine çeviriyordu. `SIRADA` olarak düzeltildi (`764737a`), gerekçe terminoloji
+sözlüğüne işlendi (`7e060d5`).
+
+Tarama aynı tipte **on iki bulgu** daha çıkardı; hepsi `9591693`'te düzeltildi:
+
+**Anlam hataları (5)**
+
+| Entry | Sorun |
+|---|---|
+| `teacher` | `hopeless` → "umutsuz" yazılmıştı; burada "berbat, beceriksiz" demek |
+| `administrative-assistant` | `does not [run itself]` elipsi özne kaymasına uğramış, "karar veren kişi çevirmiyor" anlamsız kalmıştı; "çevirmek" ayrıca translation çağrıştırıyordu |
+| `truck-driver` | `long tail` → "uzun kuyruk"; Türkçede sıraya girme çağrışımı, üstelik kamyon bağlamında gerçek kuyruk sanılabilirdi |
+| `accountant` | `junior roles thinning out` → "çırak kadrosu inceliyor"; "çırak" zanaat terimi, "incelmek" fiziksel kalınlık |
+| `photographer` | `stock market` → "stok pazarı"; borsa/envanter çağrışımı, stok **fotoğraf** bağı kopuyordu |
+
+**Doğallık ve tutarlılık (7)** — `video-editor` "when to cut" tutarsızlığı,
+`copywriter` "ekonomisi kırıldı", `data-analyst` ironi zayıflığı, `marketer` ×2
+"dövüş", `administrative-assistant` `discretion`'ın yalnız gizliliğe indirgenmesi,
+`accountant` `re-shop`, `teacher` "umursatmak".
+
+`administrative-assistant`'ın metni değiştiği için `translationReviewed` tarihi
+`2026-08-15`'ten **`2026-08-16`**'ya güncellendi. `cashier`'a dokunulmadı — metni
+değişmedi, tarihi `2026-08-15` kaldı.
+
+**EN çıktısı bu turda hiç etkilenmedi.** Golden'da yalnız üç dosya değişti:
+`tr-home.html` (tablodaki `oneLiner`'lar ve katlanmış `data-search`) ve
+`sitemap.xml`/`.json` — sitemap farkı tek satır, `administrative-assistant`'ın TR
+`lastmod`'u.
+
+**Ders (sözlüğe de yazıldı):** çeviride kontrol edilecek şey kelime değil, okurun
+ne hissettiği. Sözlük terim tutarlılığını garanti eder, mecaz aktarımını etmez —
+o ayrı bir okuma turu ister.
 
 ## Kabul edilmiş durumlar
 
