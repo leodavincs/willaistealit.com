@@ -18,6 +18,15 @@
 
   var state = { verdict: 'all', cat: 'all', sort: 'name', dir: 1 };
 
+  // Arama katlamasi. Harita data/search-fold.json'dan gelir ve sayfaya gomulur;
+  // PHP tarafi (search_fold) AYNI haritayi AYNI sirayla uygular (spec 6.1).
+  var FOLD = window.__fold || {};
+  function fold(s) {
+    s = String(s).replace(/./gu, function (ch) { return FOLD[ch] !== undefined ? FOLD[ch] : ch; });
+    s = s.normalize('NFD').replace(/\p{Mn}+/gu, '').toLowerCase();
+    return s.replace(/[^\p{L}\p{N}]+/gu, ' ').replace(/\s+/gu, ' ').trim();
+  }
+
   // Sirali harf eslesmesi: "grphc" -> "graphic designer"
   function fuzzy(haystack, needle) {
     var i = 0;
@@ -78,7 +87,7 @@
   }
 
   function apply() {
-    var query = input.value.trim().toLowerCase();
+    var query = fold(input.value);
 
     var visible = rows.filter(function (row) {
       var ok = matchesQuery(row, query)

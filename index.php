@@ -187,8 +187,8 @@ require __DIR__ . '/inc/header.php';
             $tags = (array)($job['resistanceTags'] ?? []);
             ?>
             <tr class="row v-<?= h((string)($job['verdict'] ?? 'shrinking')) ?>"
-                data-name="<?= h(mb_strtolower($name)) ?>"
-                data-search="<?= h(mb_strtolower($name . ' ' . implode(' ', (array)($job['aka'] ?? [])) . ' ' . (string)($job['oneLiner'] ?? '') . ' ' . implode(' ', $tags) . ' ' . category_label($job['category'] ?? '', $lang))) ?>"
+                data-name="<?= h(search_fold($name)) ?>"
+                data-search="<?= h(search_fold($name . ' ' . implode(' ', (array)($job['aka'] ?? [])) . ' ' . (string)($job['oneLiner'] ?? '') . ' ' . implode(' ', $tags) . ' ' . category_label($job['category'] ?? '', $lang))) ?>"
                 data-verdict="<?= h((string)($job['verdict'] ?? '')) ?>"
                 data-verdict-rank="<?= (int)array_search($job['verdict'] ?? '', ['safe', 'shrinking', 'on-the-menu'], true) ?>"
                 data-until="<?= h((string)($job['safeUntil'] ?? '9999')) ?>"
@@ -217,6 +217,8 @@ require __DIR__ . '/inc/header.php';
 
 </div>
 
+<?php /* Arama haritasi: tek kaynak data/search-fold.json. search.js'ten ONCE. */ ?>
+<script>window.__fold = <?= json_encode(search_fold_map(), JSON_UNESCAPED_UNICODE) ?>;</script>
 <script src="<?= h(asset('/assets/search.js')) ?>" defer></script>
 <script src="<?= h(asset('/assets/app.js')) ?>" defer></script>
 <?php require __DIR__ . '/inc/footer.php';

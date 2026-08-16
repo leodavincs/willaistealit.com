@@ -257,6 +257,44 @@ foreach (LANGS as $lang) {
     }
 }
 
+// --- Arama katlama haritasi (spec 6.1) ---
+// Harita PHP ve JS tarafindan PAYLASILIR. Bozulursa iki taraf sessizce ayrisir,
+// o yuzden fixture'lar burada da kosuluyor.
+$foldRaw  = (string)@file_get_contents(ROOT . '/data/search-fold.json');
+$foldSpec = json_decode($foldRaw, true);
+if (!is_array($foldSpec) || !isset($foldSpec['map'], $foldSpec['fixtures'])) {
+    $errors[] = 'search-fold: data/search-fold.json okunamadi ya da map/fixtures eksik';
+} else {
+    // json_decode mukerrer anahtarda SESSIZCE sonuncuyu alir; ham metinde sayiyoruz.
+    preg_match_all('/"(.)"\s*:/u', $foldRaw, $m);
+    $dups = array_keys(array_filter(array_count_values($m[1]), static fn (int $c): bool => $c > 1));
+    if ($dups !== []) {
+        $errors[] = 'search-fold: mukerrer harita anahtari: ' . implode(', ', $dups);
+    }
+
+    foreach ($foldSpec['fixtures'] as $in => $expected) {
+        $got = search_fold((string)$in);
+        if ($got !== (string)$expected) {
+            $errors[] = "search-fold: '$in' -> '$got' bekleniyordu '$expected'";
+        }
+    }
+
+    // JS tarafi ayni sonucu veriyor mu. node yoksa atlanir — ama sessizce degil.
+    if ($cli) {
+        $node = trim((string)@shell_exec('command -v node 2>/dev/null'));
+        if ($node === '') {
+            $warnings[] = 'search-fold: node bulunamadi, JS/PHP parity kontrolu ATLANDI';
+        } else {
+            $out = [];
+            $rc  = 0;
+            exec('node ' . escapeshellarg(ROOT . '/tools/fold-check.js') . ' 2>&1', $out, $rc);
+            if ($rc !== 0) {
+                $errors[] = 'search-fold: JS fold() PHP ile ayrisiyor — ' . implode(' | ', $out);
+            }
+        }
+    }
+}
+
 // --- Sabit sayfa inceleme tarihleri (spec 5.2) ---
 // Sitemap lastmod'u data/page-reviewed.json'dan gelir. Eksik tarih UYARI: sitemap
 // o satiri lastmod'suz basar ve gecerli XML uretir. Bicimi bozuk tarih HATA:

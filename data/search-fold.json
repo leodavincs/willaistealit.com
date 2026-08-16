@@ -1,0 +1,15 @@
+{
+    "map": { "İ": "i", "I": "i", "ı": "i", "ş": "s", "Ş": "s", "ğ": "g", "Ğ": "g",
+             "ü": "u", "Ü": "u", "ö": "o", "Ö": "o", "ç": "c", "Ç": "c",
+             "á": "a", "é": "e", "í": "i", "ó": "o", "ú": "u", "ñ": "n",
+             "Á": "a", "É": "e", "Í": "i", "Ó": "o", "Ú": "u", "Ñ": "n" },
+    "fixtures": {
+        "Yazılım Geliştirici": "yazilim gelistirici",
+        "İŞE ALIM":            "ise alim",
+        "MUHASEBECİ":          "muhasebeci",
+        "Español":             "espanol",
+        "PROGRAMACIÓN":        "programacion",
+        "Lingüista":           "linguista",
+        "¿Desarrollador?":     "desarrollador"
+    }
+}

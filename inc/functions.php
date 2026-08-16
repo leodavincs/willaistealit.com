@@ -6,6 +6,7 @@ require_once __DIR__ . '/entry.php';
 require_once __DIR__ . '/locale.php';
 require_once __DIR__ . '/urls.php';         // url_for
 require_once __DIR__ . '/routes_cache.php'; // load_routes
+require_once __DIR__ . '/search.php';       // search_fold
 
 /** Slug'i dogrula: sadece [a-z0-9-], path traversal'a kapali. */
 function valid_slug(?string $slug): bool
