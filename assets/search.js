@@ -203,7 +203,13 @@
 
     if (reduced) return;
 
-    var samples = ['accountant', 'translator', 'plumber', 'nurse', 'video editor', 'lawyer'];
+    // Ornekler TABLODAN okunur: locale'de ikinci bir liste tutmak, dil eklendiginde
+    // sessizce Ingilizce kalirdi. Gorunen baslik alinir (data-name katlanmis olani).
+    var samples = rows.slice(0, 6).map(function (r) {
+      var a = r.querySelector('.cell-job a');
+      return a ? a.textContent.trim() : '';
+    }).filter(Boolean);
+    if (!samples.length) return;
     var wi = 0, ci = samples[0].length, deleting = true, stopped = false;
 
     function stop() {
