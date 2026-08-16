@@ -1,0 +1,166 @@
+{
+    "status": 200,
+    "contentType": "text/html",
+    "htmlLang": "tr",
+    "title": "Yapay zekâ kasiyer mesleğinin yerini alacak mı? — 🔴 MENÜDE",
+    "description": "Ürünü okutmak artık birinin yaptığı iş olmaktan çıktı. Rafla kapı arasında duran kişi çıkmadı.",
+    "canonical": "https://willaistealit.com/tr/kasiyer",
+    "robots": null,
+    "h1": "Yapay zekâ Kasiyer mesleğinin yerini alacak mı?",
+    "h2": [
+        "Uzun hâli",
+        "Görev kırılımı",
+        "Geri kalan neden direniyor",
+        "O sizi kullanmadan siz onu kullanın",
+        "Yargıyı paylaş",
+        "Kanıtlar",
+        "Kaynaklar",
+        "Doğrudan cevaplar",
+        "Bu yargı yanlış mı sizce?",
+        "Aynı fay hattındaki meslekler"
+    ],
+    "h3": [
+        "Yapay zekâ Kasiyer mesleğinin yerini alacak mı?",
+        "Yapay zekâ Müşteri Temsilcisi mesleğinin yerini alacak mı?",
+        "Yapay zekâ Hemşire mesleğinin yerini alacak mı?",
+        "Yapay zekâ Kamyon Şoförü mesleğinin yerini alacak mı?"
+    ],
+    "verdictLabel": "MENÜDE",
+    "taskCount": 6,
+    "tasks": [
+        "Ürün okutma ve ödeme alma [gitti]",
+        "Nakit sayımı ve vardiya sonu mutabakat [gidiyor]",
+        "İade, değişim ve fiyat itirazları [gidiyor]",
+        "Yaş sınırlı satış ve kayıp önleme [kalıyor]",
+        "Self-servis kasayı gözetmek [kalıyor]",
+        "İşlem aralarında reyon hizmeti [kalıyor]"
+    ],
+    "jsonLd": [
+        {
+            "@context": "https://schema.org",
+            "@graph": [
+                {
+                    "@type": "Article",
+                    "about": {
+                        "@type": "Occupation",
+                        "description": "Ürünü okutmak artık birinin yaptığı iş olmaktan çıktı. Rafla kapı arasında duran kişi çıkmadı.",
+                        "name": "Kasiyer",
+                        "occupationalCategory": "Satış ve Hizmet",
+                        "skills": "physical presence, regulated, physical context"
+                    },
+                    "dateModified": "2026-08-01",
+                    "description": "Ağustos 2026 itibarıyla kasiyer işinin çekirdek görevleri makineye devroluyor ve bu geçişin yaklaşık 2032 yılında tamamlanması bekleniyor. Yapay zekâ şu görevleri şimdiden devraldı: ürün okutma ve ödeme alma. Direnen kısım: yaş sınırlı satış ve kayıp önleme; self-servis kasayı gözetmek; işlem aralarında reyon hizmeti. Yapısal sebep: fiziksel varlık, düzenlemeye tabi olma ve fiziksel bağlam.",
+                    "headline": "Yapay zekâ kasiyer mesleğinin yerini alacak mı? — 🔴 MENÜDE",
+                    "image": "https://willaistealit.com/og/tr/kasiyer.png",
+                    "inLanguage": "tr",
+                    "isPartOf": {
+                        "@type": "WebSite",
+                        "name": "Will AI Steal It?",
+                        "url": "https://willaistealit.com"
+                    },
+                    "publisher": {
+                        "@type": "Organization",
+                        "name": "Will AI Steal It?",
+                        "url": "https://willaistealit.com"
+                    },
+                    "url": "https://willaistealit.com/tr/kasiyer"
+                },
+                {
+                    "@type": "FAQPage",
+                    "inLanguage": "tr",
+                    "mainEntity": [
+                        {
+                            "@type": "Question",
+                            "acceptedAnswer": {
+                                "@type": "Answer",
+                                "text": "Ağustos 2026 itibarıyla kasiyer işinin çekirdek görevleri makineye devroluyor ve bu geçişin yaklaşık 2032 yılında tamamlanması bekleniyor. Yapay zekâ şu görevleri şimdiden devraldı: ürün okutma ve ödeme alma. Direnen kısım: yaş sınırlı satış ve kayıp önleme; self-servis kasayı gözetmek; işlem aralarında reyon hizmeti. Yapısal sebep: fiziksel varlık, düzenlemeye tabi olma ve fiziksel bağlam."
+                            },
+                            "name": "Yapay zekâ Kasiyer mesleğinin yerini alacak mı?"
+                        },
+                        {
+                            "@type": "Question",
+                            "acceptedAnswer": {
+                                "@type": "Answer",
+                                "text": "Tahminimiz yaklaşık 2032. Bu, işin çekirdek görevlerinin olağan uygulamada rutin olarak makineyle yapılır hâle geleceği yıl — yetenek geldikten, işverenler benimsedikten ve düzenleyiciler izin verdikten sonra. Meslek adının ortadan kalkacağı yıl değil. Güncel yargı: MENÜDE."
+                            },
+                            "name": "Kasiyer işi yapay zekâya karşı ne kadar güvende?"
+                        },
+                        {
+                            "@type": "Question",
+                            "acceptedAnswer": {
+                                "@type": "Answer",
+                                "text": "Ürün okutma ve ödeme alma (gitti); nakit sayımı ve vardiya sonu mutabakat (gidiyor); iade, değişim ve fiyat itirazları (gidiyor). Her biri ayrı ayrı değerlendiriliyor; tüm meslek tek bir cevaba indirgenmiyor."
+                            },
+                            "name": "Yapay zekâ Kasiyer mesleğinin hangi görevlerini şimdiden yapıyor?"
+                        },
+                        {
+                            "@type": "Question",
+                            "acceptedAnswer": {
+                                "@type": "Answer",
+                                "text": "Makinenin tek başına çeviremediği kasa, kanunun makineye onaylatmadığı satış ve reyonda duran bir çift el."
+                            },
+                            "name": "Kasiyer işinin hangi kısmı yapay zekâdan güvende?"
+                        },
+                        {
+                            "@type": "Question",
+                            "acceptedAnswer": {
+                                "@type": "Answer",
+                                "text": "Zaten gitti ya da gidiyor olarak işaretlenmiş görevlerde kullanın, yargıyı elinizde tutun. Bu mesleğe özel, kopyalayıp kullanabileceğiniz bir prompt burada: https://willaistealit.com/tr/kasiyer."
+                            },
+                            "name": "Kasiyer yapay zekâyla rekabet etmek yerine onu nasıl kullanmalı?"
+                        }
+                    ]
+                },
+                {
+                    "@type": "BreadcrumbList",
+                    "itemListElement": [
+                        {
+                            "@type": "ListItem",
+                            "item": "https://willaistealit.com/tr",
+                            "name": "Tüm meslekler",
+                            "position": 1
+                        },
+                        {
+                            "@type": "ListItem",
+                            "item": "https://willaistealit.com/tr/?q=Sat%C4%B1%C5%9F%20ve%20Hizmet",
+                            "name": "Satış ve Hizmet",
+                            "position": 2
+                        },
+                        {
+                            "@type": "ListItem",
+                            "item": "https://willaistealit.com/tr/kasiyer",
+                            "name": "Kasiyer",
+                            "position": 3
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "links": [
+        "#main",
+        "/assets/favicon.svg",
+        "/assets/style.css?v=1786885578",
+        "/tr/",
+        "/tr/degisiklikler",
+        "/tr/hemsire",
+        "/tr/kamyon-soforu",
+        "/tr/kasiyer",
+        "/tr/metodoloji",
+        "/tr/musteri-temsilcisi",
+        "/tr/sponsorluk",
+        "/tr/zaman-cizelgesi",
+        "https://github.com/leodavincs/willaistealit.com",
+        "https://github.com/leodavincs/willaistealit.com/blob/main/data/jobs/cashier/tr.json",
+        "https://willaistealit.com/cashier",
+        "https://willaistealit.com/og/tr/kasiyer.png",
+        "https://willaistealit.com/tr/kasiyer",
+        "https://www.bls.gov/emp/tables/occupations-largest-job-declines.htm",
+        "https://www.bls.gov/ooh/sales/cashiers.htm",
+        "https://www.ilo.org/resource/article/how-might-generative-ai-impact-different-occupations",
+        "https://www.oecd.org/en/publications/the-oecd-ai-exposure-measure_f3da0f0a-en.html",
+        "https://www.onetonline.org/link/summary/41-2011.00",
+        "https://www.weforum.org/stories/2025/01/future-of-jobs-report-2025-the-fastest-growing-and-declining-jobs/",
+        "https://x.com/intent/tweet?text=KAS%C4%B0YER%3A%20%F0%9F%94%B4%20MEN%C3%9CDE%20%E2%80%94%20~2032%20y%C4%B1l%C4%B1na%20kadar%20g%C3%BCvende%0A%0A%C3%9Cr%C3%BCn%C3%BC%20okutmak%20art%C4%B1k%20birinin%20yapt%C4%B1%C4%9F%C4%B1%20i%C5%9F%20olmaktan%20%C3%A7%C4%B1kt%C4%B1.%20Rafla%20kap%C4%B1%20aras%C4%B1nda%20duran%20ki%C5%9Fi%20%C3%A7%C4%B1kmad%C4%B1.%0A%0Ahttps%3A%2F%2Fwillaistealit.com%2Ftr%2Fkasiyer"
+    ]
+}

@@ -35,19 +35,19 @@ t_eq([], hreflang_reciprocity_errors($iki), 'karsilikli kume temiz gecer');
 // icin uretimde tetiklenemezler. Savunma katmani olarak duruyorlar ve burada
 // bozuk kume ENJEKTE EDILEREK kanitlaniyorlar — kanitlanmamis kural yazilmamis
 // sayilir.
-$kanonikDegil = ['en|cashier' => ['en' => 'https://willaistealit.com/cashier',
+$kanonikDegil = ['job|en|cashier' => ['en' => 'https://willaistealit.com/cashier',
                                   'tr' => 'https://willaistealit.com/tr/eski-kasiyer']];
 $eskiTablo = $iki;
 $eskiTablo['slugs']['tr']['eski-kasiyer'] = 'cashier';   // formerSlug: 301'e duser
 $h = hreflang_reciprocity_errors($eskiTablo, $kanonikDegil);
 t_eq(true, str_contains(implode(' ', $h), 'kanonik olmayan'), 'kanonik olmayan hedef kirmizi verir');
 
-$dilUyusmaz = ['en|cashier' => ['en' => 'https://willaistealit.com/cashier',
+$dilUyusmaz = ['job|en|cashier' => ['en' => 'https://willaistealit.com/cashier',
                                 'tr' => 'https://willaistealit.com/cashier']];
 $h = hreflang_reciprocity_errors($iki, $dilUyusmaz);
 t_eq(true, str_contains(implode(' ', $h), "etiketi 'en'"), 'dil uyusmazligi kirmizi verir');
 
-$cozulmez = ['en|cashier' => ['en' => 'https://willaistealit.com/cashier',
+$cozulmez = ['job|en|cashier' => ['en' => 'https://willaistealit.com/cashier',
                               'tr' => 'https://willaistealit.com/tr/hicboyle']];
 $h = hreflang_reciprocity_errors($iki, $cozulmez);
 t_eq(true, str_contains(implode(' ', $h), 'cozulmuyor'), 'cozulmeyen hedef kirmizi verir (enjekte)');

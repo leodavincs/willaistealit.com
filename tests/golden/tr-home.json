@@ -1,0 +1,99 @@
+{
+    "status": 200,
+    "contentType": "text/html",
+    "htmlLang": "tr",
+    "title": "Yapay zekâ sizin mesleğinizi alacak mı? — 17 meslek için görev seviyesinde yargılar",
+    "description": "Yapay zekânın hangi mesleklerin hangi görevlerini aldığına dair görev seviyesinde yargılar. Liste yazısı değil: her meslek gerçek görevlerine bölünüyor, her görev ayrı yargılanıyor ve bugün kullanabileceğiniz bir prompt veriliyor.",
+    "canonical": "https://willaistealit.com/tr/",
+    "robots": null,
+    "h1": "Yapay zekâ bunu çalar mı?",
+    "h2": [
+        "Yargı dağılımı",
+        "Yargı",
+        "Kategori"
+    ],
+    "h3": [],
+    "verdictLabel": null,
+    "taskCount": 0,
+    "tasks": [],
+    "jsonLd": [
+        {
+            "@context": "https://schema.org",
+            "@graph": [
+                {
+                    "@type": "WebSite",
+                    "description": "Yapay zekânın hangi mesleklerin hangi görevlerini aldığına dair görev seviyesinde yargılar.",
+                    "inLanguage": "tr",
+                    "name": "Will AI Steal It?",
+                    "potentialAction": {
+                        "@type": "SearchAction",
+                        "query-input": "required name=search_term_string",
+                        "target": "https://willaistealit.com/?q={search_term_string}"
+                    },
+                    "url": "https://willaistealit.com"
+                },
+                {
+                    "@type": "FAQPage",
+                    "inLanguage": "tr",
+                    "mainEntity": [
+                        {
+                            "@type": "Question",
+                            "acceptedAnswer": {
+                                "@type": "Answer",
+                                "text": "Ağustos 2026 itibarıyla willaistealit.com 17 meslek için görev seviyesinde yapay zekâ yargısı yayınlıyor: 2 güvende, 11 daralıyor, 4 menüde. Her meslek gerçek görevlerine bölünüyor ve her görev ayrı yargılanıyor; çünkü yapay zekâ meslekleri değil, görevleri alıyor."
+                            },
+                            "name": "Yapay zekâ hangi mesleklerin yerini alacak?"
+                        },
+                        {
+                            "@type": "Question",
+                            "acceptedAnswer": {
+                                "@type": "Answer",
+                                "text": "Her meslek 4-8 somut göreve bölünüyor. Her görev ayrı ayrı gitti, gidiyor ya da kalıyor olarak yargılanıyor ve hayatta kalan her görev direnmesinin yapısal sebebini adlandırmak zorunda — hukuki sorumluluk, fiziksel varlık, regülasyon, güven, insan yargısı, yaratıcı zevk, hesap verebilirlik ya da duygusal emek. Ancak bundan sonra bir başlık yargısı veriliyor ve o yargı asla tek başına durmuyor. Kuralların tamamı: https://willaistealit.com/tr/metodoloji"
+                            },
+                            "name": "Bu yapay zekâ meslek yargıları nasıl belirleniyor?"
+                        },
+                        {
+                            "@type": "Question",
+                            "acceptedAnswer": {
+                                "@type": "Answer",
+                                "text": "Bir mesleğin çekirdek görevlerinin olağan uygulamada rutin olarak makineyle yapılır hâle gelmesinin beklendiği yıl; yeteneğin gelmesi, kurumların benimsemesi ve düzenleyicilerin izin vermesi hesaba katılarak. Meslek adının ortadan kalkacağı yıl değil."
+                            },
+                            "name": "Bu sitede \"şu yıla kadar güvende\" ne demek?"
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "links": [
+        "#main",
+        "/assets/favicon.svg",
+        "/assets/style.css?v=1786885578",
+        "/tr/",
+        "/tr/avukat",
+        "/tr/cevirmen",
+        "/tr/degisiklikler",
+        "/tr/fotografci",
+        "/tr/grafik-tasarimci",
+        "/tr/hemsire",
+        "/tr/idari-asistan",
+        "/tr/ise-alim-uzmani",
+        "/tr/kamyon-soforu",
+        "/tr/kasiyer",
+        "/tr/metin-yazari",
+        "/tr/metodoloji",
+        "/tr/muhasebeci",
+        "/tr/musteri-temsilcisi",
+        "/tr/ogretmen",
+        "/tr/pazarlamaci",
+        "/tr/sponsorluk",
+        "/tr/veri-analisti",
+        "/tr/video-editoru",
+        "/tr/yazilim-gelistirici",
+        "/tr/zaman-cizelgesi",
+        "https://github.com/leodavincs/willaistealit.com",
+        "https://github.com/leodavincs/willaistealit.com/blob/main/CONTRIBUTING.md",
+        "https://willaistealit.com/",
+        "https://willaistealit.com/tr/"
+    ]
+}

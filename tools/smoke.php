@@ -99,45 +99,31 @@ $matrix = [
     ['/.well-known/smoke-probe.txt', 200, null,        null,  null],
 ];
 
-// TR satirlari canli tabloyla kosulamaz: activeLangs ['en'] oldugu icin /tr/* 404
-// doner. WAISI_ROUTES_FILE ile onizleme tablosu verildiginde bu satirlar eklenir.
-// Canli cache/routes.json HICBIR asamada degistirilmez.
-$preview = (string)(getenv('WAISI_ROUTES_FILE') ?: '');
-$trRows  = [
+// TR 4C1'de aktive edildi: bu satirlar artik CANLI tabloyla kosuluyor, onizleme
+// override'i gerekmiyor. ES hala kapali ve o kapalilik burada test ediliyor.
+$matrix = array_merge($matrix, [
     ['/tr',                        301, '/tr/',                  null,  null],
     ['/tr/',                       200, null,                    'tr',  'https://willaistealit.com/tr/'],
     ['/tr/kasiyer',                200, null,                    'tr',  'https://willaistealit.com/tr/kasiyer'],
     ['/tr/kasiyer/',               301, '/tr/kasiyer',           null,  null],
     ['/tr/cashier',                301, '/tr/kasiyer',           null,  null],
     ['/tr/unknown',                404, null,                    null,  null],
-    ['/tr/nurse',                  301, '/tr/hemsire',           null,  null],   // artik TR'de yayinli
+    ['/tr/nurse',                  301, '/tr/hemsire',           null,  null],
     ['/og/tr/kasiyer.png',         200, null,                    null,  null],
     ['/og/tr/accountant.png',      301, '/og/tr/muhasebeci.png', null,  null],
-    // Dort TR sabit sayfasinin hepsi acik ve KENDI dilinde olmali.
+    // Dort TR sabit sayfasi acik ve KENDI dilinde
     ['/tr/metodoloji',             200, null,                    'tr',  'https://willaistealit.com/tr/metodoloji'],
     ['/tr/zaman-cizelgesi',        200, null,                    'tr',  'https://willaistealit.com/tr/zaman-cizelgesi'],
     ['/tr/degisiklikler',          200, null,                    'tr',  'https://willaistealit.com/tr/degisiklikler'],
     ['/tr/sponsorluk',             200, null,                    'tr',  'https://willaistealit.com/tr/sponsorluk'],
     ['/tr/methodology',            301, '/tr/metodoloji',        null,  null],
-];
-// TR KAPALIYKEN gecerli satirlar: onizleme tablosu varken bunlar dogal olarak
-// celisir (TR acik oldugu icin 301/200 donerler), o yuzden ayri tutuluyor.
-$trClosedRows = [
-    ['/tr/',                       404, null,                    null,  null],
-    ['/tr/kasiyer',                404, null,                    null,  null],
-    ['/tr/metodoloji',             404, null,                    null,  null],
-    ['/og/tr/accountant.png',      404, null,                    null,  null],
-];
-if ($preview !== '' && is_file($preview)) {
-    $matrix = array_merge($matrix, $trRows);
-    echo "onizleme tablosu: $preview (" . count($trRows) . " TR satiri eklendi, "
-       . count($trClosedRows) . " kapalilik satiri atlandi)\n";
-} else {
-    $matrix = array_merge($matrix, $trClosedRows);
-    // Atlanan satir SESSIZ kalmaz.
-    echo "ATLANDI: " . count($trRows) . " TR satiri — WAISI_ROUTES_FILE verilmedi ("
-       . count($trClosedRows) . " kapalilik satiri kosuldu)\n";
-}
+    // ES kapali (Faz 5)
+    ['/es/',                       404, null,                    null,  null],
+    ['/es/cajero',                 404, null,                    null,  null],
+    ['/og/es/cajero.png',          404, null,                    null,  null],
+    // Guvenlik: TR indeksi de disaridan gorunmemeli
+    ['/cache/index-tr.json',       404, null,                    null,  null],
+]);
 
 /** 404 govdesi hassas icerik sizdirmamali. */
 $leaks = ['adaptPrompt', 'BUILD_KEY', 'config.local', '<?php', 'resistanceTags'];

@@ -1,0 +1,40 @@
+{
+    "status": 200,
+    "contentType": "text/html",
+    "htmlLang": "tr",
+    "title": "Nasıl karar veriyoruz — Will AI Steal It?",
+    "description": "willaistealit.com üzerindeki her yargının arkasındaki kurallar: görev seviyesinde analiz, direnç etiketleri ve fikrimizi değiştirecek şey.",
+    "canonical": "https://willaistealit.com/tr/metodoloji",
+    "robots": null,
+    "h1": "Nasıl karar veriyoruz",
+    "h2": [
+        "Tek kural",
+        "Üç yargı",
+        "Direnç etiketleri",
+        "\"Şu yıla kadar güvende\" yılı",
+        "Yapmayı reddettiklerimiz",
+        "Kaynaklar ve taslaklar",
+        "Yargılar nasıl değişir",
+        "Katılmıyorsanız"
+    ],
+    "h3": [
+        "Görev seviyesinde yargılar"
+    ],
+    "verdictLabel": null,
+    "taskCount": 0,
+    "tasks": [],
+    "jsonLd": [],
+    "links": [
+        "#main",
+        "/assets/favicon.svg",
+        "/assets/style.css?v=1786885578",
+        "/tr/",
+        "/tr/degisiklikler",
+        "/tr/metodoloji",
+        "/tr/sponsorluk",
+        "/tr/zaman-cizelgesi",
+        "https://github.com/leodavincs/willaistealit.com",
+        "https://willaistealit.com/methodology",
+        "https://willaistealit.com/tr/metodoloji"
+    ]
+}

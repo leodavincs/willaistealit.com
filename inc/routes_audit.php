@@ -44,47 +44,70 @@ function routes_leak_errors(array $routes, array $expected): array
  */
 function hreflang_reciprocity_errors(array $routes, ?array $sets = null): array
 {
+    // Denetlenen hedefler: entry'ler + sabit sayfalar + ana sayfa. Yalnizca
+    // entry'lere bakmak, sabit sayfa hreflang'ini denetimsiz birakirdi.
     if ($sets === null) {
         $sets = [];
+        $active = (array)($routes['activeLangs'] ?? [DEFAULT_LANG]);
         foreach (array_keys((array)($routes['published'] ?? [])) as $id) {
-            foreach ((array)($routes['activeLangs'] ?? [DEFAULT_LANG]) as $lang) {
+            foreach ($active as $lang) {
                 if (!in_array($lang, (array)$routes['published'][$id], true)) {
                     continue;
                 }
-                $sets[$lang . '|' . (string)$id] = alternates_for('job', (string)$id, $routes);
+                $sets['job|' . $lang . '|' . (string)$id] = alternates_for('job', (string)$id, $routes);
             }
+        }
+        foreach (array_keys((array)(PAGE_SLUGS[DEFAULT_LANG] ?? [])) as $key) {
+            foreach ($active as $lang) {
+                if (!isset($routes['pageSlugs'][$lang][$key])) {
+                    continue;
+                }
+                $sets['page|' . $lang . '|' . (string)$key] = alternates_for('page', (string)$key, $routes);
+            }
+        }
+        foreach ($active as $lang) {
+            $sets['home|' . $lang . '|'] = alternates_for('home', '', $routes);
         }
     }
 
     $out = [];
     foreach ($sets as $key => $set) {
-        [$srcLang, $id] = explode('|', (string)$key, 2);
-        $srcUrl = url_for($srcLang, 'job', $id, $routes);
+        $parts   = explode('|', (string)$key, 3);
+        $srcType = $parts[0] ?? 'job';
+        $srcLang = $parts[1] ?? DEFAULT_LANG;
+        $id      = $parts[2] ?? '';
+        $srcUrl  = url_for($srcLang, $srcType, $id, $routes);
+        $label   = $srcType . '/' . ($id !== '' ? $id : 'home');
 
         foreach ($set as $code => $href) {
             if ($code === 'x-default') {
                 continue;
             }
+            // rtrim YOK: '/tr/' kanonik ana sayfadir, '/tr' ise 301'dir.
             $path  = (string)parse_url((string)$href, PHP_URL_PATH);
-            $path  = $path === '' ? '/' : $path;
-            $route = resolve_path($path === '/' ? '/' : rtrim($path, '/'), $routes);
+            $route = resolve_path($path === '' ? '/' : $path, $routes);
 
             if (($route['type'] ?? '') === 'redirect') {
-                $out[] = "hreflang/$id: '$code' kanonik olmayan URL gosteriyor ($href)";
+                $out[] = "hreflang/$label: '$code' kanonik olmayan URL gosteriyor ($href)";
                 continue;
             }
-            if (($route['type'] ?? '') !== 'job') {
-                $out[] = "hreflang/$id: '$code' bir entry sayfasina cozulmuyor ($href)";
+            if (!in_array($route['type'] ?? '', ['job', 'page', 'home'], true)) {
+                $out[] = "hreflang/$label: '$code' bir sayfaya cozulmuyor ($href)";
                 continue;
             }
             if ((string)($route['lang'] ?? '') !== (string)$code) {
-                $out[] = "hreflang/$id: '$code' etiketi '" . (string)($route['lang'] ?? '?')
+                $out[] = "hreflang/$label: '$code' etiketi '" . (string)($route['lang'] ?? '?')
                        . "' dilindeki bir sayfayi gosteriyor";
                 continue;
             }
-            $back = $sets[$code . '|' . (string)$route['id']] ?? null;
+            $tKey = match ((string)$route['type']) {
+                'job'  => (string)($route['id'] ?? ''),
+                'page' => (string)($route['key'] ?? ''),
+                default => '',
+            };
+            $back = $sets[(string)$route['type'] . '|' . $code . '|' . $tKey] ?? null;
             if ($back === null || !in_array($srcUrl, $back, true)) {
-                $out[] = "hreflang/$id: '$code' karsilik vermiyor — geri baglanti yok";
+                $out[] = "hreflang/$label: '$code' karsilik vermiyor — geri baglanti yok";
             }
         }
     }

@@ -9,6 +9,7 @@
             "priority": "1.0",
             "alternates": [
                 "=",
+                "=",
                 "="
             ]
         },
@@ -18,6 +19,7 @@
             "changefreq": "monthly",
             "priority": "0.9",
             "alternates": [
+                "=",
                 "=",
                 "="
             ]
@@ -29,6 +31,7 @@
             "priority": "0.9",
             "alternates": [
                 "=",
+                "=",
                 "="
             ]
         },
@@ -38,6 +41,7 @@
             "changefreq": "monthly",
             "priority": "0.9",
             "alternates": [
+                "=",
                 "=",
                 "="
             ]
@@ -49,6 +53,7 @@
             "priority": "0.6",
             "alternates": [
                 "=",
+                "=",
                 "="
             ]
         },
@@ -58,6 +63,7 @@
             "changefreq": "monthly",
             "priority": "0.9",
             "alternates": [
+                "=",
                 "=",
                 "="
             ]
@@ -69,6 +75,7 @@
             "priority": "0.9",
             "alternates": [
                 "=",
+                "=",
                 "="
             ]
         },
@@ -78,6 +85,7 @@
             "changefreq": "monthly",
             "priority": "0.9",
             "alternates": [
+                "=",
                 "=",
                 "="
             ]
@@ -89,6 +97,7 @@
             "priority": "0.9",
             "alternates": [
                 "=",
+                "=",
                 "="
             ]
         },
@@ -98,6 +107,7 @@
             "changefreq": "weekly",
             "priority": "0.8",
             "alternates": [
+                "=",
                 "=",
                 "="
             ]
@@ -109,6 +119,7 @@
             "priority": "0.9",
             "alternates": [
                 "=",
+                "=",
                 "="
             ]
         },
@@ -118,6 +129,7 @@
             "changefreq": "monthly",
             "priority": "0.9",
             "alternates": [
+                "=",
                 "=",
                 "="
             ]
@@ -129,6 +141,7 @@
             "priority": "0.7",
             "alternates": [
                 "=",
+                "=",
                 "="
             ]
         },
@@ -138,6 +151,7 @@
             "changefreq": "monthly",
             "priority": "0.9",
             "alternates": [
+                "=",
                 "=",
                 "="
             ]
@@ -149,6 +163,7 @@
             "priority": "0.9",
             "alternates": [
                 "=",
+                "=",
                 "="
             ]
         },
@@ -158,6 +173,7 @@
             "changefreq": "monthly",
             "priority": "0.9",
             "alternates": [
+                "=",
                 "=",
                 "="
             ]
@@ -169,6 +185,7 @@
             "priority": "0.9",
             "alternates": [
                 "=",
+                "=",
                 "="
             ]
         },
@@ -178,6 +195,7 @@
             "changefreq": "monthly",
             "priority": "0.3",
             "alternates": [
+                "=",
                 "=",
                 "="
             ]
@@ -189,6 +207,249 @@
             "priority": "0.9",
             "alternates": [
                 "=",
+                "=",
+                "="
+            ]
+        },
+        {
+            "loc": "https://willaistealit.com/tr/",
+            "lastmod": "2026-08-16",
+            "changefreq": "daily",
+            "priority": "1.0",
+            "alternates": [
+                "=",
+                "=",
+                "="
+            ]
+        },
+        {
+            "loc": "https://willaistealit.com/tr/avukat",
+            "lastmod": "2026-08-16",
+            "changefreq": "monthly",
+            "priority": "0.9",
+            "alternates": [
+                "=",
+                "=",
+                "="
+            ]
+        },
+        {
+            "loc": "https://willaistealit.com/tr/cevirmen",
+            "lastmod": "2026-08-16",
+            "changefreq": "monthly",
+            "priority": "0.9",
+            "alternates": [
+                "=",
+                "=",
+                "="
+            ]
+        },
+        {
+            "loc": "https://willaistealit.com/tr/degisiklikler",
+            "lastmod": "",
+            "changefreq": "weekly",
+            "priority": "0.6",
+            "alternates": [
+                "=",
+                "=",
+                "="
+            ]
+        },
+        {
+            "loc": "https://willaistealit.com/tr/fotografci",
+            "lastmod": "2026-08-16",
+            "changefreq": "monthly",
+            "priority": "0.9",
+            "alternates": [
+                "=",
+                "=",
+                "="
+            ]
+        },
+        {
+            "loc": "https://willaistealit.com/tr/grafik-tasarimci",
+            "lastmod": "2026-08-16",
+            "changefreq": "monthly",
+            "priority": "0.9",
+            "alternates": [
+                "=",
+                "=",
+                "="
+            ]
+        },
+        {
+            "loc": "https://willaistealit.com/tr/hemsire",
+            "lastmod": "2026-08-16",
+            "changefreq": "monthly",
+            "priority": "0.9",
+            "alternates": [
+                "=",
+                "=",
+                "="
+            ]
+        },
+        {
+            "loc": "https://willaistealit.com/tr/idari-asistan",
+            "lastmod": "2026-08-15",
+            "changefreq": "monthly",
+            "priority": "0.9",
+            "alternates": [
+                "=",
+                "=",
+                "="
+            ]
+        },
+        {
+            "loc": "https://willaistealit.com/tr/ise-alim-uzmani",
+            "lastmod": "2026-08-16",
+            "changefreq": "monthly",
+            "priority": "0.9",
+            "alternates": [
+                "=",
+                "=",
+                "="
+            ]
+        },
+        {
+            "loc": "https://willaistealit.com/tr/kamyon-soforu",
+            "lastmod": "2026-08-16",
+            "changefreq": "monthly",
+            "priority": "0.9",
+            "alternates": [
+                "=",
+                "=",
+                "="
+            ]
+        },
+        {
+            "loc": "https://willaistealit.com/tr/kasiyer",
+            "lastmod": "2026-08-15",
+            "changefreq": "monthly",
+            "priority": "0.9",
+            "alternates": [
+                "=",
+                "=",
+                "="
+            ]
+        },
+        {
+            "loc": "https://willaistealit.com/tr/metin-yazari",
+            "lastmod": "2026-08-16",
+            "changefreq": "monthly",
+            "priority": "0.9",
+            "alternates": [
+                "=",
+                "=",
+                "="
+            ]
+        },
+        {
+            "loc": "https://willaistealit.com/tr/metodoloji",
+            "lastmod": "",
+            "changefreq": "monthly",
+            "priority": "0.7",
+            "alternates": [
+                "=",
+                "=",
+                "="
+            ]
+        },
+        {
+            "loc": "https://willaistealit.com/tr/muhasebeci",
+            "lastmod": "2026-08-16",
+            "changefreq": "monthly",
+            "priority": "0.9",
+            "alternates": [
+                "=",
+                "=",
+                "="
+            ]
+        },
+        {
+            "loc": "https://willaistealit.com/tr/musteri-temsilcisi",
+            "lastmod": "2026-08-16",
+            "changefreq": "monthly",
+            "priority": "0.9",
+            "alternates": [
+                "=",
+                "=",
+                "="
+            ]
+        },
+        {
+            "loc": "https://willaistealit.com/tr/ogretmen",
+            "lastmod": "2026-08-16",
+            "changefreq": "monthly",
+            "priority": "0.9",
+            "alternates": [
+                "=",
+                "=",
+                "="
+            ]
+        },
+        {
+            "loc": "https://willaistealit.com/tr/pazarlamaci",
+            "lastmod": "2026-08-16",
+            "changefreq": "monthly",
+            "priority": "0.9",
+            "alternates": [
+                "=",
+                "=",
+                "="
+            ]
+        },
+        {
+            "loc": "https://willaistealit.com/tr/sponsorluk",
+            "lastmod": "",
+            "changefreq": "monthly",
+            "priority": "0.3",
+            "alternates": [
+                "=",
+                "=",
+                "="
+            ]
+        },
+        {
+            "loc": "https://willaistealit.com/tr/veri-analisti",
+            "lastmod": "2026-08-16",
+            "changefreq": "monthly",
+            "priority": "0.9",
+            "alternates": [
+                "=",
+                "=",
+                "="
+            ]
+        },
+        {
+            "loc": "https://willaistealit.com/tr/video-editoru",
+            "lastmod": "2026-08-16",
+            "changefreq": "monthly",
+            "priority": "0.9",
+            "alternates": [
+                "=",
+                "=",
+                "="
+            ]
+        },
+        {
+            "loc": "https://willaistealit.com/tr/yazilim-gelistirici",
+            "lastmod": "2026-08-16",
+            "changefreq": "monthly",
+            "priority": "0.9",
+            "alternates": [
+                "=",
+                "=",
+                "="
+            ]
+        },
+        {
+            "loc": "https://willaistealit.com/tr/zaman-cizelgesi",
+            "lastmod": "",
+            "changefreq": "weekly",
+            "priority": "0.8",
+            "alternates": [
+                "=",
+                "=",
                 "="
             ]
         },
@@ -198,6 +459,7 @@
             "changefreq": "monthly",
             "priority": "0.9",
             "alternates": [
+                "=",
                 "=",
                 "="
             ]
@@ -209,6 +471,7 @@
             "priority": "0.9",
             "alternates": [
                 "=",
+                "=",
                 "="
             ]
         },
@@ -218,6 +481,7 @@
             "changefreq": "monthly",
             "priority": "0.9",
             "alternates": [
+                "=",
                 "=",
                 "="
             ]

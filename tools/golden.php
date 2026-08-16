@@ -37,6 +37,11 @@ const TARGETS = [
     'notfound'                 => ['/unknown',                  'html'],
     'llms'                     => ['/llms.txt',                 'txt'],
     'sitemap'                  => ['/sitemap.xml',              'xml'],
+    // TR 4C1'de aktive edildi; lansman ciktisi da golden altinda.
+    'tr-home'                  => ['/tr/',                      'html'],
+    'tr-kasiyer'               => ['/tr/kasiyer',               'html'],
+    'tr-metodoloji'            => ['/tr/metodoloji',            'html'],
+    'og-tr-kasiyer'            => ['/og/tr/kasiyer.png',        'png'],
     'og-cashier'               => ['/og/cashier.png',           'png'],
     'og-home'                  => ['/og/home.png',              'png'],
 ];
