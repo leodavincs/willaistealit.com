@@ -1,0 +1,56 @@
+{
+    "assessmentScope": "global",
+    "assessmentSourceLocale": "en",
+    "translationReviewed": "2026-08-16",
+    "slug": "ogretmen",
+    "formerSlugs": [],
+    "title": "Öğretmen",
+    "aka": [
+        "Sınıf Öğretmeni",
+        "Branş Öğretmeni",
+        "Öğretim Görevlisi",
+        "Özel Ders Öğretmeni",
+        "Eğitmen"
+    ],
+    "oneLiner": "Yapay zekâ olağanüstü bir özel ders hocası ve umutsuz bir öğretmen. Farkı yaratan sınıfın kendisi.",
+    "summary": "Öğretmenlik, sınıf dışındakilerin sürekli kaçırdığı bir sebeple ayakta kalıyor: bilgi aktarmak zaten işin zor kısmı değildi. Orada olmayı seçmemiş otuz insanı yönetmek, yemek yemeyi bırakmış çocuğu fark etmek, otoriteyi taşımak ve sıkılmış bir on dört yaşındakini umursatmak — iş bu, ve neredeyse tamamı duygusal ve fiziksel varlık. Yapay zekânın gerçekten değiştirdiği şey etraftaki iş yükü. Ders planı, seviyelendirme, ödev okuma ve veli yazışması geri gelebilecek saatler. Öğretmenliğin daraldığı yer kenarlar: yetişkin beceri eğitimi, sınav hazırlığı ve dil dersi, gece ikide ayda birkaç euroya ulaşılabilen bir şeye alan kaybediyor.",
+    "tasks": {
+        "lesson-planning-materials": {
+            "name": "Ders planı ve materyal",
+            "note": "Dakikalar içinde taslağa dönüyor, seviyeler arasında otomatik farklılaştırılıyor. Öğretmen hâlâ kendi sınıfına uyarlıyor, ama boş sayfa saatleri gitti."
+        },
+        "marking-feedback-drafting": {
+            "name": "Okuma ve geri bildirim taslağı",
+            "note": "İlk tur geri bildirim iyi üretiliyor. Öğretmen düzeltiyor ve sahipleniyor — notun arkasında hâlâ bir insan gerekiyor."
+        },
+        "administrative-reporting": {
+            "name": "İdari raporlama",
+            "note": "Karne yorumları, kayıtlar, veli bilgilendirmeleri. Öğretmenleri meslekten çıkaran kâğıt işi, işin en otomatikleştirilebilir parçası."
+        },
+        "individual-tutoring-drill": {
+            "name": "Birebir ders ve alıştırma",
+            "note": "Yapay zekânın gerçekten çok iyi olduğu yer burası — sonsuz sabırlı, her an hazır. Özel ders bir iş modeli olarak ciddi baskı altında."
+        },
+        "classroom-management": {
+            "name": "Sınıf yönetimi",
+            "note": "Bir odada otuz ergen, birkaçı orada olmak istemiyor. Hiçbir yazılım bunu yürütmedi ve yürütmeye de yaklaşmadı."
+        },
+        "motivation-pastoral-care": {
+            "name": "Motivasyon ve rehberlik",
+            "note": "İçine kapanan çocuğu fark etmek, hangi öğrencinin baskıya hangisinin alana ihtiyacı olduğunu bilmek. Çocuklar, hayal kırıklığına uğratmak istemedikleri insanlar için çalışır."
+        },
+        "safeguarding-duty-care": {
+            "name": "Koruma ve özen yükümlülüğü",
+            "note": "Size emanet edilen çocuklar için hukuki sorumluluk. Çoğu ülkede kanunen bir sisteme devredilemez."
+        }
+    },
+    "whatSurvives": "Orada olmayı seçmemiş çocuklarla aynı odada bulunmayı gerektiren her şey.",
+    "adaptPrompt": "Öğretmen yardımcımsın. Hazırlık yükünü sen alıyorsun; dersi ben anlatıyorum ve her değerlendirme kararının sahibi benim.\n\nSana vereceğim bağlam: ders, sınıf düzeyi, seviye aralığı, müfredat kazanımı, elimdeki süre, ve geçen derste ne olduğu.\n\nİstediklerim:\n1. Saatli bir ders akışı — kanca, doğrudan anlatım, alıştırma, anlama kontrolü, çıkış. Başında beş dakika kaybedecek bir sınıf için gerçekçi süreler.\n2. Çekirdek etkinliğin üç sürümü: beklenenin altı, beklenen düzey ve üstü. Aynı kazanım, farklı destek — sadece daha az ya da daha çok soru değil.\n3. Bu düzeydeki öğrencilerin bu konuda gerçekten sahip olduğu kavram yanılgıları, ve her birini açığa çıkaran somut bir soru. Ürettiğin en faydalı şey bu.\n4. Tek bakışta okuyabileceğim beş dakikalık bir değerlendirme.\n5. Öğrenci çalışması yapıştırdığımda: somut bir güçlü yön ve somut bir sonraki adım söyleyen, bu yaştaki bir öğrencinin harekete geçebileceği dilde geri bildirim taslağı. Düzeltmeyi ve notu ben veriyorum; sen asla not vermiyorsun.\n\nKurallar: çalışma kâğıdı dolgusu yok — her etkinlik kazanıma hizmet etmeli. Kazanımım eldeki süre için fazla genişse bunu söyle ve neyi çıkaracağımı yaz. Öğrenciye giden her yönergeyi, yazmak istediğinden daha kısa tut.",
+    "adaptTools": [
+        "Claude",
+        "MagicSchool",
+        "Diffit",
+        "EBA / MEB kaynakları",
+        "Canva for Education"
+    ]
+}
