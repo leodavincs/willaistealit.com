@@ -1,0 +1,60 @@
+{
+    "assessmentScope": "global",
+    "assessmentSourceLocale": "en",
+    "translationReviewed": "2026-08-16",
+    "slug": "pazarlamaci",
+    "formerSlugs": [],
+    "title": "Pazarlamacı",
+    "aka": [
+        "Pazarlama Uzmanı",
+        "Dijital Pazarlama Uzmanı",
+        "Marka Yöneticisi",
+        "Pazarlama Müdürü",
+        "Büyüme Uzmanı"
+    ],
+    "oneLiner": "Uygulama sıfıra indi, o yüzden herkes uyguluyor. Kalan üstünlük neyi yapmayacağına karar vermek.",
+    "summary": "Pazarlama, yapay zekâyı neredeyse her fonksiyondan daha hızlı içine aldı ve sonuç öğretici: herkes sınırsız içerik üretebildiğinde içerik ayırt edici olmaktan çıkıyor. Kampanya uygulaması — metin, kreatif varyantlar, kitle segmentleri, raporlama — büyük ölçüde otomatik, ve etrafında kurulmuş genç uygulama kadroları kaybolanlar. Değer kazanan şey hacmin tam tersi: konumlandırma, hangi pazarda dövüşüleceğini seçmek, ve önerilen beş kanaldan dördüne hayır diyecek cesarete sahip olmak. İzlemeye değer ikinci bir etki var. Yapay zekâ üretimi içerik her kanalı doldurdukça dağıtım zorlaşıyor ve güven kıtlaşıyor; bu da değeri markaya, topluluğa ve taklit edilmesi zor olan şeylere geri itiyor.",
+    "tasks": {
+        "content-production-volume": {
+            "name": "Hacimli içerik üretimi",
+            "note": "Gönderi, e-posta, varyant, reklam metni. Anında üretiliyor — ayırt edici olmayı tam da bu yüzden bıraktı."
+        },
+        "campaign-reporting-dashboards": {
+            "name": "Kampanya raporlaması ve gösterge panelleri",
+            "note": "Uçtan uca otomatik, anlatı özeti dahil. Rapor hazırlamak için harcanan gün kalmadı."
+        },
+        "audience-segmentation-targeting": {
+            "name": "Kitle segmentasyonu ve hedefleme",
+            "note": "Platform algoritmaları bunu elle segmentasyondan daha iyi yapıyor, ve giderek elle yapmanıza da izin vermiyor."
+        },
+        "b-testing-optimisation": {
+            "name": "A/B testi ve optimizasyon",
+            "note": "Varyant üretimi ve seçimi otomatik. Neyin test edilmeye değer olduğuna — ve kazancın gerçek olup olmadığına — karar vermek insanda kalıyor."
+        },
+        "positioning-strategy": {
+            "name": "Konumlandırma ve strateji",
+            "note": "Kimin için olduğunuzu ve kimin için olmadığınızı seçmek. Modeller ortalamaya doğru optimize eder; konumlandırma ortalama olmayı bilinçli olarak reddetmektir."
+        },
+        "budget-allocation-saying": {
+            "name": "Bütçe dağıtımı ve hayır demek",
+            "note": "Genel müdürün sevdiği kanalı kapatmak. Rakamın sahibi biri var ve dağıtımı o savunuyor."
+        },
+        "brand-partnership-relationships": {
+            "name": "Marka ve iş birliği ilişkileri",
+            "note": "İş birlikleri, basın, topluluk ve kriz yönetimi birbirini tanıyan insanlar arasında yürüyor."
+        },
+        "reading-market": {
+            "name": "Pazarı okumak",
+            "note": "İki yıldır işe yarayan şeyin sessizce işe yaramaz hâle geldiğini fark etmek. Geçmişle eğitilmiş modeller buna yapısal olarak geç kalır."
+        }
+    },
+    "whatSurvives": "Hangi dövüşe girileceğini seçmek, gerisini reddetmek, ve çeyrek sonundaki rakamın sahibi olmak.",
+    "adaptPrompt": "Pazarlama stratejistim ve üretim motorumsun, bu sırayla. Senden içerikten çok stratejik itiraz istiyorum.\n\nSana vereceğim bağlam: ürün, pazar, mevcut konumlandırma, bütçe, kanallar ve bugüne kadarki rakamlar.\n\nRahatsız edici sorularla başla:\n1. Bu gerçekte kimin için, ve daha önemlisi — açıkça kimin için değil? Konumlandırmam kimseyi dışarıda bırakmıyorsa bunun konumlandırma olmadığını söyle.\n2. Her rakibin de iddia ettiği neyi iddia ediyoruz? Bu iddiaları say ve hangilerinin değersiz olduğunu yaz.\n3. Bütçem verildiğinde mevcut kanallarımdan hangisini kapatmalıyım? Duymak istemesem bile gerekçesiyle birini adlandır.\n\nSonra iş:\n4. Mesaj hiyerarşisi: inanmaları gereken tek şey, üç destek, ve her birinin kanıtı. Kanıt yoksa bunu iddia olarak işaretle ve hangi kanıta ihtiyacımız olduğunu söyle.\n5. Kampanya fikirleri — üç tane, gerçekten farklı, her biri hedeflediği kitle ve işe yaramasını beklediğimiz mekanizmayla.\n6. Üretim: seçtiğim yön için metin, varyantlar ve materyaller.\n7. Ölçüm planı: hangi rakam ne zamana kadar hareket etmeli, ve hangi sonuç yanıldığımız anlamına gelir. Başarısızlık koşulunu başlamadan önce tanımla.\n\nKurallar: gösteriş metriği yok — gösterim ve etkileşim sonuç değildir. Nasıl anlayacağımızı söyleyemiyorsan hedef olarak 'marka bilinirliğini artırmak' yazma. Planım sadece her şeyden daha fazla yapmaksa bunu söyle.",
+    "adaptTools": [
+        "Claude",
+        "HubSpot AI",
+        "Google Performance Max",
+        "Meta Advantage+",
+        "Google Analytics 4"
+    ]
+}
