@@ -1,0 +1,56 @@
+{
+    "assessmentScope": "global",
+    "assessmentSourceLocale": "en",
+    "translationReviewed": "2026-08-16",
+    "slug": "grafik-tasarimci",
+    "formerSlugs": [],
+    "title": "Grafik Tasarımcı",
+    "aka": [
+        "Görsel Tasarımcı",
+        "Grafiker",
+        "Sanat Yönetmeni",
+        "Marka Tasarımcısı",
+        "Dijital Tasarımcı"
+    ],
+    "oneLiner": "Üretmek artık bedava. Seçmek ve seçimi savunmak işin tamamı.",
+    "summary": "Bu pazarın alt katmanı gitti ve geri gelmiyor: sosyal medya görseli, el ilanı, on beşinci banner varyantı, stok illüstrasyon. Model bir dakikada kırk seçenek üretiyor, ve eskiden bir tanesine para ödeyen müşteri artık hiçbirine ödemiyor. Ayakta kalan o çizginin üstünde duruyor — bir markanın neye benzemesi gerektiğine karar vermek, kırk seçenekten hangisinin doğru olduğunu ve nedenini yargılamak, ve yıllar ile kanallar boyunca tutarlı kalmak zorunda olan bir görsel sistemin sorumluluğunu almak. Aradaki açık büyüyor. Zevki ve argümanı olan tasarımcılar hiç olmadığı kadar üretken; uygulama hızıyla yarışanlar bedava olan bir şeyle yarışıyor.",
+    "tasks": {
+        "social-posts-banners": {
+            "name": "Sosyal medya görselleri, banner, yeniden boyutlandırma",
+            "note": "Şablon artı üretim bu katmanı öldürdü. Müşteri bunu, size brief yazacağı sürede kendisi yapıyor."
+        },
+        "stock-illustration-spot": {
+            "name": "Stok illüstrasyon ve nokta görsel",
+            "note": "Talep anında, istenen tam üslupta ve sıfır marjinal maliyetle üretiliyor. Bu iş için kimse ajans aramıyor."
+        },
+        "layout-production-artwork": {
+            "name": "Sayfa düzeni ve üretim işi",
+            "note": "Araçlar otomatik diziyor ve otomatik uyarlıyor. Tasarımcı hâlâ makinenin görmediğini düzeltiyor — ama günlerle değil, dakikalarla."
+        },
+        "concept-development": {
+            "name": "Konsept geliştirme",
+            "note": "Yapay zekâ mükemmel bir çeşitlendirme motoru ve kötü bir daraltma motoru. Sizi yönlerle boğuyor; doğrusunu seçmek hiç değişmedi."
+        },
+        "brand-identity-visual": {
+            "name": "Marka kimliği ve görsel sistemler",
+            "note": "On kanalda ve beş yılda ayakta kalmak, ve yönetim kuruluna savunulabilmek zorunda olan bir sistem. Zaman içinde tutarlılık bir prompt değildir."
+        },
+        "art-direction-critique": {
+            "name": "Sanat yönetimi ve eleştiri",
+            "note": "Değer reddetmekte. Kırk seçenekten üçünün neden doğru olduğunu bilmek ve bunu sesli söyleyebilmek, müşterinin fiilen satın aldığı şey."
+        },
+        "client-persuasion-stakeholder": {
+            "name": "Müşteriyi ikna etmek ve paydaş yönetimi",
+            "note": "Tasarım işlerinin çoğu dosyada değil, toplantıda ölür. Tedirgin bir müşteriye bir fikri savunmak kimsenin otomatikleştirmediği iş."
+        }
+    },
+    "whatSurvives": "Yargı ve arkasındaki argüman — seçenek üretmek zaten hiçbir zaman kıt olan kısım değildi.",
+    "adaptPrompt": "Tasarım ortağımsın. Sen seçenek alanını genişletiyorsun; kararı ve yönü ben veriyorum.\n\nSana vereceğim bağlam: marka, hedef kitle, mecra, çiğneyemeyeceğim kısıt, ve işin üretmesi gereken his.\n\nİstediklerim:\n1. Altı ayrı yön — gerçekten ayrı, tek fikrin altı renk varyantı değil. Her biri için: çekirdek görsel fikir tek cümlede, beslendiği referans dünyası, ve kimi rahatsız edeceği. Son kısım önemli; kimseyi rahatsız etmeyen iş hiçbir şey söylemiyordur.\n2. Seçtiğim yön için: onu bir sisteme genişlet. Gerekçesiyle yazı tipi eşleşmesi, gerekçesiyle renk paleti, boşluk mantığı, görsel işleme, ve küçük ekranda ya da tek renkte nasıl bozulduğu.\n3. İşimi paylaştığımda eleştiri turu. Somut ve yapısal ol — hiyerarşi, kontrast, ritim, hizalama. 'Güzel olmuş' benim için değersiz; neyin neyle kavga ettiğini söyle.\n4. Müşteri toplantısında ihtiyacım olacak argüman: bu seçimin onların söylediği hedefe neden hizmet ettiği, tasarım diliyle değil onların diliyle.\n\nKurallar: bir şeyin 'modern' ya da 'temiz' olduğu için işe yaradığını söyleme. Mekanizmayı ver. Güvenli ve sıkıcı bir seçim yapmak üzereysem bunu açıkça söyle. Türkçe metinle çalışırken uzun kelimelerin ve diakritiklerin satır düzenini nasıl etkilediğini hesaba kat.",
+    "adaptTools": [
+        "Claude",
+        "Midjourney",
+        "Figma AI",
+        "Adobe Firefly",
+        "Canva"
+    ]
+}
