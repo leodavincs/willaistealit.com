@@ -1,0 +1,56 @@
+{
+    "assessmentScope": "global",
+    "assessmentSourceLocale": "en",
+    "translationReviewed": "2026-08-16",
+    "slug": "musteri-temsilcisi",
+    "formerSlugs": [],
+    "title": "Müşteri Temsilcisi",
+    "aka": [
+        "Çağrı Merkezi Görevlisi",
+        "Müşteri Hizmetleri Uzmanı",
+        "Destek Uzmanı",
+        "Müşteri İlişkileri Temsilcisi",
+        "Canlı Destek Görevlisi"
+    ],
+    "oneLiner": "Birinci kademe zaten bir bot. Geriye botun daha da kötüleştirdiği her konuşma kaldı.",
+    "summary": "Ekonomideki en açıkta duran yüksek hacimli iş bu, ve geçiş girdiğiniz herhangi bir destek sayfasında şimdiden görünüyor. Şirketler yapay zekâyı ilk buraya kurdu, çünkü iş metne dayalı, yüksek hacimli, ölçülebilir ve pahalı — otomasyonun istediği bütün koşullar. Birinci kademe büyük ölçüde devredildi. Geriye yükseltme kaldı: öfkeli müşteri, hiçbir kategoriye oturmayan vaka, birinin politikayı çiğneyip iade vermeye karar etmesi gereken durum. Bu roller gerçek ve giderek zorlaşıyor, çünkü artık her temsilci iki kez yardım almayı başaramamış bir müşteriyi devralıyor. Kadro eğrisi tartışmaya kapalı, ve hizmet sektörüne giriş kapısı onunla birlikte kapanıyor.",
+    "tasks": {
+        "faq-informational-queries": {
+            "name": "Sık sorulan sorular ve bilgi talepleri",
+            "note": "Talep bir insana ulaşmadan çözülüyor. Temas hacminin çoğunluğu buydu."
+        },
+        "order-status-returns": {
+            "name": "Sipariş durumu, iade ve rutin hesap değişiklikleri",
+            "note": "İşlemsel ve sisteme bağlı — tümüyle devredilmesi en kolay iş. Müşteri kendi hesabında halledip kapatıyor."
+        },
+        "triage-routing": {
+            "name": "Sınıflandırma ve yönlendirme",
+            "note": "Sınıflandırma çözülmüş bir problem ve elle yönlendirmenin hiç olmadığı kadar iyi. Yanlış birime düşen talep sayısı düştü."
+        },
+        "complex-troubleshooting": {
+            "name": "Karmaşık sorun çözme",
+            "note": "Teşhis taslağını yapay zekâ yazıyor; müşterinin problemi kendi anlatışının yanlış olduğu vakayı bir insan çözüyor."
+        },
+        "de-escalation-angry": {
+            "name": "Öfkeli müşteriyi yatıştırmak",
+            "note": "Çok kızgın bir müşteri, bir insanın onu duymasını istiyor. Bir botun kendisini anladığını okumak durumu daha da kötüleştiriyor."
+        },
+        "judgment-calls-exceptions": {
+            "name": "Yargı gerektiren kararlar ve istisnalar",
+            "note": "Müşteriyi tutmak için politikayı esnetmek, iyi niyet iadesine karar vermek. Şirketler bu yetkiyi modele vermiyor — zarar sınırsız."
+        },
+        "vulnerable-high-stakes": {
+            "name": "Kırılgan ve yüksek riskli müşteri teması",
+            "note": "Vefat, sağlık, maddi zorluk, koruma gerektiren durumlar. Birçok sektörde düzenlemeye tabi, geri kalanında otomatikleştirilmesi kabul edilemez."
+        }
+    },
+    "whatSurvives": "Bir insanın duyguyu üstlenmek ve sistemin yetki vermediği kararı almak zorunda olduğu konuşmalar.",
+    "adaptPrompt": "Destek yardımcımsın. Sen hatırlamayı ve taslağı üstleniyorsun; insanı ben üstleniyorum ve verilen her sözün sahibi benim.\n\nSana yapıştıracaklarım: müşterinin mesajı, hesap bilgisi ve ilgili politika metni.\n\nBana şunları ver:\n1. Gerçekte ne istediği, tek cümlede — söylediği problemi altındakinden ayırarak. Bu ikisi çoğu zaman farklıdır.\n2. Duygusal durumu ve bunun açılış cümleme ne yaptığı. Üçüncü kez yazan birinin cevaptan önce duyulmaya ihtiyacı vardır.\n3. Cevap taslağı: duy, cevapla, sonraki adımı söyle, süre ver. Kurumsal dolgu yok, 'yaşadığınız mağduriyetten dolayı özür dileriz' yok. Sade ve somut.\n4. Üç varyant: standart, daha anlayışlı, ve müşteri haksızsa daha net olanı.\n5. Yükseltme okuması: bu vaka politikanın içinde mi, sınırında mı, dışında mı? Dışındaysa hangi yetkiye ihtiyacım olduğunu ve o yetkiyi kullanmanın maliyetini yaz.\n6. Dördüncü bir temas olmaması için şimdi sormam gereken soru.\n\nKurallar: politika, süre, iade tutarı ya da tazminat rakamı uydurma. Verdiğim politika bu vakayı kapsamıyorsa bunu söyle — o an bu kararın senin değil benim olduğunun işaretidir. Tüketici mevzuatına dair bir hak iddia ediyorsan hangi kanuna dayandığını yaz; emin değilsen bilmediğini söyle.",
+    "adaptTools": [
+        "Claude",
+        "Zendesk AI",
+        "Intercom Fin",
+        "Freshdesk",
+        "JivoChat"
+    ]
+}
