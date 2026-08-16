@@ -1,0 +1,56 @@
+{
+    "assessmentScope": "global",
+    "assessmentSourceLocale": "en",
+    "translationReviewed": "2026-08-16",
+    "slug": "metin-yazari",
+    "formerSlugs": [],
+    "title": "Metin Yazarı",
+    "aka": [
+        "Reklam Yazarı",
+        "İçerik Yazarı",
+        "Kreatif Yazar",
+        "Copywriter",
+        "Metin Editörü"
+    ],
+    "oneLiner": "Artık kimse kelime satın almıyor. Hangi kelime sorusunun cevabını satın alıyorlar.",
+    "summary": "Bunu ilk ve tam olarak hisseden beyaz yakalı iş metin yazarlığıydı, çünkü modellerin ilk ustalaştığı şey metindi. İçerik pazarlaması motoru — blog yazıları, ürün açıklamaları, arama motoru dolgusu, e-posta serileri — kabul edilebilir düzyazıyı hacimle üretmek üzerine kurulmuş büyük ve iyi ödeyen bir pazardı; fiyatı sıfıra yaklaştı. Geriye daha küçük ve daha keskin olan kaldı: konumlandırma, bir markayı tanımlayan cümle, kampanya fikri ve belirli bir insan sesinin ürünün kendisi olduğu yazı. Çalışan metin yazarlarının çoğu şimdiden stratejiye, editörlüğe ve prompt yönetimine geçti. Bunlar gerçek işler. Sayıları daha az, ve hacim katmanının hiç istemediği bir yargı istiyorlar.",
+    "tasks": {
+        "seo-content-marketing": {
+            "name": "Arama motoru ve içerik pazarlaması yazıları",
+            "note": "Ekonomisi tamamen kırıldı. Müşteriler bunu sıfır marjinal maliyetle şirket içinde üretiyor, arama motoru da artık bunu daha az ödüllendiriyor."
+        },
+        "product-descriptions-catalogue": {
+            "name": "Ürün açıklamaları ve katalog metni",
+            "note": "Yapılandırılmış girdi, kalıplı çıktı — otomasyonun ideal vakası. Bu katman artık bir serbest çalışanı taşımıyor."
+        },
+        "email-sequences-social": {
+            "name": "E-posta serileri ve sosyal medya metni",
+            "note": "Taslağı anında çıkıyor. Teklifi, serinin mantığını ve birine o e-postayı açtıran cümleyi hâlâ bir insan seçiyor."
+        },
+        "long-form-ghostwriting": {
+            "name": "Uzun metin ve hayalet yazarlık",
+            "note": "Yapay zekâ, verilen bir sesle inandırıcı taslak yazıyor. Yoğun bir yöneticiden gerçek bir görüş çıkarmak hâlâ bir görüşme ve bir insan istiyor."
+        },
+        "brand-voice-positioning": {
+            "name": "Marka sesi ve konumlandırma",
+            "note": "Bir şirketin neye benzeyeceğine ve neyi söylemeyi reddedeceğine karar vermek. Model ortalamaya çeker; konumlandırma ortalamanın tam tersidir."
+        },
+        "campaign-concept": {
+            "name": "Kampanya fikri",
+            "note": "Kelimelerin altındaki düşünce. Yapay zekâ yüz tane slogan üretir ama hangisinin on iki aylık bütçeye değdiğini söyleyemez."
+        },
+        "client-stakeholder-work": {
+            "name": "Müşteri ve paydaş yönetimi",
+            "note": "Brief'i sorgulamak, kötü olanına hayır demek ve işi birbiriyle çelişen görüşlere sahip insanlara onaylatmak."
+        }
+    },
+    "whatSurvives": "Ne söyleneceğine ve neyin söylenmeyeceğine karar vermek — kelimelerin baştan beri yalnızca ifade ettiği strateji.",
+    "adaptPrompt": "Metin motorumsun. Sen hacmi ve varyasyonu üretiyorsun; doğrusuna ben karar veriyorum ve önemli cümleleri ben yazıyorum.\n\nSana vereceğim brief: ürün, hedef kitle, inanmalarını istediğimiz tek şey, önlerindeki itiraz, ton, format ve uzunluk.\n\nİstediklerim:\n1. Gerçekten farklı açılardan on beş başlık seçeneği — fayda, itiraz, merak, karşı görüş, somut ayrıntı. Her birinin açısını etiketle. Bana tek fikrin on beş kez yeniden yazılmışını verme.\n2. Seçtiğim açı için: farklı sertlik seviyelerinde üç tam taslak, en örtükten en doğrudan satışa.\n3. Taslağımda kesme turu: kaybetmeden silinebilecek her cümleyi, kanıt isteyen her iddiayı ve okurun duymak istediği yerine müşterinin söylemek istediğini yazdığım her yeri işaretle.\n4. Şüpheci bir okurun metni bitirdikten sonra kalan en güçlü itirazı, ve bunun metnin neresinde cevaplanmış olması gerektiği.\n\nKurallar: pazarlama dolgusu yok — 'kusursuz', 'kilidini aç', 'bir üst seviyeye taşı', 'günümüzün hızla değişen dünyasında' yasak. Kısa cümle. Somut isim. Ürün iddiası muğlaksa metnin bunu düzeltemeyeceğini söyle ve somut olanı iste.",
+    "adaptTools": [
+        "Claude",
+        "ChatGPT",
+        "Grammarly",
+        "Google Trends",
+        "Ahrefs / Semrush"
+    ]
+}
