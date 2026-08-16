@@ -165,13 +165,63 @@ function share_text(array $job, string $lang = DEFAULT_LANG): string
 }
 
 /**
+ * Icerik evreninin hash'i. Dosya ADLARI da hash'e girer: yeni bir entry eklemek
+ * mevcut dosyalarin icerigini degistirmez ama related_jobs() blogunu degistirir.
+ * mtime KULLANILMAZ — rsync -t, git checkout ve deploy araclari zaman damgasini
+ * koruyabilir, dizin mtime'i ise dosya icerigi degisince hic oynamaz (spec 8).
+ * @param string[] $langs Hangi dillerin dil dosyalari sayilacak
+ */
+function content_hash(array $langs): string
+{
+    $files = glob(JOBS_DIR . '/*/common.json') ?: [];
+    foreach ($langs as $lang) {
+        $files = array_merge($files, glob(JOBS_DIR . '/*/' . $lang . '.json') ?: []);
+    }
+    sort($files);                                          // glob sirasi platforma bagli
+    $h = hash_init('sha256');
+    foreach ($files as $f) {
+        hash_update($h, $f . "\0");                        // ad
+        hash_update($h, (string)file_get_contents($f));    // icerik
+        hash_update($h, "\0");
+    }
+    return hash_final($h);
+}
+
+/**
+ * Icerik evreninin surumu. Dosya yoksa/bozuksa kaynak dosyalardan guvenli
+ * hesaplanir — eksik surum dosyasi siteyi cokertmez, yalnizca hesabi
+ * pahalilastirir (spec 8.2).
+ */
+function content_version(): string
+{
+    $f = CACHE_DIR . '/content-version.json';
+    $d = is_file($f) ? json_decode((string)file_get_contents($f), true) : null;
+    if (is_array($d) && !empty($d['version'])) {
+        return (string)$d['version'];
+    }
+    // Fallback de HASH'tir, mtime DEGIL.
+    return content_hash((array)(load_routes()['activeLangs'] ?? [DEFAULT_LANG]));
+}
+
+/**
+ * Sayfa cache dosyasinin yolu. Evren surumu ADIN ICINDE yasar: katalog degisince
+ * ad degisir ve eski dosya bir daha okunmaz. Surumu dosyanin ICINE yazmak
+ * ciktiyi kirletirdi; ayri bir damga dosyasi ise yaris durumu acardi
+ * (bir istek yeni surumle yazarken bir digeri eski dosyalari gecerli sayardi).
+ */
+function page_cache_file(string $slug, string $lang = DEFAULT_LANG): string
+{
+    return PAGES_DIR . '/' . $lang . '/' . $slug . '.' . substr(content_version(), 0, 12) . '.html';
+}
+
+/**
  * Sayfa cache'i: bagimliliklardan yeniyse dogrudan bas.
  * Klasor mtime'ina GUVENILMEZ (spec 8): dizin zaman damgasi dosya icerigi
  * degistiginde degismez. Kesin maksimum dosya mtime'i hesaplanir.
  */
 function serve_page_cache(string $slug, string $lang = DEFAULT_LANG): bool
 {
-    $cached = PAGES_DIR . '/' . $lang . '/' . $slug . '.html';
+    $cached = page_cache_file($slug, $lang);
     $deps   = entry_dependency_files($slug, $lang);
     if (!is_file($cached) || $deps === []) {
         return false;
@@ -181,11 +231,8 @@ function serve_page_cache(string $slug, string $lang = DEFAULT_LANG): bool
     foreach ($deps as $f) {
         $newest = max($newest, filemtime($f));
     }
-    // related-jobs blogu tum evrene bagli. content-version.json (spec 8.2) Faz 3'te
-    // gelecek; o gelene kadar guvenli fallback: tum entry dosyalarinin en yenisi.
-    foreach (glob(JOBS_DIR . '/*/*.json') ?: [] as $f) {
-        $newest = max($newest, filemtime($f));
-    }
+    // related-jobs blogu tum evrene bagli; o bagimlilik artik $cached'in ADINDA
+    // yasiyor (page_cache_file). Katalog degisince ad degisir, bu dosya okunmaz.
 
     // <= bilerek: filemtime saniye hassasiyetinde. Ayni saniye icinde yazilan
     // cache ile degisen kaynagi ayirt edemiyoruz, o yuzden supheliyi at.
@@ -242,7 +289,7 @@ function write_page_cache(string $slug, string $html, string $lang = DEFAULT_LAN
     if (@file_put_contents($tmp, $html, LOCK_EX) === false) {
         return;
     }
-    if (!@rename($tmp, $dir . '/' . $slug . '.html')) {
+    if (!@rename($tmp, page_cache_file($slug, $lang))) {
         @unlink($tmp);
     }
 }
@@ -252,6 +299,7 @@ function clear_cache(): int
 {
     $n = 0;
     // Dil klasorleri IC ICE — duz glob yetmez. Eski duz kalintilar da temizlenir.
+    // <slug>.<surum>.html de bu desene giriyor: eski surumlerin kalintisi kalmaz.
     $patterns = [PAGES_DIR . '/*.html', PAGES_DIR . '/*/*.html',
                  PAGES_DIR . '/*.tmp',  PAGES_DIR . '/*/*.tmp',
                  OG_DIR . '/*.png',     OG_DIR . '/*/*.png'];

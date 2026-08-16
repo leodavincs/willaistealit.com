@@ -174,3 +174,63 @@ t_eq('',           entry_lastmod_from(['assessmentReviewed' => 'bozuk']), 'bicim
 // entry_lastmod(): gercek katalogdan okur, bilinmeyen kimlikte bos doner
 t_eq('2026-08-01', entry_lastmod('cashier', 'en'), 'cashier EN lastmod');
 t_eq('',           entry_lastmod('yok-boyle-bir-meslek', 'en'), 'bilinmeyen entry');
+
+// --- Icerik evreninin surumu (spec 8.2) ---
+// mtime DEGIL hash: rsync -t, git checkout ve deploy araclari zaman damgasini
+// koruyabilir; yeni dosya eklemek de mevcut dosyalarin mtime'ini degistirmez.
+$cvWant = content_hash(['en']);
+t_eq(64, strlen($cvWant), 'content_hash sha256 uzunlugunda');
+t_eq($cvWant, content_hash(['en']), 'ayni girdi ayni hash (deterministik)');
+
+// Surum dosyasi yoksa/bozuksa cokme yok; fallback AYNI hash'i uretir.
+$vf  = CACHE_DIR . '/content-version.json';
+$bak = is_file($vf) ? (string)file_get_contents($vf) : null;
+@unlink($vf);
+t_eq($cvWant, content_version(), 'surum dosyasi yoksa fallback AYNI hash');
+file_put_contents($vf, '{bozuk');
+t_eq($cvWant, content_version(), 'bozuk surum dosyasi fallback');
+file_put_contents($vf, (string)json_encode(['version' => '', 'generated' => '']));
+t_eq($cvWant, content_version(), 'bos surum fallback');
+file_put_contents($vf, (string)json_encode(['version' => 'x', 'generated' => '']));
+t_eq('x', content_version(), 'saglam surum dosyasi okunur');
+if ($bak !== null) { file_put_contents($vf, $bak); } else { @unlink($vf); }
+
+// Dosya ADI hash'e girer: yeni entry eklemek mevcut dosyalarin icerigini
+// degistirmez ama related_jobs() blogunu degistirir.
+$probeDir = JOBS_DIR . '/__probe';
+$probe    = $probeDir . '/common.json';
+@mkdir($probeDir, 0775, true);
+file_put_contents($probe, '{"id":"__probe"}');
+$cvWithProbe = content_hash(['en']);
+t_eq(false, $cvWant === $cvWithProbe, 'yeni dosya hash i degistirir');
+
+// Sayfa cache dosya adi surume baglidir: evren degisince eski dosya okunmaz.
+// content_version() once cache/content-version.json'a bakar; o dosya YOKKEN
+// (fallback yolu) yeni entry ANINDA bayatlatir. Dosya varken bayatlatma
+// build-index'e baglidir — surum dosyasi orada yenilenir (spec 8.2).
+$vf2  = CACHE_DIR . '/content-version.json';
+$bak2 = is_file($vf2) ? (string)file_get_contents($vf2) : null;
+@unlink($vf2);
+$pathWithProbe = page_cache_file('cashier', 'en');
+unlink($probe);
+rmdir($probeDir);
+$pathWithout = page_cache_file('cashier', 'en');
+t_eq(false, $pathWithProbe === $pathWithout, 'evren degisince cache dosya adi degisir');
+t_eq(true,  str_ends_with($pathWithout, '.html'), 'cache yolu .html ile biter');
+t_eq(true,  str_contains($pathWithout, substr(content_hash(['en']), 0, 12)), 'ad surumu tasir');
+
+// Surum dosyasi VARKEN o surum kullanilir — hesap her istekte tekrarlanmaz.
+file_put_contents($vf2, (string)json_encode(['version' => str_repeat('a', 64), 'generated' => '']));
+t_eq(true, str_contains(page_cache_file('cashier', 'en'), 'aaaaaaaaaaaa'), 'surum dosyasi cache adini belirler');
+if ($bak2 !== null) { file_put_contents($vf2, $bak2); } else { @unlink($vf2); }
+
+// Icerik degisimi de hash i degistirir (ad ayni kalsa bile).
+$one    = array_values(glob(JOBS_DIR . '/*/common.json') ?: [])[0];
+$oneBak = (string)file_get_contents($one);
+file_put_contents($one, $oneBak . "\n");
+t_eq(false, $cvWant === content_hash(['en']), 'icerik degisimi hash i degistirir');
+file_put_contents($one, $oneBak);
+t_eq($cvWant, content_hash(['en']), 'geri alinca hash geri gelir');
+
+// Dil dosyalari yalnizca istenen diller icin sayilir.
+t_eq(false, content_hash(['en']) === content_hash(['en', 'tr']), 'dil kumesi hash i etkiler');

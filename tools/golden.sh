@@ -44,9 +44,13 @@ case "${1:---check}" in
     clear_page_cache
     start_server || exit 1
 
-    CACHE="${ROOT}/cache/pages/en/cashier.html"
+    # Cache adi icerik evreninin surumunu tasiyor (cashier.<surum>.html), o yuzden
+    # sabit ad yerine kaliba bakiyoruz.
+    cache_file() { ls "${ROOT}"/cache/pages/en/cashier.*.html 2>/dev/null | head -1; }
+
     curl -sf -o /dev/null "${BASE}/cashier" || { echo "HATA: /cashier alinamadi"; exit 1; }
-    [ -f "$CACHE" ] || { echo "HATA: cache yazilmadi — write_page_cache bozuk"; exit 1; }
+    CACHE="$(cache_file)"
+    [ -n "$CACHE" ] && [ -f "$CACHE" ] || { echo "HATA: cache yazilmadi — write_page_cache bozuk"; exit 1; }
     BEFORE="$(mtime "$CACHE")"
 
     # filemtime saniye hassasiyetinde: dokunmadan once bir saniyeden fazla bekle
@@ -54,6 +58,7 @@ case "${1:---check}" in
     touch "${ROOT}/data/locale/en.php"
 
     curl -sf -o /dev/null "${BASE}/cashier" || { echo "HATA: ikinci istek basarisiz"; exit 1; }
+    CACHE="$(cache_file)"
     AFTER="$(mtime "$CACHE")"
 
     if [ "$AFTER" -gt "$BEFORE" ]; then

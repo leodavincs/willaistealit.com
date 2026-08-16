@@ -42,6 +42,14 @@ echo $routesOk
     ? "route tablosu -> cache/routes.json\n"
     : "UYARI: routes.json yazilamadi (istek aninda uretilecek)\n";
 
+// Icerik evreninin surumu: sayfa cache'i buna bagli (spec 8.2). Hash TEK yerde
+// hesaplanir — content_hash(); iki ayri yerde hesaplansa sessizce ayrisirdi.
+atomic_write(CACHE_DIR . '/content-version.json', (string)json_encode(
+    ['version'   => content_hash((array)($routes['activeLangs'] ?? [DEFAULT_LANG])),
+     'generated' => gmdate('c')],
+    JSON_UNESCAPED_SLASHES
+));
+
 // Indeks YALNIZCA aktif diller icin uretilir: yayinlanmamis bir dilin indeksini
 // yazmak, o dil kapaliyken bile arama verisi sizdirmak olurdu.
 // Sira onemli: TAZE $routes okunur. load_routes() cache'i okusaydi, activeLangs'e
