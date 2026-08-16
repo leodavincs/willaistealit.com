@@ -1,0 +1,92 @@
+<?php
+/**
+ * Yonlendirme tablosunun denetimi. SAF: diskten okumaz, $routes'u parametre
+ * alir — bu yuzden sentetik BOZUK tablolarla test edilebilir. Kural, kirmizi
+ * verdigi kanitlanmadan yazilmis sayilmaz (spec 7).
+ */
+declare(strict_types=1);
+
+require_once __DIR__ . '/urls.php';
+require_once __DIR__ . '/routing.php';
+
+/**
+ * 'aka' ARAMA verisidir, ADRES degil. slugs haritasi yalnizca canonical ve
+ * formerSlug tasimali.
+ * @param array<string,array<string,string>> $expected lang => slug => id
+ * @return string[]
+ */
+function routes_leak_errors(array $routes, array $expected): array
+{
+    $out = [];
+    foreach (LANGS as $lang) {
+        $extra = array_diff_key((array)($routes['slugs'][$lang] ?? []), (array)($expected[$lang] ?? []));
+        foreach (array_keys($extra) as $slug) {
+            $out[] = "routes/$lang: '$slug' canonical ya da formerSlug degil — adres tablosuna sizmis";
+        }
+    }
+    return $out;
+}
+
+/**
+ * hreflang karsilikliligi. Kumeyi kendisiyle karsilastirmak HICBIR ZAMAN kirmizi
+ * vermez; her alternate URL resolve_path() ile GERCEKTEN cozulur ve uc sey ayri
+ * ayri aranir (spec 5.1):
+ *   1. URL kanonik mi (301 degil)
+ *   2. hreflang kodu hedef sayfanin gercek dili mi
+ *   3. hedefin kendi kumesinde kaynagin URL'i var mi
+ *
+ * $sets normalde alternates_for()'dan kurulur. Testler BOZUK bir kume enjekte
+ * edebilsin diye parametre: (1) ve (3) dallari uretimde alternates_for hep
+ * canonical'dan kurdugu icin tetiklenemez — savunma katmanidir, ve savunma
+ * katmani da kirmizi verdigi KANITLANMADAN yazilmis sayilmaz.
+ * @param array<string,array<string,string>>|null $sets 'lang|id' => kod => URL
+ * @return string[]
+ */
+function hreflang_reciprocity_errors(array $routes, ?array $sets = null): array
+{
+    if ($sets === null) {
+        $sets = [];
+        foreach (array_keys((array)($routes['published'] ?? [])) as $id) {
+            foreach ((array)($routes['activeLangs'] ?? [DEFAULT_LANG]) as $lang) {
+                if (!in_array($lang, (array)$routes['published'][$id], true)) {
+                    continue;
+                }
+                $sets[$lang . '|' . (string)$id] = alternates_for('job', (string)$id, $routes);
+            }
+        }
+    }
+
+    $out = [];
+    foreach ($sets as $key => $set) {
+        [$srcLang, $id] = explode('|', (string)$key, 2);
+        $srcUrl = url_for($srcLang, 'job', $id, $routes);
+
+        foreach ($set as $code => $href) {
+            if ($code === 'x-default') {
+                continue;
+            }
+            $path  = (string)parse_url((string)$href, PHP_URL_PATH);
+            $path  = $path === '' ? '/' : $path;
+            $route = resolve_path($path === '/' ? '/' : rtrim($path, '/'), $routes);
+
+            if (($route['type'] ?? '') === 'redirect') {
+                $out[] = "hreflang/$id: '$code' kanonik olmayan URL gosteriyor ($href)";
+                continue;
+            }
+            if (($route['type'] ?? '') !== 'job') {
+                $out[] = "hreflang/$id: '$code' bir entry sayfasina cozulmuyor ($href)";
+                continue;
+            }
+            if ((string)($route['lang'] ?? '') !== (string)$code) {
+                $out[] = "hreflang/$id: '$code' etiketi '" . (string)($route['lang'] ?? '?')
+                       . "' dilindeki bir sayfayi gosteriyor";
+                continue;
+            }
+            $back = $sets[$code . '|' . (string)$route['id']] ?? null;
+            if ($back === null || !in_array($srcUrl, $back, true)) {
+                $out[] = "hreflang/$id: '$code' karsilik vermiyor — geri baglanti yok";
+            }
+        }
+    }
+    return $out;
+}

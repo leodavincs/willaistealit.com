@@ -231,6 +231,25 @@ function entry_lastmod(string $id, string $lang): string
 }
 
 /**
+ * Ceviri, degerlendirmenin gerisinde mi (spec 3.4). Validator UYARI verir,
+ * sayfa gorunur bir not basar — ikisi de BU hesabi kullanir, ayri ayri degil.
+ * Kaynak dilin kendi dosyasinda translationReviewed olmaz: her zaman false.
+ */
+function entry_translation_stale(array $job): string
+{
+    $norm = static function (mixed $raw): string {
+        $d = (string)$raw;
+        if (preg_match('/^\d{4}-\d{2}$/', $d) === 1) {
+            $d .= '-01';
+        }
+        return preg_match('/^\d{4}-\d{2}-\d{2}$/', $d) === 1 ? $d : '';
+    };
+    $t = $norm($job['translationReviewed'] ?? '');
+    $a = $norm($job['assessmentReviewed'] ?? '');
+    return ($t !== '' && $a !== '' && $t < $a) ? $t : '';
+}
+
+/**
  * Sabit sayfalarin editoryal inceleme tarihi (data/page-reviewed.json).
  * lastmod ailesi burada yasiyor: entry'ler entry_lastmod(), sabit sayfalar bu.
  * Bilinmeyen tarih BOS doner ve sitemap o satiri lastmod'suz yayinlar —

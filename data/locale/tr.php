@@ -101,6 +101,7 @@ return [
     'lang.en'                => 'English',
     'lang.tr'                => 'Türkçe',
     'lang.es'                => 'Español',
+    'entry.staleTranslation' => 'Bu çeviri, son değerlendirme incelemesinden eski.',
     'nav.theme.aria'         => 'Açık ve koyu tema arasında geçiş yap',
     'nav.theme.title'        => 'Açık / koyu',
     'foot.lead'              => 'Buradaki her yargı bir argümandır, kehanet değil.',

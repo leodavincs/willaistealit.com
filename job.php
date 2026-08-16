@@ -105,6 +105,8 @@ require __DIR__ . '/inc/header.php';
       <h1 class="job-title"><?= h($L->t('job.h1', $title)) ?></h1>
       <p class="job-title-tr">
         <?php if ($reviewed !== ''): ?><?= h($L->t('job.lastReviewed')) ?> <time datetime="<?= h((string)$job['lastReviewed']) ?>"><?= h($reviewed) ?></time><?php endif; ?>
+        <?php /* Bayat ceviri: kaynak dilde HIC basilmaz (translationReviewed yok). */ ?>
+        <?php if (entry_translation_stale($job) !== ''): ?><span class="stale-note"><?= h($L->t('entry.staleTranslation')) ?></span><?php endif; ?>
       </p>
 
       <div class="verdict-row">

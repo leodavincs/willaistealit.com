@@ -106,6 +106,7 @@ return [
     'lang.en'                => 'English',
     'lang.tr'                => 'Türkçe',
     'lang.es'                => 'Español',
+    'entry.staleTranslation' => 'This translation is older than the latest assessment review.',
     'nav.theme.aria'         => 'Switch between light and dark',
     'nav.theme.title'        => 'Light / dark',
     'foot.lead'              => 'Every verdict here is an argument, not a prophecy.',

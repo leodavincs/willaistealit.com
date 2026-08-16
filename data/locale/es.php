@@ -101,6 +101,7 @@ return [
     'lang.en'                => 'English',
     'lang.tr'                => 'Türkçe',
     'lang.es'                => 'Español',
+    'entry.staleTranslation' => 'Esta traducción es anterior a la última revisión de la evaluación.',
     'nav.theme.aria'         => 'Cambiar entre tema claro y oscuro',
     'nav.theme.title'        => 'Claro / oscuro',
     'foot.lead'              => 'Cada veredicto aquí es un argumento, no una profecía.',

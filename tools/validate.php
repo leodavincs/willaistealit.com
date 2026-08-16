@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 require_once __DIR__ . '/../inc/functions.php';
 require_once __DIR__ . '/../inc/routes_cache.php';   // PAGE_SLUGS
+require_once __DIR__ . '/../inc/routes_audit.php';   // routes_leak_errors, hreflang_reciprocity_errors
 
 $cli = PHP_SAPI === 'cli';
 if (!$cli) {
@@ -203,11 +204,30 @@ foreach (glob(JOBS_DIR . '/*/common.json') ?: [] as $commonPath) {
         if (mb_strlen((string)$job['oneLiner']) > 120) {
             $warnings[] = "$where: oneLiner 120 karakteri asiyor — OG kartinda kesilir";
         }
-        // Tazelik: ceviri, guncellenen degerlendirmenin gerisinde mi (spec 3.4)
-        $tRev = (string)($doc['translationReviewed'] ?? '');
-        $aRev = (string)($job['lastReviewed'] ?? '');
-        if (!$isOwner && $tRev !== '' && $aRev !== '' && $tRev < $aRev) {
-            $warnings[] = "$where: ceviri ($tRev) degerlendirmeden ($aRev) eski — bayat";
+        // Tazelik: ceviri, guncellenen degerlendirmenin gerisinde mi (spec 3.4).
+        // Sayfa ayni hesabi entry_translation_stale() ile yapiyor — tek nokta.
+        if (!$isOwner && entry_translation_stale($job) !== '') {
+            $warnings[] = "$where: ceviri (" . (string)($doc['translationReviewed'] ?? '')
+                        . ") degerlendirmeden (" . (string)($job['lastReviewed'] ?? '') . ") eski — bayat";
+        }
+
+        // Yerel override sonrasi 'gone' sayisi kaynak dilden fazlaysa UYARI:
+        // ceviri, devraldigi yargidan daha karamsar hale gelmis demektir. Hata
+        // degil — 🟡/🔴 ayrimi makineyle olculemez, insan yeniden degerlendirir.
+        if (!$isOwner) {
+            $srcJob = load_entry($id, $srcLang);
+            if ($srcJob !== null) {
+                $srcGone = 0;
+                foreach ((array)($srcJob['tasks'] ?? []) as $tk) {
+                    if (($tk['verdict'] ?? '') === 'gone') {
+                        $srcGone++;
+                    }
+                }
+                if ($gone > $srcGone) {
+                    $warnings[] = "$where: yerel 'gone' sayisi ($gone) kaynak dilden ($srcGone) fazla"
+                                . " — yargiyi yeniden degerlendir";
+                }
+            }
         }
     }
 
@@ -236,6 +256,45 @@ foreach (glob(JOBS_DIR . '/*/common.json') ?: [] as $commonPath) {
             $byLang[$lang][$s] = $id;
         }
     }
+}
+
+// --- Yonlendirme tablosunun butunlugu (spec 7) ---
+// build_routes() catisma bulursa bunlar SESSIZ kalmamali: cakisan bir slug
+// yayinda "hangi entry once gelirse o" davranisi uretir.
+$vConflicts = null;
+$vRoutes    = build_routes($vConflicts);
+foreach ((array)$vConflicts as $c) {
+    $errors[] = "routes: $c";
+}
+
+// 'aka' ARAMA verisidir, ADRES degil: yonlendirme tablosuna sizmamali.
+// Kural inc/routes_audit.php'de SAF fonksiyon olarak yasiyor — sentetik bozuk
+// tablolarla test edilebilsin diye (tests/routes_audit.test.php).
+$vExpected = [];
+foreach (LANGS as $lang) {
+    foreach (array_keys((array)($vRoutes['published'] ?? [])) as $rid) {
+        if (!in_array($lang, (array)$vRoutes['published'][$rid], true)) {
+            continue;
+        }
+        $rdoc = load_entry((string)$rid, $lang);
+        if ($rdoc === null) {
+            continue;
+        }
+        $vExpected[$lang][(string)$rdoc['slug']] = (string)$rid;
+        foreach ((array)($rdoc['formerSlugs'] ?? []) as $former) {
+            if (valid_slug((string)$former)) {
+                $vExpected[$lang][(string)$former] = (string)$rid;
+            }
+        }
+    }
+}
+foreach (routes_leak_errors($vRoutes, $vExpected) as $e) {
+    $errors[] = $e;
+}
+
+// hreflang karsilikliligi — GERCEK URL cozumlemesiyle (spec 5.1).
+foreach (hreflang_reciprocity_errors($vRoutes) as $e) {
+    $errors[] = $e;
 }
 
 // --- Editoryal ceviri blocker'i (Faz 3F) ---
