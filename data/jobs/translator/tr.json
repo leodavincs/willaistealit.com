@@ -1,0 +1,52 @@
+{
+    "assessmentScope": "global",
+    "assessmentSourceLocale": "en",
+    "translationReviewed": "2026-08-16",
+    "slug": "cevirmen",
+    "formerSlugs": [],
+    "title": "Çevirmen",
+    "aka": [
+        "Mütercim",
+        "Tercüman",
+        "Yeminli Tercüman",
+        "Altyazı Çevirmeni",
+        "Yerelleştirme Uzmanı"
+    ],
+    "oneLiner": "Hacim işinin fiyatı çoktan sıfırlandı. Geriye yanılmanın pahalı olduğu iş kaldı.",
+    "summary": "Çeviri bu sitedeki en açık vaka. Yazması acı veriyor. Makine çıktısı, ticari metinlerin çoğu için 'müşterinin amacına yetecek kadar iyi' eşiğini geçti, ve bu olduğu anda çöken meslek adı değil kelime başı ücret oldu. Kalan pazar gerçek ama küçük ve belirli: yanlış çevirinin paraya, güvenliğe, bir davaya ya da bir markaya mal olduğu iş. Edebiyat çevirisi, hukuki ve tıbbi tasdik, ve bir kültürde gerçekten tutması gereken yerelleştirme hâlâ insanda — ama bunlar zaten sayfaların azınlığıydı. Çalışan çevirmenlerin çoğu artık eski ücretinin bir kesrine makine çıktısı düzeltiyor; bu, aynı adı taşıyan farklı bir iş.",
+    "tasks": {
+        "bulk-commercial-translation": {
+            "name": "Toplu ticari çeviri",
+            "note": "Kılavuzlar, ürün listeleri, şirket içi belgeler, destek içeriği. Müşteri makine çıktısını teklifinizle karşılaştırıyor ve bir daha aramıyor."
+        },
+        "post-editing-machine": {
+            "name": "Makine çıktısı düzeltme",
+            "note": "Hem büyüyen alan hem tuzak: gerçek iş, gerçek beceri, eski ücretin kabaca üçte biri, ve modeller düzeltilmesi gerekeni sürekli daraltıyor."
+        },
+        "subtitling-media-translation": {
+            "name": "Altyazı ve medya çevirisi",
+            "note": "Zamanlama ve taslak otomatik. Mizah, üslup ve iki saniyede tutması gereken replik hâlâ insan istiyor — ama daha azını."
+        },
+        "certified-legal-medical": {
+            "name": "Yeminli hukuki ve tıbbi çeviri",
+            "note": "Yeminli ya da tasdikli bir çevirmen imzalıyor ve sorumluluğu taşıyor. Mahkemeler ve göçmenlik idareleri modelin çıktısını tek başına kabul etmiyor."
+        },
+        "literary-brand-translation": {
+            "name": "Edebiyat ve marka çevirisi",
+            "note": "Anlamı değil sesi çevirmek. Yapay zekâ akıcı ve ortalama düzyazı üretir — burada hata biçiminin tam adı ortalamadır."
+        },
+        "live-interpretation-high": {
+            "name": "Yüksek riskli ortamlarda sözlü çeviri",
+            "note": "Mahkeme, hastane, müzakere. Gerçek zamanlı, ikinci tur yok, ve söylenenin hesabını odada verecek biri var."
+        }
+    },
+    "whatSurvives": "Hatanın bir bedeli olduğu çeviri: bir imza, bir duruşma salonu, bir marka, bir teşhis.",
+    "adaptPrompt": "Çeviri yardımcımsın. Ben profesyonel çevirmenim; sen taslak ve analiz üretiyorsun, teslim edilen çeviriyi ben üretiyorum.\n\nSana vereceklerim: kaynak metin, kaynak ve hedef dil, hedef kitle, üslup düzeyi ve metnin amacı.\n\nHer pasaj için bana şunları ver:\n1. Belirttiğim üsluba uyan bir çalışma taslağı.\n2. Gerçek bir seçim bulunan her ifade için alternatifler listesi — her seçeneğin ne kazandırdığı ve ne kaybettirdiğiyle. Senden asıl istediğim kısım bu.\n3. İşaretler: kültürel olarak çevrilemeyen her şey, hayatta kalmayacak her deyim, makul görünen değil doğrulanmış karşılık isteyen her hukuki veya teknik terim, ve kaynaktaki yazarın çözmesi gereken her belirsizlik.\n4. Tekrar eden terimler için tutarlılık tablosu; belge boyunca hizada kalsın.\n\nKurallar: kaynaktaki belirsizliği asla düzleştirme — görünür kıl. Terim uydurma; bu yargı çevresinde ya da alanda kabul edilmiş karşılıktan emin değilsen bunu söyle ve doğrulama için işaretle. Kaynak kötü yazılmışsa yazdığını çevir ve muhtemelen ne demek istediğini ayrıca söyle.\n\nSonra bu belgede riskin nerede yoğunlaştığını söyle ki inceleme zamanımı nereye harcayacağımı bileyim.",
+    "adaptTools": [
+        "Claude",
+        "DeepL",
+        "Trados",
+        "memoQ",
+        "TDK Sözlükleri"
+    ]
+}
