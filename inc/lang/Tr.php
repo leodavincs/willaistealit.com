@@ -36,7 +36,14 @@ final class Tr extends Lang
         return $this->t('month.format', $this->t('month.' . $month), (string)$year);
     }
 
-    /** ["a","b","c"] -> "a, b ve c" */
+    /**
+     * ["a","b","c"] -> "a, b ve c"
+     *
+     * Ogelerden biri kendi icinde 've' tasiyorsa ayirici noktali virgul olur:
+     * "denetim yargisi ve onemlilik kararlari ve yasal imza ve temsil" okunamaz,
+     * "...kararlari; yasal imza ve temsil" okunur. Ingilizcede bu sorun yok,
+     * cunku gorev adlari '&' ile, liste 'and' ile baglaniyor.
+     */
     public function listPhrase(array $items): string
     {
         $items = array_values(array_filter($items));
@@ -47,8 +54,18 @@ final class Tr extends Lang
         if ($n === 1) {
             return (string)$items[0];
         }
+        $and     = $this->t('list.and');
+        $collide = false;
+        foreach ($items as $item) {
+            if (str_contains(' ' . mb_strtolower((string)$item, 'UTF-8') . ' ', ' ' . $and . ' ')) {
+                $collide = true;
+                break;
+            }
+        }
         $last = array_pop($items);
-        return implode(', ', $items) . ' ' . $this->t('list.and') . ' ' . $last;
+        return $collide
+            ? implode('; ', $items) . '; ' . $last
+            : implode(', ', $items) . ' ' . $and . ' ' . $last;
     }
 
     /** Turkcede belirsiz artikel YOK — kelime oldugu gibi doner. */
@@ -97,7 +114,8 @@ final class Tr extends Lang
             return (string)$job['geoAnswer'];
         }
 
-        $title = (string)($job['title'] ?? $job['slug'] ?? 'bu meslek');
+        // Baslik cumlenin ORTASINDA geciyor: "muhasebeci rolu", "Muhasebeci rolu" degil.
+        $title = $this->lowerFirst((string)($job['title'] ?? $job['slug'] ?? 'bu meslek'));
         $date  = $this->month((string)($job['lastReviewed'] ?? '')) ?: $this->t('geo.fallbackDate');
         $v     = (string)($job['verdict'] ?? 'shrinking');
 
@@ -133,9 +151,7 @@ final class Tr extends Lang
         }
         if (!empty($job['resistanceTags'])) {
             $out .= $this->t('geo.resistance', $this->listPhrase(array_map(
-                fn ($t) => $this->tagDefinition((string)$t) !== ''
-                    ? rtrim($this->tagDefinition((string)$t), '.')
-                    : str_replace('-', ' ', (string)$t),
+                fn ($t) => $this->tagName((string)$t),
                 array_slice((array)$job['resistanceTags'], 0, 3)
             )));
         }

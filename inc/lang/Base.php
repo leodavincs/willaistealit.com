@@ -62,6 +62,16 @@ abstract class Lang
         return $this->has("category.$key") ? $this->t("category.$key") : $this->t('category.unknown');
     }
 
+    /**
+     * Direnc etiketinin ADI — uretilen ozet cumlesinde kullanilir. Tanim (tagDefinition)
+     * tam bir cumledir; onu listeye dizmek okunamaz metin uretir.
+     */
+    public function tagName(string $key): string
+    {
+        $k = 'tagName.' . $key;
+        return $this->has($k) ? $this->t($k) : str_replace('-', ' ', $key);
+    }
+
     public function tagDefinition(string $key): string
     {
         return $this->has("tag.$key") ? $this->t("tag.$key") : '';

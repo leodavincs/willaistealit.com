@@ -38,6 +38,17 @@ return [
     'tag.creative-taste'               => 'Aesthetic judgment: AI can generate, it cannot choose.',
     'tag.accountability'               => '"Who gets blamed when this is wrong" demands a person.',
     'tag.physical-context'             => 'You have to be on site, in the room, at that moment.',
+
+
+    // Direnc etiketlerinin ADI (tanimi degil): uretilen ozet cumlesinde kullanilir.
+    'tagName.physical-presence'        => 'physical presence',
+    'tagName.legal-liability'          => 'legal liability',
+    'tagName.regulated'                => 'regulated',
+    'tagName.trust-relationship'       => 'trust relationship',
+    'tagName.human-judgment'           => 'human judgment',
+    'tagName.creative-taste'           => 'creative taste',
+    'tagName.accountability'           => 'accountability',
+    'tagName.physical-context'         => 'physical context',
     'tag.emotional-labor'              => 'The emotional labour is the job itself.',
 
     // --- kategoriler ---

@@ -340,3 +340,28 @@ foreach (['en', 'tr', 'es'] as $code) {
         t_eq(true, lang_for($code)->has($key), "$code: '$key' tanimli");
     }
 }
+
+// --- geo_answer: uretilen ozet cumlesi (spec 5.5) ---
+// Bu metin her entry sayfasinin en gorunur paragrafi; bozulursa TR lansmani bozulur.
+$geoJob = load_entry('accountant', 'tr');
+$geoTr  = geo_answer($geoJob, 'tr');
+
+// 1) Direnc etiketleri AD olarak basilmali, TANIM olarak degil. Tanimlar tam
+//    cumledir; virgulle birlestirilince metin okunamaz hale geliyor.
+t_eq(false, str_contains($geoTr, 'kimse bunu devretmek istemiyor'),
+     'geo: etiket TANIMI basilmaz');
+t_eq(true,  str_contains($geoTr, 'hukuki sorumluluk'),
+     'geo: etiket ADI basilir');
+
+// 2) Meslek adi cumle ortasinda kucuk harfle gecmeli.
+t_eq(false, str_contains($geoTr, 'Muhasebeci rolü'), 'geo: cumle ortasinda buyuk harf yok');
+t_eq(true,  str_contains($geoTr, 'muhasebeci rolü'), 'geo: meslek adi kucuk harfle');
+
+// 3) Ogeleri 've' iceren listede bag olarak 've' kullanilmaz — okunamaz olur.
+t_eq(false, str_contains($geoTr, 'kararları ve yasal imza ve temsil'),
+     'geo: liste bagi ogelerdeki ve ile cakismaz');
+
+// EN cikti BIREBIR korunmali — etiket adlari str_replace sonucuyla ayni.
+$geoEn = geo_answer(load_entry('accountant', 'en'), 'en');
+t_eq(true, str_contains($geoEn, 'legal liability, trust relationship and human judgment'),
+     'EN geo etiketleri degismedi');

@@ -35,6 +35,17 @@ return [
     'tag.creative-taste'     => 'Juicio estético: la IA puede generar, no puede elegir.',
     'tag.accountability'     => '"Quién responde si esto sale mal" exige una persona.',
     'tag.physical-context'   => 'Hay que estar en el sitio, en la sala, en ese momento.',
+
+
+    // Direnc etiketlerinin ADI (tanimi degil): uretilen ozet cumlesinde kullanilir.
+    'tagName.physical-presence'        => 'presencia física',
+    'tagName.legal-liability'          => 'responsabilidad legal',
+    'tagName.regulated'                => 'regulación',
+    'tagName.trust-relationship'       => 'relación de confianza',
+    'tagName.human-judgment'           => 'juicio humano',
+    'tagName.creative-taste'           => 'criterio estético',
+    'tagName.accountability'           => 'rendición de cuentas',
+    'tagName.physical-context'         => 'contexto físico',
     'tag.emotional-labor'    => 'El trabajo emocional es el trabajo en sí.',
 
     // --- categorias ---

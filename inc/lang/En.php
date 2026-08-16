@@ -117,7 +117,7 @@ final class En extends Lang
         }
         if (!empty($job['resistanceTags'])) {
             $out .= $this->t('geo.resistance', $this->listPhrase(array_map(
-                static fn ($t) => str_replace('-', ' ', (string)$t),
+                fn ($t) => $this->tagName((string)$t),
                 array_slice((array)$job['resistanceTags'], 0, 3)
             )));
         }

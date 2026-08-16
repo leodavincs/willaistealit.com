@@ -36,6 +36,17 @@ return [
     'tag.creative-taste'     => 'Estetik yargı: yapay zekâ üretebilir, seçemez.',
     'tag.accountability'     => '"Bu yanlış çıkarsa kim sorumlu" sorusu bir insan istiyor.',
     'tag.physical-context'   => 'Sahada, o odada, o anda bulunmak gerekiyor.',
+
+
+    // Direnc etiketlerinin ADI (tanimi degil): uretilen ozet cumlesinde kullanilir.
+    'tagName.physical-presence'        => 'fiziksel varlık',
+    'tagName.legal-liability'          => 'hukuki sorumluluk',
+    'tagName.regulated'                => 'düzenlemeye tabi olma',
+    'tagName.trust-relationship'       => 'güven ilişkisi',
+    'tagName.human-judgment'           => 'insan yargısı',
+    'tagName.creative-taste'           => 'estetik yargı',
+    'tagName.accountability'           => 'hesap verebilirlik',
+    'tagName.physical-context'         => 'fiziksel bağlam',
     'tag.emotional-labor'    => 'Duygusal emeğin kendisi işin ta kendisi.',
 
     // --- kategoriler ---
