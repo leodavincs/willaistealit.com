@@ -175,14 +175,22 @@ h1, h2, h3 {
 .nav a { color: var(--ink-2); }
 .nav a:hover { color: var(--ink); }
 
-/* dil secici — yalnizca birden fazla dil AKTIFSE basilir (inc/header.php) */
+/* dil secici — yalnizca birden fazla dil AKTIFSE basilir (inc/header.php).
+   Gorunen metin iki harfli dil kodu; bayrak KULLANILMAZ, cunku bayrak dili degil
+   ulkeyi gosterir ve 'en' tek bir ulkeye ait degildir. Tam ad title'da. */
 .lang-switch {
-  display: inline-flex; align-items: baseline; gap: 10px;
-  font-size: 15.5px; white-space: nowrap;
+  display: inline-flex; align-items: baseline; gap: 8px;
+  font-size: 14px; letter-spacing: 0.04em; white-space: nowrap;
 }
+.lang-switch a, .lang-cur, .lang-soon {
+  /* Kisa kodlar goz tarafindan tek blok olarak okunuyor: tikleme alanini
+     buyutup aralarina ince bir ayirici koyuyoruz. */
+  padding: 3px 5px; border-radius: 4px;
+}
+/* --ink-3 iki temada da 4.5:1'in altinda kaliyor; pasif kod --ink-2 ile yazilir. */
 .lang-switch a { color: var(--ink-2); }
-.lang-switch a:hover { color: var(--ink); }
-.lang-cur { color: var(--ink); font-weight: 600; }
+.lang-switch a:hover { color: var(--ink); background: var(--bg-3); text-decoration: none; }
+.lang-cur { color: var(--ink); font-weight: 600; background: var(--bg-3); }
 /* Pasif "yakinda": tiklanabilir DEGIL (zaten <span>), ama okunabilir kalmali —
    rengi --ink-3 degil --ink-2, cunku --ink-3 iki temada da 4.5:1'in altinda. */
 .lang-soon { color: var(--ink-2); font-style: italic; }
@@ -572,8 +580,8 @@ section.block { padding: 52px 0 0; }
   /* Dokunma hedefi: 15.5px metin tek basina ~20px yuksekligindeydi. */
   .nav a { padding: 5px 0; }
   /* Dil adlari KISALMAZ (spec: dil kendi adiyla yazilir); aralik kisalir. */
-  .lang-switch { gap: 8px; font-size: 14.5px; }
-  .lang-switch a { padding: 5px 0; }
+  .lang-switch { gap: 6px; font-size: 13.5px; }
+  .lang-switch a { padding: 5px 6px; }
   .hero { padding: 52px 0 28px; }
   .job-card { grid-template-columns: 1fr; }
   .job-card .jc-verdict { justify-self: start; }

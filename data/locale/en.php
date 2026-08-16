@@ -117,6 +117,11 @@ return [
     'lang.en'                => 'English',
     'lang.tr'                => 'Türkçe',
     'lang.es'                => 'Español',
+    // Header secicisinde KISA kod gosterilir; tam ad unavailable sayfasindaki
+    // listede kalir. Kodlar cevrilmez — uc tabloda da ayni.
+    'lang.en.short'          => 'EN',
+    'lang.tr.short'          => 'TR',
+    'lang.es.short'          => 'ES',
     'entry.staleTranslation' => 'This translation is older than the latest assessment review.',
     'nav.theme.aria'         => 'Switch between light and dark',
     'nav.theme.title'        => 'Light / dark',

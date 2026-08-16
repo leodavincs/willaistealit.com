@@ -40,14 +40,17 @@ $h = render_header_fixture($twoLang, $alt2);
 t_eq(1, substr_count($h, 'class="lang-switch"'), 'iki aktif dilde secici basilir');
 // Not: ayni URL <link rel="alternate"> icinde de gecer; secici baglantisini
 // hreflang+metin birlikteligiyle ayirt ediyoruz.
-t_eq(1, substr_count($h, '<a href="https://willaistealit.com/tr/kasiyer" hreflang="tr">Türkçe</a>'),
+t_eq(1, substr_count($h, '<a href="https://willaistealit.com/tr/kasiyer" hreflang="tr" title="Türkçe">TR</a>'),
      'secici esdegere gider, ana sayfaya degil');
 t_eq(1, substr_count($h, 'lang-cur'),  'mevcut dil rozeti bir kez');
 t_eq(0, substr_count($h, 'lang-soon'), 'esdegeri varken yakinda yok');
 
 // 3) Aktif olmayan dil listeye HIC girmez — 'yakinda' dalina da dusemez.
 t_eq(0, substr_count($h, 'Español'), 'aktif olmayan ES secicide yok');
-t_eq(1, substr_count($h, 'Türkçe'),  'aktif TR secicide var');
+t_eq(0, substr_count($h, '>ES<'),    'aktif olmayan ES kodu da yok');
+t_eq(1, substr_count($h, '>TR</a>'), 'aktif TR kisa koduyla secicide var');
+t_eq(1, substr_count($h, 'title="Türkçe"'), 'tam dil adi title olarak kaliyor');
+t_eq(1, substr_count($h, '>EN</span>'), 'mevcut dil kisa koduyla');
 
 // 4) Aktif dilin esdegeri yoksa: tiklanabilir bag DEGIL, pasif metin (spec 5.4).
 $h = render_header_fixture($twoLang, ['en' => 'https://willaistealit.com/nurse',

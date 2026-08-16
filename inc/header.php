@@ -112,12 +112,13 @@ if (!empty($pageJsonLd)) {
       <nav class="lang-switch" aria-label="<?= h($L->t('nav.language')) ?>">
         <?php foreach ($switchLangs as $code): ?>
           <?php $href = $pageAlternates[$code] ?? null; ?>
+          <?php /* Gorunen metin KISA kod; tam dil adi title'da ve hreflang'de. */ ?>
           <?php if ($code === $lang): ?>
-            <span class="lang-cur" aria-current="true"><?= h($L->t('lang.' . $code)) ?></span>
+            <span class="lang-cur" aria-current="true" title="<?= h($L->t('lang.' . $code)) ?>"><?= h($L->t('lang.' . $code . '.short')) ?></span>
           <?php elseif ($href !== null): ?>
-            <a href="<?= h($href) ?>" hreflang="<?= h($code) ?>"><?= h($L->t('lang.' . $code)) ?></a>
+            <a href="<?= h($href) ?>" hreflang="<?= h($code) ?>" title="<?= h($L->t('lang.' . $code)) ?>"><?= h($L->t('lang.' . $code . '.short')) ?></a>
           <?php else: ?>
-            <span class="lang-soon"><?= h($L->t('lang.' . $code)) ?> <small><?= h($L->t('nav.soon')) ?></small></span>
+            <span class="lang-soon" title="<?= h($L->t('lang.' . $code)) ?>"><?= h($L->t('lang.' . $code . '.short')) ?> <small><?= h($L->t('nav.soon')) ?></small></span>
           <?php endif; ?>
         <?php endforeach; ?>
       </nav>

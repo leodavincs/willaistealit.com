@@ -112,6 +112,10 @@ return [
     'lang.en'                => 'English',
     'lang.tr'                => 'Türkçe',
     'lang.es'                => 'Español',
+    // Los codigos cortos no se traducen.
+    'lang.en.short'          => 'EN',
+    'lang.tr.short'          => 'TR',
+    'lang.es.short'          => 'ES',
     'entry.staleTranslation' => 'Esta traducción es anterior a la última revisión de la evaluación.',
     'nav.theme.aria'         => 'Cambiar entre tema claro y oscuro',
     'nav.theme.title'        => 'Claro / oscuro',

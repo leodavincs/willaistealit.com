@@ -112,6 +112,10 @@ return [
     'lang.en'                => 'English',
     'lang.tr'                => 'Türkçe',
     'lang.es'                => 'Español',
+    // Kisa kodlar cevrilmez.
+    'lang.en.short'          => 'EN',
+    'lang.tr.short'          => 'TR',
+    'lang.es.short'          => 'ES',
     'entry.staleTranslation' => 'Bu çeviri, son değerlendirme incelemesinden eski.',
     'nav.theme.aria'         => 'Açık ve koyu tema arasında geçiş yap',
     'nav.theme.title'        => 'Açık / koyu',
