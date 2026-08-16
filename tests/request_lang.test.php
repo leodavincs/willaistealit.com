@@ -111,3 +111,66 @@ t_eq(false, str_contains($jHtml, 'Will AI replace software developers'), 'ilgili
 putenv('WAISI_ROUTES_FILE');
 unset($GLOBALS['__routes']);
 @unlink($jPrev);
+
+// --- Sabit sayfalar hedef dilde GERCEKTEN yerellesmis mi ---
+// locale_pending() bunu goremez: metin locale tablosunda hic yoksa "bekleyen"
+// sayilmaz. Bu yuzden sayfayi RENDER edip kaynak dil metni ariyoruz.
+$spPrev = sys_get_temp_dir() . '/waisi-routes-static.json';
+$spR    = build_routes();
+$spR['activeLangs'] = ['en', 'tr'];
+file_put_contents($spPrev, (string)json_encode($spR));
+putenv('WAISI_ROUTES_FILE=' . $spPrev);
+unset($GLOBALS['__routes']);
+
+/** Sabit sayfayi izole kapsamda, verilen dil ve POST govdesiyle render et. */
+function render_page_in(string $template, string $lang, array $post = []): string
+{
+    return (static function () use ($template, $lang, $post): string {
+        $_GET  = ['lang' => $lang];
+        $_POST = $post;
+        $_SERVER['REQUEST_METHOD'] = $post === [] ? 'GET' : 'POST';
+        ob_start();
+        require __DIR__ . '/../' . $template;
+        $html = (string)ob_get_clean();
+        $_SERVER['REQUEST_METHOD'] = 'GET';
+        $_POST = [];
+        return $html;
+    })();
+}
+
+// Her aktif sabit sayfa, TR'de kaynak dil metni SIZDIRMAMALI.
+$staticPages = [
+    'landscape.php'   => ['tr' => 'Çekirdek gittiğinde',  'en' => 'When the core goes'],
+    'sponsor.php'     => ['tr' => 'Sponsorluk',           'en' => 'Not selling yet'],
+    'methodology.php' => ['tr' => 'Nasıl karar veriyoruz', 'en' => 'The one rule'],
+    'changelog.php'   => ['tr' => 'Yargı değişiklikleri',  'en' => 'Every verdict that moved'],
+];
+foreach ($staticPages as $tpl => $probe) {
+    $html = render_page_in($tpl, 'tr');
+    t_eq(true,  str_contains($html, $probe['tr']), "$tpl: TR metni basiliyor");
+    t_eq(false, str_contains($html, $probe['en']), "$tpl: EN metni sizmiyor");
+    t_eq(true,  str_contains($html, '<html lang="tr">'), "$tpl: html lang tr");
+}
+
+// --- Sponsor formu: action, dogrulama ve basari yollari da TR olmali ---
+$spGet = render_page_in('sponsor.php', 'tr');
+t_eq(true, str_contains($spGet, 'action="/tr/sponsorluk"'), 'sponsor: form action dil baglamini korur');
+t_eq(true, str_contains($spGet, 'Listeye katıl'),           'sponsor: gonder dugmesi TR');
+
+$spBad = render_page_in('sponsor.php', 'tr', ['email' => 'bu-bir-eposta-degil']);
+t_eq(true,  str_contains($spBad, 'çalışan bir e-posta adresine benzemiyor'), 'sponsor: hata mesaji TR');
+t_eq(false, str_contains($spBad, 'does not look like'),                      'sponsor: EN hata sizmiyor');
+
+// Honeypot yolu: sessizce basarili sayilir ve dosyaya YAZMAZ.
+$spBot = render_page_in('sponsor.php', 'tr', ['email' => 'bot@example.com', 'company' => 'bot']);
+t_eq(true,  str_contains($spBot, 'Listedesiniz'),      'sponsor: basari basligi TR');
+t_eq(false, str_contains($spBot, 'You are on the list'), 'sponsor: EN basari sizmiyor');
+
+// EN tarafi bozulmadi.
+$spEn = render_page_in('sponsor.php', 'en');
+t_eq(true, str_contains($spEn, 'action="/sponsor"'), 'sponsor: EN form action degismedi');
+t_eq(true, str_contains($spEn, 'Join the list'),     'sponsor: EN dugmesi degismedi');
+
+putenv('WAISI_ROUTES_FILE');
+unset($GLOBALS['__routes']);
+@unlink($spPrev);
