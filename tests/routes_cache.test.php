@@ -52,7 +52,10 @@ $conflicts = null;
 $routes = build_routes($conflicts);
 t_eq(true,   routes_valid($routes),                              'uretilen tablo gecerli');
 t_eq([],     $conflicts,                                         'mevcut veride slug cakismasi yok');
-t_eq(['en'], $routes['activeLangs'],                             'Faz 1 de yalnizca EN aktif');
+// TR 4C1'de aktive edildi; ES Faz 5'e kadar kapali.
+t_eq(['en', 'tr'], $routes['activeLangs'],                       'aktif diller: EN + TR');
+t_eq(false, in_array('es', $routes['activeLangs'], true),        'ES aktif degil');
+t_eq(true,  in_array(DEFAULT_LANG, $routes['activeLangs'], true), 'kaynak dil her zaman aktif');
 t_eq('accountant', $routes['slugs']['en']['accountant'] ?? null, 'accountant tabloda');
 t_eq('accountant', $routes['ids']['accountant']['en'] ?? null,   'id -> EN slug');
 // published, entry'nin GERCEK dil dosyalarindan hesaplanir — sabit bir liste

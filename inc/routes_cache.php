@@ -181,7 +181,7 @@ function build_routes(?array &$conflicts = null): array
     }
 
     return [
-        'activeLangs' => ['en'],
+        'activeLangs' => ['en', 'tr'],
         'ids'         => $ids,
         'slugs'       => $slugs,
         'published'   => $published,

@@ -221,12 +221,19 @@ t_eq(true, $es->faqPairs($esJob, 'https://x/')[0]['q'] !== '', 'ES FAQ sorusu do
 t_eq(true, str_contains($tr->shareText($trJob, 'https://x/'), 'MENÜDE'), 'TR paylasim verdict i');
 t_eq(true, str_contains($es->shareText($esJob, 'https://x/'), 'EN EL MENÚ'), 'ES paylasim verdict i');
 
-// ═══════════ SINIR: activeLangs hala ['en'], TR/ES yollari 404 ═══════════
+// ═══════════ SINIR: TR acik (4C1), ES hala kapali ═══════════
+// Bu blok Faz 3B'de "TR/ES ikisi de 404" diyordu. TR, sekiz kapili aktivasyonla
+// bilincli olarak acildi; sinir artik ES'de ve orada AYNI sertlikte duruyor.
 require_once __DIR__ . '/../inc/routes_cache.php';
 $R3 = load_routes();
-t_eq(['en'], $R3['activeLangs'], 'Faz 3B: activeLangs hala yalnizca en');
-foreach (['/tr/', '/tr/kasiyer', '/es/', '/es/cajero', '/og/tr/kasiyer.png'] as $path) {
-    t_eq('notfound', resolve_path($path, $R3)['type'], "TR/ES yolu hala 404: $path");
+t_eq(['en', 'tr'], $R3['activeLangs'], 'aktif diller: EN + TR');
+t_eq(false, in_array('es', $R3['activeLangs'], true), 'ES hala aktif DEGIL');
+
+foreach (['/tr/' => 'home', '/tr/kasiyer' => 'job', '/og/tr/kasiyer.png' => 'og'] as $path => $type) {
+    t_eq($type, resolve_path($path, $R3)['type'], "TR yolu acik: $path");
+}
+foreach (['/es/', '/es/cajero', '/og/es/cajero.png'] as $path) {
+    t_eq('notfound', resolve_path($path, $R3)['type'], "ES yolu hala 404: $path");
 }
 
 // ═══════════ URL uretimi: KIMLIK + DIL, url_for uzerinden (Faz 3E) ═══════════

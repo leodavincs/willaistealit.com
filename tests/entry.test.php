@@ -178,9 +178,12 @@ t_eq('',           entry_lastmod('yok-boyle-bir-meslek', 'en'), 'bilinmeyen entr
 // --- Icerik evreninin surumu (spec 8.2) ---
 // mtime DEGIL hash: rsync -t, git checkout ve deploy araclari zaman damgasini
 // koruyabilir; yeni dosya eklemek de mevcut dosyalarin mtime'ini degistirmez.
-$cvWant = content_hash(['en']);
+// Fallback, AKTIF dillerin evrenini hesaplar (content_version). Sabit ['en']
+// yazmak, bir dil aktive edildigi gun testi kirar ve yanlis olan test olurdu.
+$cvLangs = (array)(load_routes()['activeLangs'] ?? [DEFAULT_LANG]);
+$cvWant  = content_hash($cvLangs);
 t_eq(64, strlen($cvWant), 'content_hash sha256 uzunlugunda');
-t_eq($cvWant, content_hash(['en']), 'ayni girdi ayni hash (deterministik)');
+t_eq($cvWant, content_hash($cvLangs), 'ayni girdi ayni hash (deterministik)');
 
 // Surum dosyasi yoksa/bozuksa cokme yok; fallback AYNI hash'i uretir.
 $vf  = CACHE_DIR . '/content-version.json';
@@ -201,7 +204,7 @@ $probeDir = JOBS_DIR . '/__probe';
 $probe    = $probeDir . '/common.json';
 @mkdir($probeDir, 0775, true);
 file_put_contents($probe, '{"id":"__probe"}');
-$cvWithProbe = content_hash(['en']);
+$cvWithProbe = content_hash($cvLangs);
 t_eq(false, $cvWant === $cvWithProbe, 'yeni dosya hash i degistirir');
 
 // Sayfa cache dosya adi surume baglidir: evren degisince eski dosya okunmaz.
@@ -217,7 +220,7 @@ rmdir($probeDir);
 $pathWithout = page_cache_file('cashier', 'en');
 t_eq(false, $pathWithProbe === $pathWithout, 'evren degisince cache dosya adi degisir');
 t_eq(true,  str_ends_with($pathWithout, '.html'), 'cache yolu .html ile biter');
-t_eq(true,  str_contains($pathWithout, substr(content_hash(['en']), 0, 12)), 'ad surumu tasir');
+t_eq(true,  str_contains($pathWithout, substr(content_hash($cvLangs), 0, 12)), 'ad surumu tasir');
 
 // Surum dosyasi VARKEN o surum kullanilir — hesap her istekte tekrarlanmaz.
 file_put_contents($vf2, (string)json_encode(['version' => str_repeat('a', 64), 'generated' => '']));
@@ -228,9 +231,9 @@ if ($bak2 !== null) { file_put_contents($vf2, $bak2); } else { @unlink($vf2); }
 $one    = array_values(glob(JOBS_DIR . '/*/common.json') ?: [])[0];
 $oneBak = (string)file_get_contents($one);
 file_put_contents($one, $oneBak . "\n");
-t_eq(false, $cvWant === content_hash(['en']), 'icerik degisimi hash i degistirir');
+t_eq(false, $cvWant === content_hash($cvLangs), 'icerik degisimi hash i degistirir');
 file_put_contents($one, $oneBak);
-t_eq($cvWant, content_hash(['en']), 'geri alinca hash geri gelir');
+t_eq($cvWant, content_hash($cvLangs), 'geri alinca hash geri gelir');
 
 // Dil dosyalari yalnizca istenen diller icin sayilir.
 t_eq(false, content_hash(['en']) === content_hash(['en', 'tr']), 'dil kumesi hash i etkiler');
