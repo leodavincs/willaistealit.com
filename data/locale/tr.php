@@ -158,6 +158,7 @@ return [
     'page.unavailable.title'       => 'Bu dilde henüz yok',
     'page.unavailable.desc'        => 'Bu entry henüz bu dilde yayınlanmadı.',
     'page.unavailable.text'        => 'Bu entry var, ama bu dilde yazılmadı. İngilizcesini okuyabilir ya da çeviriyi eklemek için bir PR açabilirsiniz.',
+    'page.unavailable.availableIn' => 'Bu içerik şu dillerde var:',
     'page.changelog.title'         => 'Yargı değişiklikleri',
     'page.changelog.desc'          => 'willaistealit.com\'daki her yargı değişikliği, tarihiyle ve taşınma sebebiyle. Kendi tahminlerini sessizce yeniden yazan bir site okunmaya değmez.',
     'page.changelog.lede'          => 'Yer değiştiren her yargı, ne zaman ve neden değiştiği. Kendi tahminlerini sessizce yeniden yazan bir site okunmaya değmez.',

@@ -188,6 +188,11 @@ h1, h2, h3 {
 .lang-soon { color: var(--ink-2); font-style: italic; }
 .lang-soon small { font-size: 0.82em; font-style: normal; opacity: 0.85; }
 
+/* unavailable sayfasindaki dil listesi — YONLENDIRME degil, baglanti (spec 5.4) */
+.lang-list { list-style: none; padding: 0; margin: 8px 0 20px; display: flex; gap: 14px; }
+.lang-list a { color: var(--ink-2); text-decoration: underline; }
+.lang-list a:hover { color: var(--ink); }
+
 /* tema dugmesi */
 .theme-btn {
   display: inline-flex; align-items: center; justify-content: center;

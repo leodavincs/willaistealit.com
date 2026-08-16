@@ -163,6 +163,7 @@ return [
     'page.unavailable.title'       => 'Not available in this language yet',
     'page.unavailable.desc'        => 'This entry has not been published in this language yet.',
     'page.unavailable.text'        => 'This entry exists, but it has not been written in this language. Read it in English, or open a PR to add the translation.',
+    'page.unavailable.availableIn' => 'This entry is available in:',
     'page.changelog.title'         => 'Verdict changelog',
     'page.changelog.desc'          => 'Every verdict change on willaistealit.com, dated, with the reason it moved. A site that quietly rewrites its own predictions is not worth reading.',
     'page.changelog.lede'          => 'Every verdict that moved, when it moved, and why. A site that quietly rewrites its own predictions is not worth reading.',

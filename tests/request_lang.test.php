@@ -50,3 +50,34 @@ t_eq(true, str_contains($html, '<html lang="en">'), 'bilinmeyen dil kodu varsayi
 putenv('WAISI_ROUTES_FILE');
 unset($GLOBALS['__routes']);
 @unlink($rlPrev);
+
+// --- unavailable: yayinlanan dillere BAGLANTI verir, yonlendirme YAPMAZ (spec 5.4) ---
+$uPrev = sys_get_temp_dir() . '/waisi-routes-unavail.json';
+$uR    = build_routes();
+$uR['activeLangs'] = ['en', 'tr'];
+file_put_contents($uPrev, (string)json_encode($uR));
+putenv('WAISI_ROUTES_FILE=' . $uPrev);
+unset($GLOBALS['__routes']);
+
+// run.php butun test dosyalarini AYNI kapsamda kosuyor; $lang/$id onceki
+// testlerden sizabilir ve sablonun $_GET okumasini golgeler. Izole ediyoruz.
+$uHtml = (static function (): string {
+    $_GET = ['lang' => 'tr', 'id' => 'nurse'];    // nurse TR'de yayinlanmamis
+    ob_start();
+    require __DIR__ . '/../unavailable.php';
+    return (string)ob_get_clean();
+})();
+
+t_eq(true,  str_contains($uHtml, 'lang-list'),                    'unavailable: dil listesi basilir');
+t_eq(true,  str_contains($uHtml, 'hreflang="en"'),                'unavailable: EN baglantisi var');
+t_eq(false, str_contains($uHtml, 'rel="canonical"'),              'unavailable: canonical YOK');
+t_eq(false, str_contains($uHtml, 'rel="alternate"'),              'unavailable: hreflang kumesi YOK');
+t_eq(false, str_contains($uHtml, 'lang-switch'),                  'unavailable: dil secici YOK');
+t_eq(true,  str_contains($uHtml, 'name="robots" content="noindex'), 'unavailable: noindex');
+t_eq(true,  str_contains($uHtml, '<html lang="tr">'),             'unavailable: istenen dilde render');
+// Sessiz yonlendirme yok: sayfa Location basligi ya da meta refresh tasimaz.
+t_eq(false, str_contains($uHtml, 'http-equiv="refresh"'),         'unavailable: meta refresh YOK');
+
+putenv('WAISI_ROUTES_FILE');
+unset($GLOBALS['__routes']);
+@unlink($uPrev);

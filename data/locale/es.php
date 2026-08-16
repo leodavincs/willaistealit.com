@@ -158,6 +158,7 @@ return [
     'page.unavailable.title'       => 'Todavía no disponible en este idioma',
     'page.unavailable.desc'        => 'Esta entrada aún no se ha publicado en este idioma.',
     'page.unavailable.text'        => 'Esta entrada existe, pero no se ha escrito en este idioma. Léela en inglés o abre un PR para añadir la traducción.',
+    'page.unavailable.availableIn' => 'Esta entrada está disponible en:',
     'page.changelog.title'         => 'Registro de veredictos',
     'page.changelog.desc'          => 'Cada cambio de veredicto en willaistealit.com, con fecha y con el motivo del cambio. Un sitio que reescribe sus propias predicciones en silencio no merece ser leído.',
     'page.changelog.lede'          => 'Cada veredicto que se movió, cuándo se movió y por qué. Un sitio que reescribe sus propias predicciones en silencio no merece ser leído.',
