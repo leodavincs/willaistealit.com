@@ -174,3 +174,31 @@ t_eq(true, str_contains($spEn, 'Join the list'),     'sponsor: EN dugmesi degism
 putenv('WAISI_ROUTES_FILE');
 unset($GLOBALS['__routes']);
 @unlink($spPrev);
+
+// --- Canonical dile gore kurulmali ---
+// TR sayfasi kendini EN adresi olarak gosterirse arama motoru TR surumunu
+// indekslemez: canonical "bu sayfanin asli su" demektir.
+$canonPrev = sys_get_temp_dir() . '/waisi-routes-canon.json';
+$canonR    = build_routes();
+$canonR['activeLangs'] = ['en', 'tr'];
+file_put_contents($canonPrev, (string)json_encode($canonR));
+putenv('WAISI_ROUTES_FILE=' . $canonPrev);
+unset($GLOBALS['__routes']);
+
+$canonExpect = [
+    'methodology.php' => ['tr' => '/tr/metodoloji',      'en' => '/methodology'],
+    'changelog.php'   => ['tr' => '/tr/degisiklikler',   'en' => '/changelog'],
+    'landscape.php'   => ['tr' => '/tr/zaman-cizelgesi', 'en' => '/landscape'],
+    'sponsor.php'     => ['tr' => '/tr/sponsorluk',      'en' => '/sponsor'],
+];
+foreach ($canonExpect as $tpl => $paths) {
+    foreach ($paths as $lc => $path) {
+        $html = render_page_in($tpl, $lc);
+        t_eq(true, str_contains($html, 'rel="canonical" href="https://willaistealit.com' . $path . '"'),
+             "$tpl [$lc]: canonical $path");
+    }
+}
+
+putenv('WAISI_ROUTES_FILE');
+unset($GLOBALS['__routes']);
+@unlink($canonPrev);

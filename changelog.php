@@ -11,7 +11,7 @@ $L             = lang_for($lang);
 $routes        = load_routes();
 $pageTitle      = $L->t('page.changelog.title') . ' — ' . SITE_NAME;
 $pageDesc       = $L->t('page.changelog.desc');
-$pageCanonical  = SITE_URL . '/changelog';
+$pageCanonical  = url_for($lang, 'page', 'changelog', $routes);
 $pageAlternates = alternates_for('page', 'changelog', $routes);
 $pageOg         = SITE_URL . '/og/home.png';
 $pageJsonLd     = [
@@ -21,12 +21,12 @@ $pageJsonLd     = [
     'description'     => $pageDesc,
     'url'             => $pageCanonical,
     'numberOfItems'   => count($log),
-    'itemListElement' => array_values(array_map(static function (array $e, int $i): array {
+    'itemListElement' => array_values(array_map(static function (array $e, int $i) use ($lang, $routes): array {
         return [
             '@type'    => 'ListItem',
             'position' => $i + 1,
             'name'     => sprintf('%s: %s → %s', (string)($e['title'] ?? $e['slug'] ?? ''), (string)($e['from'] ?? 'new'), (string)($e['to'] ?? '')),
-            'item'     => SITE_URL . '/' . (string)($e['slug'] ?? ''),
+            'item'     => url_for($lang, 'job', (string)($e['slug'] ?? ''), $routes),
         ];
     }, $log, array_keys($log))),
 ];
