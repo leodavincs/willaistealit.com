@@ -121,7 +121,7 @@ require __DIR__ . '/inc/header.php';
     </div>
     <ul class="legend">
       <?php foreach (['shrinking', 'on-the-menu', 'safe'] as $key): ?>
-        <li class="v-<?= h($key) ?>"><b><?= (int)$counts[$key] ?></b> <?= h(mb_strtolower(verdict_meta($key, $lang)['label'])) ?></li>
+        <li class="v-<?= h($key) ?>"><b><?= (int)$counts[$key] ?></b> <?= h($L->lower(verdict_meta($key, $lang)['label'])) ?></li>
       <?php endforeach; ?>
       <li class="legend-total"><b><?= $total ?></b> <?= h($L->t('home.total')) ?></li>
       <li class="legend-link"><a href="<?= h(path_for($lang, 'page', 'landscape', $routes)) ?>"><?= h($L->t('home.timeline')) ?> &rarr;</a></li>
@@ -142,7 +142,7 @@ require __DIR__ . '/inc/header.php';
         <?php foreach (array_keys(VERDICTS) as $key): $meta = verdict_meta($key, $lang); ?>
           <button class="facet v-<?= h($key) ?>" type="button" data-filter="<?= h($key) ?>" aria-pressed="false">
             <span class="facet-dot"></span>
-            <span class="facet-name"><?= h(mb_strtolower($meta['label'])) ?></span>
+            <span class="facet-name"><?= h($L->lower($meta['label'])) ?></span>
             <span class="facet-n" data-count-verdict="<?= h($key) ?>"><?= (int)$counts[$key] ?></span>
           </button>
         <?php endforeach; ?>
@@ -199,7 +199,7 @@ require __DIR__ . '/inc/header.php';
                 <a href="<?= h(path_for($lang, 'job', (string)$slug, $routes)) ?>"><?= h($name) ?></a>
                 <span class="cell-one"><?= h((string)($job['oneLiner'] ?? '')) ?></span>
               </th>
-              <td class="cell-verdict"><span class="dot"></span><?= h(mb_strtolower($v['label'])) ?></td>
+              <td class="cell-verdict"><span class="dot"></span><?= h($L->lower($v['label'])) ?></td>
               <td class="cell-until"><?= !empty($job['safeUntil']) ? '~' . h((string)$job['safeUntil']) : '<span class="nil">' . h($L->t('home.noHorizon')) . '</span>' ?></td>
               <td class="cell-survives"><?= h(implode(', ', array_slice($tags, 0, 2))) ?></td>
             </tr>

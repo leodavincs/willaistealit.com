@@ -10,7 +10,7 @@ declare(strict_types=1);
 final class Tr extends Lang
 {
     /** Turkceye ozgu kucultme: I -> i degil, I -> ı ve İ -> i. */
-    private function lower(string $s): string
+    public function lower(string $s): string
     {
         return mb_strtolower(strtr($s, ['I' => 'ı', 'İ' => 'i']), 'UTF-8');
     }

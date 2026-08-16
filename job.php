@@ -40,7 +40,7 @@ $faq       = faq_pairs($job, $lang);
 $related   = related_jobs($job, $lang);
 
 // Baslikta "replace" — arama hacmi orada. "Steal" markanin kendisinde kaliyor.
-$pageTitle      = $L->t('job.pageTitle', mb_strtolower($title), $v['dot'], $v['label']);
+$pageTitle      = $L->t('job.pageTitle', $L->lower($title), $v['dot'], $v['label']);
 $pageDesc       = $oneLiner !== '' ? $oneLiner : $v['blurb'];
 $pageCanonical  = job_url($slug, $lang);
 $pageAlternates = alternates_for('job', $slug, $routes);

@@ -365,3 +365,18 @@ t_eq(false, str_contains($geoTr, 'kararları ve yasal imza ve temsil'),
 $geoEn = geo_answer(load_entry('accountant', 'en'), 'en');
 t_eq(true, str_contains($geoEn, 'legal liability, trust relationship and human judgment'),
      'EN geo etiketleri degismedi');
+
+// --- lower(): Turkce kucultme (spec 6.1 ile ayni tuzak) ---
+// mb_strtolower('İ') -> 'i' + U+0307 (birlesen nokta). Sayfa basliginda bu,
+// gorunur bir bozukluk uretiyor: "i̇dari asistan".
+t_eq('idari asistan',    lang_for('tr')->lower('İdari Asistan'),   'TR lower: İ -> i');
+t_eq('işe alım uzmanı',  lang_for('tr')->lower('İşe Alım Uzmanı'), 'TR lower: İ ve I birlikte');
+t_eq('kasiyer',          lang_for('tr')->lower('KASİYER'),         'TR lower: buyuk harften');
+t_eq('accountant',       lang_for('en')->lower('Accountant'),      'EN lower');
+t_eq('disenador',        lang_for('es')->lower('DISENADOR'),       'ES lower');
+// Birlesen nokta TR ciktisina girmemeli. EN/ES icin bu beklenti yanlis olurdu:
+// Unicode'da 'İ'nin kucugu gercekten 'i' + U+0307'dir ve Ingilizce bir locale'in
+// Turkce harfi Turkce kuraliyla kucultmesi beklenmez. Zaten EN sayfasi TR basligi
+// render etmiyor — her sayfa kendi dilinin entry'sini yukluyor (job.php).
+t_eq(false, str_contains(lang_for('tr')->lower('İdari'), "\u{0307}"), 'tr: birlesen nokta yok');
+t_eq('idari', lang_for('tr')->lower('İdari'), 'tr: İ temiz kuculur');

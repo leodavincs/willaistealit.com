@@ -42,6 +42,15 @@ abstract class Lang
         return mb_strtoupper($s, 'UTF-8');
     }
 
+    /**
+     * Kucuk harf. Tr bunu EZER: mb_strtolower('İ') 'i' + U+0307 (birlesen nokta)
+     * uretir ve sayfa basliginda "i̇dari asistan" gibi gorunur bir bozukluk cikar.
+     */
+    public function lower(string $s): string
+    {
+        return mb_strtolower($s, 'UTF-8');
+    }
+
     public function verdictLabel(string $key): string
     {
         return $this->t("verdict.$key.label");
