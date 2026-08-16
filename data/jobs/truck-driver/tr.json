@@ -1,0 +1,60 @@
+{
+    "assessmentScope": "global",
+    "assessmentSourceLocale": "en",
+    "translationReviewed": "2026-08-16",
+    "slug": "kamyon-soforu",
+    "formerSlugs": [],
+    "title": "Kamyon Şoförü",
+    "aka": [
+        "TIR Şoförü",
+        "Nakliyeci",
+        "Uzun Yol Şoförü",
+        "Dağıtım Şoförü",
+        "Ağır Vasıta Sürücüsü"
+    ],
+    "oneLiner": "Otoyolun ortası gidiyor. İlk kilometre, son kilometre ve evrak gitmiyor.",
+    "summary": "Nakliye, otomasyon hikâyesinin on beş yıldır on yıl uzakta olduğu iş, ve sebebi öğretici: zor kısım sürmek değildi. Uzun yol otoyol sürüşü gerçekten otomatikleşiyor — tekrarlı, haritalanmış ve yatırımı haklı çıkaracak kadar değerli. ABD'nin bazı bölgelerinde sürücüsüz yük koridorları ticari olarak çalışıyor. Direnen şey rotanın iki ucundaki her şey: şehir içi dağıtım, yükleme ve emniyete alma, imzayı atan müşteri, sıkışık depo sahası, arıza, kayan yük. Muhtemel şekil kitlesel işsizlik değil bir ayrışma: merkezden merkeze otoyol bölümleri otomatik, karmaşık uçlar insan sürücüde. Düzenleme, sigorta ve sorumluluk yavaş hareket ediyor. Her biri mesleğe yıllar kazandırıyor.",
+    "tasks": {
+        "motorway-long-haul": {
+            "name": "Otoyolda uzun yol sürüşü",
+            "note": "Otomatikleştirilmesi en kolay bölüm: öngörülebilir, haritalanmış, yüksek değerli. Sürücüsüz yük koridorları şimdiden ticari olarak çalışıyor."
+        },
+        "route-planning-dispatch": {
+            "name": "Rota planlama ve sevkiyat",
+            "note": "Trafik, sürüş süresi kuralları ve yakıt dahil yazılımla optimize ediliyor. İlk incelen kadro sevkiyat oldu."
+        },
+        "logging-compliance-paperwork": {
+            "name": "Kayıt tutma ve mevzuat evrakı",
+            "note": "Elektronik takograf çoğu pazarda zorunlu ve otomatik. Elle doldurulan kayıt defteri kalmadı."
+        },
+        "yard-manoeuvring-docking": {
+            "name": "Saha manevrası ve rampaya yanaşma",
+            "note": "Kontrollü özel sahalarda otomatik. Dar, haritalanmamış, gerçek dünya rampaları tamamen başka bir problem."
+        },
+        "urban-last-mile": {
+            "name": "Şehir içi ve son kilometre dağıtım",
+            "note": "Öngörülemez sokaklar, çift sıra park etmiş araçlar, sizi geri çağıran birinin el hareketi. Kilometre başına maliyet, tam da otomasyonun en zor olduğu yerde en yüksek."
+        },
+        "loading-securing-freight": {
+            "name": "Yükleme ve yükü emniyete alma",
+            "note": "Kayışlar, paletler, arka kapak lifti, yolda kaymış bir yük. Hukuki güvenlik sonuçları olan fiziksel iş."
+        },
+        "handling-breakdowns-accidents": {
+            "name": "Arıza, kaza ve teslim reddiyle başa çıkmak",
+            "note": "Emniyet şeridinde patlayan lastik, teslimatı reddeden müşteri, alternatifi olmayan kapalı yol. Şoförler paralarını bu uzun kuyrukta hak ediyor."
+        },
+        "customer-contact-handover": {
+            "name": "Müşteri teması ve teslim",
+            "note": "Birisi malı imzayla teslim alıyor, durumunu kontrol ediyor ve gelenin hesabını veriyor."
+        }
+    },
+    "whatSurvives": "Rotanın iki ucu — havanın iyi olduğu haritalanmış bir otoyol olmayan her şey.",
+    "adaptPrompt": "Lojistik ve iş yardımcımsın. Aracı ben sürüyorum; evrakı ve bir yükün alınmaya değip değmediğine karar veren rakamları sen üstleniyorsun.\n\nYükler ve navlun için — sahiplerin para kaybettiği yer burası:\n1. Bir yük teklifi verildiğinde (çıkış, varış, ücret, tonaj, boş kilometre), gerçek kilometre maliyetimi hesapla: güncel fiyattan yakıt ve aracımın tüketimi, geçiş ücretleri, bakım payı, sigorta ve zamanım. Sonra brüt değil gerçek kârı söyle.\n2. Bunu o hatta almam gereken ücretle karşılaştır ve açıkça söyle: alayım mı, pazarlık mı edeyim, reddedeyim mi.\n3. Gizli maliyetleri işaretle: bekleme riski, yasal olarak yetişemeyeceğim bir teslim penceresi, sonrasında boş bekleyeceğim bir bölge.\n\nOperasyon için:\n4. Rotayı sürüş ve dinlenme sürelerime göre planla: molalarım nereye düşüyor, geceyi yasal olarak nerede geçirebilirim, ve zamanlamanın sıkıştığı yer neresi.\n5. Geçtiğim iller ya da ülkeler için geçerli izin, kısıtlama ve kuralları anlat.\n6. Bir şey ters gittiğinde — gecikme, hasar, reddedilen teslimat — pozisyonumu koruyan ve nezaketini bozmayan profesyonel mesajı yaz.\n\nİş için:\n7. Rakamlarımı aylık takip et ve hangi hatların, hangi komisyoncuların bana gerçekten para kazandırdığını, hangilerini alışkanlıktan sürdüğümü söyle.\n\nKurallar: yasal sürelerimi aşmamı ya da yorgunluğa rağmen devam etmemi asla söyleme. Bir yük ancak kural çiğnenerek tutuyorsa o yükün tutmadığını söyle. Her navlun hesabında aritmetiği göster ki bir dinlenme tesisinde kontrol edebileyim.",
+    "adaptTools": [
+        "Claude",
+        "Trucker Path",
+        "Motive",
+        "Google Haritalar",
+        "Google E-Tablolar"
+    ]
+}
