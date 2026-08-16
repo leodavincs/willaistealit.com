@@ -2,7 +2,7 @@
     "status": 200,
     "contentType": "text/html",
     "htmlLang": "tr",
-    "title": "Yapay zekâ kasiyer mesleğinin yerini alacak mı? — 🔴 MENÜDE",
+    "title": "Yapay zekâ kasiyer mesleğinin yerini alacak mı? — 🔴 SIRADA",
     "description": "Ürünü okutmak artık birinin yaptığı iş olmaktan çıktı. Rafla kapı arasında duran kişi çıkmadı.",
     "canonical": "https://willaistealit.com/tr/kasiyer",
     "robots": null,
@@ -25,7 +25,7 @@
         "Yapay zekâ Hemşire mesleğinin yerini alacak mı?",
         "Yapay zekâ Kamyon Şoförü mesleğinin yerini alacak mı?"
     ],
-    "verdictLabel": "MENÜDE",
+    "verdictLabel": "SIRADA",
     "taskCount": 6,
     "tasks": [
         "Ürün okutma ve ödeme alma [gitti]",
@@ -50,7 +50,7 @@
                     },
                     "dateModified": "2026-08-01",
                     "description": "Ağustos 2026 itibarıyla kasiyer işinin çekirdek görevleri makineye devroluyor ve bu geçişin yaklaşık 2032 yılında tamamlanması bekleniyor. Yapay zekâ şu görevleri şimdiden devraldı: ürün okutma ve ödeme alma. Direnen kısım: yaş sınırlı satış ve kayıp önleme; self-servis kasayı gözetmek; işlem aralarında reyon hizmeti. Yapısal sebep: fiziksel varlık, düzenlemeye tabi olma ve fiziksel bağlam.",
-                    "headline": "Yapay zekâ kasiyer mesleğinin yerini alacak mı? — 🔴 MENÜDE",
+                    "headline": "Yapay zekâ kasiyer mesleğinin yerini alacak mı? — 🔴 SIRADA",
                     "image": "https://willaistealit.com/og/tr/kasiyer.png",
                     "inLanguage": "tr",
                     "isPartOf": {
@@ -81,7 +81,7 @@
                             "@type": "Question",
                             "acceptedAnswer": {
                                 "@type": "Answer",
-                                "text": "Tahminimiz yaklaşık 2032. Bu, işin çekirdek görevlerinin olağan uygulamada rutin olarak makineyle yapılır hâle geleceği yıl — yetenek geldikten, işverenler benimsedikten ve düzenleyiciler izin verdikten sonra. Meslek adının ortadan kalkacağı yıl değil. Güncel yargı: MENÜDE."
+                                "text": "Tahminimiz yaklaşık 2032. Bu, işin çekirdek görevlerinin olağan uygulamada rutin olarak makineyle yapılır hâle geleceği yıl — yetenek geldikten, işverenler benimsedikten ve düzenleyiciler izin verdikten sonra. Meslek adının ortadan kalkacağı yıl değil. Güncel yargı: SIRADA."
                             },
                             "name": "Kasiyer işi yapay zekâya karşı ne kadar güvende?"
                         },
@@ -161,6 +161,6 @@
         "https://www.oecd.org/en/publications/the-oecd-ai-exposure-measure_f3da0f0a-en.html",
         "https://www.onetonline.org/link/summary/41-2011.00",
         "https://www.weforum.org/stories/2025/01/future-of-jobs-report-2025-the-fastest-growing-and-declining-jobs/",
-        "https://x.com/intent/tweet?text=KAS%C4%B0YER%3A%20%F0%9F%94%B4%20MEN%C3%9CDE%20%E2%80%94%20~2032%20y%C4%B1l%C4%B1na%20kadar%20g%C3%BCvende%0A%0A%C3%9Cr%C3%BCn%C3%BC%20okutmak%20art%C4%B1k%20birinin%20yapt%C4%B1%C4%9F%C4%B1%20i%C5%9F%20olmaktan%20%C3%A7%C4%B1kt%C4%B1.%20Rafla%20kap%C4%B1%20aras%C4%B1nda%20duran%20ki%C5%9Fi%20%C3%A7%C4%B1kmad%C4%B1.%0A%0Ahttps%3A%2F%2Fwillaistealit.com%2Ftr%2Fkasiyer"
+        "https://x.com/intent/tweet?text=KAS%C4%B0YER%3A%20%F0%9F%94%B4%20SIRADA%20%E2%80%94%20~2032%20y%C4%B1l%C4%B1na%20kadar%20g%C3%BCvende%0A%0A%C3%9Cr%C3%BCn%C3%BC%20okutmak%20art%C4%B1k%20birinin%20yapt%C4%B1%C4%9F%C4%B1%20i%C5%9F%20olmaktan%20%C3%A7%C4%B1kt%C4%B1.%20Rafla%20kap%C4%B1%20aras%C4%B1nda%20duran%20ki%C5%9Fi%20%C3%A7%C4%B1kmad%C4%B1.%0A%0Ahttps%3A%2F%2Fwillaistealit.com%2Ftr%2Fkasiyer"
     ]
 }

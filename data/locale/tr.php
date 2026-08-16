@@ -19,7 +19,7 @@ return [
     'verdict.safe.blurb'        => 'Bu işin çekirdeği yapısal olarak dirençli. Yapay zekâ bir araç oluyor, ikame değil.',
     'verdict.shrinking.label'   => 'DARALIYOR',
     'verdict.shrinking.blurb'   => 'Önemli parçalar otomatikleşiyor. Rol daralıyor ve yer değiştiriyor — yok olmuyor.',
-    'verdict.on-the-menu.label' => 'MENÜDE',
+    'verdict.on-the-menu.label' => 'SIRADA',
     'verdict.on-the-menu.blurb' => 'Çekirdek görevler gidiyor ve geriye kalan iş aynı sayıda insanı taşımayacak. Bir zaman ufku geçerli.',
 
     // --- gorev verdict'leri ---
@@ -186,7 +186,7 @@ return [
     'home.profession'          => 'meslek',
     'home.professions'         => 'meslek',
     'home.pageDesc'            => '%s Liste yazısı değil: her meslek gerçek görevlerine bölünüyor, her görev ayrı yargılanıyor ve bugün kullanabileceğiniz bir prompt veriliyor.',
-    'home.answer'              => '%s itibarıyla willaistealit.com %d %s için görev seviyesinde yapay zekâ yargısı yayınlıyor: %d güvende, %d daralıyor, %d menüde. Her meslek gerçek görevlerine bölünüyor ve her görev ayrı yargılanıyor; çünkü yapay zekâ meslekleri değil, görevleri alıyor.',
+    'home.answer'              => '%s itibarıyla willaistealit.com %d %s için görev seviyesinde yapay zekâ yargısı yayınlıyor: %d güvende, %d daralıyor, %d sırada. Her meslek gerçek görevlerine bölünüyor ve her görev ayrı yargılanıyor; çünkü yapay zekâ meslekleri değil, görevleri alıyor.',
     'home.faq.which.q'         => 'Yapay zekâ hangi mesleklerin yerini alacak?',
     'home.faq.how.q'           => 'Bu yapay zekâ meslek yargıları nasıl belirleniyor?',
     'home.faq.how.a'           => 'Her meslek 4-8 somut göreve bölünüyor. Her görev ayrı ayrı gitti, gidiyor ya da kalıyor olarak yargılanıyor ve hayatta kalan her görev direnmesinin yapısal sebebini adlandırmak zorunda — hukuki sorumluluk, fiziksel varlık, regülasyon, güven, insan yargısı, yaratıcı zevk, hesap verebilirlik ya da duygusal emek. Ancak bundan sonra bir başlık yargısı veriliyor ve o yargı asla tek başına durmuyor. Kuralların tamamı: %s',
@@ -198,7 +198,7 @@ return [
     'home.searchHint'          => 'Bir meslek arayın — ',
     'home.searchExample'       => 'muhasebeci',
     'home.distribution'        => 'Yargı dağılımı',
-    'home.barAria'             => '%d daralıyor, %d menüde, %d güvende; toplam %d meslek',
+    'home.barAria'             => '%d daralıyor, %d sırada, %d güvende; toplam %d meslek',
     'home.total'               => 'toplam',
     'home.timeline'            => 'Zaman çizelgesini gör',
     'home.filters'             => 'Filtreler',

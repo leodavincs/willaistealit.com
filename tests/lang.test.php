@@ -102,7 +102,7 @@ t_eq('tr', $tr->code(), 'TR dil kodu');
 
 t_eq('GÜVENDE',   $tr->verdictLabel('safe'),        'TR verdict etiketi');
 t_eq('DARALIYOR', $tr->verdictLabel('shrinking'),   'TR verdict etiketi 2');
-t_eq('MENÜDE',    $tr->verdictLabel('on-the-menu'), 'TR verdict etiketi 3');
+t_eq('SIRADA',    $tr->verdictLabel('on-the-menu'), 'TR verdict etiketi 3');
 t_eq('gitti',     $tr->taskVerdictLabel('gone'),    'TR gorev verdict i');
 t_eq('gidiyor',   $tr->taskVerdictLabel('going'),   'TR gorev verdict i 2');
 t_eq('kalıyor',   $tr->taskVerdictLabel('safe'),    'TR gorev verdict i 3');
@@ -218,7 +218,7 @@ t_eq(true, str_contains($tr->geoAnswer($trJob), 'Ağustos 2026'), 'TR geo tarihi
 t_eq(true, str_contains($es->geoAnswer($esJob), 'agosto de 2026'), 'ES geo tarihi');
 t_eq(true, $tr->faqPairs($trJob, 'https://x/')[0]['q'] !== '', 'TR FAQ sorusu dolu');
 t_eq(true, $es->faqPairs($esJob, 'https://x/')[0]['q'] !== '', 'ES FAQ sorusu dolu');
-t_eq(true, str_contains($tr->shareText($trJob, 'https://x/'), 'MENÜDE'), 'TR paylasim verdict i');
+t_eq(true, str_contains($tr->shareText($trJob, 'https://x/'), 'SIRADA'), 'TR paylasim verdict i');
 t_eq(true, str_contains($es->shareText($esJob, 'https://x/'), 'EN EL MENÚ'), 'ES paylasim verdict i');
 
 // ═══════════ SINIR: TR acik (4C1), ES hala kapali ═══════════
