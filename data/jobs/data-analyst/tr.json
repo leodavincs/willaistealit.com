@@ -1,0 +1,60 @@
+{
+    "assessmentScope": "global",
+    "assessmentSourceLocale": "en",
+    "translationReviewed": "2026-08-16",
+    "slug": "veri-analisti",
+    "formerSlugs": [],
+    "title": "Veri Analisti",
+    "aka": [
+        "İş Analisti",
+        "Raporlama Uzmanı",
+        "BI Uzmanı",
+        "Veri Uzmanı",
+        "İş Zekâsı Analisti"
+    ],
+    "oneLiner": "Rakama artık herkes ulaşabiliyor. Hangi rakamı isteyeceğini bilmek işin kendisi.",
+    "summary": "Analist rolü baştan beri tek işmiş gibi davranan iki işti: sorgu yazan bir talep masası, ve şirkete bilmediği bir şeyi söyleyen bir insan. Talep masası sökülüyor — doğal dille sorgulama, pazarlama müdürünün üç gün talep beklemeden kendi cevabını almasını sağlıyor. Analist kadrosunun büyük bir bölümü buydu, ve analistlerin veriyi öğrendiği yer de burasıydı; çünkü hepsine dokunmak zorunda kalıyorlardı. Ayakta kalan kısım işi tanımayı gerektiriyor: hangi soru sorulmaya değer, rakam neden yanlış, ve cevap hangi kararı değiştirmeli. Gösterge paneli otomatı olan analistler açıkta. Yöneticiyle tartışan analistler değil.",
+    "tasks": {
+        "ad-hoc-queries": {
+            "name": "Anlık sorgular ve veri çekme",
+            "note": "Doğal dil arayüzleri analisti talebin ortasından çıkardı. Paydaşlar kendi cevaplarını kendileri alıyor."
+        },
+        "dashboard-building-maintenance": {
+            "name": "Gösterge paneli kurmak ve bakımı",
+            "note": "Otomatik üretiliyor ve otomatik güncelleniyor. Kalan beceri, panele hangi dört metriğin gireceğine karar verip diğer otuzunu öldürmek."
+        },
+        "data-cleaning-transformation": {
+            "name": "Veri temizleme ve dönüştürme",
+            "note": "Büyük ölçüde otomatik, ve güvenilir biçimde öyle — ta ki model, önemli olan anormalliği neşeyle temizleyene kadar."
+        },
+        "standard-reporting-commentary": {
+            "name": "Standart raporlama ve yorum",
+            "note": "İlk taslak anlatı rakamlardan üretiliyor. Hangi hareketin sinyal, hangisinin ölçüm hatası olduğunu hâlâ birinin söylemesi gerekiyor."
+        },
+        "knowing-why-data": {
+            "name": "Verinin neden yanlış olduğunu bilmek",
+            "note": "Gerçek hiçbir veri kümesi belgelenmiş şekillerde bozuk değildir. Üçüncü çeyrekteki sıçramanın bir göç artefaktı olduğunu bilmek analiz değil, kurumsal hafızadır."
+        },
+        "framing-right-question": {
+            "name": "Doğru soruyu kurmak",
+            "note": "Paydaşlar akıllarına gelen metriği ister, problemlerini çözeni değil. Talebi yeniden yazmak değerin çoğudur."
+        },
+        "causal-reasoning-experiment": {
+            "name": "Nedensellik ve deney tasarımı",
+            "note": "Korelasyon artık ucuz; bu da titizliği daha az gerekli değil, daha kıt yapıyor. İncelemeye dayanan bir test tasarlamak uzman işi."
+        },
+        "defending-recommendation": {
+            "name": "Bir öneriyi savunmak",
+            "note": "Bir genel müdür yardımcısına en sevdiği girişimin işe yaramadığını söylemek, ve itiraz ettiğinde arkasında durmak."
+        }
+    },
+    "whatSurvives": "Hangi sorunun önemli olduğunu, verinin nerede yalan söylediğini ve cevabın hangi kararı değiştirmesi gerektiğini bilmek.",
+    "adaptPrompt": "Analiz yardımcımsın. Sen mekaniği hızlandırıyorsun; yorumun ve önerinin sahibi benim.\n\nSana vereceklerim: şema, iş bağlamı, sorunun sorulduğu hâli, ve veri ya da sorgu.\n\nHer analizden ÖNCE şununla başla:\n1. Soruyu paydaşın sorduğu hâliyle tekrar yaz, sonra muhtemelen kastettiği hâliyle. Bu ikisi farklıysa başka bir şey yapmadan önce bana söyle.\n2. Bu analizin geçerli olması için doğru olması gerekenleri say — ve bunlardan hangilerini verdiğim şeyden doğrulayamadığını.\n\nSonra:\n3. Sorguyu yaz, yorum satırlarıyla; risk taşıyan join ve filtreleri açıkça işaretle.\n4. Sonucu yorumla: ne değişti, ne kadar, hangi dönemde, hangi temele göre. 'Bu değişti' ile 'bu gürültü' arasını ayır ve hangi testi kullanacağını söyle.\n5. Nedensel açıklamadan önce alternatifleri say. Sıkıcı olanları da: ölçüm değişikliği, mevsimsellik, kayan bir tanım, bozulmuş bir veri hattı.\n6. Bulguyu bir genel müdür yardımcısının anlayacağı tek cümlede ver, ve değiştirmesi gereken somut kararı yaz. Hiçbir kararı değiştirmiyorsa bunu söyle — bu geçerli ve faydalı bir cevaptır.\n\nKurallar: korelasyonu asla neden diye sunma. Verideki boşluğu makul görünen bir sayıyla doldurma. Örneklem iddiayı taşıyacak kadar büyük değilse sayıyı söyle ve dur.",
+    "adaptTools": [
+        "Claude",
+        "ChatGPT Advanced Data Analysis",
+        "dbt",
+        "Metabase / Power BI",
+        "Google E-Tablolar"
+    ]
+}
